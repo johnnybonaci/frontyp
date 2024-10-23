@@ -1,0 +1,74 @@
+@import "mixins.module";
+
+:root {
+  --main-font: 'Afacad Flux', sans-serif;
+
+  --primary-color: #6c4cc8;
+  --light-primary-color: #f0ebff;
+  --lightest-primary-color: #f8f4ff;
+  --dark-primary-color: #4d3596;
+  --secondary-color: #c412d2;
+  --dark-secondary-color: #9812a2;
+  --darker-secondary-color: #5e0965;
+  --white-base: #fff;
+  --light-white-base: #d5d5d5;
+  --main-bg: #ffffff;
+  --text-color: rgb(0, 0, 0);
+  --light-text-color: #a9a9a9;
+  --lighter-text-color: rgba(175, 175, 175, 0.5);
+  --lightest-text-color: rgba(133, 133, 133, 0.3);
+  --thumb-scroll-color: #b4b4b4;
+  --loading-ring-color: var(--primary-color);
+  --border-color: rgba(56, 84, 181, 0.05);
+  --border-color-dropzone: rgba(0, 0, 0, 0.05);
+  --table-border: rgba(85, 103, 122, 0.1);
+  --primary-hover-color: var(--dark-primary-color);
+  --button-default-background: var(--primary-color);
+  --button-default-background-hover: var(--primary-hover-color);
+  --button-outlined-background: var(--light-primary-color);
+  --button-outlined-background-hover: var(--primary-color);
+  --button-cancel-background: #9a9a9a;
+  --button-cancel-background-hover: #8b8b8b;
+  --button-default-color: #ffffff;
+  --button-contained-secondary-background: rgba(249, 87, 94, 0.1);
+  --button-contained-secondary-background-hover: rgba(249, 87, 94, 0.6);
+  --button-contained-secondary-color: #f9575e;
+  --button-contained-secondary-color-hover: var(--white-base);
+  --icon-button-background: #fdeaf7;
+  --icon-button-color: #f9575e;
+  --input-bg-color: var(--white-base);
+  --input-border-color: var(--light-primary-color);
+  --input-placeholder-color: var(--text-color);
+  --input-border-radius: 15px;
+  --input-border-color-focused: var(--primary-color);
+  --error-color: #c93a2b;
+  --header-height: 90px;
+  --top-mobile-header-height: 65px;
+  --button-border-radius: 15px;
+
+  // drawer
+  --drawer-header-height: 85px;
+
+  // chat
+  --sender-chat-bg: var(--primary-color);
+  --receiver-chat-bg: #606060;
+  --avatar-bg: var(--light-primary-color);
+  --separator-color: #d3d3d345;
+
+  --date-picker-width: 150px;
+  --date-time-picker-width: 220px;
+  --filters-gap: 10px;
+  --chip-background-success: rgba(66, 195, 156, 0.1);
+  --chip-color-success: rgba(66, 195, 156, 1);
+  --chip-background-error: rgba(201, 58, 43, 0.1);
+  --chip-color-error: rgba(201, 58, 43, 1);
+
+  --sidebar-text-color: var(--text-color);
+  --sidebar-selected-bg: #e7e7e7;
+  --sidebar-width: 222px;
+  --sidebar-bg: var(--white-base);
+
+  @include media-breakpoint-down(md) {
+    --sidebar-width: 0;
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "singular": "Call Report",
+  "insuranceEditedSuccessfully": "Insurance edited successfully",
+  "regeneratedSuccessfully": "Reprocessed successfully",
+  "roles": "Call Report",
+  "calls": "Calls",
+  "listing": {
+    "title": "Call Report"
+  },
+  "fields": {
+    "name": "Name",
+    "createdAt": "Created at",
+    "pubId": "Pub ID",
+    "phone": "Phone",
+    "offers": "Offers TD",
+    "vendorsTd": "T.Source TD",
+    "state": "State TD",
+    "buyers": "Buyers TD",
+    "status": "Status TD",
+    "cpl": "CPL TD",
+    "durations": "Durations TD",
+    "insurance": "Insurance",
+    "insuranceName": "Insurance Name",
+    "terminatingPhone": "Terminating Phone",
+    "didNumberId": "Did TD"
+  },
+  "regenerate": {
+    "confirmation": {
+      "title": "Confirm Reprocessing",
+      "message": "Are you sure you want to reprocess the data?",
+      "button": "Reprocess",
+      "cancel": "Cancel"
+    }
+  },
+  "editSaleForm": {
+    "title": "Edit Sale and Insurance",
+    "sale": "Sale",
+    "insurance": "Insurance",
+    "insuranceName": "Insurance Name",
+    "submit": "Save",
+    "cancel": "Cancel"
+  },
+  "filters": {
+    "offers": "Offers",
+    "trafficSource": "Traffic Source",
+    "pubId": "Pub ID",
+    "state": "State",
+    "buyers": "Buyers",
+    "status": "Status",
+    "callIssues": "Call Issues",
+    "issueType": "Issue Type",
+    "all": "All",
+    "date": "Date",
+    "phone": "Phone",
+    "terminatingPhone": "Terminating Phone",
+    "didTd": "Did TD",
+    "cpl": "CPL",
+    "selectOrAdd": "Select or Add",
+    "durations": "Durations",
+    "insurance": "Insurance",
+    "insuranceName": "Insurance Name",
+    "didNumberId": "Did TD"
+  },
+  "actions": {
+    "view": "View",
+    "changeStatus": "Change Status",
+    "regenerate": "Reprocess"
+  },
+  "details": {
+    "title": "Call Report Details",
+    "transcript": "Transcript",
+    "send": "Send",
+    "noMessages": "Start the conversation with our AI, type a message and we will answer you.",
+    "analysis": "Detailed analysis",
+    "audioAndTranscript": "Audio & Transcript",
+    "chat": "AI Chat"
+  }
+}

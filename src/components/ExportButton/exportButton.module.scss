@@ -1,0 +1,93 @@
+:global {
+  .react-datepicker-wrapper {
+    .MuiTextField-root {
+      width: 100%;
+    }
+  }
+
+  .react-datepicker-popper {
+    z-index: 1000;
+  }
+
+  .react-datepicker {
+    font-size: 16px;
+    font-family: var(--main-font);
+    background-color: var(--white-base);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .react-datepicker__header {
+    padding: 16px;
+    padding-bottom: 0;
+    background-color: var(--lightest-primary-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .react-datepicker__current-month {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+
+  .react-datepicker__day-names {
+    margin-bottom: 10px;
+  }
+
+  .react-datepicker__day {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    color: var(--text-color);
+  }
+
+  .react-datepicker__day--selected {
+    background-color: var(--primary-color) !important;
+    color: var(--white-base);
+    border-radius: 50% !important;
+    font-weight: bold;
+    box-shadow: 0 0 0 2px var(--primary-color);
+  }
+
+  .react-datepicker__day--in-range {
+    background-color: var(--primary-color);
+    color: var(--white-base);
+  }
+
+  .react-datepicker__day--selected:hover {
+    background-color: var(--primary-color) !important;
+    color: var(--white-base);
+  }
+
+  .react-datepicker__day--in-selecting-range {
+    background-color: var(--primary-color) !important;
+    color: var(--white-base);
+  }
+
+  .react-datepicker__day--selected:active  {
+    background-color: var(--primary-color) !important;
+    color: var(--white-base);
+  }
+
+  .react-datepicker__day--in-range:not([aria-disabled=true]):hover {
+    background-color: var(--primary-color) !important;
+    color: var(--white-base);
+  }
+
+  .react-datepicker__day--keyboard-selected:not([aria-disabled=true]):hover {
+    background-color: var(--primary-color) !important;
+    color: var(--white-base);
+  }
+
+  .react-datepicker__day--disabled {
+    color: var(--light-text-color);
+  }
+
+  .react-datepicker__day--outside {
+    color: var(--light-text-color);
+  }
+}

@@ -1,0 +1,40 @@
+@import "src/styles/mixins.module.scss";
+
+.wrapper {
+  background: var(--white-base);
+  height: var(--header-height);
+  width: 100%;
+  padding: 0 35px;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  transition: all 300ms ease;
+  z-index: 10;
+}
+
+.contentContainer {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  position: relative;
+  flex: 1;
+  gap: 20px;
+
+  @include media-breakpoint-down(md) {
+    justify-content: center;
+  }
+}
+
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.screenTitle {
+  font-size: 24px;
+  margin-left: 10px;
+  font-weight: bold;
+}

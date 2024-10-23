@@ -1,0 +1,23 @@
+@import "src/styles/mixins.module.scss";
+
+.headerIconsContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 10px 0;
+}
+
+.menuTrigger {
+  color: var(--primary-color);
+  transition: color 200ms ease;
+
+  &:hover {
+    color: var(--text-color);
+    transition: all 200ms ease-in-out;
+  }
+}
+
+.logo {
+  width: 90px;
+  top: 3px;
+}

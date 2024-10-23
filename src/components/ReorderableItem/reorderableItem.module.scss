@@ -1,0 +1,60 @@
+.itemContainer {
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid var(--light-primary-color);
+  align-items: center;
+  padding: 4px 20px;
+  width: 100%;
+  color: var(--lighter-text-color);
+}
+
+.isSelected {
+  color: var(--text-color);
+
+  .eyeIcon {
+    svg {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.actionsContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.eyeIcon {
+  display: flex;
+  align-items: center;
+
+  svg {
+    font-size: 18px;
+    transition: all 300ms ease;
+    cursor: pointer;
+
+  }
+}
+
+.title {
+  flex: 1;
+  font-size: 14px;
+}
+
+.reorderButtons {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+}
+
+.arrowIcon {
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 300ms ease;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 300ms ease;
+    color: var(--primary-color);
+  }
+}

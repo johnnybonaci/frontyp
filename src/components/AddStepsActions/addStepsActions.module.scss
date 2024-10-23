@@ -1,0 +1,17 @@
+@import "src/styles/mixins.module.scss";
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  min-width: 635px;
+
+  @include media-breakpoint-down(sm) {
+    grid-template-columns: 1fr;
+  }
+
+  &:last-child {
+    grid-row: 2;
+    grid-column: span 2;
+  }
+}

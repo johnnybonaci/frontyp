@@ -1,0 +1,19 @@
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  right: 0;
+  position: sticky;
+  top: 0;
+  padding: 0 30px;
+  z-index: 6;
+  height: var(--drawer-header-height);
+  background: var(--white-base);
+}
+
+.rightContent {
+  margin-left: 40px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}

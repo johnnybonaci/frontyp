@@ -1,0 +1,12 @@
+.message {
+  text-align: start;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 24px;
+  color: var(--light-primary-color);
+}
+
+.botMessage {
+  background: var(--receiver-chat-bg);
+  color: var(--white-base);
+}

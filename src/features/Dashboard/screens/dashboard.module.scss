@@ -1,0 +1,38 @@
+.wrapper {
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  flex: 1;
+  gap: 35px;
+}
+
+.startDayLogo {
+  width: 300px;
+}
+
+.startDayAction {
+  margin-top: 30px;
+  font-size: 18px;
+  min-height: 55px;
+  min-width: 200px;
+}
+
+.startDayTitle {
+  font-size: 30px;
+  text-wrap: wrap;
+  text-align: center;
+  width: 550px;
+  font-weight: 500;
+}
+
+.startDayWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 70px;
+  align-items: center;
+  gap: 30px;
+}

@@ -1,0 +1,13 @@
+.popoverBox {
+  position: relative;
+  border: 1px solid red;
+}
+
+.alertBox {
+  position: absolute;
+  top: 0px;
+  // display: block;
+  // left: center;
+  z-index: 99;
+  width: 100%;
+}

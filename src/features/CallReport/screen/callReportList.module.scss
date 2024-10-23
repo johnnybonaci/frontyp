@@ -1,0 +1,27 @@
+@import "src/styles/mixins.module.scss";
+
+.kpis {
+  display: flex;
+  gap: 7px;
+  padding-top: 15px;
+  padding-right: 20px;
+  padding-bottom: 8px;
+  border-radius: 20px;
+  flex-wrap: wrap;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.drawerContent {
+}
+
+.buttonContainer {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}

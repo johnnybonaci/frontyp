@@ -1,0 +1,20 @@
+.wrapper {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+
+.isModal {
+  padding: 0;
+  box-shadow: none;
+  height: 100%;
+  position: absolute;
+  background: var(--white-base);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  min-width: 500px;
+  height: auto;
+  border-radius: 16px;
+}
