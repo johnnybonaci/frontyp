@@ -45,15 +45,15 @@ const Table: FC<TableProps> = ({
 
   if (!loading && rows?.length === 0) {
     return (
-        <Stack m={3} spacing={3} sx={{ alignItems: { sm: 'center' } }}>
-          <img
-              alt="no results"
-              src={img404}
-              style={{
-                width: 120,
-              }}
-          />
-          <Typography color="text.secondary">{t('noResults')}</Typography>
+      <Stack m={8} spacing={3} sx={{ alignItems: { sm: 'center' } }}>
+        <img
+          alt="no results"
+          src={img404}
+          style={{
+            width: 120,
+          }}
+        />
+        <Typography color="text.secondary">{t('noResults')}</Typography>
       </Stack>
     )
   }

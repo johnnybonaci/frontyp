@@ -21,7 +21,7 @@ const useLoadAttachment = (): useLoadAttachmentProps => {
   const { t } = useTranslation()
   const [file, setFile] = useState<File | undefined>(undefined)
   const { retry, response, loading, error, doFetch } = useLoadFile({
-    url: `${config.api.msProcesses.baseUrl}/attachment`,
+    url: `${config.api.baseUrl}/attachment`,
   })
 
   useEffect(() => {

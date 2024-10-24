@@ -25,6 +25,11 @@ export interface CallReportListFiltersFormValues {
   phone: string
   terminatingPhone: string
   didTd: string
+  account: string
+  name: string
+  email: string
+  type_out: string
+  vendor: string
 }
 
 interface CallReportFiltersProps {
@@ -49,6 +54,11 @@ const DEFAULT_FILTERS = {
   phone: '',
   terminatingPhone: '',
   didTd: '',
+  account: '',
+  name: '',
+  email: '',
+  type_out: '',
+  vendor: '',
 }
 
 const CallReportFilters: FC<CallReportFiltersProps> = ({

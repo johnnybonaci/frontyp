@@ -12,7 +12,7 @@ export interface UseEditInsuranceReturn {
 
 export const useEditInsurance = (): UseEditInsuranceReturn => {
   const { t } = useTranslation()
-  const { doFetch, error, loading } = useFetch(`${config.api.baseUrl}/call/edit`, {
+  const { doFetch, error, loading } = useFetch(`${config.api.baseUrl}/api/data/edit`, {
     method: 'POST',
   })
 

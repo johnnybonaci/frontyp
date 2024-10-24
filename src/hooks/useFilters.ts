@@ -11,6 +11,7 @@ export interface FiltersHook {
   count: number
   filters: Filters
   initialFilters: any
+  loading: boolean
 }
 
 export default function useFilters(
@@ -20,6 +21,7 @@ export default function useFilters(
 ): FiltersHook {
   const [isOpenFilters, setIsOpenFilters] = useState<boolean>(false)
   const [filters, setFilters] = useState<Filters>({})
+  const [loading, setLoading] = useState<boolean>(true)
   const [initialFilters, setInitialFilters] = useState<Filters>({})
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -29,6 +31,7 @@ export default function useFilters(
     setInitialFilters(filtersFromUrl)
     const transformedFilters = transformToApi(filtersFromUrl)
     setFilters(transformedFilters)
+    setLoading(false)
   }, [searchParams, transformFromUrl, setInitialFilters, transformToApi, setFilters])
 
   const onCancel = useCallback(() => {
@@ -59,5 +62,5 @@ export default function useFilters(
 
   const count = useMemo(() => Object.keys(filters).length, [filters])
 
-  return { isOpenFilters, initialFilters, openFilters, onCancel, onApply, count, filters }
+  return { isOpenFilters, loading, initialFilters, openFilters, onCancel, onApply, count, filters }
 }

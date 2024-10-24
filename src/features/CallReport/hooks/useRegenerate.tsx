@@ -11,7 +11,7 @@ export interface UseEditInsuranceReturn {
 
 export const useRegenerate = (): UseEditInsuranceReturn => {
   const { t } = useTranslation()
-  const { doFetch, error, loading } = useFetch(`${config.api.baseUrl}/call/reprocess`, {
+  const { doFetch, error, loading } = useFetch(`${config.api.baseUrl}/api/data/reprocess`, {
     method: 'POST',
   })
 

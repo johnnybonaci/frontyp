@@ -27,7 +27,7 @@ export interface UseChatType {
 export const useChat = ({ callId }: { callId: number }): UseChatType => {
   const { t } = useTranslation()
   const [messages, setMessages] = useState<Message[]>([])
-  const { doFetch, error, loading } = useFetch(`${config.api.baseUrl}/data/ask`, {
+  const { doFetch, error, loading } = useFetch(`${config.api.baseUrl}/api/data/ask`, {
     method: 'POST',
   })
 
@@ -52,7 +52,7 @@ export const useChat = ({ callId }: { callId: number }): UseChatType => {
       },
     ])
     try {
-      const { data } = await doFetch({ data: { query: text, id: callId } })
+      const data = await doFetch({ data: { query: text, id: callId } })
       setMessages((prev) =>
         prev.map((item, index) => {
           if (index === prev.length - 1) {

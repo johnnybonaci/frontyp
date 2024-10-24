@@ -13,6 +13,7 @@ import { indicatorFromApi } from 'hooks/indicator.ts'
 import { type Filters } from 'types/filter'
 import { type CallReportListFiltersFormValues } from 'features/CallReport/components/CallReportFilters/CallReportFilters.tsx'
 import { type Option } from 'components/MultiSelect/MultiSelect.tsx'
+import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 
 export const callReportItemFromApi = (item: CallReportItemFromApi): CallReportItem => {
   return {
@@ -27,6 +28,7 @@ export const callReportItemFromApi = (item: CallReportItemFromApi): CallReportIt
     vendorsTd: item.vendors_td,
     status: item.status,
     buyerId: item.buyer_id,
+    issueType: item.call_ending_sooner_reason,
     buyers: item.buyers,
     revenue: item.revenue,
     phoneId: item.phone_id,
@@ -132,15 +134,6 @@ export function callReportPercentagesFromApi(
   }
 }
 
-const multipleSelectToApi = (
-  data: any[],
-  props: (item: any) => any = (item: any) => item.id ?? item.title // as default send item.id or item.title
-): any => {
-  return data?.map((item: any, index: number) => {
-    return { [index]: props(item) }
-  })
-}
-
 export const transformFiltersToApi = (filters: Filters): Filters => {
   const filter = []
 
@@ -197,10 +190,10 @@ export const transformFiltersFromUrl = (
   const parseOptions = (param: string | null): Option[] => {
     if (!param) return []
     try {
-      return JSON.parse(param) // Aquí simplemente parseamos el JSON
+      return JSON.parse(param)
     } catch (error) {
       console.warn(`Error parsing JSON: ${param}. Error: ${error}`)
-      return [] // Retorna un array vacío en caso de error
+      return []
     }
   }
 
@@ -212,13 +205,18 @@ export const transformFiltersFromUrl = (
     buyers: parseOptions(searchParams.get('buyers')),
     issueType: parseOptions(searchParams.get('issueType')),
     callIssues: searchParams.get('callIssues') ?? '',
-    startDate: searchParams.get('startDate') ? new Date(searchParams.get('startDate')!) : null,
-    endDate: searchParams.get('endDate') ? new Date(searchParams.get('endDate')!) : null,
+    startDate: searchParams.get('date_start') ? new Date(searchParams.get('date_start')!) : null,
+    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : null,
     status: searchParams.get('status') ?? '',
     insurance: searchParams.get('insurance') ?? '',
     phone: searchParams.get('phone') ?? '',
     terminatingPhone: searchParams.get('terminatingPhone') ?? '',
     didTd: searchParams.get('didTd') ?? '',
+    account: searchParams.get('account') ?? '',
+    name: searchParams.get('name') ?? '',
+    email: searchParams.get('email') ?? '',
+    type_out: searchParams.get('type_out') ?? '',
+    vendor: searchParams.get('vendor') ?? '',
   }
 }
 
@@ -247,10 +245,10 @@ export const transformFiltersToUrl = (filters: CallReportListFiltersFormValues):
     params.set('trafficSource', filters.trafficSource)
   }
   if (filters.startDate) {
-    params.set('startDate', filters.startDate.toISOString())
+    params.set('date_start', filters.startDate.toISOString())
   }
   if (filters.endDate) {
-    params.set('endDate', filters.endDate.toISOString())
+    params.set('date_end', filters.endDate.toISOString())
   }
   if (filters.status) {
     params.set('status', filters.status)

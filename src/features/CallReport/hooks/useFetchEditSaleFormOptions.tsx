@@ -13,9 +13,9 @@ const useFetchCallReportFilterOptions = (): UseFetchCallReportFilterOptionsRespo
     { id: 'Sale to Review', title: 'Sale to Review' },
   ])
   const [insuranceOptions] = useState<Option[]>([
-    { id: 'yes', title: 'Yes' },
-    { id: 'no', title: 'No' },
-    { id: 'n/a', title: 'N/A' },
+    { id: 'Yes', title: 'Yes' },
+    { id: 'No', title: 'No' },
+    { id: ' N/A', title: 'N/A' },
   ])
 
   return {

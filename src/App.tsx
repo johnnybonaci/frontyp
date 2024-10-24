@@ -39,9 +39,6 @@ const App = (): JSX.Element => {
   // @ts-expect-error
   const adapterLocale = LOCALE_MAP[i18n.language]
 
-  document.cookie =
-    'XSRF-TOKEN=eyJpdiI6IktuUHcreWY2V0R5SmFqMk9kWHViU3c9PSIsInZhbHVlIjoiaWJObDVESm5EbXRTckRpV2o0Q05UMHd5L0Q3ektiME9ETDlxOVJyM094NEZ1ejJKUzRzZlJ5dFNUK0dKSTkrRUE1Ym95Sm95LzE3MVVURGd4b3pKYjJCczlVZ1VzNU1oazc4QWRSUXB3ejQ1VS9FTEJSSE1HUzJ0Lzg0US95Y08iLCJtYWMiOiJhMGEyNTgzNmY1Y2M3OTJmMGIxNjI2N2I1NzE4YzUxMmQ5NGE1YTg4ZDUyNTI2MGRhZjgxMjAyMTkzYzFkNzk4IiwidGFnIjoiIn0%3D'
-
   return (
     <BrowserRouter>
       <CacheProvider value={emotionCache}>

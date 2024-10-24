@@ -1,7 +1,7 @@
 import { type FC } from 'react'
 import styles from './indicator.module.scss'
 import { Grow, Skeleton } from '@mui/material'
-import GrowthIndicator from 'components/Indicator'
+import GrowthIndicator from 'src/components/GrowthIndicator'
 import { type IndicatorSettings } from 'hooks/useTableSettings.tsx'
 
 export interface IndicatorProps {
@@ -19,7 +19,7 @@ const Indicator: FC<IndicatorProps> = ({ indicator, loading }) => {
           <Skeleton variant="text" width={100} />
           <Skeleton variant="text" width={100} />
         </div>
-        {growthPercentage && <Skeleton variant="text" width={50} />}
+        {!!growthPercentage && <Skeleton variant="text" width={50} />}
       </div>
     )
   }
@@ -31,7 +31,7 @@ const Indicator: FC<IndicatorProps> = ({ indicator, loading }) => {
           <span className={styles.name}>{name}</span>
           <span className={styles.value}>{value}</span>
         </div>
-        {growthPercentage && <GrowthIndicator percentage={growthPercentage} />}
+        {!!growthPercentage && <GrowthIndicator percentage={growthPercentage} />}
       </div>
     </Grow>
   )

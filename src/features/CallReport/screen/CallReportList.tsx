@@ -6,7 +6,7 @@ import useFetchCallReportList from 'features/CallReport/hooks/useFetchCallReport
 import CallReportFilters from '../components/CallReportFilters'
 import styles from './callReportList.module.scss'
 import { formatIndicator, formatMoneyIndicator } from 'hooks/indicator.ts'
-import Indicator from 'components/GrowthIndicator/Indicator.tsx'
+import Indicator from 'components/Indicator/Indicator.tsx'
 import ContentBox from 'components/ContentBox'
 import { type CallReportItem } from 'features/CallReport/types'
 import CallReportDetails from 'components/CallReportDetails'
@@ -29,6 +29,10 @@ import config from '../../../config.tsx'
 import { useEditInsurance } from 'features/CallReport/hooks/useEditInsurance.tsx'
 import { type EditSaleFormValues } from 'features/CallReport/components/EditSaleForm/EditSaleForm.tsx'
 import { useRegenerate } from 'features/CallReport/hooks/useRegenerate.tsx'
+import dateFormat from 'utils/dateFormat.ts'
+import CallStatus from 'components/CallStatus'
+import AccountCard from 'components/AccountCard'
+import RefreshButton from 'components/RefreshButton'
 
 const CallReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'CallReport' })
@@ -50,16 +54,19 @@ const CallReportList: FC = () => {
     setCollapsedViewDetails(!collapsedViewDetails)
   }, [setCollapsedViewDetails, collapsedViewDetails])
 
-  const { onCancel, onApply, filters, initialFilters } = useFilters(
-    transformFiltersToApi,
-    transformFiltersFromUrl,
-    transformFiltersToUrl
-  )
+  const {
+    onCancel,
+    onApply,
+    filters,
+    initialFilters,
+    loading: loadingFilters,
+  } = useFilters(transformFiltersToApi, transformFiltersFromUrl, transformFiltersToUrl)
   const allFilters = useMemo(() => {
     return {
       ...filters,
     }
   }, [filters])
+
   const {
     callReportItems,
     callReportAverages,
@@ -68,12 +75,18 @@ const CallReportList: FC = () => {
     setSorter,
     paginator,
     loading,
+    refresh,
   } = useFetchCallReportList({
+    canSearch: !loadingFilters,
     filters: allFilters,
   })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
-  const { doFetch } = useExport({ url: `${config.api.baseUrl}/export/calls`, filters: allFilters })
+  const { doFetch } = useExport({
+    url: `${config.api.baseUrl}/export/calls`,
+    filters: allFilters,
+    fileName: 'call_report',
+  })
 
   const handleOpenCallReportDetails = useCallback(
     (callReport: CallReportItem) => {
@@ -117,27 +130,44 @@ const CallReportList: FC = () => {
 
   const initialColumns = useMemo(
     () => [
-      { header: t('fields.phone'), fieldName: 'phoneId', sortable: true },
-      { header: t('fields.pubId'), fieldName: 'pubListId', sortable: true },
+      { header: t('fields.phone'), fieldName: 'phone_id', sortable: true },
+      { header: t('fields.pubId'), fieldName: 'pub_list_id', sortable: true },
       { header: t('fields.offers'), fieldName: 'offers', sortable: true },
-      { header: t('fields.vendorsTd'), fieldName: 'vendorsTd', sortable: true },
+      { header: t('fields.vendorsTd'), fieldName: 'vendors_td', sortable: true },
       { header: t('fields.state'), fieldName: 'state', sortable: true },
       { header: t('fields.buyers'), fieldName: 'buyers', sortable: true },
-      { header: t('fields.status'), fieldName: 'status', sortable: true },
+      {
+        header: t('fields.status'),
+        fieldName: 'status',
+        sortable: true,
+        dataModifier: (data: CallReportItem) => <CallStatus status={data.status} />,
+      },
+      { header: t('fields.revenue'), fieldName: 'revenue', sortable: true },
       { header: t('fields.cpl'), fieldName: 'cpl', sortable: true },
       { header: t('fields.durations'), fieldName: 'durations', sortable: true },
       { header: t('fields.insurance'), fieldName: 'insurance', sortable: true },
       {
+        header: t('fields.issueType'),
+        fieldName: 'issueType',
+        sortable: false,
+      },
+      {
         header: t('fields.insuranceName'),
         fieldName: 'insuranceName',
-        sortable: true,
+        sortable: false,
       },
       {
         header: t('fields.terminatingPhone'),
-        fieldName: 'terminatingPhone',
+        fieldName: 'terminating_phone',
         sortable: true,
       },
-      { header: t('fields.didNumberId'), fieldName: 'didNumberId', sortable: true },
+      { header: t('fields.didNumberId'), fieldName: 'did_number_id', sortable: true },
+      {
+        header: t('fields.callDateTd'),
+        fieldName: 'date_sale',
+        sortable: true,
+        dataModifier: (data: CallReportItem) => dateFormat(data.dateSale, 'YYYY-MM-DD HH:mm:ss'),
+      },
     ],
     [t]
   )
@@ -193,6 +223,7 @@ const CallReportList: FC = () => {
     <ContentBox>
       <PrivateScreenTitle title={t('listing.title')} />
       <div className={styles.actions}>
+        <RefreshButton onRefresh={refresh} />
         <CallReportFilters
           onCancel={onCancel}
           onApply={onApply}
@@ -213,12 +244,19 @@ const CallReportList: FC = () => {
         {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <ExportButton onExport={doFetch} />
       </div>
-
       <div className={styles.kpis}>
         {visibleIndicators.map((ind) => (
           <Indicator key={ind.name} indicator={ind} loading={loading} />
         ))}
       </div>
+      <AccountCard
+        account={initialFilters.account}
+        name={initialFilters.name}
+        email={initialFilters.email}
+        typeOut={initialFilters.type_out}
+        vendor={initialFilters.vendor}
+        phone={initialFilters.phone}
+      />
       <CallReportTable
         columns={visibleColumns}
         rows={callReportItems}
@@ -244,11 +282,11 @@ const CallReportList: FC = () => {
       <Drawer open={!collapsedEditSale} onClose={toggleEditSale} anchor="right">
         <EditSaleForm
           onCancel={toggleEditSale}
-          // initialValues={{
-          //   insurance: selectedCallReport?.insurance ?? '',
-          //   insuranceName: selectedCallReport?.insuranceName ?? '',
-          //   sale: selectedCallReport?.dateSale,
-          // }}
+          initialValues={{
+            insurance: selectedCallReport?.insurance ?? '',
+            insuranceName: selectedCallReport?.insuranceName ?? '',
+            sale: selectedCallReport?.status ?? '',
+          }}
           onSubmit={handleEditInsurance}
         />
       </Drawer>

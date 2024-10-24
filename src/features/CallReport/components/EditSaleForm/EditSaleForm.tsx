@@ -4,13 +4,13 @@ import { useCallback, type FC, useEffect } from 'react'
 import { useFormik } from 'formik'
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
-import useFetchEditSaleFormOptions from 'features/CallReport/hooks/useFetchEditSaleFormOptions.tsx'
 import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
 import LoadingButton from '@mui/lab/LoadingButton'
 import styles from './editSaleForm.module.scss'
 import DrawerActions from 'components/DrawerActions'
 import EditSaleFormSchema from 'features/CallReport/schema/EditSaleFormSchema.ts'
+import useFetchCallReportFilterOptions from 'features/CallReport/hooks/useFetchCallReportFilterOptions.tsx'
 
 export interface EditSaleFormValues {
   sale: string
@@ -38,7 +38,7 @@ const EditSaleForm: FC<EditSaleFormFiltersProps> = ({
   initialValues = DEFAULT_VALUES,
 }) => {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'CallReport.editSaleForm' })
-  const { saleOptions, insuranceOptions } = useFetchEditSaleFormOptions()
+  const { statusOptions, insuranceOptions } = useFetchCallReportFilterOptions()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue, errors } = useFormik({
     initialValues,
@@ -74,8 +74,6 @@ const EditSaleForm: FC<EditSaleFormFiltersProps> = ({
     void setValues(initialValues)
   }, [initialValues, setValues])
 
-  console.log(errors)
-
   return (
     <form onSubmit={handleSubmit}>
       <DrawerHeader title={t('title')} onClose={onCancel} />
@@ -83,7 +81,7 @@ const EditSaleForm: FC<EditSaleFormFiltersProps> = ({
         <div className={styles.form}>
           <Select
             label={t('sale')}
-            options={entitiesToOptions(saleOptions, { fieldValue: 'id', fieldLabel: 'title' })}
+            options={entitiesToOptions(statusOptions, { fieldValue: 'id', fieldLabel: 'title' })}
             fullWidth
             {...getFieldProps('sale')}
           />

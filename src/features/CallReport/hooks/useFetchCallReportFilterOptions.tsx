@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import useFetch from 'src/hooks/useFetch'
 import { type RequestError } from 'src/hooks/useFetch.ts'
 import { type Option } from 'components/MultiSelect/MultiSelect.tsx'
+import config from '../../../config.tsx'
 
 interface UseFetchCallReportFilterOptionsResponse {
   stateOptions: Option[]
@@ -18,131 +19,97 @@ interface UseFetchCallReportFilterOptionsResponse {
 }
 
 const useFetchCallReportFilterOptions = (): UseFetchCallReportFilterOptionsResponse => {
-  const [stateOptions, setStateOptions] = useState<Option[]>([
-    { id: 'all', title: 'All' },
-    { id: 'pending', title: 'Pending' },
-    { id: 'approved', title: 'Approved' },
-    { id: 'rejected', title: 'Rejected' },
-  ])
-  const [buyerOptions, setBuyerOptions] = useState<Option[]>([
-    { id: 'all', title: 'All' },
-    { id: 'buyer1', title: 'Buyer 1' },
-    { id: 'buyer2', title: 'Buyer 2' },
-    { id: 'buyer3', title: 'Buyer 3' },
-  ])
-  const [trafficSourceOptions, setTrafficSourceOptions] = useState<Option[]>([
-    { id: 'all', title: 'All' },
-    { id: 'Organic', title: 'Organic' },
-    { id: 'Paid', title: 'Paid' },
-  ])
-  const [issueTypeOptions, setIssueTypeOptions] = useState<Option[]>([
-    { id: 'all', title: 'All' },
-    { id: 'issue1', title: 'Issue 1' },
-    { id: 'issue2', title: 'Issue 2' },
-    { id: 'issue3', title: 'Issue 3' },
-  ])
-  const [offersOptions, setOffersOptions] = useState<Option[]>([
-    { id: 'all', title: 'All' },
-    { id: 'offer1', title: 'Offer 1' },
-    { id: 'offer2', title: 'Offer 2' },
-    { id: 'offer3', title: 'Offer 3' },
-  ])
-  const [pubIdOptions, setPubIdOptions] = useState<Option[]>([
-    { id: 'all', title: 'All' },
-    { id: 'pub1', title: 'Pub 1' },
-    { id: 'pub2', title: 'Pub 2' },
-    { id: 'pub3', title: 'Pub 3' },
-  ])
-  const [statusOptions, setStatusOptions] = useState<Option[]>([
-    { id: 'all', title: 'All' },
-    { id: 'active', title: 'Active' },
-    { id: 'inactive', title: 'Inactive' },
-  ])
-  const [insuranceOptions, setInsuranceOptions] = useState<Option[]>([
-    { id: 'all', title: 'All' },
-    { id: 'insurance1', title: 'Insurance 1' },
-    { id: 'insurance2', title: 'Insurance 2' },
-    { id: 'insurance3', title: 'Insurance 3' },
-  ])
+  const [stateOptions, setStateOptions] = useState<Option[]>([])
+  const [buyerOptions, setBuyerOptions] = useState<Option[]>([])
+  const [trafficSourceOptions, setTrafficSourceOptions] = useState<Option[]>([])
+  const [issueTypeOptions, setIssueTypeOptions] = useState<Option[]>([])
+  const [offersOptions, setOffersOptions] = useState<Option[]>([])
+  const [pubIdOptions, setPubIdOptions] = useState<Option[]>([])
+  const [statusOptions, setStatusOptions] = useState<Option[]>([])
+  const [insuranceOptions, setInsuranceOptions] = useState<Option[]>([])
   const [callIssuesOptions, setCallIssuesOptions] = useState<Option[]>([
-    { id: 'all', title: 'All' },
-    { id: 'callIssue1', title: 'Call Issue 1' },
-    { id: 'callIssue2', title: 'Call Issue 2' },
-    { id: 'callIssue3', title: 'Call Issue 3' },
+    { id: '1', title: 'Yes' },
+    { id: '0', title: 'No' },
+    { id: '', title: 'All Options' },
   ])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<RequestError>(null)
+  const [error] = useState<RequestError>(null)
 
-  const { doFetch } = useFetch('/data/calls/filter-options') // Un solo endpoint
+  const { doFetch, response, loading } = useFetch(`${config.api.baseUrl}/api/data`)
 
   useEffect(() => {
-    setLoading(true)
-    doFetch()
-      .then((response) => {
-        const data = response.data
+    if (!response) return
 
-        // Asignamos las opciones para cada MultiSelect
-        setStateOptions(
-          data.state.map((option: any) => ({
-            value: option.id,
-            label: option.name,
-          }))
-        )
-        setBuyerOptions(
-          data.buyers.map((option: any) => ({
-            value: option.id,
-            label: option.name,
-          }))
-        )
-        setTrafficSourceOptions(
-          data.trafficSource.map((option: any) => ({
-            value: option.id,
-            label: option.name,
-          }))
-        )
-        setIssueTypeOptions(
-          data.issueType.map((option: any) => ({
-            value: option.id,
-            label: option.name,
-          }))
-        )
-        setOffersOptions(
-          data.offers.map((option: any) => ({
-            value: option.id,
-            label: option.name,
-          }))
-        )
-        setPubIdOptions(
-          data.pubId.map((option: any) => ({
-            value: option.id,
-            label: option.name,
-          }))
-        )
-        setStatusOptions(
-          data.status.map((option: any) => ({
-            value: option.id,
-            label: option.name,
-          }))
-        )
-        setInsuranceOptions(
-          data.insurance.map((option: any) => ({
-            value: option.id,
-            label: option.name,
-          }))
-        )
-        setCallIssuesOptions(
-          data.callIssues.map((option: any) => ({
-            value: option.id,
-            label: option.name,
-          }))
-        )
-      })
-      .catch((error) => {
-        setError(error)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    const data = response
+
+    setStateOptions(
+      data.states.map((option: any) => ({
+        id: option.state,
+        title: option.description,
+      }))
+    )
+    setBuyerOptions(
+      data.partners.map((option: any) => ({
+        id: option.id,
+        title: option.name,
+      }))
+    )
+    setTrafficSourceOptions(
+      data.traffic.map((option: any) => ({
+        id: option.id,
+        title: option.name,
+      }))
+    )
+    setIssueTypeOptions(
+      data.issueTypes.map((option: any) => ({
+        id: option.id,
+        title: option.name,
+      }))
+    )
+    setOffersOptions(
+      data.offers.map((option: any) => ({
+        id: option.id,
+        title: option.name,
+      }))
+    )
+    setPubIdOptions(
+      Object.keys(data.pub_id).map((key: any) => ({
+        id: data.pub_id[key].id,
+        title: data.pub_id[key].name,
+      }))
+    )
+    setStatusOptions(
+      data.statusTypes.map((option: any) => ({
+        id: option.id,
+        title: option.name,
+      }))
+    )
+    setInsuranceOptions(
+      data.insuranceTypes.map((option: any) => ({
+        id: option.id,
+        title: option.name,
+      }))
+    )
+    // setCallIssuesOptions(
+    //   data.callIssues?.map((option: any) => ({
+    //     id: option.id,
+    //     title: option.name,
+    //   }))
+    // )
+  }, [
+    response,
+    setBuyerOptions,
+    setStateOptions,
+    setTrafficSourceOptions,
+    setIssueTypeOptions,
+    setOffersOptions,
+    setPubIdOptions,
+    setStatusOptions,
+    setInsuranceOptions,
+    setCallIssuesOptions,
+  ])
+
+  useEffect(() => {
+    void doFetch()
   }, [doFetch])
 
   return {

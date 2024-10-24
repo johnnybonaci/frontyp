@@ -8,9 +8,10 @@ type DownloadFilters = Record<string, any>
 interface DownloadOptions {
   url: string
   filters: DownloadFilters
+  fileName: string
 }
 
-const useDownloadDocument = (
+const useExport = (
   options: DownloadOptions
 ): {
   data: Blob | null
@@ -26,11 +27,13 @@ const useDownloadDocument = (
 
   useEffect(() => {
     if (response) {
-      const blob = new Blob([response], { type: 'application/pdf' })
+      const blob = new Blob([response], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = 'export.pdf'
+      a.download = `${options.fileName}_${new Date().toISOString().slice(0, 10)}.xlsx`
       a.click()
       URL.revokeObjectURL(url)
       enqueueSnackbar(t('downloadSuccess'), {
@@ -50,4 +53,4 @@ const useDownloadDocument = (
   return { isLoading: loading, data: response, error, doFetch }
 }
 
-export default useDownloadDocument
+export default useExport

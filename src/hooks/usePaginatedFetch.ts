@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import useFetch from './useFetch'
 import { type Paginator } from 'src/types/paginator'
 import { type Filters } from 'src/types/filter'
-import { type Sorter } from 'src/types//sorter'
+import { type Sorter } from 'src/types/sorter'
 import { useTranslation } from 'react-i18next'
+import { multipleSelectToApi } from '../transformers/apiTransformers.ts'
 
 interface PaginatedFetchProps {
   initialPerPage?: number
   initialPage?: number
+  canSearch?: boolean
   url: string
   filters?: Filters
   defaultSorter?: { fieldName: string; order: 'asc' | 'desc' | undefined }
@@ -25,14 +28,6 @@ interface PaginatedFetchResult {
   error: any
 }
 
-const getApiSorter = (fieldName?: string, order?: 'asc' | 'desc'): string | undefined => {
-  if (fieldName && order) {
-    return `${fieldName}:${order}`
-  }
-
-  return undefined
-}
-
 const usePaginatedFetch = ({
   initialPerPage = 10,
   initialPage = 1,
@@ -40,11 +35,25 @@ const usePaginatedFetch = ({
   filters,
   defaultSorter,
   config,
+  canSearch,
 }: PaginatedFetchProps): PaginatedFetchResult => {
   const { t } = useTranslation('common')
-  const [currentSorter, setCurrentSorter] = useState<Sorter | undefined>(defaultSorter)
-  const [perPage, setPerPage] = useState(initialPerPage)
-  const [page, setPage] = useState(initialPage)
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const urlPage = Number(searchParams.get('page')) || initialPage
+  const urlPerPage = Number(searchParams.get('perPage')) || initialPerPage
+  const urlSorterField = searchParams.get('sortField') || defaultSorter?.fieldName
+  const urlSorterOrder =
+    (searchParams.get('sortOrder') as 'asc' | 'desc' | undefined) || defaultSorter?.order
+
+  const [currentSorter, setCurrentSorter] = useState<Sorter | undefined>(
+    urlSorterField && urlSorterOrder
+      ? { fieldName: urlSorterField, order: urlSorterOrder }
+      : defaultSorter
+  )
+  const [currentFilters, setCurrentFilters] = useState<Filters | undefined>(filters)
+  const [perPage, setPerPage] = useState(urlPerPage)
+  const [page, setPage] = useState(urlPage)
 
   const setSorter = (fieldName: string, order: 'asc' | 'desc' | undefined): void => {
     setCurrentSorter({
@@ -57,8 +66,16 @@ const usePaginatedFetch = ({
     ...config,
     params: {
       size: perPage,
-      ...filters,
-      sort: getApiSorter(currentSorter?.fieldName, currentSorter?.order),
+      ...currentFilters,
+      sort:
+        currentSorter?.fieldName && currentSorter?.order
+          ? multipleSelectToApi(
+              [{ field: currentSorter?.fieldName, dir: currentSorter?.order }],
+              (item: any) => {
+                return { field: item.field, dir: item.dir }
+              }
+            )
+          : undefined,
       page,
     },
   }
@@ -72,14 +89,36 @@ const usePaginatedFetch = ({
   } = useFetch(url, paginatedConfig)
 
   useEffect(() => {
-    setPage(initialPage)
-  }, [initialPage, filters, perPage])
+    if (page) searchParams.set('page', String(page))
+    if (perPage) searchParams.set('perPage', String(perPage))
+    if (currentSorter?.fieldName && currentSorter?.order) {
+      searchParams.set('sortField', currentSorter.fieldName)
+      searchParams.set('sortOrder', currentSorter.order)
+    }
+
+    setSearchParams(searchParams)
+  }, [page, perPage, currentSorter, setSearchParams])
 
   useEffect(() => {
-    if (doFetch) {
+    if (doFetch && canSearch) {
       void doFetch()
     }
-  }, [doFetch])
+  }, [doFetch, canSearch])
+
+  useEffect(() => {
+    if (JSON.stringify(filters) !== JSON.stringify(currentFilters)) {
+      setCurrentFilters(filters)
+      setPage(1)
+    }
+  }, [filters])
+
+  useEffect(() => {
+    setPage(1)
+  }, [currentSorter])
+
+  useEffect(() => {
+    setPage(1)
+  }, [perPage])
 
   return {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -95,7 +134,7 @@ const usePaginatedFetch = ({
         to: response?.to,
         total: response?.total,
       }),
-      page: response?.currentPage || page,
+      page: response?.current_page || page,
       perPage: response?.per_page || initialPerPage,
       setPage,
       setPerPage,

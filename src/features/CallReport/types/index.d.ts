@@ -15,6 +15,7 @@ export interface CallReportItemFromApi {
   phone_id: number
   terminating_phone: string
   durations: string
+  call_ending_sooner_reason: string | null
   created_at: string | null
   offers: string
   offer_id: number
@@ -38,6 +39,7 @@ export interface CallReportItem {
   multiple?: CallReportMultiple
   didNumberId: number
   cpl: string
+  issueType: string | null
   vendorsTd: string
   status: string
   buyerId: number

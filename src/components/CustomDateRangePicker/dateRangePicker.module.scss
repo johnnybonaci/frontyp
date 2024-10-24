@@ -10,7 +10,7 @@
   }
 
   .react-datepicker {
-    font-size: 16px;
+    font-size: 12px !important;
     font-family: var(--main-font);
     background-color: var(--white-base);
     border: 1px solid var(--border-color);
@@ -28,7 +28,7 @@
   .react-datepicker__current-month {
     font-size: 18px;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--text-color);
   }
 
   .react-datepicker__day-names {
@@ -41,45 +41,45 @@
     margin: 5px;
     text-align: center;
     line-height: 30px;
-    border-radius: 50%;
+    border-radius: 10px;
     color: var(--text-color);
   }
 
   .react-datepicker__day--selected {
-    background-color: var(--primary-color) !important;
+    background-color: var(--text-color) !important;
     color: var(--white-base);
-    border-radius: 50% !important;
+    border-radius: 10px !important;
     font-weight: bold;
-    box-shadow: 0 0 0 2px var(--primary-color);
+    box-shadow: 0 0 0 2px var(--text-color);
   }
 
   .react-datepicker__day--in-range {
-    background-color: var(--primary-color);
+    background-color: var(--text-color);
     color: var(--white-base);
   }
 
   .react-datepicker__day--selected:hover {
-    background-color: var(--primary-color) !important;
+    background-color: var(--text-color) !important;
     color: var(--white-base);
   }
 
   .react-datepicker__day--in-selecting-range {
-    background-color: var(--primary-color) !important;
+    background-color: var(--light-text-color) !important;
     color: var(--white-base);
   }
 
   .react-datepicker__day--selected:active  {
-    background-color: var(--primary-color) !important;
+    background-color: var(--text-color) !important;
     color: var(--white-base);
   }
 
   .react-datepicker__day--in-range:not([aria-disabled=true]):hover {
-    background-color: var(--primary-color) !important;
+    background-color: var(--text-color) !important;
     color: var(--white-base);
   }
 
   .react-datepicker__day--keyboard-selected:not([aria-disabled=true]):hover {
-    background-color: var(--primary-color) !important;
+    background-color: var(--text-color) !important;
     color: var(--white-base);
   }
 

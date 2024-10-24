@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useRef, useCallback, type ReactNode } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import useLoginFetch from 'features/Auth/hooks/useLoginFetch'
 import useLogoutFetch from 'features/Auth/hooks/useLogoutFetch'
 import useBrowserSession from 'features/Auth/hooks/useBrowserSession'
-import useBrowserStorage from 'hooks/useBrowserStorage.ts'
+// import useBrowserStorage from 'hooks/useBrowserStorage.ts'
 import useSessionUserFetch from 'features/Auth/hooks/useSessionUserFetch'
 import AuthInterceptors from 'features/Auth/components/AuthInterceptors'
 import type Session from 'features/Auth/models/Session'
 import type AuthUser from 'features/Auth/models/AuthUser'
-import useLoginWithSignatureFetch from 'features/Auth/hooks/useLoginWithSignatureFetch'
+// import useLoginWithSignatureFetch from 'features/Auth/hooks/useLoginWithSignatureFetch'
 import AuthContext from './AuthContext'
 import { PATHS } from 'features/Auth/routes.tsx'
 import { DASHBOARD } from 'utils/constants.ts'
+import { useCookies } from 'react-cookie'
+import config from '../../../config.tsx'
 
 export interface AuthProviderType {
   isAuthenticated: boolean
@@ -32,16 +34,19 @@ interface AuthProviderProps {
 
 const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const location = useLocation()
+  const [cookies] = useCookies(['yieldpro_session'])
   const [isAuthenticated, setIsAuthenticated] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [loginRedirect, setLoginRedirect] = useState(DASHBOARD)
-  const { activeSession, persistSession, clearSession } = useBrowserSession()
+  const { persistSession, clearSession } = useBrowserSession()
   const { doLogin } = useLoginFetch()
-  const { doLogin: doLoginWithSignature } = useLoginWithSignatureFetch()
+  // const { doLogin: doLoginWithSignature } = useLoginWithSignatureFetch()
   const { doLogout } = useLogoutFetch()
-  const [searchParams] = useSearchParams()
-  const metadataSignature = useBrowserStorage('metaData')
-  const signature = searchParams.get('signature')
+  // const [searchParams] = useSearchParams()
+  // eslint-disable-next-line no-unused-vars
+  // const metadataSignature = useBrowserStorage('metaData')
+  // eslint-disable-next-line no-unused-vars
+  // const signature = searchParams.get('signature')
   const [session, setSession] = useState<Session | null>(null)
   const { getSessionUser, isLoadingSessionUser } = useSessionUserFetch()
   const initialized = useRef(false)
@@ -98,34 +103,43 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
     }
   }
 
-  const validateSignature = useCallback(
-    async (signature: string): Promise<Session | null> => {
-      try {
-        return await doLoginWithSignature(signature)
-      } catch (err) {
-        navigate('/410')
-        setIsLoading(false)
-      }
-      return null
-    },
-    [doLogin, navigate]
-  )
+  // const validateSignature = useCallback(
+  //   async (signature: string): Promise<Session | null> => {
+  //     try {
+  //       return await doLoginWithSignature(signature)
+  //     } catch (err) {
+  //       navigate('/410')
+  //       setIsLoading(false)
+  //     }
+  //     return null
+  //   },
+  //   [doLogin, navigate]
+  // )
 
   const initialize = async (): Promise<void> => {
     if (initialized.current) return
     initialized.current = true
-    if (activeSession() ?? signature) {
-      let currentSession = null
-      if (signature) {
-        metadataSignature.clear()
-        currentSession = await validateSignature(window.location.href)
-      } else {
-        currentSession = activeSession()
-      }
-      initSession(currentSession)
+
+    if (cookies.yieldpro_session) {
+      setIsAuthenticated(true)
     } else {
-      setIsLoading(false)
+      // setIsAuthenticated(false)
     }
+
+    setIsLoading(false)
+
+    // if (activeSession() ?? signature) {
+    //   let currentSession = null
+    //   if (signature) {
+    //     metadataSignature.clear()
+    //     currentSession = await validateSignature(window.location.href)
+    //   } else {
+    //     currentSession = activeSession()
+    //   }
+    //   initSession(currentSession)
+    // } else {
+    //   setIsLoading(false)
+    // }
   }
 
   const login = useCallback(
@@ -141,17 +155,17 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   )
 
   const logout = useCallback(
-    async (doRevokeToken = true) => {
+    async (/* doRevokeToken = true */) => {
       try {
-        if (doRevokeToken) {
-          await doLogout()
-        }
-
-        setSession(null)
-        clearSession()
+        // if (doRevokeToken) {
+        //   await doLogout()
+        // }
+        //
+        // setSession(null)
+        // clearSession()
         setIsAuthenticated(false)
 
-        navigate('/auth/login')
+        window.location.href = config.oldSiteDomain + 'logout'
 
         setIsLoading(false)
         await Promise.resolve()

@@ -24,7 +24,7 @@ const useLoadImage = (): useLoadImageProps => {
   const { t } = useTranslation()
   const [image, setImage] = useState<Image | undefined>(undefined)
   const { retry, response, loading, error, doFetch } = useLoadFile({
-    url: `${config.api.msProcesses.baseUrl}/image`,
+    url: `${config.api.baseUrl}/image`,
   })
 
   useEffect(() => {
