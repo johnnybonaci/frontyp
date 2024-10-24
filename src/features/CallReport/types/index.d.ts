@@ -1,9 +1,18 @@
+export interface StatusT {
+  value: StatusTValue
+  isProcessed: boolean
+  isFailed: boolean
+  isTranscribing: boolean
+  isAvailableToDownload: boolean
+}
+
+export type StatusTValue = 1 | 2 | 3 | 4
+
 export interface CallReportItemFromApi {
   id: number
   url: string | null
   transcript: string | null
   billable: number | null
-  status_t: number | null
   multiple?: CallReportMultipleFromApi
   did_number_id: number
   cpl: string
@@ -26,6 +35,7 @@ export interface CallReportItemFromApi {
   traffic_source_id: number
   insurance: string
   insurance_value: number | null
+  status_t: StatusTValue
   insurance_name: string
   state: string
 }
@@ -35,7 +45,6 @@ export interface CallReportItem {
   url: string | null
   transcript: string | null
   billable: number | null
-  statusT: number | null
   multiple?: CallReportMultiple
   didNumberId: number
   cpl: string
@@ -45,6 +54,7 @@ export interface CallReportItem {
   buyerId: number
   buyers: string
   revenue: string
+  statusT: StatusT
   phoneId: number
   terminatingPhone: string
   durations: string

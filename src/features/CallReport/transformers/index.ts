@@ -8,6 +8,8 @@ import {
   type CallReportMultipleFromApi,
   type CallReportPercentages,
   type CallReportPercentagesFromApi,
+  type StatusT,
+  type StatusTValue,
 } from '../types'
 import { indicatorFromApi } from 'hooks/indicator.ts'
 import { type Filters } from 'types/filter'
@@ -15,13 +17,23 @@ import { type CallReportListFiltersFormValues } from 'features/CallReport/compon
 import { type Option } from 'components/MultiSelect/MultiSelect.tsx'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 
+export const statusTFromApi = (status: StatusTValue): StatusT => {
+  return {
+    value: status,
+    isFailed: status === 4,
+    isProcessed: status === 1,
+    isTranscribing: status === 3,
+    isAvailableToDownload: status === 2,
+  }
+}
+
 export const callReportItemFromApi = (item: CallReportItemFromApi): CallReportItem => {
   return {
     id: item.id,
     url: item.url,
     transcript: item.transcript,
     billable: item.billable,
-    statusT: item.status_t,
+    statusT: statusTFromApi(item.status_t),
     multiple: item.multiple ? callReportMultipleFromApi(item.multiple) : undefined,
     didNumberId: item.did_number_id,
     cpl: item.cpl,

@@ -6,7 +6,7 @@ import {
   Select,
   type TablePaginationProps,
 } from '@mui/material'
-import { type ElementType, type FC, useState } from 'react'
+import { type ElementType, type FC, useEffect, useState } from 'react'
 import styles from './paginatedTable.module.scss'
 import {
   ChevronLeftRounded,
@@ -34,13 +34,17 @@ const PaginatedTable: FC<PaginatedTableProps> = ({
   perPage,
   onRowsPerPageChange,
   displayResultsMessage,
-  rowsPerPageOptions = [5, 10, 15],
+  rowsPerPageOptions = [5, 10, 15, 30, 50, 80],
   count,
   as: Component = Table,
   rows = [],
   ...tableProps
 }) => {
   const [perPageValue, setPerPageValue] = useState(perPage)
+
+  useEffect(() => {
+    setPerPageValue(perPage)
+  }, [perPage])
 
   return (
     <>

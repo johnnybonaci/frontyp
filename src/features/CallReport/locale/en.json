@@ -2,6 +2,7 @@
   "singular": "Call Report",
   "insuranceEditedSuccessfully": "Insurance edited successfully",
   "regeneratedSuccessfully": "Reprocessed successfully",
+  "transcriptSuccessfully": "Transcript in Progress",
   "roles": "Call Report",
   "calls": "Calls",
   "listing": {
@@ -12,6 +13,7 @@
     "createdAt": "Created at",
     "pubId": "Pub ID",
     "issueType": "Issue Type",
+    "transcriptStatus": "Transcript Status",
     "phone": "Phone",
     "offers": "Offers TD",
     "callDateTd": "Call Date TD",
@@ -34,6 +36,20 @@
       "button": "Reprocess",
       "cancel": "Cancel"
     }
+  },
+  "transcript": {
+    "confirmation": {
+      "title": "Confirm Transcript",
+      "message": "Are you sure you want to transcript the data?",
+      "button": "Transcript",
+      "cancel": "Cancel"
+    }
+  },
+  "transcriptStatuses": {
+    "1": "Processed",
+    "2": "Available to Process",
+    "3": "Processing",
+    "4": "Failed"
   },
   "editSaleForm": {
     "title": "Edit Sale and Insurance",
@@ -67,7 +83,8 @@
   "actions": {
     "view": "View",
     "changeStatus": "Change Status",
-    "regenerate": "Reprocess"
+    "regenerate": "Reprocess",
+    "transcript": "Transcript"
   },
   "details": {
     "title": "Call Report Details",

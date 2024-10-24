@@ -33,6 +33,8 @@ import dateFormat from 'utils/dateFormat.ts'
 import CallStatus from 'components/CallStatus'
 import AccountCard from 'components/AccountCard'
 import RefreshButton from 'components/RefreshButton'
+import { useTranscript } from 'features/CallReport/hooks/useTranscript.tsx'
+import TranscriptStatus from 'components/TranscriptStatus'
 
 const CallReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'CallReport' })
@@ -41,9 +43,11 @@ const CallReportList: FC = () => {
   )
   const { editInsurance } = useEditInsurance()
   const { regenerate } = useRegenerate()
+  const { doTranscript } = useTranscript()
 
   const [collapsedViewDetails, setCollapsedViewDetails] = useState(true)
   const [openRegenerateConfirmation, setOpenRegenerateConfirmation] = useState(false)
+  const [openTranscriptConfirmation, setOpenTranscriptConfirmation] = useState(false)
   const [collapsedEditSale, setCollapsedEditSale] = useState(true)
 
   const toggleEditSale = useCallback(() => {
@@ -109,6 +113,7 @@ const CallReportList: FC = () => {
       if (selectedCallReport?.id) {
         void editInsurance(selectedCallReport?.id, data).then(() => {
           setCollapsedEditSale(true)
+          refresh()
         })
       }
     },
@@ -120,10 +125,25 @@ const CallReportList: FC = () => {
     setOpenRegenerateConfirmation(true)
   }
 
+  const handleTranscript = (callReport: CallReportItem): void => {
+    setSelectedCallReport(callReport)
+    setOpenTranscriptConfirmation(true)
+  }
+
   const onRegenerate = (): void => {
     if (selectedCallReport?.id) {
       void regenerate(selectedCallReport?.id).then(() => {
         setOpenRegenerateConfirmation(false)
+        refresh()
+      })
+    }
+  }
+
+  const onTranscript = (): void => {
+    if (selectedCallReport?.id) {
+      void doTranscript(selectedCallReport?.id).then(() => {
+        setOpenTranscriptConfirmation(false)
+        refresh()
       })
     }
   }
@@ -150,6 +170,12 @@ const CallReportList: FC = () => {
         header: t('fields.issueType'),
         fieldName: 'issueType',
         sortable: false,
+      },
+      {
+        header: t('fields.transcriptStatus'),
+        fieldName: 'status_t',
+        sortable: false,
+        dataModifier: (data: CallReportItem) => <TranscriptStatus status={data.statusT} />,
       },
       {
         header: t('fields.insuranceName'),
@@ -267,6 +293,7 @@ const CallReportList: FC = () => {
         page={page}
         sorter={sorter}
         onPageChange={setPage}
+        onClickTranscript={handleTranscript}
         onClickEditNote={handleEdit}
         onClickRegenerate={handleRegenerate}
         displayResultsMessage={displayResultsMessage}
@@ -283,12 +310,50 @@ const CallReportList: FC = () => {
         <EditSaleForm
           onCancel={toggleEditSale}
           initialValues={{
-            insurance: selectedCallReport?.insurance ?? '',
+            insurance: selectedCallReport?.insuranceValue ?? undefined,
             insuranceName: selectedCallReport?.insuranceName ?? '',
-            sale: selectedCallReport?.status ?? '',
+            sale: selectedCallReport?.billable ?? undefined,
           }}
           onSubmit={handleEditInsurance}
         />
+      </Drawer>
+
+      <Drawer
+        open={openTranscriptConfirmation}
+        onClose={() => {
+          setOpenTranscriptConfirmation(false)
+        }}
+        anchor="right"
+      >
+        <DrawerHeader
+          title={t('transcript.confirmation.title')}
+          onClose={() => {
+            setOpenTranscriptConfirmation(false)
+          }}
+        />
+        <DrawerContent>
+          <div className={styles.drawerContent}>
+            <Typography variant="body1">{t('transcript.confirmation.message')}</Typography>
+            <DrawerActions
+              actions={
+                <>
+                  <Button
+                    onClick={() => {
+                      setOpenTranscriptConfirmation(false)
+                    }}
+                    variant="outlined"
+                    color="secondary"
+                  >
+                    {t('transcript.confirmation.cancel')}
+                  </Button>
+                  <Button onClick={onTranscript} variant="contained" color="primary">
+                    {t('transcript.confirmation.button')}
+                  </Button>
+                </>
+              }
+            />
+          </div>
+        </DrawerContent>
       </Drawer>
 
       <Drawer

@@ -13,8 +13,8 @@ import EditSaleFormSchema from 'features/CallReport/schema/EditSaleFormSchema.ts
 import useFetchCallReportFilterOptions from 'features/CallReport/hooks/useFetchCallReportFilterOptions.tsx'
 
 export interface EditSaleFormValues {
-  sale: string
-  insurance: string
+  sale?: number
+  insurance?: number
   insuranceName: string
 }
 
@@ -26,8 +26,8 @@ interface EditSaleFormFiltersProps {
 }
 
 const DEFAULT_VALUES = {
-  sale: '',
-  insurance: '',
+  sale: undefined,
+  insurance: undefined,
   insuranceName: '',
 }
 
@@ -38,7 +38,7 @@ const EditSaleForm: FC<EditSaleFormFiltersProps> = ({
   initialValues = DEFAULT_VALUES,
 }) => {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'CallReport.editSaleForm' })
-  const { statusOptions, insuranceOptions } = useFetchCallReportFilterOptions()
+  const { saleOptions, insuranceOptions } = useFetchCallReportFilterOptions()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue, errors } = useFormik({
     initialValues,
@@ -81,7 +81,7 @@ const EditSaleForm: FC<EditSaleFormFiltersProps> = ({
         <div className={styles.form}>
           <Select
             label={t('sale')}
-            options={entitiesToOptions(statusOptions, { fieldValue: 'id', fieldLabel: 'title' })}
+            options={entitiesToOptions(saleOptions, { fieldValue: 'id', fieldLabel: 'title' })}
             fullWidth
             {...getFieldProps('sale')}
           />

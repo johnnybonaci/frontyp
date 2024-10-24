@@ -1,0 +1,42 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  padding: 0px 10px;
+  width: fit-content;
+  font-weight: 500;
+  border: 1px solid var(--light-primary-color);
+  gap: 10px;
+}
+
+.indicator {
+  height: 7px;
+  width: 7px;
+  min-width: 7px;
+  min-height: 7px;
+  border-radius: 50%;
+}
+
+.processed {
+  .indicator {
+    background: #34C759;
+  }
+}
+
+.availableToDownload {
+  .indicator {
+    background: #2196F3;
+  }
+}
+
+.transcribing {
+  .indicator {
+    background: #F7DC6F;
+  }
+}
+
+.failed {
+  .indicator {
+    background: #FF0000;
+  }
+}

@@ -14,6 +14,7 @@ interface UseFetchCallReportFilterOptionsResponse {
   statusOptions: Option[]
   insuranceOptions: Option[]
   callIssuesOptions: Option[]
+  saleOptions: Option[]
   loading: boolean
   error: RequestError
 }
@@ -25,6 +26,7 @@ const useFetchCallReportFilterOptions = (): UseFetchCallReportFilterOptionsRespo
   const [issueTypeOptions, setIssueTypeOptions] = useState<Option[]>([])
   const [offersOptions, setOffersOptions] = useState<Option[]>([])
   const [pubIdOptions, setPubIdOptions] = useState<Option[]>([])
+  const [saleOptions, setSaleOptions] = useState<Option[]>([])
   const [statusOptions, setStatusOptions] = useState<Option[]>([])
   const [insuranceOptions, setInsuranceOptions] = useState<Option[]>([])
   const [callIssuesOptions, setCallIssuesOptions] = useState<Option[]>([
@@ -89,12 +91,12 @@ const useFetchCallReportFilterOptions = (): UseFetchCallReportFilterOptionsRespo
         title: option.name,
       }))
     )
-    // setCallIssuesOptions(
-    //   data.callIssues?.map((option: any) => ({
-    //     id: option.id,
-    //     title: option.name,
-    //   }))
-    // )
+    setSaleOptions(
+      data.salesTypes?.map((option: any) => ({
+        id: option.id,
+        title: option.name,
+      }))
+    )
   }, [
     response,
     setBuyerOptions,
@@ -122,6 +124,7 @@ const useFetchCallReportFilterOptions = (): UseFetchCallReportFilterOptionsRespo
     statusOptions,
     insuranceOptions,
     callIssuesOptions,
+    saleOptions,
     loading,
     error,
   }
