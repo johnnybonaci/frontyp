@@ -827,14 +827,14 @@ export function createComponents(): any {
         },
         expandIconWrapper: {
           position: 'absolute',
-          left: '0',
+          right: '0',
           '& .MuiSvgIcon-root': {
             color: 'var(--primary-color) !important',
           },
         },
         content: {
           margin: '0 !important',
-          marginLeft: '34px !important',
+          marginRight: '34px !important',
         },
       },
     },

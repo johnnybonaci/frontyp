@@ -24,7 +24,7 @@ const ScreenProvider = ({ children }: ScreenProviderProps): ReactNode => {
 
   useEffect(() => {
     setScreenTitle(undefined)
-  }, [location])
+  }, [location.pathname])
 
   return (
     <ScreenContext.Provider

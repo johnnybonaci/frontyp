@@ -11,6 +11,11 @@ import { type PermissionsProps } from 'components/Gated/types'
 import BaseDashboard from 'components/BaseDashboard'
 import ErrorPage from './features/Errors'
 import CallReportRoutes from 'features/CallReport/routes.tsx'
+import CPAReportRoutes from 'features/CPAReport/routes.tsx'
+import QAReportRoutes from 'features/QAReport/routes.tsx'
+import LiveLeadsRoutes from 'features/LiveLeads/routes.tsx'
+import ActiveLeadsRoutes from 'features/ActiveLeads/routes.tsx'
+import PubLeadsRoutes from 'features/PubLeads/routes.tsx'
 
 interface Route {
   path: string
@@ -28,7 +33,16 @@ const MainRoutes = {
       <PrivateLayout />
     </AuthPreLoaders>
   ),
-  children: [DashboardRoutes, ...AuthPrivateRoutes, ...CallReportRoutes],
+  children: [
+    DashboardRoutes,
+    ...AuthPrivateRoutes,
+    ...CallReportRoutes,
+    ...CPAReportRoutes,
+    ...QAReportRoutes,
+    ...LiveLeadsRoutes,
+    ...ActiveLeadsRoutes,
+    ...PubLeadsRoutes,
+  ],
 }
 
 const BaseRoute = {

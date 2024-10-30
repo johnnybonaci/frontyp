@@ -26,10 +26,14 @@ const TranscriptStatus: FC<TranscriptStatusProps> = ({ status }) => {
     }
   }
 
+  if (status.value === null) {
+    return null
+  }
+
   return (
     <div className={c(styles.wrapper, getStatusClassName(status))}>
       <div className={styles.indicator} />
-      {t(status.value.toString())}
+      {t(status.value?.toString())}
     </div>
   )
 }

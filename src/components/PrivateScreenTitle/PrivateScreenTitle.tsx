@@ -3,11 +3,13 @@ import { type PrivateScreenTitleProps } from './types'
 import useScreen from 'hooks/useScreen.ts'
 
 const PrivateScreenTitle: FC<PrivateScreenTitleProps> = ({ title }) => {
-  const { changeTitle } = useScreen()
+  const { changeTitle, screenTitle } = useScreen()
 
   useEffect(() => {
-    changeTitle(title)
-  }, [title, changeTitle])
+    if (title !== screenTitle) {
+      changeTitle(title)
+    }
+  }, [title, screenTitle, changeTitle])
 
   return null
 }

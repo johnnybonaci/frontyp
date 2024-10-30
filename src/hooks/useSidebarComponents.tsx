@@ -30,20 +30,17 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
         title: t('menu:leads'),
         items: [
           {
-            to: 'leads/live',
-            redirectOutside: true,
+            to: 'live-leads',
             icon: GroupsOutlined,
             label: t('menu:liveLeads'),
           },
           {
-            to: 'leads/active',
-            redirectOutside: true,
+            to: 'active-leads',
             icon: SupervisedUserCircleOutlined,
             label: t('menu:activeLeads'),
           },
           {
-            to: 'leads/publishers',
-            redirectOutside: true,
+            to: 'pub-leads',
             icon: GroupWorkOutlined,
             label: t('menu:pubsLeads'),
           },
@@ -64,14 +61,12 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             label: t('menu:callsReport'),
           },
           {
-            to: 'leads/calls/cpa',
-            redirectOutside: true,
+            to: 'cpa-report',
             icon: AssessmentOutlined,
             label: t('menu:cpaReport'),
           },
           {
-            to: 'leads/calls/qa',
-            redirectOutside: true,
+            to: 'qa-report',
             icon: CheckCircleOutline,
             label: t('menu:qaReport'),
           },

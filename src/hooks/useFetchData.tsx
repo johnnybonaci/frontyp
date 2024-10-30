@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import useFetch from 'src/hooks/useFetch'
-import { type RequestError } from 'src/hooks/useFetch.ts'
+import useFetch from 'hooks/useFetch.ts'
+import { type RequestError } from 'hooks/useFetch.ts'
 import { type Option } from 'components/MultiSelect/MultiSelect.tsx'
-import config from '../../../config.tsx'
+import config from '../config.tsx'
 
-interface UseFetchCallReportFilterOptionsResponse {
+interface UseFetchDataResponse {
   stateOptions: Option[]
   buyerOptions: Option[]
   trafficSourceOptions: Option[]
@@ -15,11 +15,14 @@ interface UseFetchCallReportFilterOptionsResponse {
   insuranceOptions: Option[]
   callIssuesOptions: Option[]
   saleOptions: Option[]
+  leadTypeOptions: Option[]
+  campaignOptions: Option[]
+  subIdOptions: Option[]
   loading: boolean
   error: RequestError
 }
 
-const useFetchCallReportFilterOptions = (): UseFetchCallReportFilterOptionsResponse => {
+const useFetchData = (): UseFetchDataResponse => {
   const [stateOptions, setStateOptions] = useState<Option[]>([])
   const [buyerOptions, setBuyerOptions] = useState<Option[]>([])
   const [trafficSourceOptions, setTrafficSourceOptions] = useState<Option[]>([])
@@ -34,6 +37,9 @@ const useFetchCallReportFilterOptions = (): UseFetchCallReportFilterOptionsRespo
     { id: '0', title: 'No' },
     { id: '', title: 'All Options' },
   ])
+  const [leadTypeOptions, setLeadTypeOptions] = useState<Option[]>([])
+  const [campaignOptions, setCampaignOptions] = useState<Option[]>([])
+  const [subIdOptions, setSubIdOptions] = useState<Option[]>([])
   const [error] = useState<RequestError>(null)
 
   const { doFetch, response, loading } = useFetch(`${config.api.baseUrl}/api/data`)
@@ -97,6 +103,24 @@ const useFetchCallReportFilterOptions = (): UseFetchCallReportFilterOptionsRespo
         title: option.name,
       }))
     )
+    setLeadTypeOptions(
+      data.type?.map((option: any) => ({
+        id: option,
+        title: option,
+      }))
+    )
+    setCampaignOptions(
+      data.campaigns?.map((option: any) => ({
+        id: option.campaign_name,
+        title: option.campaign_name,
+      }))
+    )
+    setSubIdOptions(
+      data.sub_id.map((option: any) => ({
+        id: option.id,
+        title: option.sub_id,
+      }))
+    )
   }, [
     response,
     setBuyerOptions,
@@ -108,6 +132,9 @@ const useFetchCallReportFilterOptions = (): UseFetchCallReportFilterOptionsRespo
     setStatusOptions,
     setInsuranceOptions,
     setCallIssuesOptions,
+    setLeadTypeOptions,
+    setCampaignOptions,
+    setSubIdOptions,
   ])
 
   useEffect(() => {
@@ -124,10 +151,13 @@ const useFetchCallReportFilterOptions = (): UseFetchCallReportFilterOptionsRespo
     statusOptions,
     insuranceOptions,
     callIssuesOptions,
+    leadTypeOptions,
     saleOptions,
+    campaignOptions,
+    subIdOptions,
     loading,
     error,
   }
 }
 
-export default useFetchCallReportFilterOptions
+export default useFetchData

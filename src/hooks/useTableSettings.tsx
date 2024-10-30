@@ -9,7 +9,7 @@ export interface ColumnSettings {
 export interface IndicatorSettings {
   fieldName: string
   name: string
-  value: string
+  value: any
   growthPercentage?: number
 }
 

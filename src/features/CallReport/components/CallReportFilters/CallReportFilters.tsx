@@ -5,7 +5,7 @@ import { useFormik } from 'formik'
 import CallReportFiltersSchema from 'src/features/CallReport/schema/CallReportFiltersSchema'
 import Filters from 'src/components/Filters/index.ts'
 import MultiSelect, { type Option } from 'components/MultiSelect/MultiSelect.tsx'
-import useFetchCallReportFilterOptions from 'features/CallReport/hooks/useFetchCallReportFilterOptions.tsx'
+import useFetchData from 'hooks/useFetchData.tsx'
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
@@ -78,7 +78,7 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
     insuranceOptions,
     statusOptions,
     pubIdOptions,
-  } = useFetchCallReportFilterOptions()
+  } = useFetchData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,

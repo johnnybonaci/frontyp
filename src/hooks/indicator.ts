@@ -20,5 +20,6 @@ export const formatMoneyIndicator = (indicator: string | number | undefined): st
 }
 
 export const formatPercentageIndicator = (indicator: string | number | undefined): string => {
-  return `${indicator} %`
+  const formattedIndicator = formatIndicator(indicator)
+  return `${formattedIndicator} %`
 }

@@ -1,0 +1,67 @@
+{
+  "singular": "Live Leads",
+  "roles": "Live Leads",
+  "calls": "Calls",
+  "listing": {
+    "title": "Live Leads"
+  },
+  "fields": {
+    "phone": "Phone",
+    "pubId": "Pubs",
+    "subId": "Subs",
+    "vendor": "Vendor",
+    "type": "Type",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "cpl": "CPL",
+    "leadDate": "Lead Date"
+  },
+  "filters": {
+    "trafficSource": "Traffic Source",
+    "pubId": "Pub ID",
+    "subId": "Sub ID",
+    "buyers": "Buyers",
+    "status": "Status",
+    "all": "All",
+    "date": "Date",
+    "campaign": "Campaign",
+    "phone": "Phone",
+    "leadsType": "Leads Type",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "selectOrAdd": "Select or Add"
+  },
+  "indicators": {
+    "totalSpend": "Total Spend",
+    "totalRevenue": "Total Revenue",
+    "totalProfit": "Total Gross Profit",
+    "totalRoi": "Total ROI",
+    "totalLeads": "Total Data Leads",
+    "totalCalls": "Total Calls",
+    "totalUniqueCalls": "Unique Calls",
+    "totalAnswered": "Total Answered",
+    "totalBillable": "Total Billable",
+    "totalConversion": "Conversion Rate",
+    "totalCallsToAnswered": "Calls Answered",
+    "totalAnsweredToBillable": "Answered Billable",
+    "totalLeadsToCall": "Leads to Calls",
+    "totalCpl": "CPL",
+    "totalCpc": "CPC",
+    "totalCps": "CPS",
+    "totalRpl": "RPL",
+    "totalRpc": "RPC",
+    "totalRps": "RPS",
+    "totalSpendLeads": "Spend Leads",
+    "totalSpendCalls": "Spend Calls"
+  },
+  "actions": {
+    "view": "View"
+  },
+  "details": {
+    "title": "Live Leads Details",
+    "jornayaId": "Jornaya IDs",
+    "trustedForm": "Trusted Form"
+  }
+}

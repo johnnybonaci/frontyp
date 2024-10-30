@@ -1,0 +1,146 @@
+import { useTranslation } from 'react-i18next'
+import { useCallback, type FC, useEffect } from 'react'
+import { useFormik } from 'formik'
+import QAReportFiltersSchema from 'src/features/QAReport/schema/QAReportFiltersSchema'
+import Filters from 'src/components/Filters/index.ts'
+import MultiSelect, { type Option } from 'components/MultiSelect/MultiSelect.tsx'
+import useFetchData from 'hooks/useFetchData.tsx'
+import CustomDateRangePicker from 'components/CustomDateRangePicker'
+
+export interface QAReportListFiltersFormValues {
+  pubId: Option[]
+  subId: Option[]
+  state: Option[]
+  trafficSource: Option[]
+  buyers: Option[]
+  startDate: Date | null
+  endDate: Date | null
+}
+
+interface QAReportFiltersProps {
+  onCancel: () => void
+  onApply: (data: any) => void
+  isSearching?: boolean
+  initialFilters?: QAReportListFiltersFormValues
+}
+
+const DEFAULT_FILTERS: QAReportListFiltersFormValues = {
+  pubId: [],
+  subId: [],
+  state: [],
+  trafficSource: [],
+  buyers: [],
+  startDate: null,
+  endDate: null,
+}
+
+const QAReportFilters: FC<QAReportFiltersProps> = ({
+  onCancel,
+  onApply,
+  isSearching = false,
+  initialFilters = DEFAULT_FILTERS,
+}) => {
+  const { t } = useTranslation('features', { keyPrefix: 'QAReport.filters' })
+  const { stateOptions, buyerOptions, trafficSourceOptions, pubIdOptions, subIdOptions } =
+    useFetchData()
+
+  const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
+    initialValues: initialFilters,
+    validationSchema: QAReportFiltersSchema,
+    onSubmit: (data) => {
+      onApply(data)
+    },
+  })
+
+  const handleClear = useCallback(async () => {
+    await setValues(DEFAULT_FILTERS)
+    onApply(DEFAULT_FILTERS)
+  }, [initialFilters, setValues])
+
+  const getFieldProps = useCallback(
+    (name: string) => ({
+      name,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      value: values[name],
+      onChange: handleChange,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      onClear: async () => await setFieldValue(name, DEFAULT_FILTERS[name]),
+    }),
+    [handleChange, values, initialFilters, setFieldValue]
+  )
+
+  useEffect(() => {
+    void setValues(initialFilters)
+  }, [initialFilters, setValues])
+
+  return (
+    <Filters
+      onCancel={onCancel}
+      onApply={handleSubmit}
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onClear={handleClear}
+      topFilters={
+        <>
+          <CustomDateRangePicker
+            label={t('date')}
+            value={[values.startDate ?? undefined, values.endDate ?? undefined]}
+            onChange={(e: any) => {
+              void setFieldValue('startDate', e[0])
+              void setFieldValue('endDate', e[1])
+            }}
+          />
+          <MultiSelect
+            options={trafficSourceOptions}
+            {...getFieldProps('trafficSource')}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('trafficSource', newValue)
+            }}
+            label={t('trafficSource')}
+            placeholder={t('selectOrAdd')}
+          />
+          <MultiSelect
+            options={pubIdOptions}
+            {...getFieldProps('pubId')}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('pubId', newValue)
+            }}
+            label={t('pubId')}
+            placeholder={t('selectOrAdd')}
+          />
+          <MultiSelect
+            options={subIdOptions}
+            {...getFieldProps('subId')}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('subId', newValue)
+            }}
+            label={t('subId')}
+            placeholder={t('selectOrAdd')}
+          />
+          <MultiSelect
+            options={buyerOptions}
+            {...getFieldProps('buyers')}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('buyers', newValue)
+            }}
+            label={t('buyers')}
+            placeholder={t('selectOrAdd')}
+          />
+          <MultiSelect
+            options={stateOptions}
+            {...getFieldProps('state')}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('state', newValue)
+            }}
+            label={t('state')}
+            placeholder={t('selectOrAdd')}
+          />
+        </>
+      }
+      isSearching={isSearching}
+    />
+  )
+}
+
+export default QAReportFilters

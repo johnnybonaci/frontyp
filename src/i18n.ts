@@ -4,6 +4,11 @@ import enJSON from './locale/en.json'
 // Features
 import enAuthJSON from 'src/features/Auth/locale/en.json'
 import enCallReportJSON from 'src/features/CallReport/locale/en.json'
+import enCPAReportJSON from 'src/features/CPAReport/locale/en.json'
+import enQAReportJSON from 'src/features/QAReport/locale/en.json'
+import enLiveLeadsJSON from 'src/features/LiveLeads/locale/en.json'
+import enActiveLeadsJSON from 'src/features/ActiveLeads/locale/en.json'
+import enPubLeadsJSON from 'src/features/PubLeads/locale/en.json'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -28,7 +33,12 @@ i18n.services.formatter.add('lowercase', (value: string) => {
 
 i18n.addResourceBundle('en', 'features', {
   Auth: enAuthJSON,
-  CallReport: enCallReportJSON
+  CallReport: enCallReportJSON,
+  CPAReport: enCPAReportJSON,
+  QAReport: enQAReportJSON,
+  LiveLeads: enLiveLeadsJSON,
+  ActiveLeads: enActiveLeadsJSON,
+  PubLeads: enPubLeadsJSON,
 })
 
 export default i18n

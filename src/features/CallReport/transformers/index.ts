@@ -217,8 +217,10 @@ export const transformFiltersFromUrl = (
     buyers: parseOptions(searchParams.get('buyers')),
     issueType: parseOptions(searchParams.get('issueType')),
     callIssues: searchParams.get('callIssues') ?? '',
-    startDate: searchParams.get('date_start') ? new Date(searchParams.get('date_start')!) : null,
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : null,
+    startDate: searchParams.get('date_start')
+      ? new Date(searchParams.get('date_start')!)
+      : new Date(),
+    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : new Date(),
     status: searchParams.get('status') ?? '',
     insurance: searchParams.get('insurance') ?? '',
     phone: searchParams.get('phone') ?? '',

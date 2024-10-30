@@ -1,13 +1,13 @@
 @import "src/styles/mixins.module.scss";
 
 .kpis {
-  display: flex;
+  display: grid;
   gap: 7px;
   padding-top: 15px;
   padding-right: 20px;
   padding-bottom: 8px;
   border-radius: 20px;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
 
 .actions {
