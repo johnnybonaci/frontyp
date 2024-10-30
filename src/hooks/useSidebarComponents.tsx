@@ -148,7 +148,7 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
         permission: PERMISSIONS.SETTINGS,
         items: [
           {
-            to: `/${SETTINGS_PATHS.BASE}`,
+            to: SETTINGS_PATHS.BASE,
             icon: SettingsOutlined,
             label: t('menu:settings'),
           },

@@ -17,6 +17,7 @@ import LiveLeadsRoutes from 'features/LiveLeads/routes.tsx'
 import ActiveLeadsRoutes from 'features/ActiveLeads/routes.tsx'
 import PubLeadsRoutes from 'features/PubLeads/routes.tsx'
 import SettingsRoutes from 'features/Settings/routes'
+import Settings from 'features/Settings/screens/Settings'
 
 interface Route {
   path?: string
@@ -47,13 +48,15 @@ const MainRoutes = {
 }
 
 const NoAdministrationRoutes = {
-  path: '/',
+  path: '/settings',
   element: (
     <AuthPreLoaders>
-      <PrivateLayout />
+      <PrivateLayout>
+        <Settings />
+      </PrivateLayout>
     </AuthPreLoaders>
   ),
-  children: [...SettingsRoutes],
+  children: SettingsRoutes,
 }
 
 const BaseRoute = {
