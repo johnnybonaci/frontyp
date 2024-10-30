@@ -3,10 +3,8 @@ import loadable from 'components/Loadable'
 import PERMISSIONS from 'permissions'
 
 export const QA_REPORT_PATHS = {
-  LIST: '/administration/qa-report',
+  LIST: '/qa-report',
 }
-
-const relativePath = (path: 'LIST'): string => QA_REPORT_PATHS[path].replace('/administration/', '')
 
 const QAReportList = loadable(
   lazy(async () => await import('src/features/QAReport/screen/QAReportList'))
@@ -14,7 +12,7 @@ const QAReportList = loadable(
 
 const QAReportRoutes = [
   {
-    path: relativePath('LIST'),
+    path: QA_REPORT_PATHS.LIST,
     element: <QAReportList />,
     permissions: PERMISSIONS.CALLS,
   },

@@ -3,11 +3,8 @@ import loadable from 'components/Loadable'
 import PERMISSIONS from 'permissions'
 
 export const CPA_REPORT_PATHS = {
-  LIST: '/administration/cpa-report',
+  LIST: '/cpa-report',
 }
-
-const relativePath = (path: 'LIST'): string =>
-  CPA_REPORT_PATHS[path].replace('/administration/', '')
 
 const CPAReportList = loadable(
   lazy(async () => await import('src/features/CPAReport/screen/CPAReportList'))
@@ -15,7 +12,7 @@ const CPAReportList = loadable(
 
 const CPAReportRoutes = [
   {
-    path: relativePath('LIST'),
+    path: CPA_REPORT_PATHS.LIST,
     element: <CPAReportList />,
     permissions: PERMISSIONS.CALLS,
   },
