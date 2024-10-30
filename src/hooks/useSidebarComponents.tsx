@@ -15,9 +15,11 @@ import {
   SupervisedUserCircleOutlined,
   TrendingUpOutlined,
   VerifiedUserOutlined,
+  SettingsOutlined,
 } from '@mui/icons-material'
 import { type SidebarComponents } from 'components/PrivateLayout/types'
 import PERMISSIONS from 'permissions'
+import { SETTINGS_PATHS } from 'features/Settings/routes'
 
 export interface UseSidebarComponentsResult {
   components: SidebarComponents
@@ -138,6 +140,17 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             redirectOutside: true,
             icon: ManageAccountsOutlined,
             label: t('menu:userRoles'),
+          },
+        ],
+      },
+      {
+        title: t('menu:settings'),
+        permission: PERMISSIONS.SETTINGS,
+        items: [
+          {
+            to: `/${SETTINGS_PATHS.BASE}`,
+            icon: SettingsOutlined,
+            label: t('menu:settings'),
           },
         ],
       },
