@@ -5,7 +5,7 @@ import {
   type QAReportItemFromApi,
 } from '../types'
 import { type Filters } from 'types/filter'
-import { type Option } from 'components/MultiSelect/MultiSelect.tsx'
+import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { type QAReportListFiltersFormValues } from 'features/QAReport/components/QAReportFilters/QAReportFilters.tsx'
 

@@ -14,7 +14,7 @@ import {
 import { indicatorFromApi } from 'hooks/indicator.ts'
 import { type Filters } from 'types/filter'
 import { type CallReportListFiltersFormValues } from 'features/CallReport/components/CallReportFilters/CallReportFilters.tsx'
-import { type Option } from 'components/MultiSelect/MultiSelect.tsx'
+import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 
 export const statusTFromApi = (status: StatusTValue): StatusT => {

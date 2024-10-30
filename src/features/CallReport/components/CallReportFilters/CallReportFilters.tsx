@@ -4,7 +4,7 @@ import { useCallback, type FC, useEffect } from 'react'
 import { useFormik } from 'formik'
 import CallReportFiltersSchema from 'src/features/CallReport/schema/CallReportFiltersSchema'
 import Filters from 'src/components/Filters/index.ts'
-import MultiSelect, { type Option } from 'components/MultiSelect/MultiSelect.tsx'
+import CustomAutocomplete, { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import useFetchData from 'hooks/useFetchData.tsx'
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
@@ -134,7 +134,7 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
             {...getFieldProps('terminatingPhone')}
           />
           <TextField label={t('didTd')} fullWidth {...getFieldProps('didTd')} />
-          <MultiSelect
+          <CustomAutocomplete
             options={offersOptions}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('offers', newValue)
@@ -152,7 +152,7 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
             fullWidth
             {...getFieldProps('trafficSource')}
           />
-          <MultiSelect
+          <CustomAutocomplete
             options={pubIdOptions}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('pubId', newValue)
@@ -161,7 +161,7 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
             value={values.pubId}
             placeholder={t('selectOrAdd')}
           />
-          <MultiSelect
+          <CustomAutocomplete
             options={buyerOptions}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('buyers', newValue)
@@ -170,7 +170,7 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
             value={values.buyers}
             placeholder={t('selectOrAdd')}
           />
-          <MultiSelect
+          <CustomAutocomplete
             options={issueTypeOptions}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('issueType', newValue)
@@ -179,7 +179,7 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
             value={values.issueType}
             placeholder={t('selectOrAdd')}
           />
-          <MultiSelect
+          <CustomAutocomplete
             options={stateOptions}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('state', newValue)

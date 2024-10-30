@@ -3,7 +3,7 @@ import { useCallback, type FC, useEffect } from 'react'
 import { useFormik } from 'formik'
 import QAReportFiltersSchema from 'src/features/QAReport/schema/QAReportFiltersSchema'
 import Filters from 'src/components/Filters/index.ts'
-import MultiSelect, { type Option } from 'components/MultiSelect/MultiSelect.tsx'
+import CustomAutocomplete, { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import useFetchData from 'hooks/useFetchData.tsx'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 
@@ -91,7 +91,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
               void setFieldValue('endDate', e[1])
             }}
           />
-          <MultiSelect
+          <CustomAutocomplete
             options={trafficSourceOptions}
             {...getFieldProps('trafficSource')}
             onChange={(_event: any, newValue: any[]) => {
@@ -100,7 +100,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
             label={t('trafficSource')}
             placeholder={t('selectOrAdd')}
           />
-          <MultiSelect
+          <CustomAutocomplete
             options={pubIdOptions}
             {...getFieldProps('pubId')}
             onChange={(_event: any, newValue: any[]) => {
@@ -109,7 +109,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
             label={t('pubId')}
             placeholder={t('selectOrAdd')}
           />
-          <MultiSelect
+          <CustomAutocomplete
             options={subIdOptions}
             {...getFieldProps('subId')}
             onChange={(_event: any, newValue: any[]) => {
@@ -118,7 +118,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
             label={t('subId')}
             placeholder={t('selectOrAdd')}
           />
-          <MultiSelect
+          <CustomAutocomplete
             options={buyerOptions}
             {...getFieldProps('buyers')}
             onChange={(_event: any, newValue: any[]) => {
@@ -127,7 +127,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
             label={t('buyers')}
             placeholder={t('selectOrAdd')}
           />
-          <MultiSelect
+          <CustomAutocomplete
             options={stateOptions}
             {...getFieldProps('state')}
             onChange={(_event: any, newValue: any[]) => {

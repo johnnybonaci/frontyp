@@ -9,7 +9,7 @@ import {
 import { indicatorFromApi } from 'hooks/indicator.ts'
 import { type Filters } from 'types/filter'
 import { type LiveLeadsListFiltersFormValues } from 'features/LiveLeads/components/LiveLeadsFilters/LiveLeadsFilters.tsx'
-import { type Option } from 'components/MultiSelect/MultiSelect.tsx'
+import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 
 export const liveLeadsItemFromApi = (item: LiveLeadsItemFromApi): LiveLeadsItem => {

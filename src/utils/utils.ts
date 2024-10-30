@@ -9,4 +9,14 @@ export const toCamelCase = (input: string): string =>
     )
     .replace(/\s+/g, '')
 
+export const objectFromUrl = (param: string | null, emptyValue: any = []): any => {
+  if (!param) return emptyValue
+  try {
+    return JSON.parse(param)
+  } catch (error) {
+    console.warn(`Error parsing JSON: ${param}. Error: ${error}`)
+    return []
+  }
+}
+
 export { generateUniqueId }

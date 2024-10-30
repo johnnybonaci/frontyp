@@ -10,28 +10,36 @@ interface MultipleAutocompleteProps {
   value: Option[]
   onChange: (event: any, newValue: Array<string | Option>) => void
   label: string
-  placeholder: string
+  creatable?: boolean
+  multiple?: boolean
+  placeholder?: string
   options: Option[]
 }
 
-const MultiSelect: React.FC<MultipleAutocompleteProps> = ({
+const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   value,
   onChange,
+  multiple = true,
+  creatable = true,
   label,
-  placeholder,
+  placeholder = '',
   options,
 }) => {
-  const handleChange = (event: any, newValue: Array<string | Option>): void => {
-    const newOptions = newValue.map((value) =>
-      typeof value === 'string' ? { title: value } : value
-    )
+  const handleChange = (event: any, newValue: Array<string | Option> | any): void => {
+    let newOptions = newValue
+    if (creatable) {
+      newOptions = newValue.map((value: string | Option) =>
+        typeof value === 'string' ? { title: value } : value
+      )
+    }
+
     onChange(event, newOptions)
   }
 
   return (
     <Autocomplete
-      multiple
-      freeSolo
+      multiple={multiple}
+      freeSolo={creatable}
       options={options}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.title)}
       value={value}
@@ -47,4 +55,4 @@ const MultiSelect: React.FC<MultipleAutocompleteProps> = ({
   )
 }
 
-export default MultiSelect
+export default CustomAutocomplete

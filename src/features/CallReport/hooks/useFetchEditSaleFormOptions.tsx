@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { type Option } from 'components/MultiSelect/MultiSelect.tsx'
+import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 
 interface UseFetchCallReportFilterOptionsResponse {
   saleOptions: Option[]

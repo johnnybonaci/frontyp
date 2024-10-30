@@ -4,7 +4,7 @@ import { useCallback, type FC, useEffect } from 'react'
 import { useFormik } from 'formik'
 import PubLeadsFiltersSchema from 'src/features/PubLeads/schema/PubLeadsFiltersSchema'
 import Filters from 'src/components/Filters/index.ts'
-import MultiSelect, { type Option } from 'components/MultiSelect/MultiSelect.tsx'
+import CustomAutocomplete, { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import useFetchData from 'hooks/useFetchData.tsx'
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
@@ -124,7 +124,7 @@ const PubLeadsFilters: FC<PubLeadsFiltersProps> = ({
             fullWidth
             {...getFieldProps('trafficSource')}
           />
-          <MultiSelect
+          <CustomAutocomplete
             options={pubIdOptions}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('pubId', newValue)
@@ -133,7 +133,7 @@ const PubLeadsFilters: FC<PubLeadsFiltersProps> = ({
             value={values.pubId}
             placeholder={t('selectOrAdd')}
           />
-          <MultiSelect
+          <CustomAutocomplete
             options={subIdOptions}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('subId', newValue)
@@ -142,7 +142,7 @@ const PubLeadsFilters: FC<PubLeadsFiltersProps> = ({
             value={values.subId}
             placeholder={t('selectOrAdd')}
           />
-          <MultiSelect
+          <CustomAutocomplete
             options={leadTypeOptions}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('leadsType', newValue)
