@@ -1,61 +1,86 @@
-import React from 'react'
-import { TextField, Box, Typography, styled } from '@mui/material'
-
-// Styled components using MUI's styled API
-const FilterContainer = styled(Box)({
-  display: 'flex',
-  gap: '32px',
-  alignItems: 'center',
-})
-
-const FilterGroup = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '8px',
-})
-
-const FilterLabel = styled(Typography)({
-  fontSize: '0.875rem',
-  fontWeight: 500,
-  color: '#666666',
-})
-
-const StyledTextField = styled(TextField)({
-  '& .MuiOutlinedInput-root': {
-    backgroundColor: '#ffffff',
-    width: '128px',
-    '& fieldset': {
-      borderColor: '#e0e0e0',
-    },
-    '&:hover fieldset': {
-      borderColor: '#bdbdbd',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#1976d2',
-    },
-  },
-})
+import { TextField } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import { useCallback, type FC, useEffect } from 'react'
+import { useFormik } from 'formik'
+import PubIdFiltersSchema from 'src/features/Settings/schema/PubIdFiltersSchema'
+import FilterWrapper from 'src/components/Filters'
+import { type Filters } from 'types/filter'
 
 interface PubIdFiltersProps {
-  filters: any
   onCancel: () => void
   onApply: (data: any) => void
+  isSearching?: boolean
+  initialFilters?: Filters
 }
 
-function PubIdFilters({ filters, onCancel, onApply }: PubIdFiltersProps): React.ReactNode {
-  console.log(filters, onCancel, onApply)
-  return (
-    <FilterContainer>
-      <FilterGroup>
-        <FilterLabel>PUBS</FilterLabel>
-        <StyledTextField variant="outlined" size="small" />
-      </FilterGroup>
+const DEFAULT_FILTERS = {
+  pubId: [],
+  trafficSource: '',
+  subId: [],
+  leadsType: [],
+  startDate: null,
+  endDate: null,
+  status: '',
+  phone: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  campaign: '',
+}
 
-      <FilterGroup>
-        <FilterLabel>NAME</FilterLabel>
-        <StyledTextField variant="outlined" size="small" />
-      </FilterGroup>
-    </FilterContainer>
+const PubIdFilters: FC<PubIdFiltersProps> = ({
+  onCancel,
+  onApply,
+  isSearching = false,
+  initialFilters = DEFAULT_FILTERS,
+}) => {
+  const { t } = useTranslation('features', { keyPrefix: 'PubId.filters' })
+
+  const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
+    initialValues: initialFilters,
+    validationSchema: PubIdFiltersSchema,
+    onSubmit: (data) => {
+      onApply(data)
+    },
+  })
+
+  const handleClear = useCallback(async () => {
+    await setValues(DEFAULT_FILTERS)
+    onApply(DEFAULT_FILTERS)
+  }, [initialFilters, setValues])
+
+  const getFieldProps = useCallback(
+    (name: string) => ({
+      name,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      value: values[name],
+      onChange: handleChange,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      onClear: async () => await setFieldValue(name, DEFAULT_FILTERS[name]),
+    }),
+    [handleChange, values, initialFilters, setFieldValue]
+  )
+
+  useEffect(() => {
+    void setValues(initialFilters)
+  }, [initialFilters, setValues])
+
+  return (
+    <FilterWrapper
+      onCancel={onCancel}
+      onApply={handleSubmit}
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onClear={handleClear}
+      topFilters={
+        <>
+          <TextField label={t('pubs')} fullWidth {...getFieldProps('pubs')} />
+          <TextField label={t('name')} fullWidth {...getFieldProps('name')} />
+        </>
+      }
+      isSearching={isSearching}
+    />
   )
 }
 

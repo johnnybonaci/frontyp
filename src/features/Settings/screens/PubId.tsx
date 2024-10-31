@@ -55,7 +55,7 @@ const PubIdList: FC = () => {
     <div>
       <PrivateScreenTitle title={t('PubId.title')} />
       <ContentBox>
-        <PubIdFilters filters={filters} onCancel={onCancel} onApply={onApply} />
+        <PubIdFilters initialFilters={filters} onCancel={onCancel} onApply={onApply} />
         <PubIdTable
           columns={columns}
           rows={pubIdItems}

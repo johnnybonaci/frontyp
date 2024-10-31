@@ -56,3 +56,19 @@ export interface Offers {
 }
 
 interface PubIdItem {}
+
+export interface PubIdListFiltersFormValues {
+  pubId: Option[]
+  trafficSource: string
+  subId: Option[]
+  leadsType: Option[]
+  startDate: Date | null
+  endDate: Date | null
+  status: string
+  phone: string
+  firstName: string
+  lastName: string
+  name: string
+  email: string
+  campaign: string
+}
