@@ -13,7 +13,7 @@ import {
 } from 'features/Settings/transformers'
 
 const PubIdList: FC = () => {
-  const { t } = useTranslation('features', { keyPrefix: 'PubId' })
+  const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId' })
 
   const { filters, onCancel, onApply } = useFilters(
     transformFiltersToApi,

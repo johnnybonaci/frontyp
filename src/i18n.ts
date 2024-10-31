@@ -9,6 +9,7 @@ import enQAReportJSON from 'src/features/QAReport/locale/en.json'
 import enLiveLeadsJSON from 'src/features/LiveLeads/locale/en.json'
 import enActiveLeadsJSON from 'src/features/ActiveLeads/locale/en.json'
 import enPubLeadsJSON from 'src/features/PubLeads/locale/en.json'
+import enSettingsJSON from 'src/features/Settings/locale/en.json'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -39,6 +40,7 @@ i18n.addResourceBundle('en', 'features', {
   LiveLeads: enLiveLeadsJSON,
   ActiveLeads: enActiveLeadsJSON,
   PubLeads: enPubLeadsJSON,
+  Settings: enSettingsJSON,
 })
 
 export default i18n

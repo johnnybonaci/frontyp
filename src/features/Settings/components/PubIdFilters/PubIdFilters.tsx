@@ -34,7 +34,7 @@ const PubIdFilters: FC<PubIdFiltersProps> = ({
   isSearching = false,
   initialFilters = DEFAULT_FILTERS,
 }) => {
-  const { t } = useTranslation('features', { keyPrefix: 'PubId.filters' })
+  const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId.filters' })
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,

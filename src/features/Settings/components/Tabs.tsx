@@ -3,19 +3,21 @@ import { Tabs, Tab, Box } from '@mui/material'
 import { Link, useLocation } from 'react-router-dom'
 import { SETTINGS_PATHS } from '../routes'
 import { SettingTab } from '../types'
+import { useTranslation } from 'react-i18next'
 
 const TABS: SettingTab[] = [
-  { label: 'PUB ID', path: SETTINGS_PATHS.PUBID },
-  { label: 'OFFER', path: SETTINGS_PATHS.OFFERS },
-  { label: 'TRAFFIC SOURCE', path: SETTINGS_PATHS.TRAFFIC_SOURCE },
-  { label: 'BUYERS', path: SETTINGS_PATHS.BUYERS },
-  { label: 'DID NUMBER', path: SETTINGS_PATHS.DID_NUMBER },
-  { label: 'PHONE ROOM', path: SETTINGS_PATHS.PHONE_ROOM },
-  { label: 'PROVIDER', path: SETTINGS_PATHS.PROVIDER },
+  { label: 'pub_id', path: SETTINGS_PATHS.PUBID },
+  { label: 'offer', path: SETTINGS_PATHS.OFFERS },
+  { label: 'traffic_source', path: SETTINGS_PATHS.TRAFFIC_SOURCE },
+  { label: 'buyers', path: SETTINGS_PATHS.BUYERS },
+  { label: 'did_number', path: SETTINGS_PATHS.DID_NUMBER },
+  { label: 'phone_room', path: SETTINGS_PATHS.PHONE_ROOM },
+  { label: 'provider', path: SETTINGS_PATHS.PROVIDER },
 ]
 
 const SettingsTabs: React.FC = () => {
   const { pathname } = useLocation()
+  const { t } = useTranslation('features', { keyPrefix: 'Settings.tabs' })
 
   // Determine the active tab from the current path
   const activeTabIndex = useMemo(() => {
@@ -50,7 +52,7 @@ const SettingsTabs: React.FC = () => {
           }}
         >
           {TABS.map((tab) => (
-            <Tab key={tab.path} label={tab.label} component={Link} to={tab.path} />
+            <Tab key={tab.path} label={t(tab.label)} component={Link} to={tab.path} />
           ))}
         </Tabs>
       </Box>

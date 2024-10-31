@@ -1,0 +1,39 @@
+{
+  "tabs": {
+    "pub_id": "Pub id",
+    "offer": "Offer",
+    "traffic_source": "Traffic Source",
+    "buyers": "Buyers",
+    "did_number": "Did Number",
+    "phone_room": "Phone Room",
+    "provider": "Provider"
+  },
+  "pubId": {
+    "singular": "Pub id",
+    "listing": {
+      "title": "Pub Ids"
+    },
+    "fields": {
+      "pubs": "Pubs",
+      "name": "Name"
+    },
+    "filters": {
+      "pubs": "Pubs",
+      "name": "Name"
+    }
+  },
+  "offers": {
+    "singular": "Offer",
+    "listing": {
+      "title": "Offers"
+    },
+    "fields": {
+      "pubs": "Pubs",
+      "name": "Name"
+    },
+    "filters": {
+      "pubs": "Pubs",
+      "name": "Name"
+    }
+  }
+}
