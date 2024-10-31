@@ -5,19 +5,28 @@ import loadable from 'components/Loadable'
 export const SETTINGS_PATHS = {
   BASE: '/settings',
   PUBID: 'pubid',
-  OFFER: 'offer',
+  OFFERS: 'offers',
+  TRAFFIC_SOURCE: 'traffic-source',
+  BUYERS: 'buyers',
+  PHONE_ROOM: 'phoneroom',
+  DID_NUMBER: 'did-number',
+  PROVIDER: 'provider',
 }
 
-const Settings = loadable(lazy(async () => await import('src/features/Settings/screens/Settings')))
-const PubId = loadable(lazy(async () => await import('src/features/Settings/components/PubId')))
+const SettingsLayout = loadable(
+  lazy(async () => await import('features/Settings/screens/SettingsLayout'))
+)
+const PubId = loadable(lazy(async () => await import('features/Settings/screens/PubId')))
+const Offers = loadable(lazy(async () => await import('features/Settings/screens/Offers')))
 
 const SettingsRoutes = [
   {
-    element: <Settings />,
+    element: <SettingsLayout />,
     path: SETTINGS_PATHS.BASE,
     children: [
       { element: <Navigate to={SETTINGS_PATHS.PUBID} />, index: true },
       { element: <PubId />, path: SETTINGS_PATHS.PUBID },
+      { element: <Offers />, path: SETTINGS_PATHS.OFFERS },
     ],
   },
 ]
