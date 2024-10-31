@@ -5,8 +5,3 @@ interface SettingTab {
   label: string
   path: (typeof SETTINGS_PATHS)[SettingKeys]
 }
-
-interface SettingsTabsProps {
-  onTabChange?: (index: number) => void
-  onAddPubId?: () => void
-}
