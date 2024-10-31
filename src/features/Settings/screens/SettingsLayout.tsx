@@ -6,7 +6,6 @@ import { Container } from '@mui/material'
 function SettingsLayout(): ReactNode {
   return (
     <Container maxWidth="xl">
-      <h1>Settings</h1>
       <SettingsTabs />
       <Outlet />
     </Container>
