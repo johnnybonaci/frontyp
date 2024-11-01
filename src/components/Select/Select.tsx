@@ -57,7 +57,7 @@ const Select: React.FC<SelectProps> = ({
       SelectProps={{
         multiple,
         value: inputValue,
-        endAdornment: canClear && !restProps.disabled && (
+        endAdornment: !!canClear && !restProps.disabled && (
           <IconButton onClick={onClear}>
             <SvgIcon fontSize="small" sx={{ mr: 1 }}>
               <Close />

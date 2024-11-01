@@ -5,9 +5,9 @@ import {
   type QAReportItemFromApi,
 } from '../types'
 import { type Filters } from 'types/filter'
-import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { type QAReportListFiltersFormValues } from 'features/QAReport/components/QAReportFilters/QAReportFilters.tsx'
+import { objectFromUrl } from 'utils/utils.ts'
 
 export const qaReportItemFromApi = (item: QAReportItemFromApi): QAReportItem => {
   return {
@@ -70,40 +70,15 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     })
   }
 
-  if (filters.didTd) {
-    filter.push({
-      field: 'did_number_id',
-      type: 'like',
-      value: filters.didTd,
-    })
-  }
-
-  if (filters.didTd) {
-    filter.push({
-      field: 'terminating_phone',
-      type: 'like',
-      value: filters.terminatingPhone,
-    })
-  }
-
   return {
-    convertions_offer1id: multipleSelectToApi(filters.offers),
+    leads_type: multipleSelectToApi(filters.leadsType),
+    select_buyers: multipleSelectToApi(filters.buyers),
+    traffic1source1id: multipleSelectToApi(filters.trafficSource),
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
-    select_states: multipleSelectToApi(filters.state),
-    convertions_traffic1source1id: filters.trafficSource,
+    subs_id: filters.subId?.id,
     date_start: filters.startDate?.toISOString().slice(0, 10),
     date_end: filters.endDate?.toISOString().slice(0, 10),
-    convertions_status: filters.status,
-    convertions_phone1id: '',
     phone: filters.phone,
-    subs_id: multipleSelectToApi(filters.subId),
-    select_buyers: multipleSelectToApi(filters.buyers),
-    convertions_id: '',
-    recordings_status: '',
-    select_issues_types: multipleSelectToApi(filters.issueType),
-    recordings_billable: '',
-    recordings_insurance: filters.insurance,
-    call_issues: filters.callIssues,
     filter: multipleSelectToApi(filter, (item) => {
       return { field: item.field, type: item.type, value: item.value }
     }),
@@ -113,24 +88,17 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): QAReportListFiltersFormValues => {
-  const parseOptions = (param: string | null): Option[] => {
-    if (!param) return []
-    try {
-      return JSON.parse(param)
-    } catch (error) {
-      console.warn(`Error parsing JSON: ${param}. Error: ${error}`)
-      return []
-    }
-  }
-
   return {
-    pubId: parseOptions(searchParams.get('pubId')),
-    state: parseOptions(searchParams.get('state')),
-    subId: parseOptions(searchParams.get('subId')),
-    trafficSource: parseOptions(searchParams.get('trafficSource')),
-    buyers: parseOptions(searchParams.get('buyers')),
-    startDate: searchParams.get('date_start') ? new Date(searchParams.get('date_start')!) : null,
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : null,
+    leadsType: objectFromUrl(searchParams.get('leadsType')),
+    buyers: objectFromUrl(searchParams.get('buyers')),
+    trafficSource: objectFromUrl(searchParams.get('trafficSource')),
+    pubId: objectFromUrl(searchParams.get('pubId')),
+    subId: objectFromUrl(searchParams.get('subId'), null),
+    phone: searchParams.get('phone') ?? '',
+    startDate: searchParams.get('date_start')
+      ? new Date(searchParams.get('date_start')!)
+      : new Date(),
+    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : new Date(),
   }
 }
 
@@ -140,8 +108,11 @@ export const transformFiltersToUrl = (filters: QAReportListFiltersFormValues): s
   if (filters.pubId?.length) {
     params.set('pubId', JSON.stringify(filters.pubId))
   }
-  if (filters.state?.length) {
-    params.set('state', JSON.stringify(filters.state))
+  if (filters.leadsType?.length) {
+    params.set('leadsType', JSON.stringify(filters.leadsType))
+  }
+  if (filters.phone) {
+    params.set('phone', filters.phone)
   }
   if (filters.buyers?.length) {
     params.set('buyers', JSON.stringify(filters.buyers))
@@ -149,7 +120,7 @@ export const transformFiltersToUrl = (filters: QAReportListFiltersFormValues): s
   if (filters.trafficSource?.length) {
     params.set('trafficSource', JSON.stringify(filters.trafficSource))
   }
-  if (filters.subId?.length) {
+  if (filters.subId) {
     params.set('subId', JSON.stringify(filters.subId))
   }
   if (filters.startDate) {

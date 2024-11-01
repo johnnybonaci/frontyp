@@ -9,8 +9,8 @@ import {
 import { indicatorFromApi } from 'hooks/indicator.ts'
 import { type Filters } from 'types/filter'
 import { type PubLeadsListFiltersFormValues } from 'features/PubLeads/components/PubLeadsFilters/PubLeadsFilters.tsx'
-import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
+import { objectFromUrl } from 'utils/utils.ts'
 
 export const pubLeadsItemFromApi = (item: PubLeadsItemFromApi): PubLeadsItem => {
   return {
@@ -63,9 +63,7 @@ export function pubLeadsAveragesFromApi(data: PubLeadsAverageFromApi): PubLeadsA
   }
 }
 
-export function pubLeadsPercentagesFromApi(
-  data: PubLeadsPercentagesFromApi
-): PubLeadsPercentages {
+export function pubLeadsPercentagesFromApi(data: PubLeadsPercentagesFromApi): PubLeadsPercentages {
   return {
     totalSpend: indicatorFromApi(data.total_spend),
     totalRevenue: indicatorFromApi(data.total_revenue),
@@ -91,8 +89,6 @@ export function pubLeadsPercentagesFromApi(
   }
 }
 export const transformFiltersToApi = (filters: Filters): Filters => {
-  // REVISAR
-
   const filter = []
 
   if (filters.phone) {
@@ -103,40 +99,42 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     })
   }
 
-  if (filters.didTd) {
+  if (filters.firstName) {
     filter.push({
-      field: 'did_number_id',
+      field: 'first_name',
       type: 'like',
-      value: filters.didTd,
+      value: filters.firstName,
     })
   }
 
-  if (filters.didTd) {
+  if (filters.lastName) {
     filter.push({
-      field: 'terminating_phone',
+      field: 'last_name',
       type: 'like',
-      value: filters.terminatingPhone,
+      value: filters.lastName,
+    })
+  }
+
+  if (filters.email) {
+    filter.push({
+      field: 'email',
+      type: 'like',
+      value: filters.email,
     })
   }
 
   return {
-    convertions_offer1id: multipleSelectToApi(filters.offers),
-    leads_type: multipleSelectToApi(filters.leadsType),
-    pubs_pub1list1id: multipleSelectToApi(filters.pubId),
-    select_states: multipleSelectToApi(filters.state),
-    convertions_traffic1source1id: filters.trafficSource,
     date_start: filters.startDate?.toISOString().slice(0, 10),
     date_end: filters.endDate?.toISOString().slice(0, 10),
+    leads_type: multipleSelectToApi(filters.leadsType),
+    pubs_pub1list1id: multipleSelectToApi(filters.pubId),
+    subs_id: filters.subId?.id,
+    campaign1name1id: filters.campaign?.id,
+    convertions_traffic1source1id: multipleSelectToApi(filters.trafficSource),
     convertions_status: filters.status,
-    convertions_phone1id: '',
-    phone: filters.phone,
-    select_buyers: multipleSelectToApi(filters.buyers),
-    convertions_id: '',
-    recordings_status: '',
-    select_issues_types: multipleSelectToApi(filters.issueType),
-    recordings_billable: '',
-    recordings_insurance: filters.insurance,
-    call_issues: filters.callIssues,
+    status: filters.status,
+    url_switch: 'tracking-campaign',
+    date_record: 'date_created',
     filter: multipleSelectToApi(filter, (item) => {
       return { field: item.field, type: item.type, value: item.value }
     }),
@@ -146,22 +144,12 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): PubLeadsListFiltersFormValues => {
-  const parseOptions = (param: string | null): Option[] => {
-    if (!param) return []
-    try {
-      return JSON.parse(param)
-    } catch (error) {
-      console.warn(`Error parsing JSON: ${param}. Error: ${error}`)
-      return []
-    }
-  }
-
   return {
-    subId: parseOptions(searchParams.get('subId')),
-    leadsType: parseOptions(searchParams.get('leadsType')),
-    pubId: parseOptions(searchParams.get('pubId')),
-    campaign: searchParams.get('campaign') ?? '',
-    trafficSource: searchParams.get('trafficSource') ?? '',
+    subId: objectFromUrl(searchParams.get('subId'), null),
+    leadsType: objectFromUrl(searchParams.get('leadsType')),
+    pubId: objectFromUrl(searchParams.get('pubId')),
+    campaign: objectFromUrl(searchParams.get('campaign'), null),
+    trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     startDate: searchParams.get('date_start')
       ? new Date(searchParams.get('date_start')!)
       : new Date(),
@@ -181,7 +169,7 @@ export const transformFiltersToUrl = (filters: PubLeadsListFiltersFormValues): s
   if (filters.pubId?.length) {
     params.set('pubId', JSON.stringify(filters.pubId))
   }
-  if (filters.subId?.length) {
+  if (filters.subId) {
     params.set('subId', JSON.stringify(filters.subId))
   }
 
@@ -189,8 +177,8 @@ export const transformFiltersToUrl = (filters: PubLeadsListFiltersFormValues): s
     params.set('leadsType', JSON.stringify(filters.leadsType))
   }
 
-  if (filters.trafficSource) {
-    params.set('trafficSource', filters.trafficSource)
+  if (filters.trafficSource.length) {
+    params.set('trafficSource', JSON.stringify(filters.trafficSource))
   }
   if (filters.startDate) {
     params.set('date_start', filters.startDate.toISOString())
@@ -202,7 +190,7 @@ export const transformFiltersToUrl = (filters: PubLeadsListFiltersFormValues): s
     params.set('status', filters.status)
   }
   if (filters.campaign) {
-    params.set('campaign', filters.campaign)
+    params.set('campaign', JSON.stringify(filters.campaign))
   }
   if (filters.firstName) {
     params.set('firstName', filters.firstName)

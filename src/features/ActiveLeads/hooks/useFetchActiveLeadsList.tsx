@@ -42,11 +42,10 @@ const useFetchActiveLeadsList = ({
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
   const [activeLeadsItems, setActiveLeadsItems] = useState<ActiveLeadsItem[] | null>(null)
   const [activeLeadsAverages, setActiveLeadsAverages] = useState<ActiveLeadsAverages | null>(null)
-  const [activeLeadsPercentages, setActiveLeadsPercentages] = useState<ActiveLeadsPercentages | null>(
-    null
-  )
+  const [activeLeadsPercentages, setActiveLeadsPercentages] =
+    useState<ActiveLeadsPercentages | null>(null)
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
-    url: `${config.api.mockUrl}/api/data/leads`,
+    url: `${config.api.baseUrl}/api/data/leads`,
     canSearch,
     filters: {
       ...filters,

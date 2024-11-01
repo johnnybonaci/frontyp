@@ -4,7 +4,9 @@ import { useCallback, type FC, useEffect } from 'react'
 import { useFormik } from 'formik'
 import LiveLeadsFiltersSchema from 'src/features/LiveLeads/schema/LiveLeadsFiltersSchema'
 import Filters from 'src/components/Filters/index.ts'
-import CustomAutocomplete, { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
+import CustomAutocomplete, {
+  type Option,
+} from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import useFetchData from 'hooks/useFetchData.tsx'
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
@@ -12,8 +14,8 @@ import CustomDateRangePicker from 'components/CustomDateRangePicker'
 
 export interface LiveLeadsListFiltersFormValues {
   pubId: Option[]
-  trafficSource: string
-  subId: Option[]
+  trafficSource: Option[]
+  subId: Option | null
   leadsType: Option[]
   startDate: Date | null
   endDate: Date | null
@@ -23,7 +25,7 @@ export interface LiveLeadsListFiltersFormValues {
   lastName: string
   name: string
   email: string
-  campaign: string
+  campaign: Option | null
 }
 
 interface LiveLeadsFiltersProps {
@@ -35,8 +37,8 @@ interface LiveLeadsFiltersProps {
 
 const DEFAULT_FILTERS = {
   pubId: [],
-  trafficSource: '',
-  subId: [],
+  trafficSource: [],
+  subId: null,
   leadsType: [],
   startDate: null,
   endDate: null,
@@ -45,7 +47,7 @@ const DEFAULT_FILTERS = {
   firstName: '',
   lastName: '',
   email: '',
-  campaign: '',
+  campaign: null,
 }
 
 const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
@@ -115,14 +117,14 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
           <TextField label={t('firstName')} fullWidth {...getFieldProps('firstName')} />
           <TextField label={t('lastName')} fullWidth {...getFieldProps('lastName')} />
           <TextField label={t('email')} fullWidth {...getFieldProps('email')} />
-          <Select
-            label={t('trafficSource')}
-            options={entitiesToOptions(trafficSourceOptions, {
-              fieldValue: 'id',
-              fieldLabel: 'title',
-            })}
-            fullWidth
+          <CustomAutocomplete
+            options={trafficSourceOptions}
             {...getFieldProps('trafficSource')}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('pubId', newValue)
+            }}
+            label={t('trafficSource')}
+            value={values.trafficSource}
           />
           <CustomAutocomplete
             options={pubIdOptions}
@@ -134,13 +136,14 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
             placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
+            creatable={false}
+            multiple={false}
+            {...getFieldProps('subId')}
             options={subIdOptions}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('subId', newValue)
             }}
             label={t('subId')}
-            value={values.subId}
-            placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
             options={leadTypeOptions}
@@ -157,11 +160,15 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
             fullWidth
             {...getFieldProps('status')}
           />
-          <Select
-            label={t('campaign')}
-            options={entitiesToOptions(campaignOptions, { fieldValue: 'id', fieldLabel: 'title' })}
-            fullWidth
+          <CustomAutocomplete
+            creatable={false}
+            multiple={false}
             {...getFieldProps('campaign')}
+            options={campaignOptions}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('campaign', newValue)
+            }}
+            label={t('campaign')}
           />
         </>
       }

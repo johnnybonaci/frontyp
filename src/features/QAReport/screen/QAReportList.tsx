@@ -12,7 +12,7 @@ import {
   transformFiltersFromUrl,
   transformFiltersToApi,
   transformFiltersToUrl,
-} from 'features/CPAReport/transformers'
+} from 'features/QAReport/transformers'
 import ExportButton from 'components/ExportButton'
 import useExport from 'hooks/useExport.tsx'
 import config from '../../../config.tsx'
@@ -21,7 +21,6 @@ import useFetchQAReportList from 'features/QAReport/hooks/useFetchQAReportList.t
 import styles from './qaReportList.module.scss'
 import QAReportTable from 'features/QAReport/components/CPAReportTable'
 import { type QAReportItem } from 'features/QAReport/types'
-import { type CallReportItem } from 'features/CallReport/types'
 import dateFormat from 'utils/dateFormat.ts'
 
 const QAReportList: FC = () => {
@@ -47,20 +46,40 @@ const QAReportList: FC = () => {
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
   const { doFetch } = useExport({
-    url: `${config.api.baseUrl}/api/data/report-cpa`,
+    url: `${config.api.baseUrl}/export/qa`,
     filters: allFilters,
     fileName: 'qa_report',
   })
 
   const initialColumns = useMemo(
     () => [
-      { header: t('fields.phone'), fieldName: 'phoneId', sortable: true },
-      { header: t('fields.pubId'), fieldName: 'pubListId', sortable: true },
+      {
+        header: t('fields.phone'),
+        fieldName: 'phone_id',
+        sortable: true,
+        dataModifier: (item: QAReportItem) => item.phoneId,
+      },
+      {
+        header: t('fields.pubId'),
+        fieldName: 'pub_list_id',
+        sortable: true,
+        dataModifier: (item: QAReportItem) => item.pubListId,
+      },
       { header: t('fields.offers'), fieldName: 'offers', sortable: true },
-      { header: t('fields.vendorsTd'), fieldName: 'vendorsTd', sortable: true },
+      {
+        header: t('fields.vendorsTd'),
+        fieldName: 'vendors_td',
+        sortable: true,
+        dataModifier: (item: QAReportItem) => item.vendorsTd,
+      },
       { header: t('fields.buyersTd'), fieldName: 'buyers', sortable: true },
       { header: t('fields.statusTd'), fieldName: 'status', sortable: true },
-      { header: t('fields.holdDurations'), fieldName: 'holdDurations', sortable: true },
+      {
+        header: t('fields.holdDurations'),
+        fieldName: 'hold_durations',
+        sortable: true,
+        dataModifier: (item: QAReportItem) => item.holdDurations,
+      },
       { header: t('fields.duration'), fieldName: 'durations', sortable: true },
       {
         header: t('fields.ivr'),
@@ -70,25 +89,25 @@ const QAReportList: FC = () => {
       },
       {
         header: t('fields.adQualityError'),
-        fieldName: 'adQualityError',
+        fieldName: 'ad_quality_error',
         sortable: true,
         dataModifier: (item: QAReportItem) => (item.adQualityError ? t('yes') : t('no')),
       },
       {
         header: t('fields.callDropped'),
-        fieldName: 'callDropped',
+        fieldName: 'call_dropped',
         sortable: true,
         dataModifier: (item: QAReportItem) => (item.callDropped ? t('yes') : t('no')),
       },
       {
         header: t('fields.notQualified'),
-        fieldName: 'notQualified',
+        fieldName: 'not_qualified',
         sortable: true,
         dataModifier: (item: QAReportItem) => (item.notQualified ? t('yes') : t('no')),
       },
       {
         header: t('fields.notInterested'),
-        fieldName: 'notInterested',
+        fieldName: 'not_interested',
         sortable: true,
         dataModifier: (item: QAReportItem) => (item.notInterested ? t('yes') : t('no')),
       },
@@ -96,36 +115,11 @@ const QAReportList: FC = () => {
         header: t('fields.callDate'),
         fieldName: 'date_sale',
         sortable: true,
-        dataModifier: (data: CallReportItem) => dateFormat(data.dateSale, 'YYYY-MM-DD HH:mm:ss'),
+        dataModifier: (data: QAReportItem) => dateFormat(data.dateSale, 'YYYY-MM-DD HH:mm:ss'),
       },
     ],
     [t]
   )
-
-  // QAReportItem {
-  //   vendorsTd: string
-  //   buyerId: number
-  //   buyers: string
-  //   phoneId: number
-  //   durations: string
-  //   oDurations: number
-  //   createdAt: string | null
-  //   offers: string
-  //   pubListId: number
-  //   dateSale: string
-  //   trafficSourceId: number
-  //   adQualityError: boolean
-  //   notInterested: boolean
-  //   notQualified: boolean
-  //   callDropped: boolean
-  //   ivr: boolean
-  //   holdDurations: string
-  //   oHoldDurations: number
-  //   statusTd: string
-  //   reachedAgent: boolean
-  //   callerHungUp: number
-  //   state: string
-  // }
 
   const initialIndicators = [
     {

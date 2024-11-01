@@ -33,7 +33,7 @@ const useFetchQAReportList = ({
   const [qaReportItems, setQaReportItems] = useState<QAReportItem[] | null>(null)
   const [qaReportIndicators, setQaReportIndicators] = useState<QAReportIndicators | null>(null)
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
-    url: `${config.api.mockUrl}/api/data/report-qa`,
+    url: `${config.api.baseUrl}/api/data/report-qa`,
     canSearch,
     filters: {
       ...filters,

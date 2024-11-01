@@ -46,7 +46,7 @@ const useFetchPubLeadsList = ({
     null
   )
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
-    url: `${config.api.mockUrl}/api/data/leads`,
+    url: `${config.api.baseUrl}/api/data/leads`,
     canSearch,
     filters: {
       ...filters,

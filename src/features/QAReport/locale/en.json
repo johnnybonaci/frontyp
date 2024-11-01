@@ -52,6 +52,8 @@
     "subId": "Sub ID",
     "state": "State",
     "buyers": "Buyers",
+    "phone": "Phone",
+    "leadsType": "Offers",
     "date": "Date",
     "selectOrAdd": "Select or Add"
   },

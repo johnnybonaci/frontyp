@@ -33,7 +33,7 @@ const useFetchCPAReportList = ({
   const [cpaReportItems, setCallReportItems] = useState<CPAReportItem[] | null>(null)
   const [cpaReportIndicators, setCpaReportIndicators] = useState<CPAReportIndicators | null>(null)
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
-    url: `${config.api.mockUrl}/api/data/report-cpa`,
+    url: `${config.api.baseUrl}/api/data/report-cpa`,
     canSearch,
     filters: {
       ...filters,

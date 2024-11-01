@@ -6,7 +6,10 @@ import {
 } from '../types'
 import { type Filters } from 'types/filter'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
-import { type CPAReportListFiltersFormValues } from 'features/CPAReport/components/CPAReportFilters/CPAReportFilters.tsx'
+import {
+  type CPAReportListFiltersFormValues,
+  VIEW_BY_OPTIONS,
+} from 'features/CPAReport/components/CPAReportFilters/CPAReportFilters.tsx'
 import { objectFromUrl } from 'utils/utils.ts'
 
 export const cpaReportItemFromApi = (item: CPAReportItemFromApi): CPAReportItem => {
@@ -48,6 +51,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   return {
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
     leads_state: multipleSelectToApi(filters.state),
+    view_by: filters.viewBy?.id,
     leads_type: multipleSelectToApi(filters.leadsType),
     traffic1source1id: multipleSelectToApi(filters.trafficSource),
     date_start: filters.startDate?.toISOString().slice(0, 10),
@@ -63,11 +67,14 @@ export const transformFiltersFromUrl = (
     pubId: objectFromUrl(searchParams.get('pubId')),
     state: objectFromUrl(searchParams.get('state')),
     subId: objectFromUrl(searchParams.get('subId'), null),
+    viewBy: objectFromUrl(searchParams.get('viewBy'), VIEW_BY_OPTIONS[0]),
     leadsType: objectFromUrl(searchParams.get('leadsType')),
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     buyers: objectFromUrl(searchParams.get('buyers')),
-    startDate: searchParams.get('date_start') ? new Date(searchParams.get('date_start')!) : null,
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : null,
+    startDate: searchParams.get('date_start')
+      ? new Date(searchParams.get('date_start')!)
+      : new Date(),
+    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : new Date(),
   }
 }
 
@@ -89,6 +96,10 @@ export const transformFiltersToUrl = (filters: CPAReportListFiltersFormValues): 
   }
   if (filters.trafficSource?.length) {
     params.set('trafficSource', JSON.stringify(filters.trafficSource))
+  }
+
+  if (filters.viewBy) {
+    params.set('subId', JSON.stringify(filters.subId))
   }
 
   if (filters.subId) {

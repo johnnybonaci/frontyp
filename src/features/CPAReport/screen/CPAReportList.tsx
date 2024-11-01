@@ -57,7 +57,7 @@ const CPAReportList: FC = () => {
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
   const { doFetch } = useExport({
-    url: `${config.api.baseUrl}/api/data/report-cpa`,
+    url: `${config.api.baseUrl}/export/cpa`,
     filters: allFilters,
     fileName: 'cpa_report',
   })
@@ -72,15 +72,55 @@ const CPAReportList: FC = () => {
 
   const initialColumns = useMemo(
     () => [
-      { header: t('fields.name'), fieldName: 'buyerName', sortable: true },
-      { header: t('fields.uniqueCalls'), fieldName: 'totalUnique', sortable: true },
-      { header: t('fields.ucr'), fieldName: 'total_ucr', sortable: true },
-      { header: t('fields.cpa'), fieldName: 'total_cpa', sortable: true },
-      { header: t('fields.costPerCalls'), fieldName: 'totalRevenue', sortable: true },
-      { header: t('fields.billable'), fieldName: 'totalBillables', sortable: true },
-      { header: t('fields.sales'), fieldName: 'totalSales', sortable: true },
+      {
+        header: t('fields.name'),
+        fieldName: 'buyer_name',
+        sortable: true,
+        dataModifier: (item: CPAReportItem) => item.buyerName,
+      },
+      {
+        header: t('fields.uniqueCalls'),
+        fieldName: 'total_unique',
+        sortable: true,
+        dataModifier: (item: CPAReportItem) => item.totalUnique,
+      },
+      {
+        header: t('fields.ucr'),
+        fieldName: 'total_ucr',
+        sortable: true,
+        dataModifier: (item: CPAReportItem) => item.totalUcr,
+      },
+      {
+        header: t('fields.cpa'),
+        fieldName: 'total_cpa',
+        sortable: true,
+        dataModifier: (item: CPAReportItem) => item.totalCpa,
+      },
+      {
+        header: t('fields.costPerCalls'),
+        fieldName: 'total_revenue',
+        sortable: true,
+        dataModifier: (item: CPAReportItem) => item.totalRevenue,
+      },
+      {
+        header: t('fields.billable'),
+        fieldName: 'total_billables',
+        sortable: true,
+        dataModifier: (item: CPAReportItem) => item.totalBillables,
+      },
+      {
+        header: t('fields.sales'),
+        fieldName: 'total_sales',
+        sortable: true,
+        dataModifier: (item: CPAReportItem) => item.totalSales,
+      },
       { header: t('fields.state'), fieldName: 'state', sortable: true },
-      { header: t('fields.totalCost'), fieldName: 'totalCost', sortable: true },
+      {
+        header: t('fields.totalCost'),
+        fieldName: 'total_cost',
+        sortable: true,
+        dataModifier: (item) => item.totalCost,
+      },
     ],
     [t]
   )

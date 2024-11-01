@@ -150,10 +150,25 @@ const CallReportList: FC = () => {
 
   const initialColumns = useMemo(
     () => [
-      { header: t('fields.phone'), fieldName: 'phone_id', sortable: true },
-      { header: t('fields.pubId'), fieldName: 'pub_list_id', sortable: true },
+      {
+        header: t('fields.phone'),
+        fieldName: 'phone_id',
+        sortable: true,
+        dataModifier: (data: CallReportItem) => data.phoneId,
+      },
+      {
+        header: t('fields.pubId'),
+        fieldName: 'pub_list_id',
+        sortable: true,
+        dataModifier: (data: CallReportItem) => data.pubListId,
+      },
       { header: t('fields.offers'), fieldName: 'offers', sortable: true },
-      { header: t('fields.vendorsTd'), fieldName: 'vendors_td', sortable: true },
+      {
+        header: t('fields.vendorsTd'),
+        fieldName: 'vendors_td',
+        sortable: true,
+        dataModifier: (data: CallReportItem) => data.vendorsTd,
+      },
       { header: t('fields.state'), fieldName: 'state', sortable: true },
       { header: t('fields.buyers'), fieldName: 'buyers', sortable: true },
       {
@@ -168,8 +183,9 @@ const CallReportList: FC = () => {
       { header: t('fields.insurance'), fieldName: 'insurance', sortable: true },
       {
         header: t('fields.issueType'),
-        fieldName: 'issueType',
+        fieldName: 'issue_type',
         sortable: false,
+        dataModifier: (data: CallReportItem) => data.issueType,
       },
       {
         header: t('fields.transcriptStatus'),
@@ -179,15 +195,22 @@ const CallReportList: FC = () => {
       },
       {
         header: t('fields.insuranceName'),
-        fieldName: 'insuranceName',
+        fieldName: 'insurance_name',
         sortable: false,
+        dataModifier: (data: CallReportItem) => data.insuranceName,
       },
       {
         header: t('fields.terminatingPhone'),
         fieldName: 'terminating_phone',
         sortable: true,
+        dataModifier: (data: CallReportItem) => data.terminatingPhone,
       },
-      { header: t('fields.didNumberId'), fieldName: 'did_number_id', sortable: true },
+      {
+        header: t('fields.didNumberId'),
+        fieldName: 'did_number_id',
+        sortable: true,
+        dataModifier: (data: CallReportItem) => data.didNumberId,
+      },
       {
         header: t('fields.callDateTd'),
         fieldName: 'date_sale',

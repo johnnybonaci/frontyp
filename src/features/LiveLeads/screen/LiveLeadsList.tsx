@@ -71,7 +71,7 @@ const LiveLeadsList: FC = () => {
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
   const { doFetch } = useExport({
-    url: `${config.api.baseUrl}/export/calls`,
+    url: `${config.api.baseUrl}/export/leads`,
     filters: allFilters,
     fileName: 'live_leads',
   })
@@ -346,14 +346,12 @@ const LiveLeadsList: FC = () => {
           <div className={styles.detailsContainer}>
             <div className={styles.item}>
               <div className={styles.itemLabel}>{t('details.jornayaId')}</div>
-              <div className={styles.itemValue}>{selectedLiveLeads?.universalLeadId}</div>
+              <div className={styles.itemValue}>{selectedLiveLeads?.universalLeadId ?? '-'}</div>
             </div>
-            {selectedLiveLeads?.trustedForm && (
-              <div className={styles.item}>
-                <div className={styles.itemLabel}>{t('details.trustedForm')}</div>
-                <div className={styles.itemValue}>{selectedLiveLeads?.trustedForm}</div>
-              </div>
-            )}
+            <div className={styles.item}>
+              <div className={styles.itemLabel}>{t('details.trustedForm')}</div>
+              <div className={styles.itemValue}>{selectedLiveLeads?.trustedForm ?? '-'}</div>
+            </div>
           </div>
         </DrawerContent>
       </Drawer>

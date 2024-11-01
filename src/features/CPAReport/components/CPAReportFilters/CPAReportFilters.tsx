@@ -3,7 +3,9 @@ import { useCallback, type FC, useEffect } from 'react'
 import { useFormik } from 'formik'
 import CallReportFiltersSchema from 'src/features/CallReport/schema/CallReportFiltersSchema'
 import Filters from 'src/components/Filters/index.ts'
-import CustomAutocomplete, { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
+import CustomAutocomplete, {
+  type Option,
+} from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import useFetchData from 'hooks/useFetchData.tsx'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 
@@ -16,6 +18,7 @@ export interface CPAReportListFiltersFormValues {
   leadsType: Option[]
   startDate: Date | null
   endDate: Date | null
+  viewBy: Option | null
 }
 
 interface CPAReportFiltersProps {
@@ -24,6 +27,11 @@ interface CPAReportFiltersProps {
   isSearching?: boolean
   initialFilters?: CPAReportListFiltersFormValues
 }
+
+export const VIEW_BY_OPTIONS: Option[] = [
+  { id: 'convertions.traffic_source_id', title: 'Traffic Source' },
+  { id: 'convertions.buyer_id', title: 'Buyers' },
+]
 
 const DEFAULT_FILTERS: CPAReportListFiltersFormValues = {
   pubId: [],
@@ -34,6 +42,7 @@ const DEFAULT_FILTERS: CPAReportListFiltersFormValues = {
   leadsType: [],
   startDate: null,
   endDate: null,
+  viewBy: VIEW_BY_OPTIONS[0],
 }
 
 const CPAReportFilters: FC<CPAReportFiltersProps> = ({
@@ -154,6 +163,16 @@ const CPAReportFilters: FC<CPAReportFiltersProps> = ({
             }}
             label={t('state')}
             placeholder={t('selectOrAdd')}
+          />
+          <CustomAutocomplete
+            creatable={false}
+            multiple={false}
+            options={VIEW_BY_OPTIONS}
+            {...getFieldProps('viewBy')}
+            onChange={(_event: any, newValue: any) => {
+              void setFieldValue('viewBy', newValue)
+            }}
+            label={t('viewBy')}
           />
         </>
       }

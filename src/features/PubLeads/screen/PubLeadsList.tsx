@@ -71,7 +71,7 @@ const PubLeadsList: FC = () => {
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
   const { doFetch } = useExport({
-    url: `${config.api.baseUrl}/export/calls`,
+    url: `${config.api.baseUrl}/export/leads`,
     filters: allFilters,
     fileName: 'pub_leads',
   })

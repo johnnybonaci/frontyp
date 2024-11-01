@@ -33,6 +33,7 @@
     "subId": "Sub ID",
     "state": "State",
     "buyers": "Buyers",
+    "viewBy": "View By",
     "date": "Date",
     "leadsType": "Leads Type",
     "selectOrAdd": "Select or Add"

@@ -34,6 +34,7 @@ const TableWithActions: FC<TableWithActionsProps> = ({
     return [
       {
         fieldName: '$actions',
+        header: t('actions'),
         cellStyles: {
           whiteSpace: 'nowrap',
           width: 'auto !important',

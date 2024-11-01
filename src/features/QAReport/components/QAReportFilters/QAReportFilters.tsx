@@ -3,18 +3,22 @@ import { useCallback, type FC, useEffect } from 'react'
 import { useFormik } from 'formik'
 import QAReportFiltersSchema from 'src/features/QAReport/schema/QAReportFiltersSchema'
 import Filters from 'src/components/Filters/index.ts'
-import CustomAutocomplete, { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
+import CustomAutocomplete, {
+  type Option,
+} from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import useFetchData from 'hooks/useFetchData.tsx'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
+import { TextField } from '@mui/material'
 
 export interface QAReportListFiltersFormValues {
   pubId: Option[]
-  subId: Option[]
-  state: Option[]
+  subId: Option | null
   trafficSource: Option[]
   buyers: Option[]
+  leadsType: Option[]
   startDate: Date | null
   endDate: Date | null
+  phone: string
 }
 
 interface QAReportFiltersProps {
@@ -26,12 +30,13 @@ interface QAReportFiltersProps {
 
 const DEFAULT_FILTERS: QAReportListFiltersFormValues = {
   pubId: [],
-  subId: [],
-  state: [],
+  subId: null,
   trafficSource: [],
   buyers: [],
+  leadsType: [],
   startDate: null,
   endDate: null,
+  phone: '',
 }
 
 const QAReportFilters: FC<QAReportFiltersProps> = ({
@@ -41,8 +46,13 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
   initialFilters = DEFAULT_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'QAReport.filters' })
-  const { stateOptions, buyerOptions, trafficSourceOptions, pubIdOptions, subIdOptions } =
-    useFetchData()
+  const {
+    buyerOptions,
+    trafficSourceOptions,
+    pubIdOptions,
+    subIdOptions,
+    leadTypeOptions,
+  } = useFetchData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,
@@ -110,13 +120,14 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
             placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
+            creatable={false}
+            multiple={false}
             options={subIdOptions}
             {...getFieldProps('subId')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('subId', newValue)
             }}
             label={t('subId')}
-            placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
             options={buyerOptions}
@@ -128,13 +139,18 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
             placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
-            options={stateOptions}
-            {...getFieldProps('state')}
+            options={leadTypeOptions}
+            {...getFieldProps('leadsType')}
             onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('state', newValue)
+              void setFieldValue('leadsType', newValue)
             }}
-            label={t('state')}
+            label={t('leadsType')}
             placeholder={t('selectOrAdd')}
+          />
+          <TextField
+            label={t('phone')}
+            {...getFieldProps('phone')}
+            onChange={handleChange}
           />
         </>
       }
