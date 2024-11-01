@@ -5,12 +5,12 @@ import useFilters from 'src/hooks/useFilters'
 import useFetchPubIdList from 'features/Settings/hooks/useFetchPubIdList'
 import PubIdFilters from '../components/PubIdFilters'
 import ContentBox from 'components/ContentBox'
-import PrivateScreenTitle from 'components/PrivateScreenTitle'
 import {
   transformFiltersFromUrl,
   transformFiltersToApi,
   transformFiltersToUrl,
 } from 'features/Settings/transformers'
+import { Stack } from '@mui/material'
 
 const PubIdList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId' })
@@ -52,26 +52,25 @@ const PubIdList: FC = () => {
   )
 
   return (
-    <div>
-      <PrivateScreenTitle title={t('PubId.title')} />
-      <ContentBox>
+    <ContentBox>
+      <Stack pt={2}>
         <PubIdFilters initialFilters={filters} onCancel={onCancel} onApply={onApply} />
-        <PubIdTable
-          columns={columns}
-          rows={pubIdItems}
-          loading={loading}
-          sorter={sorter}
-          onSort={setSorter}
-          perPage={perPage}
-          onRowsPerPageChange={setPerPage}
-          onClickView={console.log}
-          count={lastPage}
-          page={page}
-          onPageChange={setPage}
-          displayResultsMessage={displayResultsMessage}
-        />
-      </ContentBox>
-    </div>
+      </Stack>
+      <PubIdTable
+        columns={columns}
+        rows={pubIdItems}
+        loading={loading}
+        sorter={sorter}
+        onSort={setSorter}
+        perPage={perPage}
+        onRowsPerPageChange={setPerPage}
+        onClickView={console.log}
+        count={lastPage}
+        page={page}
+        onPageChange={setPage}
+        displayResultsMessage={displayResultsMessage}
+      />
+    </ContentBox>
   )
 }
 

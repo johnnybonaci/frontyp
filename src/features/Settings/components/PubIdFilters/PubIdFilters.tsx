@@ -56,9 +56,6 @@ const PubIdFilters: FC<PubIdFiltersProps> = ({
       // @ts-expect-error
       value: values[name],
       onChange: handleChange,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      onClear: async () => await setFieldValue(name, DEFAULT_FILTERS[name]),
     }),
     [handleChange, values, initialFilters, setFieldValue]
   )
