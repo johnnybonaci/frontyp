@@ -55,7 +55,10 @@ export interface Offers {
   updated_at: any
 }
 
-interface PubIdItem {}
+interface PubIdItem {
+  id: number
+  name: string
+}
 
 export interface PubIdListFiltersFormValues {
   pubId: Option[]

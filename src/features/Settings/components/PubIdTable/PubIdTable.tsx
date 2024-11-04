@@ -1,6 +1,6 @@
 import { type ComponentType, type FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import { VisibilityOutlined } from '@mui/icons-material'
+import { EditOutlined } from '@mui/icons-material'
 import { type PaginatedTableProps } from 'components/Table/components/withPagination/PaginatedTable.tsx'
 import { type TableWithActionsProps } from 'components/Table/components/withActions/TableWithActions.tsx'
 import Table, { type TableProps } from 'components/Table'
@@ -19,17 +19,17 @@ interface PubIdTableProps
     SortableTableProps,
     TableWithActionsProps,
     TableProps {
-  onClickView: (pubIdItem: PubIdItem) => void
+  onClickEdit: (pubIdItem: PubIdItem) => void
 }
 
-const PubIdTable: FC<PubIdTableProps> = ({ onClickView, ...restOfProps }) => {
-  const { t } = useTranslation('features', { keyPrefix: 'PubId.actions' })
+const PubIdTable: FC<PubIdTableProps> = ({ onClickEdit, ...restOfProps }) => {
+  const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId.actions' })
 
   const actions = [
     {
-      label: t('view'),
-      icon: VisibilityOutlined,
-      onClick: onClickView,
+      label: t('edit'),
+      icon: EditOutlined,
+      onClick: onClickEdit,
       orValidation: true,
     },
   ]

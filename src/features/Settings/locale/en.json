@@ -14,14 +14,25 @@
     "listing": {
       "title": "Pub Ids"
     },
+    "edition": {
+      "title": "Edit Pub Id"
+    },
+    "actions": {
+      "edit": "Edit Pub Id"
+    },
     "fields": {
       "pubs": "Pubs",
-      "name": "Name"
+      "name": "Name",
+      "user": "User",
+      "cpl": "Cpl"
     },
     "filters": {
       "pubs": "Pubs",
       "name": "Name"
-    }
+    },
+    "addCpl": "Add Cpl",
+    "save": "Save",
+    "cancel": "Cancel"
   },
   "offers": {
     "singular": "Offer",

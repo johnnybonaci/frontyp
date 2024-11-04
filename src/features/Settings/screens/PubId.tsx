@@ -1,4 +1,4 @@
-import { useMemo, type FC } from 'react'
+import { useCallback, useMemo, useState, type FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import PubIdTable from 'features/Settings/components/PubIdTable/PubIdTable'
 import useFilters from 'src/hooks/useFilters'
@@ -10,10 +10,15 @@ import {
   transformFiltersToApi,
   transformFiltersToUrl,
 } from 'features/Settings/transformers'
+import PubIdEdition from '../components/PubIdEdition'
+import { PubIdItem } from '../types'
 import { Stack } from '@mui/material'
 
 const PubIdList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId' })
+
+  const [selectedPubId, setSelectedPubId] = useState<PubIdItem>()
+  const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
   const { filters, onCancel, onApply } = useFilters(
     transformFiltersToApi,
@@ -37,23 +42,25 @@ const PubIdList: FC = () => {
         fieldName: 'name',
         sortable: true,
       },
-      // {
-      //   header: t('fields.aca'),
-      //   fieldName: 'aca',
-      //   sortable: true,
-      // },
-      // {
-      //   header: t('fields.mc'),
-      //   fieldName: 'mc',
-      //   sortable: true,
-      // },
     ],
     [t]
   )
 
+  const toggleViewDetails = useCallback(() => {
+    setCollapsedViewEdition(!collapsedViewEdition)
+  }, [setCollapsedViewEdition, collapsedViewEdition])
+
+  const handleOpenPubIdEdition = useCallback(
+    (pubLeads: PubIdItem) => {
+      setSelectedPubId(pubLeads)
+      toggleViewDetails()
+    },
+    [toggleViewDetails, setSelectedPubId]
+  )
+
   return (
     <ContentBox>
-      <Stack pt={2}>
+      <Stack mt={2}>
         <PubIdFilters initialFilters={filters} onCancel={onCancel} onApply={onApply} />
       </Stack>
       <PubIdTable
@@ -64,11 +71,16 @@ const PubIdList: FC = () => {
         onSort={setSorter}
         perPage={perPage}
         onRowsPerPageChange={setPerPage}
-        onClickView={console.log}
+        onClickEdit={handleOpenPubIdEdition}
         count={lastPage}
         page={page}
         onPageChange={setPage}
         displayResultsMessage={displayResultsMessage}
+      />
+      <PubIdEdition
+        open={!collapsedViewEdition}
+        onClose={toggleViewDetails}
+        pubId={selectedPubId}
       />
     </ContentBox>
   )
