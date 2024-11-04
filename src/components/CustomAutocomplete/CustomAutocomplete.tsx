@@ -63,7 +63,7 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
       }, 500)}
       renderTags={(value: Option[], getTagProps) =>
         value.map((option, index) => (
-          <Chip label={option.title} {...getTagProps({ index })} key={option.title} />
+          <Chip label={option.title} {...getTagProps({ index })} key={option.id} />
         ))
       }
       sx={{ ...sx, root: { height: 'unset !important' } }}

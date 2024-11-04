@@ -78,10 +78,17 @@ export interface PubIdListFiltersFormValues {
 }
 
 export interface PubIdForm {
+  id: number
   name: string
   form: {
     keyu: string
     cpl: string
     user: Option
   }[]
+}
+
+export interface PubIdToAPI {
+  id: number
+  name: string
+  form: Record<string, string>
 }

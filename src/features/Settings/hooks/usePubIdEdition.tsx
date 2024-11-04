@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { enqueueSnackbar } from 'notistack'
 import { useEffect } from 'react'
 import { PubIdForm } from '../types/index'
+import { pubIdEditedToAPI } from '../transformers/index.ts'
 
 export interface UsePubIdEditionReturn {
   onSubmit: (data: PubIdForm) => Promise<void>
@@ -16,11 +17,10 @@ export const usePubIdEdition = (pubId?: number): UsePubIdEditionReturn => {
   const { doFetch, response, error, loading } = useFetch()
 
   const onSubmit = async (data: PubIdForm): Promise<void> => {
-    console.log(data)
-    if (pubId && false)
+    if (pubId)
       doFetch({
         url: `${config.api.baseUrl}/api/v1/pubs/update/${pubId}`,
-        data,
+        data: pubIdEditedToAPI(data),
         method: 'POST',
       })
   }
