@@ -77,11 +77,7 @@ const PubIdList: FC = () => {
         onPageChange={setPage}
         displayResultsMessage={displayResultsMessage}
       />
-      <PubIdEdition
-        open={!collapsedViewEdition}
-        onClose={toggleViewDetails}
-        pubId={selectedPubId}
-      />
+      <PubIdEdition open={!collapsedViewEdition} onClose={toggleViewDetails} pub={selectedPubId} />
     </ContentBox>
   )
 }

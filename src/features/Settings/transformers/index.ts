@@ -1,4 +1,6 @@
 import { Filters } from 'types/filter'
+import { PubIdForm, PubIdItem } from '../types'
+import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 
 export const transformFiltersFromUrl = (data: URLSearchParams): Filters => {
   const filters: Filters = {
@@ -24,10 +26,24 @@ export const transformFiltersToUrl = (filters: Filters): string => {
 }
 
 export const pubIdsItemFromApi = (data: any): any => {
-  const { id, name } = data
+  const { id, name, cpl } = data
 
   return {
     id,
     name,
+    cpl,
+  }
+}
+
+export const pubIdsToForm = (data: PubIdItem, userOptions: Option[]): PubIdForm => {
+  const { name, cpl } = data
+
+  return {
+    name,
+    form: Object.keys(cpl).map((key, index) => ({
+      keyu: String(index),
+      cpl: cpl[key],
+      user: userOptions.find((option) => Number(option.id) === Number(key)),
+    })),
   }
 }

@@ -58,6 +58,7 @@ export interface Offers {
 interface PubIdItem {
   id: number
   name: string
+  cpl: Record<string, string>
 }
 
 export interface PubIdListFiltersFormValues {
@@ -74,4 +75,13 @@ export interface PubIdListFiltersFormValues {
   name: string
   email: string
   campaign: string
+}
+
+export interface PubIdForm {
+  name: string
+  form: {
+    keyu: string
+    cpl: string
+    user: Option
+  }[]
 }
