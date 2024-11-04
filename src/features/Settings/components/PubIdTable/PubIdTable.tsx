@@ -9,12 +9,10 @@ import withActions from 'components/Table/components/withActions'
 import withPagination from 'components/Table/components/withPagination'
 import withSortHeaders from 'components/Table/components/withSortHeader'
 import { type PubIdItem } from 'features/Settings/types'
-import withMultiSelect from 'components/Table/components/withMultiSelect'
 
 const PaginatedTable = withPagination(Table as ComponentType<any>)
 const SortableTable = withSortHeaders(PaginatedTable as ComponentType<any>)
-const MultiSelectTable = withMultiSelect(SortableTable as ComponentType<any>)
-const TableWithActions = withActions(MultiSelectTable as ComponentType<any>)
+const TableWithActions = withActions(SortableTable as ComponentType<any>)
 
 interface PubIdTableProps
   extends PaginatedTableProps,
