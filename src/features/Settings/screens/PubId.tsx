@@ -20,7 +20,7 @@ const PubIdList: FC = () => {
   const [selectedPubId, setSelectedPubId] = useState<PubIdItem>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
-  const { filters, onCancel, onApply } = useFilters(
+  const { filters, initialFilters, onCancel, onApply } = useFilters(
     transformFiltersToApi,
     transformFiltersFromUrl,
     transformFiltersToUrl
@@ -58,10 +58,12 @@ const PubIdList: FC = () => {
     [toggleViewDetails, setSelectedPubId]
   )
 
+  console.log(initialFilters)
+
   return (
     <ContentBox>
       <Stack mt={2}>
-        <PubIdFilters initialFilters={filters} onCancel={onCancel} onApply={onApply} />
+        <PubIdFilters initialFilters={initialFilters} onCancel={onCancel} onApply={onApply} />
       </Stack>
       <PubIdTable
         columns={columns}

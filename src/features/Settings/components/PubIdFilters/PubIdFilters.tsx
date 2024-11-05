@@ -14,18 +14,8 @@ interface PubIdFiltersProps {
 }
 
 const DEFAULT_FILTERS = {
-  pubId: [],
-  trafficSource: '',
-  subId: [],
-  leadsType: [],
-  startDate: null,
-  endDate: null,
-  status: '',
-  phone: '',
-  firstName: '',
-  lastName: '',
-  email: '',
-  campaign: '',
+  pubs: '',
+  name: '',
 }
 
 const PubIdFilters: FC<PubIdFiltersProps> = ({

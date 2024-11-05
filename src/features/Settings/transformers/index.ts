@@ -2,17 +2,39 @@ import { Filters } from 'types/filter'
 import { PubIdForm, PubIdItem, PubIdToAPI } from '../types'
 import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 import { generateUniqueId } from 'utils/utils'
+import { multipleSelectToApi } from 'src/transformers/apiTransformers'
 
-export const transformFiltersFromUrl = (data: URLSearchParams): Filters => {
-  const filters: Filters = {
-    name: data.get('name') ?? '',
-    status: data.get('status') ?? '',
+export const transformFiltersFromUrl = (searchParams: URLSearchParams): Record<string, any> => {
+  return {
+    name: searchParams.get('name') ?? '',
+    pubs: searchParams.get('pubs') ?? '',
   }
-  return filters
 }
 
 export const transformFiltersToApi = (filters: Filters): Filters => {
-  return filters
+  const filter = []
+
+  if (filters.name) {
+    filter.push({
+      field: 'name',
+      type: 'like',
+      value: filters.name,
+    })
+  }
+
+  if (filters.pubs) {
+    filter.push({
+      field: 'id',
+      type: 'like',
+      value: filters.pubs,
+    })
+  }
+
+  return {
+    filter: multipleSelectToApi(filter, (item) => {
+      return { field: item.field, type: item.type, value: item.value }
+    }),
+  }
 }
 
 export const transformFiltersToUrl = (filters: Filters): string => {
@@ -20,8 +42,8 @@ export const transformFiltersToUrl = (filters: Filters): string => {
   if (filters.name) {
     params.set('name', filters.name)
   }
-  if (filters.status) {
-    params.set('status', filters.status)
+  if (filters.pubs) {
+    params.set('status', filters.pubs)
   }
   return params.toString()
 }
