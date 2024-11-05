@@ -12,6 +12,7 @@ import { usePubIdEdition } from 'features/Settings/hooks/usePubIdEdition'
 import { pubIdsToForm } from 'features/Settings/transformers'
 import CustomAutocomplete, { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 import useFetchUsers from 'hooks/useFetchUsers'
+import _ from 'lodash'
 
 interface PubIdEditionProps {
   open: boolean
@@ -26,13 +27,23 @@ function PubIdEdition({ open, onClose, pub }: PubIdEditionProps): React.ReactNod
   const { onSubmit } = usePubIdEdition(pub?.id)
   const { userOptions } = useFetchUsers()
 
-  const { handleChange, values, resetForm, handleSubmit, setFieldValue, errors } =
-    useFormik<PubIdForm>({
-      initialValues: EMPTY_PUBID,
-      validateOnChange: false,
-      validationSchema: PubIdSchema,
-      onSubmit,
-    })
+  const {
+    handleChange,
+    handleBlur,
+    values,
+    resetForm,
+    handleSubmit,
+    setFieldValue,
+    setFieldTouched,
+    errors,
+    touched,
+    isValid,
+  } = useFormik<PubIdForm>({
+    initialValues: EMPTY_PUBID,
+    validateOnChange: false,
+    validationSchema: PubIdSchema,
+    onSubmit,
+  })
 
   useEffect(() => {
     if (pub) {
@@ -42,22 +53,26 @@ function PubIdEdition({ open, onClose, pub }: PubIdEditionProps): React.ReactNod
     }
   }, [pub])
 
+  const debouncedValidateField = useCallback(_.debounce(setFieldTouched, 500), [setFieldTouched])
+
   const getFieldProps = useCallback(
     (name: string) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      const error = errors[name]
+      const error = _.get(errors, name)
+      const touchedField = _.get(touched, name)
+
       return {
         name,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        value: values[name],
-        onChange: handleChange,
-        error: !!error,
-        helperText: error ? i18n.t(error) : '',
+        value: _.get(values, name),
+        onChange: (...params: any[]) => {
+          handleChange(params[0])
+          debouncedValidateField(name)
+        },
+        onBlur: handleBlur,
+        error: !!(touchedField && error),
+        helperText: touchedField && error ? i18n.t(error) : '',
       }
     },
-    [handleChange, values, setFieldValue, errors]
+    [handleChange, values, setFieldValue, errors, touched, i18n]
   )
 
   const handleAddUser = () => {
@@ -107,28 +122,35 @@ function PubIdEdition({ open, onClose, pub }: PubIdEditionProps): React.ReactNod
 
           <Stack flex={1} spacing={2} mb={2}>
             {values.form.map((user, index) => (
-              <Stack key={user.keyu} direction="row" alignItems="center" spacing={2}>
+              <Stack key={user.keyu} direction="row" alignItems="start" spacing={2}>
                 <CustomAutocomplete
                   sx={{ flex: 2 }}
                   label={t('fields.user')}
                   creatable={false}
                   multiple={false}
-                  value={user.user}
                   options={userOptions}
-                  onChange={(_: any, newValue: any) => handleUserChange(index, newValue as Option)}
+                  {...getFieldProps(`form.${index}.user`)}
+                  onChange={(_: any, newValue: any) => {
+                    handleUserChange(index, newValue as Option)
+                    debouncedValidateField(`form.${index}.user`)
+                  }}
                 />
                 <TextField
                   sx={{ flex: 1 }}
                   label={t('fields.cpl')}
                   type="number"
-                  value={user.cpl}
+                  {...getFieldProps(`form.${index}.cpl`)}
                   onChange={(e) => handleCplChange(index, e.target.value)}
                 />
                 <IconButton
                   color="error"
-                  onClick={() => handleDeleteUser(index)}
+                  onClick={() => {
+                    handleDeleteUser(index)
+                    debouncedValidateField(`form.${index}.user`)
+                    debouncedValidateField(`form.${index}.user`)
+                  }}
                   aria-label="delete"
-                  sx={{ mb: 2, alignSelf: 'end' }}
+                  sx={{ mb: 2, alignSelf: 'start', top: 32 }}
                 >
                   <DeleteOutlined sx={{ width: 24, height: 24 }} />
                 </IconButton>
@@ -146,7 +168,7 @@ function PubIdEdition({ open, onClose, pub }: PubIdEditionProps): React.ReactNod
             bottom={32}
             bgcolor="white"
           >
-            <Button variant="contained" color="primary" type="submit" fullWidth>
+            <Button variant="contained" color="primary" type="submit" disabled={!isValid} fullWidth>
               {t('save')}
             </Button>
             <Button variant="outlined" color="primary" onClick={onClose} fullWidth>

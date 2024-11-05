@@ -1,6 +1,7 @@
 import { Filters } from 'types/filter'
 import { PubIdForm, PubIdItem, PubIdToAPI } from '../types'
 import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
+import { generateUniqueId } from 'utils/utils'
 
 export const transformFiltersFromUrl = (data: URLSearchParams): Filters => {
   const filters: Filters = {
@@ -41,8 +42,8 @@ export const pubIdsToForm = (data: PubIdItem, userOptions: Option[]): PubIdForm 
   return {
     id,
     name,
-    form: Object.keys(cpl).map((key, index) => ({
-      keyu: String(index),
+    form: Object.keys(cpl).map((key) => ({
+      keyu: generateUniqueId(),
       cpl: cpl[key],
       user: userOptions.find((option) => Number(option.id) === Number(key)),
     })),
@@ -56,7 +57,7 @@ export const pubIdEditedToAPI = (data: PubIdForm): PubIdToAPI => {
 
   form.forEach((formItem, index) => {
     formData[`cpl_${index + 1}`] = String(formItem.cpl)
-    formData[`keyu_${index + 1}`] = String(formItem.keyu)
+    formData[`keyu_${index + 1}`] = String(index)
     formData[`user_p${index + 1}`] = String(formItem.user.id)
   })
 

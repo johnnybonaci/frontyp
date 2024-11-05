@@ -10,12 +10,14 @@ export interface Option {
 interface MultipleAutocompleteProps {
   value: Option[]
   onChange: (event: any, newValue: Array<string | Option>) => void
+  onBlur?: (e: any) => void
   label: string
   creatable?: boolean
   resourceName?: string
   filterName?: string
   multiple?: boolean
   placeholder?: string
+  helperText?: string
   options: Option[]
   sx?: SxProps
 }
@@ -23,6 +25,7 @@ interface MultipleAutocompleteProps {
 const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   value,
   onChange,
+  onBlur,
   multiple = true,
   creatable = true,
   label,
@@ -30,6 +33,7 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   options,
   resourceName,
   filterName = 'search',
+  helperText,
   sx = {},
 }) => {
   const [inputValue, setInputValue] = useState('')
@@ -67,7 +71,15 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
         ))
       }
       sx={{ ...sx, root: { height: 'unset !important' } }}
-      renderInput={(params) => <TextField {...params} label={label} placeholder={placeholder} />}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          onBlur={onBlur}
+          label={label}
+          placeholder={placeholder}
+          helperText={helperText}
+        />
+      )}
     />
   )
 }

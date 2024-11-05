@@ -29,7 +29,7 @@ const AuthInterceptors: FC<AuthInterceptorsProps> = ({ children }) => {
     async (error: AxiosError) => {
       if (error.response && error.response.status === 401) {
         tryToSetNewLoginRedirect()
-        // void logout(false)
+        void logout(false)
       }
 
       return await Promise.reject(error)
