@@ -15,6 +15,7 @@ interface PaginatedFetchProps {
   filters?: Filters
   defaultSorter?: { fieldName: string; order: 'asc' | 'desc' | undefined }
   config?: any
+  persistConfig?: boolean
 }
 
 interface PaginatedFetchResult {
@@ -35,16 +36,22 @@ const usePaginatedFetch = ({
   filters,
   defaultSorter,
   config,
-  canSearch,
+  canSearch = true,
+  persistConfig = true,
 }: PaginatedFetchProps): PaginatedFetchResult => {
   const { t } = useTranslation('common')
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const urlPage = Number(searchParams.get('page')) || initialPage
-  const urlPerPage = Number(searchParams.get('perPage')) || initialPerPage
-  const urlSorterField = searchParams.get('sortField') || defaultSorter?.fieldName
-  const urlSorterOrder =
-    (searchParams.get('sortOrder') as 'asc' | 'desc' | undefined) || defaultSorter?.order
+  const urlPage = persistConfig ? Number(searchParams.get('page')) || initialPage : initialPage
+  const urlPerPage = persistConfig
+    ? Number(searchParams.get('perPage')) || initialPerPage
+    : initialPerPage
+  const urlSorterField = persistConfig
+    ? searchParams.get('sortField') || defaultSorter?.fieldName
+    : defaultSorter?.fieldName
+  const urlSorterOrder = persistConfig
+    ? (searchParams.get('sortOrder') as 'asc' | 'desc' | undefined) || defaultSorter?.order
+    : defaultSorter?.order
 
   const [currentSorter, setCurrentSorter] = useState<Sorter | undefined>(
     urlSorterField && urlSorterOrder
@@ -89,15 +96,17 @@ const usePaginatedFetch = ({
   } = useFetch(url, paginatedConfig)
 
   useEffect(() => {
-    if (page) searchParams.set('page', String(page))
-    if (perPage) searchParams.set('perPage', String(perPage))
-    if (currentSorter?.fieldName && currentSorter?.order) {
-      searchParams.set('sortField', currentSorter.fieldName)
-      searchParams.set('sortOrder', currentSorter.order)
-    }
+    if (persistConfig) {
+      if (page) searchParams.set('page', String(page))
+      if (perPage) searchParams.set('perPage', String(perPage))
+      if (currentSorter?.fieldName && currentSorter?.order) {
+        searchParams.set('sortField', currentSorter.fieldName)
+        searchParams.set('sortOrder', currentSorter.order)
+      }
 
-    setSearchParams(searchParams)
-  }, [page, perPage, currentSorter, setSearchParams])
+      setSearchParams(searchParams)
+    }
+  }, [page, perPage, currentSorter, setSearchParams, persistConfig])
 
   useEffect(() => {
     if (doFetch && canSearch) {

@@ -26,6 +26,9 @@ export function entityToOption(
     ? {
         entity,
         name: getNestedValue(entity, fieldLabel) || entity.name,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        title: getNestedValue(entity, fieldLabel) || entity.name,
         value:
           getNestedValue(entity, fieldValue) !== undefined
             ? getNestedValue(entity, fieldValue)
@@ -33,6 +36,7 @@ export function entityToOption(
       }
     : {
         name: getNestedValue(entity, fieldLabel) || entity.name,
+        title: getNestedValue(entity, fieldLabel) || entity.name,
         value: getNestedValue(entity, fieldValue) !== undefined ? entity[fieldValue] : entity.value,
       }
 }

@@ -4,7 +4,9 @@ import { useCallback, type FC, useEffect } from 'react'
 import { useFormik } from 'formik'
 import CallReportFiltersSchema from 'src/features/CallReport/schema/CallReportFiltersSchema'
 import Filters from 'src/components/Filters/index.ts'
-import CustomAutocomplete, { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
+import CustomAutocomplete, {
+  type Option,
+} from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import useFetchData from 'hooks/useFetchData.tsx'
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
@@ -70,14 +72,12 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
   const { t } = useTranslation('features', { keyPrefix: 'CallReport.filters' })
   const {
     stateOptions,
-    buyerOptions,
     trafficSourceOptions,
     issueTypeOptions,
     offersOptions,
     callIssuesOptions,
     insuranceOptions,
     statusOptions,
-    pubIdOptions,
   } = useFetchData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
@@ -153,7 +153,7 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
             {...getFieldProps('trafficSource')}
           />
           <CustomAutocomplete
-            options={pubIdOptions}
+            resourceName="pubs"
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('pubId', newValue)
             }}
@@ -162,7 +162,7 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
             placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
-            options={buyerOptions}
+            resourceName="buyers"
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('buyers', newValue)
             }}

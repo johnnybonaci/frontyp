@@ -58,11 +58,8 @@ const PubLeadsFilters: FC<PubLeadsFiltersProps> = ({
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'PubLeads.filters' })
   const {
-    subIdOptions,
     trafficSourceOptions,
     statusOptions,
-    pubIdOptions,
-    campaignOptions,
     leadTypeOptions,
   } = useFetchData()
 
@@ -127,7 +124,7 @@ const PubLeadsFilters: FC<PubLeadsFiltersProps> = ({
             value={values.trafficSource}
           />
           <CustomAutocomplete
-            options={pubIdOptions}
+            resourceName="pubs"
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('pubId', newValue)
             }}
@@ -139,7 +136,7 @@ const PubLeadsFilters: FC<PubLeadsFiltersProps> = ({
             creatable={false}
             multiple={false}
             {...getFieldProps('subId')}
-            options={subIdOptions}
+            resourceName="subs"
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('subId', newValue)
             }}
@@ -164,7 +161,7 @@ const PubLeadsFilters: FC<PubLeadsFiltersProps> = ({
             creatable={false}
             multiple={false}
             {...getFieldProps('campaign')}
-            options={campaignOptions}
+            resourceName="campaigns"
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('campaign', newValue)
             }}

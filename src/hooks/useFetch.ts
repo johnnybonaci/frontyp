@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import axios from 'axios'
 import i18next from 'i18next'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -48,6 +48,7 @@ const useFetch = (
   const [lastFetchParams, setLastFetchParams] = useState<any>(null)
   const [response, setResponse] = useState<any>(undefined)
   const { pollingInterval } = config
+  const timeoutRef = useRef<any>(null)
 
   const resetResponse = useCallback(() => {
     setResponse(undefined)
@@ -100,11 +101,21 @@ const useFetch = (
   )
 
   const doThrottledFetch = useCallback(
-    async (params: any = {}, options = {}) => {
-      setTimeout(async () => (doFetch ? await doFetch(params, options) : null), debounceWait)
+    async (params: any = {}) => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+
+      await new Promise<void>((resolve) => {
+        timeoutRef.current = window.setTimeout(() => {
+          // eslint-disable-next-line no-void
+          resolve(void doFetch(params))
+        }, debounceWait)
+      });
     },
-    [doFetch]
+    [doFetch, debounceWait]
   )
+
   const retry = useCallback(
     (options = {}) => {
       void doFetch(lastFetchParams, options)

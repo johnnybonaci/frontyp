@@ -46,13 +46,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
   initialFilters = DEFAULT_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'QAReport.filters' })
-  const {
-    buyerOptions,
-    trafficSourceOptions,
-    pubIdOptions,
-    subIdOptions,
-    leadTypeOptions,
-  } = useFetchData()
+  const { trafficSourceOptions, leadTypeOptions } = useFetchData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,
@@ -111,7 +105,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
             placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
-            options={pubIdOptions}
+            resourceName="pubs"
             {...getFieldProps('pubId')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('pubId', newValue)
@@ -122,7 +116,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
           <CustomAutocomplete
             creatable={false}
             multiple={false}
-            options={subIdOptions}
+            resourceName="subs"
             {...getFieldProps('subId')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('subId', newValue)
@@ -130,7 +124,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
             label={t('subId')}
           />
           <CustomAutocomplete
-            options={buyerOptions}
+            resourceName="buyers"
             {...getFieldProps('buyers')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('buyers', newValue)
@@ -147,11 +141,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
             label={t('leadsType')}
             placeholder={t('selectOrAdd')}
           />
-          <TextField
-            label={t('phone')}
-            {...getFieldProps('phone')}
-            onChange={handleChange}
-          />
+          <TextField label={t('phone')} {...getFieldProps('phone')} onChange={handleChange} />
         </>
       }
       isSearching={isSearching}

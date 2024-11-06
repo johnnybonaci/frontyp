@@ -57,14 +57,7 @@ const ActiveLeadsFilters: FC<ActiveLeadsFiltersProps> = ({
   initialFilters = DEFAULT_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'ActiveLeads.filters' })
-  const {
-    subIdOptions,
-    trafficSourceOptions,
-    statusOptions,
-    pubIdOptions,
-    campaignOptions,
-    leadTypeOptions,
-  } = useFetchData()
+  const { trafficSourceOptions, statusOptions, leadTypeOptions } = useFetchData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,
@@ -127,7 +120,7 @@ const ActiveLeadsFilters: FC<ActiveLeadsFiltersProps> = ({
             value={values.trafficSource}
           />
           <CustomAutocomplete
-            options={pubIdOptions}
+            resourceName="pubs"
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('pubId', newValue)
             }}
@@ -139,7 +132,7 @@ const ActiveLeadsFilters: FC<ActiveLeadsFiltersProps> = ({
             creatable={false}
             multiple={false}
             {...getFieldProps('subId')}
-            options={subIdOptions}
+            resourceName="subs"
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('subId', newValue)
             }}
@@ -164,7 +157,7 @@ const ActiveLeadsFilters: FC<ActiveLeadsFiltersProps> = ({
             creatable={false}
             multiple={false}
             {...getFieldProps('campaign')}
-            options={campaignOptions}
+            resourceName="campaigns"
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('campaign', newValue)
             }}

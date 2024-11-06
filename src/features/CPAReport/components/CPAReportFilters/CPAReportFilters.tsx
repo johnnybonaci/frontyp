@@ -52,14 +52,7 @@ const CPAReportFilters: FC<CPAReportFiltersProps> = ({
   initialFilters = DEFAULT_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'CPAReport.filters' })
-  const {
-    stateOptions,
-    buyerOptions,
-    trafficSourceOptions,
-    pubIdOptions,
-    subIdOptions,
-    leadTypeOptions,
-  } = useFetchData()
+  const { stateOptions, trafficSourceOptions, leadTypeOptions } = useFetchData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,
@@ -118,7 +111,7 @@ const CPAReportFilters: FC<CPAReportFiltersProps> = ({
             placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
-            options={pubIdOptions}
+            resourceName="pubs"
             {...getFieldProps('pubId')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('pubId', newValue)
@@ -129,16 +122,15 @@ const CPAReportFilters: FC<CPAReportFiltersProps> = ({
           <CustomAutocomplete
             creatable={false}
             multiple={false}
-            options={subIdOptions}
+            resourceName="subs"
             {...getFieldProps('subId')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('subId', newValue)
             }}
             label={t('subId')}
-            placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
-            options={buyerOptions}
+            resourceName="buyers"
             {...getFieldProps('buyers')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('buyers', newValue)

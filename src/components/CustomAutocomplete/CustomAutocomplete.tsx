@@ -1,5 +1,6 @@
-import React from 'react'
-import { Autocomplete, TextField, Chip } from '@mui/material'
+import React, { useState } from 'react'
+import { Autocomplete, TextField, Chip, debounce } from '@mui/material'
+import useGetOptions from 'hooks/useGetOptions.ts'
 
 export interface Option {
   title: string
@@ -11,9 +12,11 @@ interface MultipleAutocompleteProps {
   onChange: (event: any, newValue: Array<string | Option>) => void
   label: string
   creatable?: boolean
+  resourceName?: string
+  filterName?: string
   multiple?: boolean
   placeholder?: string
-  options: Option[]
+  options?: Option[]
 }
 
 const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
@@ -24,7 +27,16 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   label,
   placeholder = '',
   options,
+  resourceName,
+  filterName = 'search',
 }) => {
+  const [inputValue, setInputValue] = useState('')
+  const resourceOptions = useGetOptions([resourceName ?? ''], {
+    [filterName]: inputValue || undefined,
+  })[`${resourceName}Options`]
+
+  const allOptions = resourceName ? resourceOptions : options
+
   const handleChange = (event: any, newValue: Array<string | Option> | any): void => {
     let newOptions = newValue
     if (creatable) {
@@ -40,10 +52,15 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
     <Autocomplete
       multiple={multiple}
       freeSolo={creatable}
-      options={options}
+      /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+      // @ts-expect-error
+      options={allOptions}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.title)}
       value={value}
       onChange={handleChange}
+      onInputChange={debounce((_event, newInputValue) => {
+        setInputValue(newInputValue)
+      }, 500)}
       renderTags={(value: Option[], getTagProps) =>
         value.map((option, index) => (
           <Chip label={option.title} {...getTagProps({ index })} key={option.title} />
