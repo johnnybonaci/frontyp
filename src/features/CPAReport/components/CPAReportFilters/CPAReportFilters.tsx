@@ -6,8 +6,8 @@ import Filters from 'src/components/Filters/index.ts'
 import CustomAutocomplete, {
   type Option,
 } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
-import useFetchData from 'hooks/useFetchData.tsx'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
+import useData from "hooks/useData.tsx";
 
 export interface CPAReportListFiltersFormValues {
   pubId: Option[]
@@ -52,7 +52,7 @@ const CPAReportFilters: FC<CPAReportFiltersProps> = ({
   initialFilters = DEFAULT_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'CPAReport.filters' })
-  const { stateOptions, trafficSourceOptions, leadTypeOptions } = useFetchData()
+  const { stateOptions, trafficSourceOptions, leadTypeOptions } = useData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,

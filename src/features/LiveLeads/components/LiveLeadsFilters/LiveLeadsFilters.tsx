@@ -7,10 +7,10 @@ import Filters from 'src/components/Filters/index.ts'
 import CustomAutocomplete, {
   type Option,
 } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
-import useFetchData from 'hooks/useFetchData.tsx'
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
+import useData from 'hooks/useData.tsx'
 
 export interface LiveLeadsListFiltersFormValues {
   pubId: Option[]
@@ -57,7 +57,7 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
   initialFilters = DEFAULT_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'LiveLeads.filters' })
-  const { trafficSourceOptions, statusOptions, leadTypeOptions } = useFetchData()
+  const { trafficSourceOptions, statusOptions, leadTypeOptions } = useData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,

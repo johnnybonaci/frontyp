@@ -4,7 +4,7 @@ import { type RequestError } from 'hooks/useFetch.ts'
 import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import config from '../config.tsx'
 
-interface UseFetchDataResponse {
+export interface UseFetchDataResponse {
   stateOptions: Option[]
   buyerOptions: Option[]
   trafficSourceOptions: Option[]

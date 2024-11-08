@@ -6,9 +6,9 @@ import Filters from 'src/components/Filters/index.ts'
 import CustomAutocomplete, {
   type Option,
 } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
-import useFetchData from 'hooks/useFetchData.tsx'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import { TextField } from '@mui/material'
+import useData from "hooks/useData.tsx";
 
 export interface QAReportListFiltersFormValues {
   pubId: Option[]
@@ -46,7 +46,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
   initialFilters = DEFAULT_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'QAReport.filters' })
-  const { trafficSourceOptions, leadTypeOptions } = useFetchData()
+  const { trafficSourceOptions, leadTypeOptions } = useData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,

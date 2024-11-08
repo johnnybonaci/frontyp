@@ -10,7 +10,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import styles from './editSaleForm.module.scss'
 import DrawerActions from 'components/DrawerActions'
 import EditSaleFormSchema from 'features/CallReport/schema/EditSaleFormSchema.ts'
-import useFetchData from 'hooks/useFetchData.tsx'
+import useData from 'hooks/useData.tsx'
 
 export interface EditSaleFormValues {
   sale?: number
@@ -38,7 +38,7 @@ const EditSaleForm: FC<EditSaleFormFiltersProps> = ({
   initialValues = DEFAULT_VALUES,
 }) => {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'CallReport.editSaleForm' })
-  const { saleOptions, insuranceOptions } = useFetchData()
+  const { saleOptions, insuranceOptions } = useData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue, errors } = useFormik({
     initialValues,

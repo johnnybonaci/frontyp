@@ -12,8 +12,6 @@ import type AuthUser from 'features/Auth/models/AuthUser'
 import AuthContext from './AuthContext'
 import { PATHS } from 'features/Auth/routes.tsx'
 import { DASHBOARD } from 'utils/constants.ts'
-import { useCookies } from 'react-cookie'
-import config from '../../../config.tsx'
 
 export interface AuthProviderType {
   isAuthenticated: boolean
@@ -34,7 +32,6 @@ interface AuthProviderProps {
 
 const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const location = useLocation()
-  const [cookies] = useCookies(['yieldpro_session'])
   const [isAuthenticated, setIsAuthenticated] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [loginRedirect, setLoginRedirect] = useState(DASHBOARD)
@@ -120,11 +117,11 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
     if (initialized.current) return
     initialized.current = true
 
-    if (cookies.yieldpro_session) {
-      setIsAuthenticated(true)
-    } else {
-      // setIsAuthenticated(false)
-    }
+    // if (cookies.yieldpro_session) {
+    //   setIsAuthenticated(true)
+    // } else {
+    //   setIsAuthenticated(false)
+    // }
 
     setIsLoading(false)
 
@@ -155,19 +152,16 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   )
 
   const logout = useCallback(
-    async (/* doRevokeToken = true */) => {
+    async (doRevokeToken = true) => {
       try {
-        // if (doRevokeToken) {
-        //   await doLogout()
-        // }
-        //
-        // setSession(null)
-        // clearSession()
+        if (doRevokeToken) {
+          await doLogout()
+        }
+
+        setSession(null)
+        clearSession()
         setIsAuthenticated(false)
 
-        window.location.href = config.oldSiteDomain + 'logout'
-
-        setIsLoading(false)
         await Promise.resolve()
       } catch (e) {
         return await Promise.reject(e)

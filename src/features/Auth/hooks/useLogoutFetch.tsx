@@ -8,7 +8,7 @@ interface UseLogoutFetchResult {
 }
 
 export default function useLoginFetch(): UseLogoutFetchResult {
-  const { doFetch, error, loading } = useFetch(`${config.api.msAuth.baseUrl}/auth/logout`, {
+  const { doFetch, error, loading } = useFetch(`${config.api.baseUrl}/logout`, {
     method: 'POST',
   })
 

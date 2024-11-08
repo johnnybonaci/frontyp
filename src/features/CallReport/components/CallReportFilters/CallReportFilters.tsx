@@ -7,10 +7,10 @@ import Filters from 'src/components/Filters/index.ts'
 import CustomAutocomplete, {
   type Option,
 } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
-import useFetchData from 'hooks/useFetchData.tsx'
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
+import useData from "hooks/useData.tsx";
 
 export interface CallReportListFiltersFormValues {
   offers: Option[]
@@ -78,7 +78,7 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
     callIssuesOptions,
     insuranceOptions,
     statusOptions,
-  } = useFetchData()
+  } = useData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,
