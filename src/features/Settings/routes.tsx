@@ -18,6 +18,9 @@ const SettingsLayout = loadable(
 )
 const PubId = loadable(lazy(async () => await import('features/Settings/screens/PubId')))
 const Offers = loadable(lazy(async () => await import('features/Settings/screens/Offers')))
+const TrafficSource = loadable(
+  lazy(async () => await import('features/Settings/screens/TrafficSource'))
+)
 
 const SettingsRoutes = [
   {
@@ -27,6 +30,7 @@ const SettingsRoutes = [
       { element: <Navigate to={SETTINGS_PATHS.PUBID} />, index: true },
       { element: <PubId />, path: SETTINGS_PATHS.PUBID },
       { element: <Offers />, path: SETTINGS_PATHS.OFFERS },
+      { element: <TrafficSource />, path: SETTINGS_PATHS.TRAFFIC_SOURCE },
     ],
   },
 ]

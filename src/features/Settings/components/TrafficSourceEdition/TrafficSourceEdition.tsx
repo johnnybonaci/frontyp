@@ -1,0 +1,112 @@
+import React, { useCallback, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Button, Drawer, Stack, TextField } from '@mui/material'
+import DrawerContent from 'components/DrawerContent'
+import DrawerHeader from 'components/DrawerHeader'
+import { TrafficSourceForm, TrafficSourceItem } from 'features/Settings/types'
+import { useFormik } from 'formik'
+import TrafficSourceSchema, {
+  EMPTY_TRAFFIC_SOURCE,
+} from 'features/Settings/schema/TrafficSourceSchema'
+import { useTrafficSourceEdition } from 'features/Settings/hooks/useTrafficSourceEdition'
+import { trafficSourcesToForm } from 'features/Settings/transformers/traficSourceTransfomers'
+import _ from 'lodash'
+
+interface TrafficSourceEditionProps {
+  open: boolean
+  onClose: () => void
+  pub?: TrafficSourceItem
+}
+
+function TrafficSourceEdition({ open, onClose, pub }: TrafficSourceEditionProps): React.ReactNode {
+  const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.trafficSource' })
+  const { onSubmit } = useTrafficSourceEdition(pub?.id)
+
+  const {
+    handleChange,
+    handleBlur,
+    values,
+    resetForm,
+    handleSubmit,
+    setFieldValue,
+    setFieldTouched,
+    errors,
+    touched,
+    isValid,
+  } = useFormik<TrafficSourceForm>({
+    initialValues: EMPTY_TRAFFIC_SOURCE,
+    validateOnChange: false,
+    validationSchema: TrafficSourceSchema,
+    onSubmit,
+  })
+
+  useEffect(() => {
+    if (pub) {
+      resetForm({
+        values: trafficSourcesToForm(pub),
+      })
+    }
+  }, [pub])
+
+  const debouncedValidateField = useCallback(_.debounce(setFieldTouched, 500), [setFieldTouched])
+
+  const getFieldProps = useCallback(
+    (name: string) => {
+      const error = _.get(errors, name)
+      const touchedField = _.get(touched, name)
+
+      return {
+        name,
+        label: t(`fields.${name}`),
+        value: _.get(values, name),
+        onChange: (...params: any[]) => {
+          handleChange(params[0])
+          debouncedValidateField(name)
+        },
+        onBlur: handleBlur,
+        error: !!(touchedField && error),
+        helperText: touchedField && error ? i18n.t(error) : '',
+      }
+    },
+    [handleChange, values, setFieldValue, errors, touched, i18n]
+  )
+
+  return (
+    <Drawer
+      open={open}
+      onClose={onClose}
+      anchor="right"
+      sx={{ position: 'relative' }}
+      variant="persistent"
+    >
+      <DrawerHeader title={t('edition.title')} onClose={onClose} />
+      <DrawerContent>
+        <form onSubmit={handleSubmit} noValidate>
+          <TextField sx={{ mr: 2 }} {...getFieldProps('name')} />
+          <TextField sx={{ mr: 2 }} {...getFieldProps('trafficSourceProviderId')} />
+          <TextField sx={{ mr: 2 }} {...getFieldProps('providerId')} />
+
+          <Stack
+            direction="row"
+            justifyContent="center"
+            spacing={2}
+            height={48}
+            py={2}
+            position="sticky"
+            bottom={32}
+            bgcolor="white"
+          >
+            <Button variant="contained" color="primary" type="submit" disabled={!isValid} fullWidth>
+              {t('save')}
+            </Button>
+            <Button variant="outlined" color="primary" onClick={onClose} fullWidth>
+              {t('cancel')}
+            </Button>
+          </Stack>
+        </form>
+      </DrawerContent>
+    </Drawer>
+  )
+}
+
+export default TrafficSourceEdition

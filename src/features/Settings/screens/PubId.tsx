@@ -58,8 +58,6 @@ const PubIdList: FC = () => {
     [toggleViewDetails, setSelectedPubId]
   )
 
-  console.log(initialFilters)
-
   return (
     <ContentBox>
       <Stack mt={2}>

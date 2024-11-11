@@ -47,5 +47,30 @@
       "pubs": "Pubs",
       "name": "Name"
     }
+  },
+  "trafficSource": {
+    "singular": "Traffic Source",
+    "listing": {
+      "title": "Traffic Sources"
+    },
+    "edition": {
+      "title": "Edit Traffic Source"
+    },
+    "actions": {
+      "edit": "Edit Traffic Source"
+    },
+    "fields": {
+      "name": "Name",
+      "providerId": "Provider Id",
+      "providerName": "Provider Name",
+      "trafficSourceProviderId": "Traffic Source Provider Id"
+    },
+    "filters": {
+      "name": "Name",
+      "providerId": "Provider Id",
+      "trafficSourceProviderId": "Traffic Source Provider Id"
+    },
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }
