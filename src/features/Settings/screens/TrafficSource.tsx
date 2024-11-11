@@ -91,7 +91,7 @@ const TrafficSource: FC = () => {
       <TrafficSourceEdition
         open={!collapsedViewEdition}
         onClose={toggleViewDetails}
-        pub={selectedTrafficSource}
+        trafficSource={selectedTrafficSource}
       />
     </ContentBox>
   )

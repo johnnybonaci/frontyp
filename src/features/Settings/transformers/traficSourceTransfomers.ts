@@ -6,6 +6,7 @@ import {
   TrafficSourceToAPI,
 } from '../types'
 import { multipleSelectToApi } from 'src/transformers/apiTransformers'
+import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 
 export const transformFiltersFromUrl = (searchParams: URLSearchParams): Record<string, any> => {
   return {
@@ -25,8 +26,6 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
       value: filters.name,
     })
   }
-
-  console.log(filters)
 
   if (filters.provider) {
     filter.push({
@@ -80,16 +79,31 @@ export const trafficSourcesItemFromApi = (data: TrafficSourcesItemFromApi): Traf
   }
 }
 
-export const trafficSourcesToForm = (data: TrafficSourceItem): TrafficSourceForm => {
-  return data
+export const trafficSourcesToForm = (
+  data: TrafficSourceItem,
+  providersOptions: Option[]
+): TrafficSourceForm => {
+  const { id, trafficSourceProviderId, providerId, name } = data
+  return {
+    id,
+    name,
+    trafficSourceProviderId,
+    provider: providersOptions.find(
+      (option) => Number(option.id) === providerId
+    ) as Required<Option>,
+  }
 }
 
 export const trafficSourceEditedToAPI = (data: TrafficSourceForm): TrafficSourceToAPI => {
-  const { name, trafficSourceProviderId, providerId } = data
+  const { name, trafficSourceProviderId, provider, id } = data
 
   return {
+    id,
     name,
     traffic_source_provider_id: trafficSourceProviderId,
-    provider_id: providerId,
+    provider_id: String(provider.id),
+    form: {
+      provider_select: String(provider.id),
+    },
   }
 }

@@ -11,16 +11,23 @@ import TrafficSourceSchema, {
 import { useTrafficSourceEdition } from 'features/Settings/hooks/useTrafficSourceEdition'
 import { trafficSourcesToForm } from 'features/Settings/transformers/traficSourceTransfomers'
 import _ from 'lodash'
+import CustomAutocomplete from 'components/CustomAutocomplete/CustomAutocomplete'
+import useFetchProviders from 'hooks/useFetchProviders'
 
 interface TrafficSourceEditionProps {
   open: boolean
   onClose: () => void
-  pub?: TrafficSourceItem
+  trafficSource?: TrafficSourceItem
 }
 
-function TrafficSourceEdition({ open, onClose, pub }: TrafficSourceEditionProps): React.ReactNode {
+function TrafficSourceEdition({
+  open,
+  onClose,
+  trafficSource,
+}: TrafficSourceEditionProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.trafficSource' })
-  const { onSubmit } = useTrafficSourceEdition(pub?.id)
+  const { onSubmit } = useTrafficSourceEdition(trafficSource?.id)
+  const { providersOptions } = useFetchProviders()
 
   const {
     handleChange,
@@ -41,12 +48,12 @@ function TrafficSourceEdition({ open, onClose, pub }: TrafficSourceEditionProps)
   })
 
   useEffect(() => {
-    if (pub) {
+    if (trafficSource) {
       resetForm({
-        values: trafficSourcesToForm(pub),
+        values: trafficSourcesToForm(trafficSource, providersOptions),
       })
     }
-  }, [pub])
+  }, [trafficSource])
 
   const debouncedValidateField = useCallback(_.debounce(setFieldTouched, 500), [setFieldTouched])
 
@@ -57,7 +64,7 @@ function TrafficSourceEdition({ open, onClose, pub }: TrafficSourceEditionProps)
 
       return {
         name,
-        label: t(`fields.${name}`),
+        label: t(`form.${name}`),
         value: _.get(values, name),
         onChange: (...params: any[]) => {
           handleChange(params[0])
@@ -84,7 +91,15 @@ function TrafficSourceEdition({ open, onClose, pub }: TrafficSourceEditionProps)
         <form onSubmit={handleSubmit} noValidate>
           <TextField sx={{ mr: 2 }} {...getFieldProps('name')} />
           <TextField sx={{ mr: 2 }} {...getFieldProps('trafficSourceProviderId')} />
-          <TextField sx={{ mr: 2 }} {...getFieldProps('providerId')} />
+          <CustomAutocomplete
+            {...getFieldProps('provider')}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('provider', newValue)
+            }}
+            options={providersOptions}
+            creatable={false}
+            multiple={false}
+          />
 
           <Stack
             direction="row"

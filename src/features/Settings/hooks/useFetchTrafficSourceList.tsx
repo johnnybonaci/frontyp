@@ -38,8 +38,8 @@ const useFetchTrafficSourceList = ({
   useEffect(() => {
     if (!response) return
 
-    const trafficSourcesItems = response.data.map((role: TrafficSourcesItemFromApi) =>
-      trafficSourcesItemFromApi(role)
+    const trafficSourcesItems = response.data.map((item: TrafficSourcesItemFromApi) =>
+      trafficSourcesItemFromApi(item)
     )
 
     setTrafficSourcesItems(trafficSourcesItems)
