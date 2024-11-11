@@ -7,6 +7,8 @@ import TrafficSourceFiltersSchema, {
 } from 'src/features/Settings/schema/TrafficSourceFiltersSchema'
 import FilterWrapper from 'src/components/Filters'
 import { type Filters } from 'types/filter'
+import CustomAutocomplete from 'components/CustomAutocomplete/CustomAutocomplete'
+import useFetchProviders from 'hooks/useFetchProviders'
 
 interface TrafficSourceFiltersProps {
   onCancel: () => void
@@ -22,6 +24,7 @@ const TrafficSourceFilters: FC<TrafficSourceFiltersProps> = ({
   initialFilters = EMPTY_TRAFFIC_SOURCE_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.trafficSource.filters' })
+  const { providersOptions } = useFetchProviders()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,
@@ -60,7 +63,16 @@ const TrafficSourceFilters: FC<TrafficSourceFiltersProps> = ({
             label={t('trafficSourceProviderId')}
             {...getFieldProps('trafficSourceProviderId')}
           />
-          <TextField label={t('providerId')} {...getFieldProps('providerId')} />
+          <CustomAutocomplete
+            label={t('provider')}
+            {...getFieldProps('provider')}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('provider', newValue)
+            }}
+            options={providersOptions}
+            creatable={false}
+            multiple={false}
+          />
         </>
       }
       isSearching={isSearching}

@@ -62,7 +62,7 @@ const useFetchData = (): UseFetchDataResponse => {
       }))
     )
     setTrafficSourceOptions(
-      data.traffic.map((option: any) => ({
+      Object.values(data.traffic).map((option: any) => ({
         id: option.id,
         title: option.name,
       }))

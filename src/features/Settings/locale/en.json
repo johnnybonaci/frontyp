@@ -67,7 +67,7 @@
     },
     "filters": {
       "name": "Name",
-      "providerId": "Provider Id",
+      "provider": "Provider",
       "trafficSourceProviderId": "Traffic Source Provider Id"
     },
     "save": "Save",

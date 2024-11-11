@@ -14,12 +14,15 @@ const useFetchProviders = (): UseFetchProvidersResponse => {
   const [providersOptions, setProviderOptions] = useState<Option[]>([])
   const [error] = useState<RequestError>(null)
 
-  const { doFetch, response, loading } = useFetch(`${config.api.baseUrl}/api/data/providers`, {
-    params: {
-      size: 1000,
-      page: 1,
-    },
-  })
+  const { doFetch, response, loading } = useFetch(
+    `${config.api.baseUrl}/api/data/settings/provider`,
+    {
+      params: {
+        size: 1000,
+        page: 1,
+      },
+    }
+  )
 
   useEffect(() => {
     if (!response) return
@@ -27,9 +30,9 @@ const useFetchProviders = (): UseFetchProvidersResponse => {
     const { data } = response
 
     setProviderOptions(
-      data.map(({ id, providers_name }: any) => ({
+      data.map(({ id, name }: any) => ({
         id,
-        title: providers_name,
+        title: name,
       }))
     )
   }, [response])

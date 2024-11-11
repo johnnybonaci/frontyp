@@ -2,13 +2,13 @@ import * as Yup from 'yup'
 
 export const EMPTY_TRAFFIC_SOURCE_FILTERS = {
   name: '',
-  providerId: '',
+  provider: '',
   trafficSourceProviderId: '',
 }
 
 const TrafficSourceFiltersSchema = Yup.object({
   name: Yup.string().nullable(),
-  providerId: Yup.string().nullable(),
+  provider: Yup.object().nullable(),
   trafficSourceProviderId: Yup.string().nullable(),
 })
 

@@ -4,7 +4,6 @@ import useFetchPubs from 'hooks/useFetchPubs.tsx'
 import useFetchSubs from 'hooks/useFetchSubs.tsx'
 import useFetchBuyers from 'hooks/useFetchBuyers.tsx'
 import useFetchCampaigns from 'hooks/useFetchCampaigns.tsx'
-import useFetchProviders from './useFetchProviders'
 
 type ResourceName = string
 
@@ -17,7 +16,6 @@ const HOOKS_MAP: Record<ResourceName, any> = {
   subs: useFetchSubs,
   buyers: useFetchBuyers,
   campaigns: useFetchCampaigns,
-  providers: useFetchProviders,
 }
 
 export const LIST_ENTITIES_PERMISSIONS: Record<ResourceName, any> = {

@@ -10,7 +10,7 @@ import { multipleSelectToApi } from 'src/transformers/apiTransformers'
 export const transformFiltersFromUrl = (searchParams: URLSearchParams): Record<string, any> => {
   return {
     name: searchParams.get('name') ?? '',
-    providerId: searchParams.get('providerId') ?? '',
+    provider: searchParams.get('provider') ?? '',
     trafficSourceProviderId: searchParams.get('trafficSourceProviderId') ?? '',
   }
 }
@@ -26,11 +26,13 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     })
   }
 
-  if (filters.providerId) {
+  console.log(filters)
+
+  if (filters.provider) {
     filter.push({
       field: 'provider_id',
       type: 'like',
-      value: filters.providerId,
+      value: filters.provider.id,
     })
   }
 
@@ -54,8 +56,8 @@ export const transformFiltersToUrl = (filters: Filters): string => {
   if (filters.name) {
     params.set('name', filters.name)
   }
-  if (filters.providerId) {
-    params.set('providerId', filters.providerId)
+  if (filters.provider) {
+    params.set('provider', filters.provider)
   }
   if (filters.trafficSourceProviderId) {
     params.set('trafficSourceProviderId', filters.trafficSourceProviderId)
