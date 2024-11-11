@@ -18,7 +18,7 @@ interface MultipleAutocompleteProps {
   multiple?: boolean
   placeholder?: string
   helperText?: string
-  options: Option[]
+  options?: Option[]
   sx?: SxProps
 }
 
@@ -58,6 +58,8 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
     <Autocomplete
       multiple={multiple}
       freeSolo={creatable}
+      /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+      // @ts-expect-error
       options={allOptions}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.title)}
       value={value}
