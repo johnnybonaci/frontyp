@@ -77,5 +77,38 @@
     },
     "save": "Save",
     "cancel": "Cancel"
+  },
+  "buyers": {
+    "singular": "Buyer",
+    "listing": {
+      "title": "Buyers"
+    },
+    "edition": {
+      "title": "Edit Buyer"
+    },
+    "actions": {
+      "edit": "Edit Buyer"
+    },
+    "fields": {
+      "name": "Name",
+      "providerId": "Provider Id",
+      "providerName": "Provider Name",
+      "buyerProviderId": "Buyer Provider Id",
+      "userName": "User Name"
+    },
+    "filters": {
+      "name": "Name",
+      "provider": "Provider",
+      "buyerProviderId": "Buyer Provider Id",
+      "userName": "User Name"
+    },
+    "form": {
+      "name": "Name",
+      "provider": "Provider",
+      "buyerProviderId": "Buyer Provider Id",
+      "userName": "User Name"
+    },
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }

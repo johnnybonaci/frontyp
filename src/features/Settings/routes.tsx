@@ -21,6 +21,7 @@ const Offers = loadable(lazy(async () => await import('features/Settings/screens
 const TrafficSource = loadable(
   lazy(async () => await import('features/Settings/screens/TrafficSource'))
 )
+const Buyers = loadable(lazy(async () => await import('features/Settings/screens/Buyers')))
 
 const SettingsRoutes = [
   {
@@ -31,6 +32,7 @@ const SettingsRoutes = [
       { element: <PubId />, path: SETTINGS_PATHS.PUBID },
       { element: <Offers />, path: SETTINGS_PATHS.OFFERS },
       { element: <TrafficSource />, path: SETTINGS_PATHS.TRAFFIC_SOURCE },
+      { element: <Buyers />, path: SETTINGS_PATHS.BUYERS },
     ],
   },
 ]
