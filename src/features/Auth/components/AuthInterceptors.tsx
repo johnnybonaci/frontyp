@@ -1,6 +1,6 @@
 import { type ReactNode, type FC } from 'react'
 import axios, { type AxiosError } from 'axios'
-// import useAuth from '../hooks/useAuth'
+import useAuth from '../hooks/useAuth'
 import { useCookies } from 'react-cookie'
 
 interface AuthInterceptorsProps {
@@ -8,7 +8,7 @@ interface AuthInterceptorsProps {
 }
 
 const AuthInterceptors: FC<AuthInterceptorsProps> = ({ children }) => {
-  // const { logout, tryToSetNewLoginRedirect } = useAuth()
+  const { logout, tryToSetNewLoginRedirect } = useAuth()
   const [cookies] = useCookies(['csrf-token'])
 
   axios.defaults.withCredentials = true
@@ -24,17 +24,17 @@ const AuthInterceptors: FC<AuthInterceptorsProps> = ({ children }) => {
     }
   )
 
-  // axios.interceptors.response.use(
-  //   (response) => response,
-  //   async (error: AxiosError) => {
-  //     if (error.response && error.response.status === 401) {
-  //       tryToSetNewLoginRedirect()
-  //       void logout(false)
-  //     }
+  axios.interceptors.response.use(
+    (response) => response,
+    async (error: AxiosError) => {
+      if (error.response && error.response.status === 401) {
+        tryToSetNewLoginRedirect()
+        void logout(false)
+      }
 
-  //     return await Promise.reject(error)
-  //   }
-  // )
+      return await Promise.reject(error)
+    }
+  )
 
   return <>{children}</>
 }
