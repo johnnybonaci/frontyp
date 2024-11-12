@@ -9,6 +9,7 @@ import FilterWrapper from 'src/components/Filters'
 import { type Filters } from 'types/filter'
 import CustomAutocomplete from 'components/CustomAutocomplete/CustomAutocomplete'
 import useFetchProviders from 'hooks/useFetchProviders'
+import useFetchUsers from 'hooks/useFetchUsers'
 
 interface BuyersFiltersProps {
   onCancel: () => void
@@ -25,6 +26,7 @@ const BuyersFilters: FC<BuyersFiltersProps> = ({
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.buyers.filters' })
   const { providersOptions } = useFetchProviders()
+  const { userOptions } = useFetchUsers()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,
@@ -67,6 +69,16 @@ const BuyersFilters: FC<BuyersFiltersProps> = ({
               void setFieldValue('provider', newValue)
             }}
             options={providersOptions}
+            creatable={false}
+            multiple={false}
+          />
+          <CustomAutocomplete
+            label={t('user')}
+            {...getFieldProps('userId')}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('userId', newValue)
+            }}
+            options={userOptions}
             creatable={false}
             multiple={false}
           />

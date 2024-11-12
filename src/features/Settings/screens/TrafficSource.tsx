@@ -5,11 +5,7 @@ import useFilters from 'src/hooks/useFilters'
 import useFetchTrafficSource from 'features/Settings/hooks/TrafficSource/useFetchTrafficSourceList'
 import TrafficSourceFilters from '../components/TrafficSource/TrafficSourceFilters'
 import ContentBox from 'components/ContentBox'
-import {
-  transformFiltersFromUrl,
-  transformFiltersToApi,
-  transformFiltersToUrl,
-} from 'features/Settings/transformers/TrafficSource'
+import { transformFiltersToApi } from 'features/Settings/transformers/TrafficSource'
 import TrafficSourceEdition from '../components/TrafficSource/TrafficSourceEdition'
 import { TrafficSourceItem } from '../types/TrafficSource'
 import { Stack } from '@mui/material'
@@ -20,11 +16,7 @@ const TrafficSource: FC = () => {
   const [selectedTrafficSource, setSelectedTrafficSource] = useState<TrafficSourceItem>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
-  const { filters, initialFilters, onCancel, onApply } = useFilters(
-    transformFiltersToApi,
-    transformFiltersFromUrl,
-    transformFiltersToUrl
-  )
+  const { filters, initialFilters, onCancel, onApply } = useFilters(transformFiltersToApi)
 
   const { trafficSourceItems, sorter, setSorter, paginator, loading } = useFetchTrafficSource({
     filters,

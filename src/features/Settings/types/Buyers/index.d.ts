@@ -1,3 +1,5 @@
+import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
+
 export interface BuyersItemFromApi {
   id: number
   name: string
@@ -21,7 +23,11 @@ export interface BuyersForm extends Omit<BuyersItem, 'providerId' | 'userId'> {
   provider: Required<Option>
 }
 
-export interface BuyersFilter extends Partial<BuyersForm> {}
+export interface BuyersFilter extends Partial<BuyersForm> {
+  buyerProviderId?: string | null
+  provider?: Option | null
+  userId?: Option | null
+}
 
 export interface BuyersToAPI
   extends Omit<

@@ -5,11 +5,7 @@ import useFilters from 'src/hooks/useFilters'
 import useFetchBuyers from 'features/Settings/hooks/Buyers/useFetchBuyersList'
 import BuyersFilters from '../components/Buyers/BuyersFilters'
 import ContentBox from 'components/ContentBox'
-import {
-  transformFiltersFromUrl,
-  transformFiltersToApi,
-  transformFiltersToUrl,
-} from 'features/Settings/transformers/Buyers'
+import { transformFiltersToApi } from 'features/Settings/transformers/Buyers'
 import BuyersEdition from '../components/Buyers/BuyersEdition'
 import { BuyersItem } from '../types/Buyers'
 import { Stack } from '@mui/material'
@@ -20,11 +16,7 @@ const Buyers: FC = () => {
   const [selectedBuyers, setSelectedBuyers] = useState<BuyersItem>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
-  const { filters, initialFilters, onCancel, onApply } = useFilters(
-    transformFiltersToApi,
-    transformFiltersFromUrl,
-    transformFiltersToUrl
-  )
+  const { filters, initialFilters, onCancel, onApply } = useFilters(transformFiltersToApi)
 
   const { buyersItems, sorter, setSorter, paginator, loading } = useFetchBuyers({
     filters,

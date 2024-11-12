@@ -8,14 +8,6 @@ import {
 import { multipleSelectToApi } from 'src/transformers/apiTransformers'
 import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 
-export const transformFiltersFromUrl = (searchParams: URLSearchParams): Record<string, any> => {
-  return {
-    name: searchParams.get('name') ?? '',
-    provider: searchParams.get('provider') ?? '',
-    trafficSourceProviderId: searchParams.get('trafficSourceProviderId') ?? '',
-  }
-}
-
 export const transformFiltersToApi = (filters: Filters): Filters => {
   const filter = []
 
@@ -48,20 +40,6 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
       return { field: item.field, type: item.type, value: item.value }
     }),
   }
-}
-
-export const transformFiltersToUrl = (filters: Filters): string => {
-  const params = new URLSearchParams()
-  if (filters.name) {
-    params.set('name', filters.name)
-  }
-  if (filters.provider) {
-    params.set('provider', filters.provider)
-  }
-  if (filters.trafficSourceProviderId) {
-    params.set('trafficSourceProviderId', filters.trafficSourceProviderId)
-  }
-  return params.toString()
 }
 
 export const trafficSourcesItemFromApi = (data: TrafficSourcesItemFromApi): TrafficSourceItem => {

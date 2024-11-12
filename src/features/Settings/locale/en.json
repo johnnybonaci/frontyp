@@ -100,7 +100,7 @@
       "name": "Name",
       "provider": "Provider",
       "buyerProviderId": "Buyer Provider Id",
-      "userName": "User Name"
+      "user": "User"
     },
     "form": {
       "name": "Name",

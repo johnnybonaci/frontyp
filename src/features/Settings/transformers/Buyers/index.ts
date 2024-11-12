@@ -3,14 +3,6 @@ import { BuyersForm, BuyersItem, BuyersItemFromApi, BuyersToAPI } from '../../ty
 import { multipleSelectToApi } from 'src/transformers/apiTransformers'
 import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 
-export const transformFiltersFromUrl = (searchParams: URLSearchParams): Record<string, any> => {
-  return {
-    name: searchParams.get('name') ?? '',
-    provider: searchParams.get('provider') ?? '',
-    buyerProviderId: searchParams.get('buyerProviderId') ?? '',
-  }
-}
-
 export const transformFiltersToApi = (filters: Filters): Filters => {
   const filter = []
 
@@ -38,25 +30,19 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     })
   }
 
+  if (filters.userId) {
+    filter.push({
+      field: 'user_id',
+      type: 'like',
+      value: filters.userId.id,
+    })
+  }
+
   return {
     filter: multipleSelectToApi(filter, (item) => {
       return { field: item.field, type: item.type, value: item.value }
     }),
   }
-}
-
-export const transformFiltersToUrl = (filters: Filters): string => {
-  const params = new URLSearchParams()
-  if (filters.name) {
-    params.set('name', filters.name)
-  }
-  if (filters.provider) {
-    params.set('provider', filters.provider)
-  }
-  if (filters.buyerProviderId) {
-    params.set('buyerProviderId', filters.buyerProviderId)
-  }
-  return params.toString()
 }
 
 export const buyersItemFromApi = (data: BuyersItemFromApi): BuyersItem => {
