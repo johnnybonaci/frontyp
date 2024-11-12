@@ -46,7 +46,7 @@ const TrafficSource: FC = () => {
       },
       {
         header: t('fields.providerName'),
-        fieldName: 'providerName',
+        fieldName: 'providerId',
         sortable: true,
       },
     ],
