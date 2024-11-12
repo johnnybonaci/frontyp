@@ -4,7 +4,7 @@ import { useCallback, type FC } from 'react'
 import { useFormik } from 'formik'
 import TrafficSourceFiltersSchema, {
   EMPTY_TRAFFIC_SOURCE_FILTERS,
-} from 'src/features/Settings/schema/TrafficSourceFiltersSchema'
+} from 'features/Settings/schema/TrafficSource/TrafficSourceFiltersSchema'
 import FilterWrapper from 'src/components/Filters'
 import { type Filters } from 'types/filter'
 import CustomAutocomplete from 'components/CustomAutocomplete/CustomAutocomplete'

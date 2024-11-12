@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { TrafficSourceForm } from '../types'
+import { TrafficSourceForm } from '../../types/TrafficSource'
 
 export const EMPTY_TRAFFIC_SOURCE: TrafficSourceForm = {
   id: 0,

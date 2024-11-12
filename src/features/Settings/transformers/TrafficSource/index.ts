@@ -4,7 +4,7 @@ import {
   TrafficSourceItem,
   TrafficSourcesItemFromApi,
   TrafficSourceToAPI,
-} from '../types'
+} from '../../types/TrafficSource'
 import { multipleSelectToApi } from 'src/transformers/apiTransformers'
 import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 

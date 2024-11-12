@@ -1,10 +1,10 @@
 import useFetch, { type RequestError } from 'hooks/useFetch.ts'
-import config from '../../../config.tsx'
+import config from '../../../../config.tsx'
 import { useTranslation } from 'react-i18next'
 import { enqueueSnackbar } from 'notistack'
 import { useEffect } from 'react'
-import { TrafficSourceForm } from '../types'
-import { trafficSourceEditedToAPI } from '../transformers/traficSourceTransfomers.ts'
+import { TrafficSourceForm } from '../../types/TrafficSource'
+import { trafficSourceEditedToAPI } from '../../transformers/TrafficSource/index.ts'
 
 export interface UseTrafficSourceEditionReturn {
   onSubmit: (data: TrafficSourceForm) => Promise<void>
@@ -19,7 +19,7 @@ export const useTrafficSourceEdition = (trafficSource?: number): UseTrafficSourc
   const onSubmit = async (data: TrafficSourceForm): Promise<void> => {
     if (trafficSource)
       doFetch({
-        url: `${config.api.baseUrl}/api/v1/pubs/update/${trafficSource}`,
+        url: `${config.api.baseUrl}/api/v1/trafficsource/update/${trafficSource}`,
         data: trafficSourceEditedToAPI(data),
         method: 'POST',
       })

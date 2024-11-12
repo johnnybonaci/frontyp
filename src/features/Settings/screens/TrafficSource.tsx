@@ -1,17 +1,17 @@
 import { useCallback, useMemo, useState, type FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import TrafficSourceTable from 'features/Settings/components/TrafficSourceTable/TrafficSourceTable'
+import TrafficSourceTable from 'features/Settings/components/TrafficSource/TrafficSourceTable/TrafficSourceTable'
 import useFilters from 'src/hooks/useFilters'
-import useFetchTrafficSource from 'features/Settings/hooks/useFetchTrafficSourceList'
-import TrafficSourceFilters from '../components/TrafficSourceFilters'
+import useFetchTrafficSource from 'features/Settings/hooks/TrafficSource/useFetchTrafficSourceList'
+import TrafficSourceFilters from '../components/TrafficSource/TrafficSourceFilters'
 import ContentBox from 'components/ContentBox'
 import {
   transformFiltersFromUrl,
   transformFiltersToApi,
   transformFiltersToUrl,
-} from 'features/Settings/transformers/traficSourceTransfomers'
-import TrafficSourceEdition from '../components/TrafficSourceEdition'
-import { TrafficSourceItem } from '../types'
+} from 'features/Settings/transformers/TrafficSource'
+import TrafficSourceEdition from '../components/TrafficSource/TrafficSourceEdition'
+import { TrafficSourceItem } from '../types/TrafficSource'
 import { Stack } from '@mui/material'
 
 const TrafficSource: FC = () => {

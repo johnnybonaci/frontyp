@@ -7,8 +7,8 @@ import { type RequestError } from 'src/hooks/useFetch.ts'
 import { type Paginator } from 'src/types/paginator'
 import { type Filters } from 'src/types/filter'
 import { type Sorter } from 'src/types/sorter'
-import { type TrafficSourceItem, type TrafficSourcesItemFromApi } from '../types'
-import { trafficSourcesItemFromApi } from '../transformers/traficSourceTransfomers'
+import { type TrafficSourceItem, type TrafficSourcesItemFromApi } from '../../types/TrafficSource'
+import { trafficSourcesItemFromApi } from '../../transformers/TrafficSource'
 
 interface UseFetchTrafficSourcesItemsResponse {
   trafficSourceItems: TrafficSourceItem[] | null
