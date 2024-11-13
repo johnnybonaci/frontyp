@@ -52,7 +52,7 @@ const useFetchData = (): UseFetchDataResponse => {
     setStateOptions(
       data.states.map((option: any) => ({
         id: option.state,
-        title: option.description,
+        title: option.state + ' - ' + option.description,
       }))
     )
     setBuyerOptions(
@@ -68,7 +68,7 @@ const useFetchData = (): UseFetchDataResponse => {
       }))
     )
     setIssueTypeOptions(
-      data.issueTypes.map((option: any) => ({
+      data.issueReasonTypes.map((option: any) => ({
         id: option.id,
         title: option.name,
       }))

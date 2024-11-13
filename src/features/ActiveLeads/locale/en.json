@@ -8,6 +8,7 @@
   "fields": {
     "phone": "Phone",
     "pubId": "Pubs",
+    "data": "Data",
     "subId": "Subs",
     "type": "Type",
     "firstName": "First Name",

@@ -40,7 +40,7 @@ const useFetchPubs = ({ filters }: UseFetchPubsProps): UseFetchPubsReturn => {
     if (!response) return
 
     const pubs = response.data.map((pub: any) => {
-      return { id: pub.id, name: pub.name }
+      return { id: pub.id, name: `${pub.id} - ${pub.name}` }
     })
     setPubs(pubs)
   }, [response?.data, t])

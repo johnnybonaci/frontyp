@@ -11,6 +11,7 @@
     "subId": "Subs",
     "vendor": "Vendor",
     "type": "Type",
+    "data": "Data",
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email",

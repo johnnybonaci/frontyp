@@ -16,7 +16,7 @@ export interface IndicatorSettings {
 const useTableSettings = (
   initialColumns: ColumnSettings[],
   initialIndicators: IndicatorSettings[],
-  storageKey: string
+  key: string
 ): {
   columns: ColumnSettings[]
   indicators: IndicatorSettings[]
@@ -30,11 +30,12 @@ const useTableSettings = (
   toggleIndicatorVisibility: (name: string) => void
   resetToDefaultSettings: () => void
 } => {
+  const storageKey = key + '-settings'
   const getLocalStorageSettings = (
     key: string
   ): {
-    visibleColumns: string[]
-    visibleIndicators: string[]
+    columnVisibility: Record<string, boolean>
+    indicatorVisibility: Record<string, boolean>
     orderedColumns: string[]
     orderedIndicators: string[]
   } => {
@@ -42,8 +43,12 @@ const useTableSettings = (
     return storedData
       ? JSON.parse(storedData)
       : {
-          visibleColumns: initialColumns.map((column) => column.fieldName),
-          visibleIndicators: initialIndicators.map((indicator) => indicator.name),
+          columnVisibility: Object.fromEntries(
+            initialColumns.map((column) => [column.fieldName, true])
+          ),
+          indicatorVisibility: Object.fromEntries(
+            initialIndicators.map((indicator) => [indicator.name, true])
+          ),
           orderedColumns: initialColumns.map((column) => column.fieldName),
           orderedIndicators: initialIndicators.map((indicator) => indicator.name),
         }
@@ -52,11 +57,11 @@ const useTableSettings = (
   const [columns, setColumns] = useState<ColumnSettings[]>(initialColumns)
   const [indicators, setIndicators] = useState<IndicatorSettings[]>(initialIndicators)
 
-  const [visibleColumnKeys, setVisibleColumnKeys] = useState<string[]>(
-    getLocalStorageSettings(storageKey)?.visibleColumns ?? []
+  const [columnVisibility, setColumnVisibility] = useState<Record<string, boolean>>(
+    getLocalStorageSettings(storageKey)?.columnVisibility ?? {}
   )
-  const [visibleIndicatorKeys, setVisibleIndicatorKeys] = useState<string[]>(
-    getLocalStorageSettings(storageKey)?.visibleIndicators ?? []
+  const [indicatorVisibility, setIndicatorVisibility] = useState<Record<string, boolean>>(
+    getLocalStorageSettings(storageKey)?.indicatorVisibility ?? {}
   )
 
   const [orderedColumnKeys, setOrderedColumnKeys] = useState<string[]>(
@@ -69,8 +74,12 @@ const useTableSettings = (
     setColumns(initialColumns)
     setIndicators(initialIndicators)
 
-    setVisibleColumnKeys(initialColumns.map((column) => column.fieldName))
-    setVisibleIndicatorKeys(initialIndicators.map((indicator) => indicator.name))
+    setColumnVisibility(
+      Object.fromEntries(initialColumns.map((column) => [column.fieldName, true]))
+    )
+    setIndicatorVisibility(
+      Object.fromEntries(initialIndicators.map((indicator) => [indicator.name, true]))
+    )
 
     setOrderedColumnKeys(initialColumns.map((col) => col.fieldName))
     setOrderedIndicatorKeys(initialIndicators.map((ind) => ind.name))
@@ -84,13 +93,13 @@ const useTableSettings = (
 
   useEffect(() => {
     const settingsState = {
-      visibleColumns: visibleColumnKeys,
-      visibleIndicators: visibleIndicatorKeys,
+      columnVisibility,
+      indicatorVisibility,
       orderedColumns: orderedColumnKeys,
       orderedIndicators: orderedIndicatorKeys,
     }
     localStorage.setItem(storageKey, JSON.stringify(settingsState))
-  }, [visibleColumnKeys, visibleIndicatorKeys, orderedColumnKeys, orderedIndicatorKeys])
+  }, [columnVisibility, indicatorVisibility, orderedColumnKeys, orderedIndicatorKeys])
 
   const reorderColumns = useCallback((sourceIndex: number, destinationIndex: number) => {
     setOrderedColumnKeys((prevOrderedKeys) => {
@@ -111,53 +120,49 @@ const useTableSettings = (
   }, [])
 
   const toggleColumnVisibility = useCallback((fieldName: string) => {
-    setVisibleColumnKeys(
-      (prevKeys) =>
-        prevKeys.includes(fieldName)
-          ? prevKeys.filter((key) => key !== fieldName) // Ocultar
-          : [...prevKeys, fieldName] // Mostrar
-    )
+    setColumnVisibility((prevVisibility) => ({
+      ...prevVisibility,
+      [fieldName]: !prevVisibility[fieldName],
+    }))
   }, [])
 
   const toggleIndicatorVisibility = useCallback((name: string) => {
-    setVisibleIndicatorKeys(
-      (prevKeys) =>
-        prevKeys.includes(name)
-          ? prevKeys.filter((key) => key !== name) // Ocultar
-          : [...prevKeys, name] // Mostrar
-    )
+    setIndicatorVisibility((prevVisibility) => ({
+      ...prevVisibility,
+      [name]: !prevVisibility[name],
+    }))
   }, [])
 
   const visibleColumns = useMemo(
     () =>
       orderedColumnKeys
-        .filter((key) => visibleColumnKeys.includes(key))
+        .filter((key) => columnVisibility[key])
         .map((key) => columns.find((col) => col.fieldName === key) as ColumnSettings),
-    [columns, visibleColumnKeys, orderedColumnKeys]
+    [columns, columnVisibility, orderedColumnKeys]
   )
 
   const notVisibleColumns = useMemo(
     () =>
       orderedColumnKeys
-        .filter((key) => !visibleColumnKeys.includes(key))
+        .filter((key) => !columnVisibility[key])
         .map((key) => columns.find((col) => col.fieldName === key) as ColumnSettings),
-    [columns, visibleColumnKeys, orderedColumnKeys]
+    [columns, columnVisibility, orderedColumnKeys]
   )
 
   const visibleIndicators = useMemo(
     () =>
       orderedIndicatorKeys
-        .filter((key) => visibleIndicatorKeys.includes(key))
+        .filter((key) => indicatorVisibility[key])
         .map((key) => indicators.find((ind) => ind.name === key) as IndicatorSettings),
-    [indicators, visibleIndicatorKeys, orderedIndicatorKeys]
+    [indicators, indicatorVisibility, orderedIndicatorKeys]
   )
 
   const notVisibleIndicators = useMemo(
     () =>
       orderedIndicatorKeys
-        .filter((key) => !visibleIndicatorKeys.includes(key))
+        .filter((key) => !indicatorVisibility[key])
         .map((key) => indicators.find((ind) => ind.name === key) as IndicatorSettings),
-    [indicators, visibleIndicatorKeys, orderedIndicatorKeys]
+    [indicators, indicatorVisibility, orderedIndicatorKeys]
   )
 
   useEffect(() => {

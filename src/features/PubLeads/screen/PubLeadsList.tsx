@@ -14,7 +14,7 @@ import Indicator from 'components/Indicator/Indicator.tsx'
 import ContentBox from 'components/ContentBox'
 import { type PubLeadsItem } from 'features/PubLeads/types'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
-import { Drawer } from '@mui/material'
+import { Drawer, IconButton, Tooltip } from '@mui/material'
 import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
 import useTableSettings from 'hooks/useTableSettings.tsx'
@@ -31,6 +31,8 @@ import dateFormat from 'utils/dateFormat.ts'
 import AccountCard from 'components/AccountCard'
 import RefreshButton from 'components/RefreshButton'
 import { type CallReportItem } from 'features/CallReport/types'
+import { type LiveLeadsItem } from 'features/LiveLeads/types'
+import { VisibilityOutlined } from '@mui/icons-material'
 
 const PubLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'PubLeads' })
@@ -86,6 +88,24 @@ const PubLeadsList: FC = () => {
 
   const initialColumns = useMemo(
     () => [
+      {
+        header: t('fields.data'),
+        fieldName: 'data',
+        sortable: false,
+        dataModifier: (item: LiveLeadsItem) => (
+          <IconButton
+            color="primary"
+            size="small"
+            onClick={() => {
+              handleOpenPubLeadsDetails(item)
+            }}
+          >
+            <Tooltip title={t('details.title')}>
+              <VisibilityOutlined sx={{ fontSize: 14 }} />
+            </Tooltip>
+          </IconButton>
+        ),
+      },
       {
         header: t('fields.phone'),
         fieldName: 'phone_id',
