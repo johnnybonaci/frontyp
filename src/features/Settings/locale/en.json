@@ -151,5 +151,43 @@
     },
     "save": "Save",
     "cancel": "Cancel"
-  }
+  },
+  "providers": {
+    "singular": "Provider",
+    "listing": {
+      "title": "Providers"
+    },
+    "edition": {
+      "title": "Edit Provider"
+    },
+    "actions": {
+      "edit": "Edit Provider"
+    },
+    "fields": {
+      "id": "Id",
+      "name": "Name",
+      "service": "Service",
+      "url": "URL",
+      "apiKey": "API Key",
+      "active": "Active"
+    },
+    "filters": {
+      "id": "Id",
+      "name": "Name",
+      "service": "Service",
+      "url": "URL",
+      "apiKey": "API Key",
+      "active": "Active"
+    },
+    "form": {
+      "id": "Id",
+      "name": "Name",
+      "service": "Service",
+      "url": "URL",
+      "apiKey": "API Key",
+      "active": "Active"
+    },
+    "save": "Save",
+    "cancel": "Cancel"
+  }  
 }
