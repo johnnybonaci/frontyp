@@ -110,5 +110,46 @@
     },
     "save": "Save",
     "cancel": "Cancel"
+  },
+  "didNumber": {
+    "singular": "Did Number",
+    "listing": {
+      "title": "Did Numbers"
+    },
+    "edition": {
+      "title": "Edit Did Number"
+    },
+    "actions": {
+      "edit": "Edit Did Number"
+    },
+    "fields": {
+      "id": "Number",
+      "description": "Description",
+      "campaign": "Campaign",
+      "subId": "Sub ID",
+      "pubId": "Pub ID",
+      "trafficSourceId": "Traffic Source ID",
+      "offerId": "Offer ID"
+    },
+    "filters": {
+      "id": "Number",
+      "description": "Description",
+      "campaignName": "Campaign Name",
+      "subId": "Sub ID",
+      "pubId": "Pub ID",
+      "trafficSource": "Traffic Source",
+      "offer": "Offer"
+    },
+    "form": {
+      "id": "Number",
+      "description": "Description",
+      "campaignName": "Campaign",
+      "sub": "Sub ID",
+      "pub": "Pub ID",
+      "trafficSource": "Traffic Source ID",
+      "offer": "Offer ID"
+    },
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }
