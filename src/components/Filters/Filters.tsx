@@ -1,6 +1,6 @@
 import { type FC, useCallback, useState } from 'react'
 import { SvgIcon, IconButton, Drawer, Typography, Tooltip, Button } from '@mui/material'
-import LoadingButton from '@mui/lab/LoadingButton'
+// import LoadingButton from '@mui/lab/LoadingButton'
 import { useTranslation } from 'react-i18next'
 import { type FilterProps } from 'components/Filters/types'
 import { Close, Tune } from '@mui/icons-material'
@@ -12,7 +12,7 @@ const Filters: FC<FilterProps> = ({
   onClear,
   topFilters,
   bottomFilters,
-  isSearching = false,
+  // isSearching = false,
 }) => {
   const [collapsed, setCollapsed] = useState(true)
   const { t } = useTranslation('common', { keyPrefix: 'filters' })
@@ -51,7 +51,7 @@ const Filters: FC<FilterProps> = ({
             >
               {t('clear')}
             </Button>
-            <LoadingButton
+            {/* <LoadingButton
               fullWidth
               type="submit"
               size="small"
@@ -59,7 +59,7 @@ const Filters: FC<FilterProps> = ({
               className={styles.submit}
             >
               {t('apply')}
-            </LoadingButton>
+            </LoadingButton> */}
             <IconButton onClick={toggleFilters}>
               <SvgIcon fontSize="inherit">
                 <Close />

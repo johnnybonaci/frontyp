@@ -87,6 +87,10 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
   )
 
   useEffect(() => {
+    onApply(values)
+  }, [JSON.stringify(values)])
+
+  useEffect(() => {
     void setValues(initialFilters)
   }, [initialFilters, setValues])
 
