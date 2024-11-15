@@ -6,6 +6,7 @@ import styles from './authorizedNavBar.module.scss'
 import NavSection from 'components/NavSection'
 import { Drawer } from '@mui/material'
 import NavHeader from 'components/NavHeader'
+import Gated from 'components/Gated'
 
 const AuthorizedNavBar: FC<SidebarProps> = ({
   collapsed = false,
@@ -28,7 +29,9 @@ const AuthorizedNavBar: FC<SidebarProps> = ({
         </div>
         <div className={styles.navContainer}>
           {sidebarComponents.map((navSection, i) => (
-            <NavSection key={`navSection_${navSection.title}_${i}`} navSection={navSection} />
+            <Gated key={`navSection_${navSection.title}_${i}`} permissions={navSection.permission}>
+              <NavSection navSection={navSection} />
+            </Gated>
           ))}
         </div>
         <div className={styles.bottomSection}>

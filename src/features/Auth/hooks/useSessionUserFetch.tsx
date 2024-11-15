@@ -9,7 +9,7 @@ interface UseSessionUserFetchType {
 }
 
 export default function useSessionUserFetch(): UseSessionUserFetchType {
-  const { doFetch, error, loading } = useFetch(`${config.api.msAuth.baseUrl}/auth/me`, {
+  const { doFetch, error, loading } = useFetch(`${config.api.baseUrl}/auth/user `, {
     method: 'GET',
   })
 

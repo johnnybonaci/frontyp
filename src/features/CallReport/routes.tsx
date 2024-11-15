@@ -1,5 +1,6 @@
 import { lazy } from 'react'
 import loadable from 'components/Loadable'
+import PERMISSIONS from 'permissions'
 
 export const CALL_REPORT_PATHS = {
   LIST: '/administration/call-report',
@@ -17,7 +18,7 @@ const CallReportRoutes = [
   {
     path: relativePath('LIST'),
     element: <CallReportList />,
-    permissions: [],
+    permissions: PERMISSIONS.CALLS,
   },
 ]
 

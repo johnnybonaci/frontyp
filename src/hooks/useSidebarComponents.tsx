@@ -17,6 +17,7 @@ import {
   VerifiedUserOutlined,
 } from '@mui/icons-material'
 import { type SidebarComponents } from 'components/PrivateLayout/types'
+import PERMISSIONS from 'permissions'
 
 export interface UseSidebarComponentsResult {
   components: SidebarComponents
@@ -28,6 +29,7 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
     () => [
       {
         title: t('menu:leads'),
+        permission: PERMISSIONS.LEADS,
         items: [
           {
             to: 'live-leads',
@@ -54,6 +56,7 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
       },
       {
         title: t('menu:calls'),
+        permission: PERMISSIONS.CALLS,
         items: [
           {
             to: 'call-report',
@@ -74,6 +77,7 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
       },
       {
         title: t('menu:campaigns'),
+        permission: PERMISSIONS.CAMPAIGNS,
         items: [
           {
             to: 'leads/campaign-dashboard',
@@ -85,6 +89,7 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
       },
       {
         title: t('menu:compliance'),
+        permission: PERMISSIONS.JORNAYA,
         items: [
           {
             to: 'leads/jornaya-id',
@@ -96,6 +101,7 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
       },
       {
         title: t('menu:phoneRoom'),
+        permission: PERMISSIONS.PHONE_ROOM,
         items: [
           {
             to: 'leads/phone-room',
@@ -119,6 +125,7 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
       },
       {
         title: t('menu:users'),
+        permission: PERMISSIONS.USERS,
         items: [
           {
             to: 'users',

@@ -1,5 +1,6 @@
 import { lazy } from 'react'
 import loadable from 'components/Loadable'
+import PERMISSIONS from 'permissions'
 
 export const QA_REPORT_PATHS = {
   LIST: '/administration/qa-report',
@@ -15,7 +16,7 @@ const QAReportRoutes = [
   {
     path: relativePath('LIST'),
     element: <QAReportList />,
-    permissions: [],
+    permissions: PERMISSIONS.CALLS,
   },
 ]
 
