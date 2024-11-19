@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import _ from 'lodash'
+import _, { debounce } from 'lodash'
 import { type Filters } from 'src/types/filter'
 
 export interface FiltersHook {
@@ -43,7 +43,7 @@ export default function useFilters(
   }, [])
 
   const onApply = useCallback(
-    (filtersData: Filters) => {
+    debounce((filtersData: Filters) => {
       const filledFilters = _.omitBy(filtersData, (value: any) => {
         return (
           (_.isArray(value) && _.isEmpty(value)) ||
@@ -56,7 +56,7 @@ export default function useFilters(
       setFilters(apiFilters)
       setSearchParams(transformToUrl(filtersData))
       setIsOpenFilters(false)
-    },
+    }, 500),
     [setSearchParams, transformToApi, transformToUrl]
   )
 

@@ -7,7 +7,7 @@ import CustomAutocomplete, {
   type Option,
 } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
-import useData from "hooks/useData.tsx";
+import useData from 'hooks/useData.tsx'
 
 export interface CPAReportListFiltersFormValues {
   pubId: Option[]
@@ -84,6 +84,10 @@ const CPAReportFilters: FC<CPAReportFiltersProps> = ({
   useEffect(() => {
     void setValues(initialFilters)
   }, [initialFilters, setValues])
+
+  useEffect(() => {
+    onApply(values)
+  }, [JSON.stringify(values)])
 
   return (
     <Filters

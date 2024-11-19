@@ -8,7 +8,7 @@ import CustomAutocomplete, {
 } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import { TextField } from '@mui/material'
-import useData from "hooks/useData.tsx";
+import useData from 'hooks/useData.tsx'
 
 export interface QAReportListFiltersFormValues {
   pubId: Option[]
@@ -78,6 +78,10 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
   useEffect(() => {
     void setValues(initialFilters)
   }, [initialFilters, setValues])
+
+  useEffect(() => {
+    onApply(values)
+  }, [JSON.stringify(values)])
 
   return (
     <Filters

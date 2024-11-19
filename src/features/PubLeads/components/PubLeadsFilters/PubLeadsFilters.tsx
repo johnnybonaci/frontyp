@@ -10,7 +10,7 @@ import CustomAutocomplete, {
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
-import useData from "hooks/useData.tsx";
+import useData from 'hooks/useData.tsx'
 
 export interface PubLeadsListFiltersFormValues {
   pubId: Option[]
@@ -89,6 +89,10 @@ const PubLeadsFilters: FC<PubLeadsFiltersProps> = ({
   useEffect(() => {
     void setValues(initialFilters)
   }, [initialFilters, setValues])
+
+  useEffect(() => {
+    onApply(values)
+  }, [JSON.stringify(values)])
 
   return (
     <Filters

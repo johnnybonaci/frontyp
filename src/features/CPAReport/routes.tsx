@@ -1,5 +1,6 @@
 import { lazy } from 'react'
 import loadable from 'components/Loadable'
+import PERMISSIONS from 'permissions'
 
 export const CPA_REPORT_PATHS = {
   LIST: '/administration/cpa-report',
@@ -16,7 +17,7 @@ const CPAReportRoutes = [
   {
     path: relativePath('LIST'),
     element: <CPAReportList />,
-    permissions: [],
+    permissions: PERMISSIONS.CALLS,
   },
 ]
 
