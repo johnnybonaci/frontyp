@@ -11,6 +11,7 @@ import { type Filters } from 'types/filter'
 import { type PubLeadsListFiltersFormValues } from 'features/PubLeads/components/PubLeadsFilters/PubLeadsFilters.tsx'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { objectFromUrl } from 'utils/utils.ts'
+import getDayLimits from 'utils/getDayLimits.ts'
 
 export const pubLeadsItemFromApi = (item: PubLeadsItemFromApi): PubLeadsItem => {
   return {
@@ -144,6 +145,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): PubLeadsListFiltersFormValues => {
+  const { startOfDay, endOfDay } = getDayLimits()
+
   return {
     subId: objectFromUrl(searchParams.get('subId'), null),
     leadsType: objectFromUrl(searchParams.get('leadsType')),
@@ -152,8 +155,8 @@ export const transformFiltersFromUrl = (
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     startDate: searchParams.get('date_start')
       ? new Date(searchParams.get('date_start')!)
-      : new Date(),
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : new Date(),
+      : startOfDay,
+    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
     status: searchParams.get('status') ?? '',
     firstName: searchParams.get('firstName') ?? '',
     phone: searchParams.get('phone') ?? '',

@@ -90,6 +90,10 @@ const ActiveLeadsFilters: FC<ActiveLeadsFiltersProps> = ({
     void setValues(initialFilters)
   }, [initialFilters, setValues])
 
+  useEffect(() => {
+    onApply(values)
+  }, [JSON.stringify(values)])
+
   return (
     <Filters
       onCancel={onCancel}
