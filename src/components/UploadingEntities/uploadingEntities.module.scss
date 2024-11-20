@@ -15,7 +15,7 @@ $progress-height: 8px;
   border-radius: 5px;
   background: var(--white-base);
   gap: 15px;
-  font-size: 14px;
+  font-size: 16px;
   padding: 15px 20px;
   width: 100%;
   max-width: 100%;
@@ -44,13 +44,13 @@ $progress-height: 8px;
 }
 
 .filePath {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   word-break: break-word;
 }
 
 .fileSize {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 400;
   color: var(--lighter-text-color);
 }
@@ -80,7 +80,7 @@ $progress-height: 8px;
 }
 
 .value {
-  font-size: 8px;
+  font-size: 10px;
   margin-left: 10px;
   color: var(--lightest-text-color);
   display: flex;

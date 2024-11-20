@@ -36,7 +36,7 @@ const Filters: FC<FilterProps> = ({
 
   return (
     <form noValidate onSubmit={handleApply} className={styles.wrapper}>
-      <Drawer open={!collapsed} onClose={toggleFilters} anchor="right" variant="persistent">
+      <Drawer open={!collapsed} onClose={toggleFilters} anchor="right">
         <div className={styles.filters}>
           <div className={styles.titleContainer}>
             <Typography variant="h1" className={styles.title}>
