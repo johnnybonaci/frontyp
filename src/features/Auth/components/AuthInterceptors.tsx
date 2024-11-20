@@ -9,14 +9,16 @@ interface AuthInterceptorsProps {
 
 const AuthInterceptors: FC<AuthInterceptorsProps> = ({ children }) => {
   const { logout, tryToSetNewLoginRedirect } = useAuth()
-  const [cookies] = useCookies(['csrf-token'])
+  const [cookies] = useCookies(['XSRF-TOKEN'])
 
   axios.defaults.withCredentials = true
   axios.defaults.withXSRFToken = true
 
   axios.interceptors.request.use(
     (config) => {
-      config.headers['X-CSRF-TOKEN'] = cookies['csrf-token']
+      // config.headers['X-CSRF-TOKEN'] = cookies['csrf-token']
+      config.headers['X-XSRF-TOKEN'] = cookies['XSRF-TOKEN']
+
       return config
     },
     async (error) => {
