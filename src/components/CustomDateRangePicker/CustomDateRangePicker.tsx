@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DateRangePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { TextField, FormControl, FormHelperText, FormLabel } from '@mui/material'
@@ -17,14 +17,27 @@ const CustomDateRangePicker: React.FC<DateRangePickerProps> = ({
   onChange,
   error,
 }) => {
+  const [startDate, setStartDate] = useState(value[0])
+  const [endDate, setEndDate] = useState(value[1])
+
+  const handleChange = (e: any) => {
+    setStartDate(e[0])
+    setEndDate(e[1])
+  }
+
+  const handleCalendarClose = () => {
+    onChange([startDate, endDate])
+  }
+
   return (
     <FormControl error={Boolean(error)}>
       <FormLabel sx={{ left: '-30px !important' }}>{label}</FormLabel>
       <DateRangePicker
-        startDate={value[0]}
-        endDate={value[1]}
+        startDate={startDate}
+        endDate={endDate}
         selectsRange
-        onChange={onChange}
+        onChange={handleChange}
+        onCalendarClose={handleCalendarClose}
         customInput={<TextField />}
       />
       {error && <FormHelperText>{error}</FormHelperText>}

@@ -83,7 +83,6 @@ export const transformFiltersFromUrl = (
 
 export const transformFiltersToUrl = (filters: CPAReportListFiltersFormValues): string => {
   const params = new URLSearchParams()
-  console.log(filters)
 
   if (filters.pubId?.length) {
     params.set('pubId', JSON.stringify(filters.pubId))
