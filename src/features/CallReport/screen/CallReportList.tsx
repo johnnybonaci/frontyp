@@ -336,6 +336,7 @@ const CallReportList: FC = () => {
             insurance: selectedCallReport?.insuranceValue ?? undefined,
             insuranceName: selectedCallReport?.insuranceName ?? '',
             sale: selectedCallReport?.billable ?? undefined,
+            issueType: selectedCallReport?.issueType ?? '',
           }}
           onSubmit={handleEditInsurance}
         />
