@@ -38,7 +38,6 @@ const CustomDateRangePicker: React.FC<DateRangePickerProps> = ({
 
   const onClickShorcuts = (shorcutRange: DateRange) => {
     changeSelectedValues(shorcutRange)
-    updateValues()
   }
 
   return (
