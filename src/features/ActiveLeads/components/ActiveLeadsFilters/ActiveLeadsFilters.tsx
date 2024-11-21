@@ -109,6 +109,7 @@ const ActiveLeadsFilters: FC<ActiveLeadsFiltersProps> = ({
               void setFieldValue('startDate', e[0])
               void setFieldValue('endDate', e[1])
             }}
+            withShortcuts
           />
           <TextField label={t('phone')} fullWidth {...getFieldProps('phone')} />
           <TextField label={t('firstName')} fullWidth {...getFieldProps('firstName')} />

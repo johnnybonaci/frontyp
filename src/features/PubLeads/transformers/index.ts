@@ -180,7 +180,7 @@ export const transformFiltersToUrl = (filters: PubLeadsListFiltersFormValues): s
     params.set('leadsType', JSON.stringify(filters.leadsType))
   }
 
-  if (filters.trafficSource.length) {
+  if (filters.trafficSource?.length) {
     params.set('trafficSource', JSON.stringify(filters.trafficSource))
   }
   if (filters.startDate) {
