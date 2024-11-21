@@ -58,6 +58,12 @@ const Table: FC<TableProps> = ({
     }))
   }
 
+  useEffect(() => {
+    if (loading) {
+      setOpenRows({})
+    }
+  }, [loading])
+
   if (!loading && rows?.length === 0) {
     return (
       <Stack m={8} spacing={3} sx={{ alignItems: { sm: 'center' } }}>
@@ -72,10 +78,6 @@ const Table: FC<TableProps> = ({
       </Stack>
     )
   }
-
-  useEffect(() => {
-    setOpenRows({})
-  }, [loading])
 
   return (
     <Scrollbar>
