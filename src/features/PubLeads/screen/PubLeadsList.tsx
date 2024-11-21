@@ -31,8 +31,8 @@ import dateFormat from 'utils/dateFormat.ts'
 import AccountCard from 'components/AccountCard'
 import RefreshButton from 'components/RefreshButton'
 import { type CallReportItem } from 'features/CallReport/types'
-import { type LiveLeadsItem } from 'features/LiveLeads/types'
 import { VisibilityOutlined } from '@mui/icons-material'
+import PhoneLink from 'components/PhoneLink/PhoneLink.tsx'
 
 const PubLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'PubLeads' })
@@ -92,7 +92,7 @@ const PubLeadsList: FC = () => {
         header: t('fields.data'),
         fieldName: 'data',
         sortable: false,
-        dataModifier: (item: LiveLeadsItem) => (
+        dataModifier: (item: PubLeadsItem) => (
           <IconButton
             color="primary"
             size="small"
@@ -110,7 +110,16 @@ const PubLeadsList: FC = () => {
         header: t('fields.phone'),
         fieldName: 'phone_id',
         sortable: true,
-        dataModifier: (item: PubLeadsItem) => item.phone,
+        dataModifier: (item: PubLeadsItem) => (
+          <PhoneLink
+            phone={item.phone}
+            account={item.id}
+            name={`${item.firstName} ${item.lastName}`}
+            email={item.email ?? ''}
+            typeOut={item.type ?? ''}
+            vendor={item.pubListId ?? ''}
+          />
+        ),
       },
       {
         header: t('fields.pubId'),
