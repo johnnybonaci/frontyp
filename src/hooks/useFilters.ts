@@ -1,7 +1,9 @@
 import { useCallback, useMemo, useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import _, { debounce } from 'lodash'
+import _ from 'lodash'
 import { type Filters } from 'src/types/filter'
+import clearObject from 'utils/clearObject'
+import { decodeSearchParams, encodeSearchParams } from 'utils/parseSearchParams'
 
 export interface FiltersHook {
   isOpenFilters: boolean
@@ -14,17 +16,26 @@ export interface FiltersHook {
   loading: boolean
 }
 
+const defaultTransformFromUrl = (searchParams: URLSearchParams): Filters => {
+  return clearObject(decodeSearchParams(searchParams))
+}
+
+const defaultTransformToUrl = (filters: Filters): string => {
+  const params = encodeSearchParams(clearObject(filters))
+
+  return params.toString()
+}
+
 export default function useFilters(
   transformToApi: (filters: any) => Filters,
-  transformFromUrl: (searchParams: URLSearchParams) => Filters,
-  transformToUrl: (filters: any) => string
+  transformFromUrl: (searchParams: URLSearchParams) => Filters = defaultTransformFromUrl,
+  transformToUrl: (filters: any) => string = defaultTransformToUrl
 ): FiltersHook {
   const [isOpenFilters, setIsOpenFilters] = useState<boolean>(false)
   const [filters, setFilters] = useState<Filters>({})
   const [loading, setLoading] = useState<boolean>(true)
-  const [initialFilters, setInitialFilters] = useState<Filters>({})
-
   const [searchParams, setSearchParams] = useSearchParams()
+  const [initialFilters, setInitialFilters] = useState<Filters>(transformFromUrl(searchParams))
 
   useEffect(() => {
     const filtersFromUrl = transformFromUrl(searchParams)
@@ -43,7 +54,7 @@ export default function useFilters(
   }, [])
 
   const onApply = useCallback(
-    debounce((filtersData: Filters) => {
+    (filtersData: Filters) => {
       const filledFilters = _.omitBy(filtersData, (value: any) => {
         return (
           (_.isArray(value) && _.isEmpty(value)) ||
@@ -56,7 +67,7 @@ export default function useFilters(
       setFilters(apiFilters)
       setSearchParams(transformToUrl(filtersData))
       setIsOpenFilters(false)
-    }, 500),
+    },
     [setSearchParams, transformToApi, transformToUrl]
   )
 
