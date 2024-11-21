@@ -1,4 +1,4 @@
-import { useMemo, type FC, useState, useCallback } from 'react'
+import { useMemo, type FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import useFilters from 'src/hooks/useFilters'
 import CPAReportFilters from '../components/CPAReportFilters'
@@ -6,9 +6,6 @@ import { formatMoneyIndicator } from 'hooks/indicator.ts'
 import Indicator from 'components/Indicator/Indicator.tsx'
 import ContentBox from 'components/ContentBox'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
-import { Drawer } from '@mui/material'
-import DrawerHeader from 'components/DrawerHeader'
-import DrawerContent from 'components/DrawerContent'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
 import {
@@ -24,17 +21,9 @@ import CPAReportTable from 'features/CPAReport/components/CPAReportTable'
 import { type CPAReportItem } from 'features/CPAReport/types'
 import styles from './cpaReportList.module.scss'
 import useFetchCPAReportList from 'features/CPAReport/hooks/useFetchCPAReportList.tsx'
-import CPAReportItemCard from 'components/CPAReportItemCard'
 
 const CPAReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'CPAReport' })
-  const [selectedCPAReport, setSelectedCPAReport] = useState<CPAReportItem | undefined>(undefined)
-
-  const [collapsedViewDetails, setCollapsedViewDetails] = useState(true)
-
-  const toggleViewDetails = useCallback(() => {
-    setCollapsedViewDetails(!collapsedViewDetails)
-  }, [setCollapsedViewDetails, collapsedViewDetails])
 
   const {
     onCancel,
@@ -61,14 +50,6 @@ const CPAReportList: FC = () => {
     filters: allFilters,
     fileName: 'cpa_report',
   })
-
-  const handleOpenCallReportDetails = useCallback(
-    (callReport: CPAReportItem) => {
-      setSelectedCPAReport(callReport)
-      setCollapsedViewDetails(false)
-    },
-    [setCollapsedViewDetails, setSelectedCPAReport]
-  )
 
   const initialColumns = useMemo(
     () => [
@@ -206,7 +187,6 @@ const CPAReportList: FC = () => {
         columns={visibleColumns}
         rows={cpaReportItems}
         loading={loading}
-        onClickView={handleOpenCallReportDetails}
         onSort={setSorter}
         count={lastPage}
         page={page}
@@ -216,16 +196,6 @@ const CPAReportList: FC = () => {
         perPage={perPage}
         onRowsPerPageChange={setPerPage}
       />
-      <Drawer open={!collapsedViewDetails} onClose={toggleViewDetails} anchor="right">
-        <DrawerHeader title={selectedCPAReport?.buyerName ?? ''} onClose={toggleViewDetails} />
-        <DrawerContent>
-          <div className={styles.selectedChildren}>
-            {selectedCPAReport?.children?.map((child, index) => (
-              <CPAReportItemCard key={index + child.buyerName} item={child} />
-            ))}
-          </div>
-        </DrawerContent>
-      </Drawer>
     </ContentBox>
   )
 }
