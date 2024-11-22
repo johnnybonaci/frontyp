@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { useCallback, type FC } from 'react'
+import { useCallback, useEffect, type FC } from 'react'
 import { useFormik } from 'formik'
 import TrafficSourceFiltersSchema, {
   EMPTY_TRAFFIC_SOURCE_FILTERS,
@@ -49,6 +49,10 @@ const TrafficSourceFilters: FC<TrafficSourceFiltersProps> = ({
     }),
     [handleChange, values, initialFilters, setFieldValue]
   )
+
+  useEffect(() => {
+    onApply(values)
+  }, [JSON.stringify(values)])
 
   return (
     <FilterWrapper

@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { useCallback, type FC } from 'react'
+import { useCallback, useEffect, type FC } from 'react'
 import { useFormik } from 'formik'
 import BuyersFiltersSchema, {
   EMPTY_BUYERS_FILTERS,
@@ -51,6 +51,10 @@ const BuyersFilters: FC<BuyersFiltersProps> = ({
     }),
     [handleChange, values, initialFilters, setFieldValue]
   )
+
+  useEffect(() => {
+    onApply(values)
+  }, [JSON.stringify(values)])
 
   return (
     <FilterWrapper

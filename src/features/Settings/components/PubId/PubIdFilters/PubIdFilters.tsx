@@ -55,7 +55,6 @@ const PubIdFilters: FC<PubIdFiltersProps> = ({
   }, [initialFilters, setValues])
 
   useEffect(() => {
-    console.log(values)
     onApply(values)
   }, [JSON.stringify(values)])
 
