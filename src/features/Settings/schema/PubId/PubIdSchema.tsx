@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { PubIdForm } from '../types'
+import { PubIdForm } from '../../types'
 
 export const EMPTY_PUBID: PubIdForm = {
   id: 0,

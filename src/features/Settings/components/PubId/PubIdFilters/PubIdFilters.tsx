@@ -2,7 +2,7 @@ import { TextField } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { useCallback, type FC, useEffect } from 'react'
 import { useFormik } from 'formik'
-import PubIdFiltersSchema from 'src/features/Settings/schema/PubIdFiltersSchema'
+import PubIdFiltersSchema from 'features/Settings/schema/PubId/PubIdFiltersSchema'
 import FilterWrapper from 'src/components/Filters'
 import { type Filters } from 'types/filter'
 
@@ -53,6 +53,11 @@ const PubIdFilters: FC<PubIdFiltersProps> = ({
   useEffect(() => {
     void setValues(initialFilters)
   }, [initialFilters, setValues])
+
+  useEffect(() => {
+    console.log(values)
+    onApply(values)
+  }, [JSON.stringify(values)])
 
   return (
     <FilterWrapper

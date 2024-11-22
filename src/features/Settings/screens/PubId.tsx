@@ -1,17 +1,13 @@
 import { useCallback, useMemo, useState, type FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import PubIdTable from 'features/Settings/components/PubIdTable/PubIdTable'
+import PubIdTable from 'features/Settings/components/PubId/PubIdTable/PubIdTable'
 import useFilters from 'src/hooks/useFilters'
-import useFetchPubIdList from 'features/Settings/hooks/useFetchPubIdList'
-import PubIdFilters from '../components/PubIdFilters'
+import useFetchPubIdList from 'features/Settings/hooks/PubId/useFetchPubIdList'
+import PubIdFilters from '../components/PubId/PubIdFilters'
 import ContentBox from 'components/ContentBox'
-import {
-  transformFiltersFromUrl,
-  transformFiltersToApi,
-  transformFiltersToUrl,
-} from 'features/Settings/transformers'
-import PubIdEdition from '../components/PubIdEdition'
-import { PubIdItem } from '../types'
+import { transformFiltersToApi } from 'features/Settings/transformers/PubId'
+import PubIdEdition from '../components/PubId/PubIdEdition'
+import { PubIdItem } from '../types/PubId'
 import { Stack } from '@mui/material'
 
 const PubIdList: FC = () => {
@@ -20,11 +16,7 @@ const PubIdList: FC = () => {
   const [selectedPubId, setSelectedPubId] = useState<PubIdItem>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
-  const { filters, initialFilters, onCancel, onApply } = useFilters(
-    transformFiltersToApi,
-    transformFiltersFromUrl,
-    transformFiltersToUrl
-  )
+  const { filters, initialFilters, onCancel, onApply } = useFilters(transformFiltersToApi)
 
   const { pubIdItems, sorter, setSorter, paginator, loading } = useFetchPubIdList({ filters })
 

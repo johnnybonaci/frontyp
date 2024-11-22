@@ -7,8 +7,8 @@ import { type RequestError } from 'src/hooks/useFetch.ts'
 import { type Paginator } from 'src/types/paginator'
 import { type Filters } from 'src/types/filter'
 import { type Sorter } from 'src/types/sorter'
-import { type PubIdItem, type PubIdsItemFromApi } from '../types'
-import { pubIdsItemFromApi } from '../transformers'
+import { type PubIdItem, type PubIdsItemFromApi } from '../../types/PubId'
+import { pubIdsItemFromApi } from '../../transformers/PubId'
 
 interface UseFetchPubIdsItemsResponse {
   pubIdItems: PubIdItem[] | null

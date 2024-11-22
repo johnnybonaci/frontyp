@@ -1,10 +1,10 @@
 import useFetch, { type RequestError } from 'hooks/useFetch.ts'
-import config from '../../../config.tsx'
+import config from '../../../../config.tsx'
 import { useTranslation } from 'react-i18next'
 import { enqueueSnackbar } from 'notistack'
 import { useEffect } from 'react'
-import { PubIdForm } from '../types/index'
-import { pubIdEditedToAPI } from '../transformers/index.ts'
+import { PubIdForm } from '../../types/index'
+import { pubIdEditedToAPI } from '../../transformers/PubId/index.ts'
 
 export interface UsePubIdEditionReturn {
   onSubmit: (data: PubIdForm) => Promise<void>
