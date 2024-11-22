@@ -15,6 +15,7 @@ import useData from 'hooks/useData.tsx'
 export interface EditSaleFormValues {
   sale?: number
   insurance?: number
+  issueType?: string
   insuranceName: string
 }
 
@@ -29,6 +30,7 @@ const DEFAULT_VALUES = {
   sale: undefined,
   insurance: undefined,
   insuranceName: '',
+  issueType: '',
 }
 
 const EditSaleForm: FC<EditSaleFormFiltersProps> = ({
@@ -38,7 +40,7 @@ const EditSaleForm: FC<EditSaleFormFiltersProps> = ({
   initialValues = DEFAULT_VALUES,
 }) => {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'CallReport.editSaleForm' })
-  const { saleOptions, insuranceOptions } = useData()
+  const { saleOptions, insuranceOptions, issueTypeOptions } = useData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue, errors } = useFormik({
     initialValues,
@@ -84,6 +86,12 @@ const EditSaleForm: FC<EditSaleFormFiltersProps> = ({
             options={entitiesToOptions(saleOptions, { fieldValue: 'id', fieldLabel: 'title' })}
             fullWidth
             {...getFieldProps('sale')}
+          />
+          <Select
+            label={t('issueType')}
+            options={entitiesToOptions(issueTypeOptions, { fieldValue: 'id', fieldLabel: 'title' })}
+            fullWidth
+            {...getFieldProps('issueType')}
           />
           <Select
             label={t('insurance')}

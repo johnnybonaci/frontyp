@@ -54,6 +54,7 @@
   "editSaleForm": {
     "title": "Edit Sale and Insurance",
     "sale": "Sale",
+    "issueType": "Issue Type",
     "insurance": "Insurance",
     "insuranceName": "Insurance Name",
     "submit": "Save",

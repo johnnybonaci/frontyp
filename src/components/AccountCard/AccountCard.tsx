@@ -12,14 +12,13 @@ interface AccountCardProps {
 }
 
 const AccountCard: React.FC<AccountCardProps> = ({
-  account,
   name,
   email,
   typeOut,
   vendor,
   phone,
 }) => {
-  if (!account || !name || !email || !typeOut || !vendor || !phone) {
+  if (!name || !email || !typeOut || !vendor || !phone) {
     return null
   }
 

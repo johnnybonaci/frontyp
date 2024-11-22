@@ -24,6 +24,7 @@ export const useEditInsurance = (): UseEditInsuranceReturn => {
           insurance_value: data.insurance,
           billable: data.sale,
           insurance_name: data.insuranceName,
+          call_ending_sooner_reason: data.issueType,
         },
       })
       enqueueSnackbar(t('features:CallReport.insuranceEditedSuccessfully'), {

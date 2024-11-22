@@ -65,7 +65,7 @@ export function createComponents(): any {
       styleOverrides: {
         root: {
           fontWeight: 700,
-          fontSize: 14,
+          fontSize: 16,
           minHeight: 46,
           height: 46,
           color: 'var(--white-base)',
@@ -183,7 +183,7 @@ export function createComponents(): any {
       styleOverrides: {
         root: {
           '& .MuiTypography-root ': {
-            fontSize: '12px !important',
+            fontSize: '14px !important',
             fontWeight: 400,
           },
         },
@@ -208,9 +208,7 @@ export function createComponents(): any {
     MuiDrawer: {
       styleOverrides: {
         root: {
-          '& .MuiModal-backdrop': {
-            background: 'transparent !important',
-          },
+          '& .MuiModal-backdrop': {},
         },
         paperAnchorDockedBottom: {
           zIndex: '5001 !important',
@@ -235,7 +233,7 @@ export function createComponents(): any {
           height: 30,
           borderRadius: '50%',
           '& .MuiSvgIcon-root': {
-            fontSize: '18px',
+            fontSize: '20px',
           },
         },
         colorPrimary: {
@@ -253,7 +251,7 @@ export function createComponents(): any {
         },
         sizeSmall: {
           '& .MuiSvgIcon-root': {
-            fontSize: '14px',
+            fontSize: '16px',
           },
         },
       },
@@ -282,7 +280,7 @@ export function createComponents(): any {
           fontWeight: 700,
           minWidth: '70px',
           height: '24px',
-          fontSize: '12px',
+          fontSize: '14px',
         },
         colorError: {
           backgroundColor: 'var(--chip-background-error)',
@@ -328,7 +326,7 @@ export function createComponents(): any {
         root: {
           width: 'fit-content',
           fontWeight: 700,
-          fontSize: 14,
+          fontSize: 16,
         },
         body2: {
           color: 'red',
@@ -382,7 +380,7 @@ export function createComponents(): any {
         root: {
           '& .MuiSvgIcon-root': {
             color: 'var(--lightest-text-color) !important',
-            fontSize: 14,
+            fontSize: 16,
           },
         },
       },
@@ -418,7 +416,7 @@ export function createComponents(): any {
         input: {
           '&::placeholder': {
             fontWeight: 400,
-            fontSize: '12px !important',
+            fontSize: '14px !important',
             color: 'var(--input-placeholder-color) !important',
           },
         },
@@ -433,7 +431,7 @@ export function createComponents(): any {
           },
 
           '& .MuiSvgIcon-root': {
-            fontSize: '19px !important',
+            fontSize: '22px !important',
           },
         },
       },
@@ -450,7 +448,7 @@ export function createComponents(): any {
               display: 'none',
             },
           },
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: 500,
           lineHeight: '24px',
           padding: '10px 16px',
@@ -496,7 +494,7 @@ export function createComponents(): any {
           },
         },
         input: {
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: 400,
           '&::placeholder': {
             color: 'var(--input-placeholder-color) !important',
@@ -551,7 +549,7 @@ export function createComponents(): any {
             },
           },
           '& .MuiSvgIcon-root': {
-            fontSize: '18px !important',
+            fontSize: '20px !important',
             color: 'var(--lightest-text-color)',
           },
           '& .MuiSelect-select': {
@@ -567,7 +565,7 @@ export function createComponents(): any {
         },
         input: {
           height: 12,
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: 500,
           lineHeight: '24px',
         },
@@ -598,7 +596,7 @@ export function createComponents(): any {
         },
         input: {
           height: 12,
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: 500,
           lineHeight: '24px',
           padding: '0 16px',
@@ -623,7 +621,7 @@ export function createComponents(): any {
           position: 'relative !important',
           top: '14px !important',
           left: '-2px !important',
-          fontSize: '16px !important',
+          fontSize: '18px !important',
           fontWeight: 700,
           color: 'var(--text-color) !important',
           transform: 'translate(3px, -9px) scale(0.75) !important',
@@ -654,7 +652,7 @@ export function createComponents(): any {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          fontSize: 10,
+          fontSize: 12,
           width: 28,
 
           '&  .Mui-selected': {
@@ -663,14 +661,14 @@ export function createComponents(): any {
           },
         },
         icon: {
-          fontSize: 16,
+          fontSize: 18,
         },
       },
     },
     MuiTab: {
       styleOverrides: {
         root: {
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: 500,
           lineHeight: 1.71,
           minWidth: 'auto',
@@ -699,7 +697,7 @@ export function createComponents(): any {
       styleOverrides: {
         root: {
           border: 'none',
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: 400,
           fontFamily: 'var(--main-font)',
           borderTop: '1px solid var(--table-border)',
@@ -715,7 +713,7 @@ export function createComponents(): any {
             border: 'none',
             background: 'var(--lightest-primary-color)',
             color: 'var(--text-color)',
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: 700,
             lineHeight: 1,
             letterSpacing: 0.5,
@@ -752,7 +750,7 @@ export function createComponents(): any {
         root: {
           margin: '0px 10px !important',
           marginTop: '4px !important',
-          fontSize: '10px !important',
+          fontSize: '12px !important',
           '&.Mui-error': {
             color: 'var(--error-color) !important',
           },
@@ -764,25 +762,25 @@ export function createComponents(): any {
         fontWeight: 700,
         color: 'var(--text-color) !important',
         h1: {
-          fontSize: '28px',
+          fontSize: '30px',
           [customTheme.breakpoints.down('sm')]: {
-            fontSize: '22px',
+            fontSize: '24px',
           },
         },
         h2: {
-          fontSize: '20px',
+          fontSize: '22px',
           lineHeight: '24px',
           marginBottom: '16px',
         },
         h3: {
-          fontSize: '20px',
+          fontSize: '22px',
           fontWeight: 700,
           lineHeight: '24px',
           color: 'var(--primary-color)',
           whiteSpace: 'pre',
         },
         caption: {
-          fontSize: '12px',
+          fontSize: '14px',
           fontWeight: 700,
           lineHeight: '30px',
         },
@@ -853,7 +851,7 @@ export function createComponents(): any {
             backgroundColor: 'var(--primary-color)',
           },
           '& .MuiSvgIcon-root': {
-            fontSize: 14,
+            fontSize: 16,
           },
         },
         colorPrimary: {
@@ -893,7 +891,7 @@ export function createComponents(): any {
           height: 24,
           width: 24,
           '& .MuiSvgIcon-root': {
-            fontSize: 10,
+            fontSize: 12,
           },
         },
         colorPrimary: {
@@ -914,7 +912,7 @@ export function createComponents(): any {
         },
         input: {
           height: 12,
-          fontSize: 14,
+          fontSize: 16,
           fontWeight: 500,
           lineHeight: '24px',
           padding: '0 16px',
@@ -952,7 +950,7 @@ export function createComponents(): any {
             padding: '0',
             overflow: 'hidden',
             alingSelf: 'center',
-            fontSize: '12px',
+            fontSize: '14px',
           },
           '& .MuiAlert-icon': {
             display: 'none',
@@ -972,7 +970,7 @@ export function createComponents(): any {
             padding: '0',
             overflow: 'hidden',
             alingSelf: 'center',
-            fontSize: '12px',
+            fontSize: '14px',
           },
           '& .MuiAlert-icon': {
             display: 'none',

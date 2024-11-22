@@ -11,6 +11,7 @@ import {
   VIEW_BY_OPTIONS,
 } from 'features/CPAReport/components/CPAReportFilters/CPAReportFilters.tsx'
 import { objectFromUrl } from 'utils/utils.ts'
+import getDayLimits from 'utils/getDayLimits.ts'
 
 export const cpaReportItemFromApi = (item: CPAReportItemFromApi): CPAReportItem => {
   return {
@@ -63,6 +64,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): CPAReportListFiltersFormValues => {
+  const { startOfDay, endOfDay } = getDayLimits()
+
   return {
     pubId: objectFromUrl(searchParams.get('pubId')),
     state: objectFromUrl(searchParams.get('state')),
@@ -73,14 +76,13 @@ export const transformFiltersFromUrl = (
     buyers: objectFromUrl(searchParams.get('buyers')),
     startDate: searchParams.get('date_start')
       ? new Date(searchParams.get('date_start')!)
-      : new Date(),
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : new Date(),
+      : startOfDay,
+    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
   }
 }
 
 export const transformFiltersToUrl = (filters: CPAReportListFiltersFormValues): string => {
   const params = new URLSearchParams()
-  console.log(filters)
 
   if (filters.pubId?.length) {
     params.set('pubId', JSON.stringify(filters.pubId))

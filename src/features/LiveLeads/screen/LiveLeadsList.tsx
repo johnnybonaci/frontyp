@@ -32,6 +32,7 @@ import AccountCard from 'components/AccountCard'
 import RefreshButton from 'components/RefreshButton'
 import { type CallReportItem } from 'features/CallReport/types'
 import { VisibilityOutlined } from '@mui/icons-material'
+import PhoneLink from 'components/PhoneLink/PhoneLink.tsx'
 
 const LiveLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'LiveLeads' })
@@ -109,7 +110,16 @@ const LiveLeadsList: FC = () => {
         header: t('fields.phone'),
         fieldName: 'phone_id',
         sortable: true,
-        dataModifier: (item: LiveLeadsItem) => item.phone,
+        dataModifier: (item: LiveLeadsItem) => (
+          <PhoneLink
+            phone={item.phone}
+            account={item.id}
+            name={`${item.firstName} ${item.lastName}`}
+            email={item.email ?? ''}
+            typeOut={item.type ?? ''}
+            vendor={item.pubListId ?? ''}
+          />
+        ),
       },
       {
         header: t('fields.pubId'),
@@ -161,7 +171,7 @@ const LiveLeadsList: FC = () => {
         dataModifier: (data: CallReportItem) => dateFormat(data.createdAt, 'YYYY-MM-DD HH:mm:ss'),
       },
     ],
-    [t]
+    [t, initialFilters?.startDate, initialFilters?.endDate]
   )
 
   const initialIndicators = [

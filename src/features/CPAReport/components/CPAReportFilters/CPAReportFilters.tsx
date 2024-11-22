@@ -104,6 +104,7 @@ const CPAReportFilters: FC<CPAReportFiltersProps> = ({
               void setFieldValue('startDate', e[0])
               void setFieldValue('endDate', e[1])
             }}
+            withShortcuts
           />
           <CustomAutocomplete
             options={trafficSourceOptions}

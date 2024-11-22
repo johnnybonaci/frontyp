@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DateRangePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
 import { TextField, FormControl, FormHelperText, FormLabel } from '@mui/material'
+import CalendarWithShortcuts from './CalendarWithShortcuts'
+
+import { DateRange } from './types'
+import { DATE_OPTIONS } from './constants'
+
+import 'react-datepicker/dist/react-datepicker.css'
 import './dateRangePicker.module.scss'
 
 interface DateRangePickerProps {
   label: string
-  value: [Date | undefined, Date | undefined]
+  value: DateRange
   onChange: (dates: any[]) => void
   error?: string
+  withShortcuts?: boolean
 }
 
 const CustomDateRangePicker: React.FC<DateRangePickerProps> = ({
@@ -16,16 +22,48 @@ const CustomDateRangePicker: React.FC<DateRangePickerProps> = ({
   value,
   onChange,
   error,
+  withShortcuts = false,
 }) => {
+  const [startDate, setStartDate] = useState(value[0])
+  const [endDate, setEndDate] = useState(value[1])
+
+  const changeSelectedValues = (e: any) => {
+    setStartDate(e[0])
+    setEndDate(e[1])
+  }
+
+  const updateValues = () => {
+    onChange([startDate, endDate])
+  }
+
+  const onClickShorcuts = (shorcutRange: DateRange) => {
+    changeSelectedValues(shorcutRange)
+  }
+
   return (
     <FormControl error={Boolean(error)}>
       <FormLabel sx={{ left: '-30px !important' }}>{label}</FormLabel>
       <DateRangePicker
-        startDate={value[0]}
-        endDate={value[1]}
+        startDate={startDate}
+        endDate={endDate}
         selectsRange
-        onChange={onChange}
+        onChange={changeSelectedValues}
+        onCalendarClose={updateValues}
         customInput={<TextField />}
+        popperPlacement="top-end"
+        calendarContainer={({ children }) =>
+          withShortcuts ? (
+            <CalendarWithShortcuts
+              onChange={onClickShorcuts}
+              value={[startDate, endDate]}
+              options={DATE_OPTIONS}
+            >
+              {children}
+            </CalendarWithShortcuts>
+          ) : (
+            children
+          )
+        }
       />
       {error && <FormHelperText>{error}</FormHelperText>}
     </FormControl>
