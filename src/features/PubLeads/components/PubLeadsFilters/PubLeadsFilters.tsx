@@ -35,7 +35,7 @@ interface PubLeadsFiltersProps {
   initialFilters?: PubLeadsListFiltersFormValues
 }
 
-const DEFAULT_FILTERS = {
+export const DEFAULT_FILTERS = {
   pubId: [],
   trafficSource: [],
   subId: null,

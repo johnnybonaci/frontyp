@@ -1,32 +1,37 @@
-import { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import useFetch from './useFetch'
-import { type Paginator } from 'src/types/paginator'
-import { type Filters } from 'src/types/filter'
-import { type Sorter } from 'src/types/sorter'
+import { type Paginator } from '../types/paginator'
+import { type Filters } from '../types/filter'
+import { useSearchParams } from 'react-router-dom'
+import clearObject from 'utils/clearObject'
 import { useTranslation } from 'react-i18next'
-import { multipleSelectToApi } from '../transformers/apiTransformers.ts'
+import { multipleSelectToApi } from 'src/transformers/apiTransformers'
+import { Sorter } from 'types/sorter'
 
 interface PaginatedFetchProps {
   initialPerPage?: number
   initialPage?: number
-  canSearch?: boolean
   url: string
   filters?: Filters
-  defaultSorter?: { fieldName: string; order: 'asc' | 'desc' | undefined }
   config?: any
+  options?: FilterRequestOptions
+  defaultSorter?: { fieldName: string; order: 'asc' | 'desc' | undefined }
   persistConfig?: boolean
 }
 
+export interface FilterRequestOptions {
+  updatePath?: boolean
+}
+
 interface PaginatedFetchResult {
-  doFetch?: () => void
+  doFetch?: () => Promise<any>
   retry: () => void
-  response: any
+  response: any // Adjust this type according to your response data structure
   paginator: Paginator
+  loading: boolean
+  error: any // Adjust this type according to your error data structure
   sorter?: Sorter
   setSorter: (fieldName: string, order: 'asc' | 'desc' | undefined) => void
-  loading: boolean
-  error: any
 }
 
 const usePaginatedFetch = ({
@@ -34,18 +39,22 @@ const usePaginatedFetch = ({
   initialPage = 1,
   url,
   filters,
-  defaultSorter,
   config,
-  canSearch = true,
+  options = {},
+  defaultSorter,
   persistConfig = true,
 }: PaginatedFetchProps): PaginatedFetchResult => {
   const { t } = useTranslation('common')
+  const [skipFirstRender, setSkipFirstRender] = useState(true)
+  const { updatePath } = options
   const [searchParams, setSearchParams] = useSearchParams()
+  const [perPage, setPerPage] = useState(
+    updatePath && searchParams.get('perPage') ? Number(searchParams.get('perPage')) : initialPerPage
+  )
+  const [page, setPage] = useState(
+    updatePath && searchParams.get('page') ? Number(searchParams.get('page')) : initialPage
+  )
 
-  const urlPage = persistConfig ? Number(searchParams.get('page')) || initialPage : initialPage
-  const urlPerPage = persistConfig
-    ? Number(searchParams.get('perPage')) || initialPerPage
-    : initialPerPage
   const urlSorterField = persistConfig
     ? searchParams.get('sortField') || defaultSorter?.fieldName
     : defaultSorter?.fieldName
@@ -58,9 +67,6 @@ const usePaginatedFetch = ({
       ? { fieldName: urlSorterField, order: urlSorterOrder }
       : defaultSorter
   )
-  const [currentFilters, setCurrentFilters] = useState<Filters | undefined>(filters)
-  const [perPage, setPerPage] = useState(urlPerPage)
-  const [page, setPage] = useState(urlPage)
 
   const setSorter = (fieldName: string, order: 'asc' | 'desc' | undefined): void => {
     setCurrentSorter({
@@ -71,9 +77,9 @@ const usePaginatedFetch = ({
 
   const paginatedConfig = {
     ...config,
-    params: {
+    params: clearObject({
       size: perPage,
-      ...currentFilters,
+      ...filters,
       sort:
         currentSorter?.fieldName && currentSorter?.order
           ? multipleSelectToApi(
@@ -84,7 +90,7 @@ const usePaginatedFetch = ({
             )
           : undefined,
       page,
-    },
+    }),
   }
 
   const {
@@ -96,44 +102,56 @@ const usePaginatedFetch = ({
   } = useFetch(url, paginatedConfig)
 
   useEffect(() => {
-    if (persistConfig) {
-      if (page) searchParams.set('page', String(page))
-      if (perPage) searchParams.set('perPage', String(perPage))
-      if (currentSorter?.fieldName && currentSorter?.order) {
-        searchParams.set('sortField', currentSorter.fieldName)
-        searchParams.set('sortOrder', currentSorter.order)
-      }
-
-      setSearchParams(searchParams)
-    }
-  }, [page, perPage, currentSorter, setSearchParams, persistConfig])
-
-  useEffect(() => {
-    if (doFetch && canSearch) {
-      void doFetch()
-    }
-  }, [doFetch, canSearch])
-
-  useEffect(() => {
-    if (JSON.stringify(filters) !== JSON.stringify(currentFilters)) {
-      setCurrentFilters(filters)
+    if (!skipFirstRender) {
       setPage(1)
+    } else {
+      setSkipFirstRender(false)
     }
-  }, [filters])
+  }, [JSON.stringify(filters)])
 
   useEffect(() => {
-    setPage(1)
-  }, [currentSorter])
+    if (doFetch) {
+      doFetch()
+    }
+  }, [doFetch])
 
-  useEffect(() => {
-    setPage(1)
-  }, [perPage])
+  const onChangePage = useCallback(
+    (newPage: number) => {
+      setPage(newPage + 1)
+      if (updatePath) {
+        setSearchParams({
+          ...Object.fromEntries(searchParams.entries()),
+          page: String(newPage + 1),
+        })
+      }
+    },
+    [updatePath, searchParams, setSearchParams]
+  )
+
+  const onChangePerPage = useCallback(
+    (newPerPage: number) => {
+      setPerPage(newPerPage)
+      setPage(1)
+      if (updatePath) {
+        setSearchParams({
+          ...Object.fromEntries(searchParams.entries()),
+          page: '1',
+          perPage: String(newPerPage),
+        })
+      }
+    },
+    [updatePath, searchParams, setSearchParams]
+  )
+
+  const paginatedResponse = useMemo(
+    () => (error?.message ? { ...response, data: [] } : response),
+    [error?.message, response]
+  )
 
   return {
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     doFetch,
     retry,
-    response,
+    response: paginatedResponse,
     sorter: currentSorter,
     setSorter,
     paginator: {
@@ -145,8 +163,8 @@ const usePaginatedFetch = ({
       }),
       page: response?.current_page || page,
       perPage: response?.per_page || initialPerPage,
-      setPage,
-      setPerPage,
+      setPage: onChangePage,
+      setPerPage: onChangePerPage,
     },
     loading,
     error,

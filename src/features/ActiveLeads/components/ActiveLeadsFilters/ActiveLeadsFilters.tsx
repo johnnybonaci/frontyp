@@ -35,7 +35,7 @@ interface ActiveLeadsFiltersProps {
   initialFilters?: ActiveLeadsListFiltersFormValues
 }
 
-const DEFAULT_FILTERS = {
+export const DEFAULT_FILTERS = {
   pubId: [],
   trafficSource: [],
   subId: null,
