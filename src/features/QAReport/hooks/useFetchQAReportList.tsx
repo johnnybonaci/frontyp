@@ -21,23 +21,14 @@ interface UseFetchQAReportItemsResponse {
   setSorter: (fieldName: string, order: 'asc' | 'desc' | undefined) => void
 }
 
-const useFetchQAReportList = ({
-  filters,
-  canSearch,
-}: {
-  filters: Filters
-  canSearch: boolean
-}): UseFetchQAReportItemsResponse => {
+const useFetchQAReportList = ({ filters }: { filters: Filters }): UseFetchQAReportItemsResponse => {
   const { t } = useTranslation()
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
   const [qaReportItems, setQaReportItems] = useState<QAReportItem[] | null>(null)
   const [qaReportIndicators, setQaReportIndicators] = useState<QAReportIndicators | null>(null)
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/report-qa`,
-    canSearch,
-    filters: {
-      ...filters,
-    },
+    filters,
   })
 
   useEffect(() => {

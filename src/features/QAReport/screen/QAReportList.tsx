@@ -8,11 +8,7 @@ import ContentBox from 'components/ContentBox'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
-import {
-  transformFiltersFromUrl,
-  transformFiltersToApi,
-  transformFiltersToUrl,
-} from 'features/QAReport/transformers'
+import { transformFiltersFromUrl, transformFiltersToApi } from 'features/QAReport/transformers'
 import ExportButton from 'components/ExportButton'
 import useExport from 'hooks/useExport.tsx'
 import config from '../../../config.tsx'
@@ -22,32 +18,25 @@ import styles from './qaReportList.module.scss'
 import QAReportTable from 'features/QAReport/components/CPAReportTable'
 import { type QAReportItem } from 'features/QAReport/types'
 import dateFormat from 'utils/dateFormat.ts'
+import { DEFAULT_FILTERS } from '../components/QAReportFilters/QAReportFilters.tsx'
 
 const QAReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'QAReport' })
-  const {
-    onCancel,
-    onApply,
-    filters,
-    initialFilters,
-    loading: loadingFilters,
-  } = useFilters(transformFiltersToApi, transformFiltersFromUrl, transformFiltersToUrl)
-  const allFilters = useMemo(() => {
-    return {
-      ...filters,
-    }
-  }, [filters])
+  const { onCancel, onApply, filters, filtersToAPI } = useFilters(
+    transformFiltersToApi,
+    transformFiltersFromUrl,
+    DEFAULT_FILTERS
+  )
 
   const { qaReportIndicators, qaReportItems, sorter, setSorter, paginator, loading, refresh } =
     useFetchQAReportList({
-      canSearch: !loadingFilters,
-      filters: allFilters,
+      filters: filtersToAPI,
     })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
   const { doFetch } = useExport({
     url: `${config.api.baseUrl}/export/qa`,
-    filters: allFilters,
+    filters: filtersToAPI,
     fileName: 'qa_report',
   })
 
@@ -237,7 +226,7 @@ const QAReportList: FC = () => {
           onCancel={onCancel}
           onApply={onApply}
           isSearching={loading}
-          initialFilters={initialFilters}
+          initialFilters={filters}
         />
         <ListSettings
           columns={columns}

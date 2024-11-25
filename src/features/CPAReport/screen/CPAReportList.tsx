@@ -8,11 +8,7 @@ import ContentBox from 'components/ContentBox'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
-import {
-  transformFiltersFromUrl,
-  transformFiltersToApi,
-  transformFiltersToUrl,
-} from 'features/CPAReport/transformers'
+import { transformFiltersFromUrl, transformFiltersToApi } from 'features/CPAReport/transformers'
 import ExportButton from 'components/ExportButton'
 import useExport from 'hooks/useExport.tsx'
 import config from '../../../config.tsx'
@@ -21,33 +17,26 @@ import CPAReportTable from 'features/CPAReport/components/CPAReportTable'
 import { type CPAReportItem } from 'features/CPAReport/types'
 import styles from './cpaReportList.module.scss'
 import useFetchCPAReportList from 'features/CPAReport/hooks/useFetchCPAReportList.tsx'
+import { DEFAULT_FILTERS } from '../components/CPAReportFilters/CPAReportFilters.tsx'
 
 const CPAReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'CPAReport' })
 
-  const {
-    onCancel,
-    onApply,
-    filters,
-    initialFilters,
-    loading: loadingFilters,
-  } = useFilters(transformFiltersToApi, transformFiltersFromUrl, transformFiltersToUrl)
-  const allFilters = useMemo(() => {
-    return {
-      ...filters,
-    }
-  }, [filters])
+  const { onCancel, onApply, filters, filtersToAPI } = useFilters(
+    transformFiltersToApi,
+    transformFiltersFromUrl,
+    DEFAULT_FILTERS
+  )
 
   const { cpaReportIndicators, cpaReportItems, sorter, setSorter, paginator, loading, refresh } =
     useFetchCPAReportList({
-      canSearch: !loadingFilters,
-      filters: allFilters,
+      filters: filtersToAPI,
     })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
   const { doFetch } = useExport({
     url: `${config.api.baseUrl}/export/cpa`,
-    filters: allFilters,
+    filters: filtersToAPI,
     fileName: 'cpa_report',
   })
 
@@ -162,7 +151,7 @@ const CPAReportList: FC = () => {
           onCancel={onCancel}
           onApply={onApply}
           isSearching={loading}
-          initialFilters={initialFilters}
+          initialFilters={filters}
         />
         <ListSettings
           columns={columns}

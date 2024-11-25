@@ -33,10 +33,8 @@ interface UseFetchCallReportItemsResponse {
 
 const useFetchCallReportList = ({
   filters,
-  canSearch,
 }: {
   filters: Filters
-  canSearch: boolean
 }): UseFetchCallReportItemsResponse => {
   const { t } = useTranslation()
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
@@ -47,10 +45,7 @@ const useFetchCallReportList = ({
   )
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/calls`,
-    canSearch,
-    filters: {
-      ...filters,
-    },
+    filters,
   })
 
   useEffect(() => {

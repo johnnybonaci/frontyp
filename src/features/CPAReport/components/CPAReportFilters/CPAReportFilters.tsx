@@ -33,7 +33,7 @@ export const VIEW_BY_OPTIONS: Option[] = [
   { id: 'convertions.buyer_id', title: 'Buyers' },
 ]
 
-const DEFAULT_FILTERS: CPAReportListFiltersFormValues = {
+export const DEFAULT_FILTERS: CPAReportListFiltersFormValues = {
   pubId: [],
   subId: null,
   state: [],

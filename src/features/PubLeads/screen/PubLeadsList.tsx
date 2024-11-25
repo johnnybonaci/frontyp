@@ -19,11 +19,7 @@ import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
-import {
-  transformFiltersFromUrl,
-  transformFiltersToApi,
-  transformFiltersToUrl,
-} from 'features/PubLeads/transformers'
+import { transformFiltersFromUrl, transformFiltersToApi } from 'features/PubLeads/transformers'
 import ExportButton from 'components/ExportButton'
 import useExport from 'hooks/useExport.tsx'
 import config from '../../../config.tsx'
@@ -33,6 +29,7 @@ import RefreshButton from 'components/RefreshButton'
 import { type CallReportItem } from 'features/CallReport/types'
 import { VisibilityOutlined } from '@mui/icons-material'
 import PhoneLink from 'components/PhoneLink/PhoneLink.tsx'
+import { DEFAULT_FILTERS } from '../components/PubLeadsFilters/PubLeadsFilters.tsx'
 
 const PubLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'PubLeads' })
@@ -44,18 +41,11 @@ const PubLeadsList: FC = () => {
     setCollapsedViewDetails(!collapsedViewDetails)
   }, [setCollapsedViewDetails, collapsedViewDetails])
 
-  const {
-    onCancel,
-    onApply,
-    filters,
-    initialFilters,
-    loading: loadingFilters,
-  } = useFilters(transformFiltersToApi, transformFiltersFromUrl, transformFiltersToUrl)
-  const allFilters = useMemo(() => {
-    return {
-      ...filters,
-    }
-  }, [filters])
+  const { onCancel, onApply, filters, filtersToAPI } = useFilters(
+    transformFiltersToApi,
+    transformFiltersFromUrl,
+    DEFAULT_FILTERS
+  )
 
   const {
     pubLeadsItems,
@@ -67,14 +57,13 @@ const PubLeadsList: FC = () => {
     loading,
     refresh,
   } = useFetchPubLeadsList({
-    canSearch: !loadingFilters,
-    filters: allFilters,
+    filters: filtersToAPI,
   })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
   const { doFetch } = useExport({
     url: `${config.api.baseUrl}/export/leads`,
-    filters: allFilters,
+    filters: filtersToAPI,
     fileName: 'pub_leads',
   })
 
@@ -326,7 +315,7 @@ const PubLeadsList: FC = () => {
           onCancel={onCancel}
           onApply={onApply}
           isSearching={loading}
-          initialFilters={initialFilters}
+          initialFilters={filters}
         />
         <ListSettings
           columns={columns}
@@ -348,12 +337,12 @@ const PubLeadsList: FC = () => {
         ))}
       </div>
       <AccountCard
-        account={initialFilters.account}
-        name={initialFilters.name}
-        email={initialFilters.email}
-        typeOut={initialFilters.type_out}
-        vendor={initialFilters.vendor}
-        phone={initialFilters.phone}
+        account={filters.account}
+        name={filters.name}
+        email={filters.email}
+        typeOut={filters.type_out}
+        vendor={filters.vendor}
+        phone={filters.phone}
       />
       <PubLeadsTable
         columns={visibleColumns}

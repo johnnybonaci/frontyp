@@ -16,11 +16,7 @@ import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
-import {
-  transformFiltersFromUrl,
-  transformFiltersToApi,
-  transformFiltersToUrl,
-} from 'features/CallReport/transformers'
+import { transformFiltersFromUrl, transformFiltersToApi } from 'features/CallReport/transformers'
 import EditSaleForm from 'features/CallReport/components/EditSaleForm'
 import ExportButton from 'components/ExportButton'
 import DrawerActions from 'components/DrawerActions'
@@ -35,6 +31,7 @@ import AccountCard from 'components/AccountCard'
 import RefreshButton from 'components/RefreshButton'
 import { useTranscript } from 'features/CallReport/hooks/useTranscript.tsx'
 import TranscriptStatus from 'components/TranscriptStatus'
+import { DEFAULT_FILTERS } from '../components/CallReportFilters/CallReportFilters.tsx'
 
 const CallReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'CallReport' })
@@ -58,18 +55,11 @@ const CallReportList: FC = () => {
     setCollapsedViewDetails(!collapsedViewDetails)
   }, [setCollapsedViewDetails, collapsedViewDetails])
 
-  const {
-    onCancel,
-    onApply,
-    filters,
-    initialFilters,
-    loading: loadingFilters,
-  } = useFilters(transformFiltersToApi, transformFiltersFromUrl, transformFiltersToUrl)
-  const allFilters = useMemo(() => {
-    return {
-      ...filters,
-    }
-  }, [filters])
+  const { onCancel, onApply, filters, filtersToAPI } = useFilters(
+    transformFiltersToApi,
+    transformFiltersFromUrl,
+    DEFAULT_FILTERS
+  )
 
   const {
     callReportItems,
@@ -81,14 +71,13 @@ const CallReportList: FC = () => {
     loading,
     refresh,
   } = useFetchCallReportList({
-    canSearch: !loadingFilters,
-    filters: allFilters,
+    filters: filtersToAPI,
   })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
   const { doFetch } = useExport({
     url: `${config.api.baseUrl}/export/calls`,
-    filters: allFilters,
+    filters: filtersToAPI,
     fileName: 'call_report',
   })
 
@@ -277,7 +266,7 @@ const CallReportList: FC = () => {
           onCancel={onCancel}
           onApply={onApply}
           isSearching={loading}
-          initialFilters={initialFilters}
+          initialFilters={filters}
         />
         <ListSettings
           columns={columns}
@@ -299,12 +288,12 @@ const CallReportList: FC = () => {
         ))}
       </div>
       <AccountCard
-        account={initialFilters.account}
-        name={initialFilters.name}
-        email={initialFilters.email}
-        typeOut={initialFilters.type_out}
-        vendor={initialFilters.vendor}
-        phone={initialFilters.phone}
+        account={filters.account}
+        name={filters.name}
+        email={filters.email}
+        typeOut={filters.type_out}
+        vendor={filters.vendor}
+        phone={filters.phone}
       />
       <CallReportTable
         columns={visibleColumns}
