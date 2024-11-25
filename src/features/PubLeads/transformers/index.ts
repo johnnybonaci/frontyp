@@ -166,7 +166,7 @@ export const transformFiltersFromUrl = (
   }
 }
 
-export const transformFiltersToUrl = (filters: PubLeadsListFiltersFormValues): string => {
+export const transformFiltersToUrl = (filters: PubLeadsListFiltersFormValues): URLSearchParams => {
   const params = new URLSearchParams()
 
   if (filters.pubId?.length) {
@@ -208,5 +208,5 @@ export const transformFiltersToUrl = (filters: PubLeadsListFiltersFormValues): s
     params.set('phone', filters.phone)
   }
 
-  return params.toString()
+  return params
 }

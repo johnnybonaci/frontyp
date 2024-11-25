@@ -16,7 +16,11 @@ import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
-import { transformFiltersFromUrl, transformFiltersToApi } from 'features/CallReport/transformers'
+import {
+  transformFiltersFromUrl,
+  transformFiltersToApi,
+  transformFiltersToUrl,
+} from 'features/CallReport/transformers'
 import EditSaleForm from 'features/CallReport/components/EditSaleForm'
 import ExportButton from 'components/ExportButton'
 import DrawerActions from 'components/DrawerActions'
@@ -31,7 +35,10 @@ import AccountCard from 'components/AccountCard'
 import RefreshButton from 'components/RefreshButton'
 import { useTranscript } from 'features/CallReport/hooks/useTranscript.tsx'
 import TranscriptStatus from 'components/TranscriptStatus'
-import { DEFAULT_FILTERS } from '../components/CallReportFilters/CallReportFilters.tsx'
+import {
+  CallReportListFiltersFormValues,
+  DEFAULT_FILTERS,
+} from '../components/CallReportFilters/CallReportFilters.tsx'
 
 const CallReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'CallReport' })
@@ -55,9 +62,10 @@ const CallReportList: FC = () => {
     setCollapsedViewDetails(!collapsedViewDetails)
   }, [setCollapsedViewDetails, collapsedViewDetails])
 
-  const { onCancel, onApply, filters, filtersToAPI } = useFilters(
+  const { onCancel, onApply, filters, filtersToAPI } = useFilters<CallReportListFiltersFormValues>(
     transformFiltersToApi,
     transformFiltersFromUrl,
+    transformFiltersToUrl,
     DEFAULT_FILTERS
   )
 

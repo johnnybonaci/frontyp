@@ -168,7 +168,9 @@ export const transformFiltersFromUrl = (
   }
 }
 
-export const transformFiltersToUrl = (filters: ActiveLeadsListFiltersFormValues): string => {
+export const transformFiltersToUrl = (
+  filters: ActiveLeadsListFiltersFormValues
+): URLSearchParams => {
   const params = new URLSearchParams()
 
   if (filters.pubId?.length) {
@@ -210,5 +212,5 @@ export const transformFiltersToUrl = (filters: ActiveLeadsListFiltersFormValues)
     params.set('phone', filters.phone)
   }
 
-  return params.toString()
+  return params
 }

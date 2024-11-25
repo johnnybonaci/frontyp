@@ -6,19 +6,20 @@ import { Filters } from 'types/filter'
 
 export type Filter = Record<string, any>
 
-interface FiltersReturnType {
+interface FiltersReturnType<T extends Filters> {
   isOpenFilters: boolean
   openFilters: () => void
   onCancel: () => void
   onApply: (filters: any) => void
   count: number
-  filters: any
+  filters: T
   filtersToAPI: any
   onClear: () => void
 }
 
-type TransformerToAPI = (filters: Filters) => Record<string, any>
+type TransformerToAPI<T extends Filters> = (filters: T) => Record<string, any>
 type TransformerFromURL = (searchParams: URLSearchParams) => Filters
+type TransformerToURL<T extends Filters> = (filters: T) => URLSearchParams
 
 const defaultTransformFromUrl = (searchParams: URLSearchParams): Filters => {
   return clearObject(decodeSearchParams(searchParams))
@@ -28,16 +29,18 @@ const defaultTransformToUrl = (filters: Filters): URLSearchParams => {
   return encodeSearchParams(clearObject(filters))
 }
 
-export default function useFilters(
-  transformerToAPI: TransformerToAPI,
-  transfomerFromURL: TransformerFromURL = defaultTransformFromUrl,
+export default function useFilters<T extends Filters>(
+  transformerToAPI: TransformerToAPI<T>,
+  transformerFromURL: TransformerFromURL = defaultTransformFromUrl,
+  transformerToURL: TransformerToURL<T> = defaultTransformToUrl,
   initialValues: any = {},
   skipFilterFromCount: string[] = []
-): FiltersReturnType {
+): FiltersReturnType<T> {
   const [isOpenFilters, setIsOpenFilters] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
-  const filtersFromURL = useMemo(() => transfomerFromURL(searchParams), [])
-  const [filters, setFilters] = useState({
+  const filtersFromURL = useMemo(() => transformerFromURL(searchParams), [])
+
+  const [filters, setFilters] = useState<T>({
     ...initialValues,
     ...filtersFromURL,
   })
@@ -51,7 +54,7 @@ export default function useFilters(
 
   const onApply = useCallback(
     (filters: any) => {
-      setSearchParams(defaultTransformToUrl(filters))
+      setSearchParams(transformerToURL(filters))
       setFilters(filters)
       setIsOpenFilters(false)
     },

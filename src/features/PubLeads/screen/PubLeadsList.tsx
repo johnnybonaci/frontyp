@@ -19,7 +19,11 @@ import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
-import { transformFiltersFromUrl, transformFiltersToApi } from 'features/PubLeads/transformers'
+import {
+  transformFiltersFromUrl,
+  transformFiltersToApi,
+  transformFiltersToUrl,
+} from 'features/PubLeads/transformers'
 import ExportButton from 'components/ExportButton'
 import useExport from 'hooks/useExport.tsx'
 import config from '../../../config.tsx'
@@ -29,7 +33,10 @@ import RefreshButton from 'components/RefreshButton'
 import { type CallReportItem } from 'features/CallReport/types'
 import { VisibilityOutlined } from '@mui/icons-material'
 import PhoneLink from 'components/PhoneLink/PhoneLink.tsx'
-import { DEFAULT_FILTERS } from '../components/PubLeadsFilters/PubLeadsFilters.tsx'
+import {
+  DEFAULT_FILTERS,
+  PubLeadsListFiltersFormValues,
+} from '../components/PubLeadsFilters/PubLeadsFilters.tsx'
 
 const PubLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'PubLeads' })
@@ -41,9 +48,10 @@ const PubLeadsList: FC = () => {
     setCollapsedViewDetails(!collapsedViewDetails)
   }, [setCollapsedViewDetails, collapsedViewDetails])
 
-  const { onCancel, onApply, filters, filtersToAPI } = useFilters(
+  const { onCancel, onApply, filters, filtersToAPI } = useFilters<PubLeadsListFiltersFormValues>(
     transformFiltersToApi,
     transformFiltersFromUrl,
+    transformFiltersToUrl,
     DEFAULT_FILTERS
   )
 

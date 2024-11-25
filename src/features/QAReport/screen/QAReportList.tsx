@@ -8,7 +8,11 @@ import ContentBox from 'components/ContentBox'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
-import { transformFiltersFromUrl, transformFiltersToApi } from 'features/QAReport/transformers'
+import {
+  transformFiltersFromUrl,
+  transformFiltersToApi,
+  transformFiltersToUrl,
+} from 'features/QAReport/transformers'
 import ExportButton from 'components/ExportButton'
 import useExport from 'hooks/useExport.tsx'
 import config from '../../../config.tsx'
@@ -18,13 +22,17 @@ import styles from './qaReportList.module.scss'
 import QAReportTable from 'features/QAReport/components/CPAReportTable'
 import { type QAReportItem } from 'features/QAReport/types'
 import dateFormat from 'utils/dateFormat.ts'
-import { DEFAULT_FILTERS } from '../components/QAReportFilters/QAReportFilters.tsx'
+import {
+  DEFAULT_FILTERS,
+  QAReportListFiltersFormValues,
+} from '../components/QAReportFilters/QAReportFilters.tsx'
 
 const QAReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'QAReport' })
-  const { onCancel, onApply, filters, filtersToAPI } = useFilters(
+  const { onCancel, onApply, filters, filtersToAPI } = useFilters<QAReportListFiltersFormValues>(
     transformFiltersToApi,
     transformFiltersFromUrl,
+    transformFiltersToUrl,
     DEFAULT_FILTERS
   )
 

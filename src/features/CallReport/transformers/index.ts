@@ -237,7 +237,9 @@ export const transformFiltersFromUrl = (
   }
 }
 
-export const transformFiltersToUrl = (filters: CallReportListFiltersFormValues): string => {
+export const transformFiltersToUrl = (
+  filters: CallReportListFiltersFormValues
+): URLSearchParams => {
   const params = new URLSearchParams()
 
   if (filters.offers?.length) {
@@ -283,5 +285,5 @@ export const transformFiltersToUrl = (filters: CallReportListFiltersFormValues):
     params.set('didTd', filters.didTd)
   }
 
-  return params.toString()
+  return params
 }

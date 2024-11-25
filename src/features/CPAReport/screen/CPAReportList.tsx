@@ -8,7 +8,11 @@ import ContentBox from 'components/ContentBox'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
-import { transformFiltersFromUrl, transformFiltersToApi } from 'features/CPAReport/transformers'
+import {
+  transformFiltersFromUrl,
+  transformFiltersToApi,
+  transformFiltersToUrl,
+} from 'features/CPAReport/transformers'
 import ExportButton from 'components/ExportButton'
 import useExport from 'hooks/useExport.tsx'
 import config from '../../../config.tsx'
@@ -25,6 +29,7 @@ const CPAReportList: FC = () => {
   const { onCancel, onApply, filters, filtersToAPI } = useFilters(
     transformFiltersToApi,
     transformFiltersFromUrl,
+    transformFiltersToUrl,
     DEFAULT_FILTERS
   )
 
