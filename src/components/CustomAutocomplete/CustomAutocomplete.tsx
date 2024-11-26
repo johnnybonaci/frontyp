@@ -52,9 +52,16 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
     <Autocomplete
       multiple={multiple}
       freeSolo={creatable}
-      /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      options={allOptions}
+      options={allOptions?.filter(
+        (option) =>
+          !value.some((selectedOption) =>
+            typeof option === 'string'
+              ? option === selectedOption.title
+              : option.title === selectedOption.title
+          )
+      )}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.title)}
       value={value}
       onChange={handleChange}
