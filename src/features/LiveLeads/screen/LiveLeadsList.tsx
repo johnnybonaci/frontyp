@@ -28,7 +28,6 @@ import ExportButton from 'components/ExportButton'
 import useExport from 'hooks/useExport.tsx'
 import config from '../../../config.tsx'
 import dateFormat from 'utils/dateFormat.ts'
-import AccountCard from 'components/AccountCard'
 import RefreshButton from 'components/RefreshButton'
 import { type CallReportItem } from 'features/CallReport/types'
 import { VisibilityOutlined } from '@mui/icons-material'
@@ -344,14 +343,6 @@ const LiveLeadsList: FC = () => {
           <Indicator key={ind.name} indicator={ind} loading={loading} />
         ))}
       </div>
-      <AccountCard
-        account={filters.account}
-        name={filters.name}
-        email={filters.email}
-        typeOut={filters.type_out}
-        vendor={filters.vendor}
-        phone={filters.phone}
-      />
       <LiveLeadsTable
         columns={visibleColumns}
         rows={liveLeadsItems}
