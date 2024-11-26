@@ -47,6 +47,7 @@ const useFetchLiveLeadsList = ({
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/leads`,
     filters,
+    options: { updatePath: true },
   })
 
   useEffect(() => {

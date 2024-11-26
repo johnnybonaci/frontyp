@@ -29,6 +29,7 @@ const useFetchQAReportList = ({ filters }: { filters: Filters }): UseFetchQARepo
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/report-qa`,
     filters,
+    options: { updatePath: true },
   })
 
   useEffect(() => {

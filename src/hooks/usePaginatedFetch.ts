@@ -117,11 +117,11 @@ const usePaginatedFetch = ({
 
   const onChangePage = useCallback(
     (newPage: number) => {
-      setPage(newPage + 1)
+      setPage(newPage)
       if (updatePath) {
         setSearchParams({
           ...Object.fromEntries(searchParams.entries()),
-          page: String(newPage + 1),
+          page: String(newPage),
         })
       }
     },
