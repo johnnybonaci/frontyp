@@ -18,10 +18,8 @@ const Providers: FC = () => {
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
   const { filters, filtersToAPI, onCancel, onApply } = useFilters<ProvidersFilter>(
-    transformFiltersToApi,
-    undefined,
-    undefined,
-    EMPTY_PROVIDERS_FILTERS
+    EMPTY_PROVIDERS_FILTERS,
+    transformFiltersToApi
   )
 
   const { providersItems, sorter, setSorter, paginator, loading } = useFetchProviders({

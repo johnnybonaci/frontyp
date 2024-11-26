@@ -18,10 +18,8 @@ const PubIdList: FC = () => {
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
   const { filters, filtersToAPI, onCancel, onApply } = useFilters<PubIdListFiltersFormValues>(
-    transformFiltersToApi,
-    undefined,
-    undefined,
-    EMPTY_PUBID_FILTERS
+    EMPTY_PUBID_FILTERS,
+    transformFiltersToApi
   )
 
   const { pubIdItems, sorter, setSorter, paginator, loading } = useFetchPubIdList({

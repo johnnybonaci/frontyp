@@ -48,10 +48,10 @@ const LiveLeadsList: FC = () => {
   }, [setCollapsedViewDetails, collapsedViewDetails])
 
   const { onCancel, onApply, filters, filtersToAPI } = useFilters<LiveLeadsListFiltersFormValues>(
+    DEFAULT_FILTERS,
     transformFiltersToApi,
     transformFiltersFromUrl,
-    transformFiltersToUrl,
-    DEFAULT_FILTERS
+    transformFiltersToUrl
   )
 
   const {

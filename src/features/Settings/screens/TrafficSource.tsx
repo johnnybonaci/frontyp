@@ -18,10 +18,8 @@ const TrafficSource: FC = () => {
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
   const { filters, filtersToAPI, onCancel, onApply } = useFilters<TrafficSourceFilter>(
-    transformFiltersToApi,
-    undefined,
-    undefined,
-    EMPTY_TRAFFIC_SOURCE_FILTERS
+    EMPTY_TRAFFIC_SOURCE_FILTERS,
+    transformFiltersToApi
   )
 
   const { trafficSourceItems, sorter, setSorter, paginator, loading } = useFetchTrafficSource({

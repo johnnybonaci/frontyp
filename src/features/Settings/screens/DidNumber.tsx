@@ -18,10 +18,8 @@ const DidNumber: FC = () => {
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
   const { filters, filtersToAPI, onCancel, onApply } = useFilters<DidNumberFilter>(
-    transformFiltersToApi,
-    undefined,
-    undefined,
-    EMPTY_DID_NUMBER_FILTERS
+    EMPTY_DID_NUMBER_FILTERS,
+    transformFiltersToApi
   )
 
   const { didNumberItems, sorter, setSorter, paginator, loading } = useFetchDidNumber({

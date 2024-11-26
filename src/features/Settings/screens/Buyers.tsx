@@ -18,10 +18,8 @@ const Buyers: FC = () => {
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
   const { filters, filtersToAPI, onCancel, onApply } = useFilters<BuyersFilter>(
-    transformFiltersToApi,
-    undefined,
-    undefined,
-    EMPTY_BUYERS_FILTERS
+    EMPTY_BUYERS_FILTERS,
+    transformFiltersToApi
   )
 
   const { buyersItems, sorter, setSorter, paginator, loading } = useFetchBuyers({

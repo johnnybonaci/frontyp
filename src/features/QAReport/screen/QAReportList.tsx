@@ -30,10 +30,10 @@ import {
 const QAReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'QAReport' })
   const { onCancel, onApply, filters, filtersToAPI } = useFilters<QAReportListFiltersFormValues>(
+    DEFAULT_FILTERS,
     transformFiltersToApi,
     transformFiltersFromUrl,
-    transformFiltersToUrl,
-    DEFAULT_FILTERS
+    transformFiltersToUrl
   )
 
   const { qaReportIndicators, qaReportItems, sorter, setSorter, paginator, loading, refresh } =
