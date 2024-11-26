@@ -10,12 +10,14 @@ import PhoneRoomEdition from '../components/PhoneRoom/PhoneRoomEdition'
 import { PhoneRoomFilter, PhoneRoomItem } from '../types/PhoneRoom'
 import { Stack } from '@mui/material'
 import { EMPTY_PHONE_ROOM_FILTERS } from '../schema/PhoneRoom/PhoneRoomFiltersSchema'
+import PhoneRoomConfigDetails from '../components/PhoneRoom/PhoneRoomConfigDetails'
 
 const PhoneRoom: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.phoneRoom' })
 
   const [selectedPhoneRoom, setSelectedPhoneRoom] = useState<PhoneRoomItem>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
+  const [collapsedConfigViewDetails, setCollapsedConfigViewDetails] = useState(true)
 
   const { filters, filtersToAPI, onCancel, onApply } = useFilters<PhoneRoomFilter>(
     EMPTY_PHONE_ROOM_FILTERS,
@@ -49,16 +51,28 @@ const PhoneRoom: FC = () => {
     [t]
   )
 
-  const toggleViewDetails = useCallback(() => {
+  const toggleViewEdition = useCallback(() => {
     setCollapsedViewEdition(!collapsedViewEdition)
   }, [setCollapsedViewEdition, collapsedViewEdition])
 
+  const toggleConfigViewDetails = useCallback(() => {
+    setCollapsedConfigViewDetails(!collapsedConfigViewDetails)
+  }, [setCollapsedConfigViewDetails, collapsedConfigViewDetails])
+
   const handleOpenPhoneRoomEdition = useCallback(
-    (pubLeads: PhoneRoomItem) => {
-      setSelectedPhoneRoom(pubLeads)
-      toggleViewDetails()
+    (phoneRoom: PhoneRoomItem) => {
+      setSelectedPhoneRoom(phoneRoom)
+      toggleViewEdition()
     },
-    [toggleViewDetails, setSelectedPhoneRoom]
+    [toggleViewEdition, setSelectedPhoneRoom]
+  )
+
+  const handleOpenPhoneRoomConfigDetails = useCallback(
+    (phoneRoom: PhoneRoomItem) => {
+      setSelectedPhoneRoom(phoneRoom)
+      toggleConfigViewDetails()
+    },
+    [toggleViewEdition, setSelectedPhoneRoom]
   )
 
   return (
@@ -75,6 +89,7 @@ const PhoneRoom: FC = () => {
         perPage={perPage}
         onRowsPerPageChange={setPerPage}
         onClickEdit={handleOpenPhoneRoomEdition}
+        onClickViewConfig={handleOpenPhoneRoomConfigDetails}
         count={lastPage}
         page={page}
         onPageChange={setPage}
@@ -82,7 +97,12 @@ const PhoneRoom: FC = () => {
       />
       <PhoneRoomEdition
         open={!collapsedViewEdition}
-        onClose={toggleViewDetails}
+        onClose={toggleViewEdition}
+        phoneRoom={selectedPhoneRoom}
+      />
+      <PhoneRoomConfigDetails
+        open={!collapsedConfigViewDetails}
+        onClose={toggleConfigViewDetails}
         phoneRoom={selectedPhoneRoom}
       />
     </ContentBox>

@@ -9,6 +9,7 @@ import withActions from 'components/Table/components/withActions'
 import withPagination from 'components/Table/components/withPagination'
 import withSortHeaders from 'components/Table/components/withSortHeader'
 import { type PhoneRoomItem } from 'features/Settings/types/PhoneRoom'
+import { VisibilityOutlined } from '@mui/icons-material'
 
 const PaginatedTable = withPagination(Table as ComponentType<any>)
 const SortableTable = withSortHeaders(PaginatedTable as ComponentType<any>)
@@ -20,9 +21,14 @@ interface PhoneRoomTableProps
     TableWithActionsProps,
     TableProps {
   onClickEdit: (phoneRoomItem: PhoneRoomItem) => void
+  onClickViewConfig: (phoneRoomItem: PhoneRoomItem) => void
 }
 
-const PhoneRoomTable: FC<PhoneRoomTableProps> = ({ onClickEdit, ...restOfProps }) => {
+const PhoneRoomTable: FC<PhoneRoomTableProps> = ({
+  onClickEdit,
+  onClickViewConfig,
+  ...restOfProps
+}) => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.phoneRoom.actions' })
 
   const actions = [
@@ -30,6 +36,12 @@ const PhoneRoomTable: FC<PhoneRoomTableProps> = ({ onClickEdit, ...restOfProps }
       label: t('edit'),
       icon: EditOutlined,
       onClick: onClickEdit,
+      orValidation: true,
+    },
+    {
+      label: t('viewConfig'),
+      icon: VisibilityOutlined,
+      onClick: onClickViewConfig,
       orValidation: true,
     },
   ]
