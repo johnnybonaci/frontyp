@@ -7,8 +7,9 @@ import BuyersFilters from '../components/Buyers/BuyersFilters'
 import ContentBox from 'components/ContentBox'
 import { transformFiltersToApi } from 'features/Settings/transformers/Buyers'
 import BuyersEdition from '../components/Buyers/BuyersEdition'
-import { BuyersItem } from '../types/Buyers'
+import { BuyersFilter, BuyersItem } from '../types/Buyers'
 import { Stack } from '@mui/material'
+import { EMPTY_BUYERS_FILTERS } from '../schema/Buyers/BuyersFilterSchema'
 
 const Buyers: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.buyers' })
@@ -16,10 +17,15 @@ const Buyers: FC = () => {
   const [selectedBuyers, setSelectedBuyers] = useState<BuyersItem>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
-  const { filters, initialFilters, onCancel, onApply } = useFilters(transformFiltersToApi)
+  const { filters, filtersToAPI, onCancel, onApply } = useFilters<BuyersFilter>(
+    transformFiltersToApi,
+    undefined,
+    undefined,
+    EMPTY_BUYERS_FILTERS
+  )
 
   const { buyersItems, sorter, setSorter, paginator, loading } = useFetchBuyers({
-    filters,
+    filters: filtersToAPI,
   })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
@@ -65,7 +71,7 @@ const Buyers: FC = () => {
   return (
     <ContentBox>
       <Stack mt={2}>
-        <BuyersFilters initialFilters={initialFilters} onCancel={onCancel} onApply={onApply} />
+        <BuyersFilters initialFilters={filters} onCancel={onCancel} onApply={onApply} />
       </Stack>
       <BuyersTable
         columns={columns}

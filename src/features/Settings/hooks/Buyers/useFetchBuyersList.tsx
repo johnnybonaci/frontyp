@@ -27,7 +27,6 @@ const useFetchBuyersList = ({ filters }: { filters: Filters }): UseFetchBuyersIt
 
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/settings/buyer`,
-    canSearch: true,
     filters,
   })
 

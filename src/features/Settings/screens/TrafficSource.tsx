@@ -7,8 +7,9 @@ import TrafficSourceFilters from '../components/TrafficSource/TrafficSourceFilte
 import ContentBox from 'components/ContentBox'
 import { transformFiltersToApi } from 'features/Settings/transformers/TrafficSource'
 import TrafficSourceEdition from '../components/TrafficSource/TrafficSourceEdition'
-import { TrafficSourceItem } from '../types/TrafficSource'
+import { TrafficSourceFilter, TrafficSourceItem } from '../types/TrafficSource'
 import { Stack } from '@mui/material'
+import { EMPTY_TRAFFIC_SOURCE_FILTERS } from '../schema/TrafficSource/TrafficSourceFiltersSchema'
 
 const TrafficSource: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.trafficSource' })
@@ -16,10 +17,15 @@ const TrafficSource: FC = () => {
   const [selectedTrafficSource, setSelectedTrafficSource] = useState<TrafficSourceItem>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
-  const { filters, initialFilters, onCancel, onApply } = useFilters(transformFiltersToApi)
+  const { filters, filtersToAPI, onCancel, onApply } = useFilters<TrafficSourceFilter>(
+    transformFiltersToApi,
+    undefined,
+    undefined,
+    EMPTY_TRAFFIC_SOURCE_FILTERS
+  )
 
   const { trafficSourceItems, sorter, setSorter, paginator, loading } = useFetchTrafficSource({
-    filters,
+    filters: filtersToAPI,
   })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
@@ -60,11 +66,7 @@ const TrafficSource: FC = () => {
   return (
     <ContentBox>
       <Stack mt={2}>
-        <TrafficSourceFilters
-          initialFilters={initialFilters}
-          onCancel={onCancel}
-          onApply={onApply}
-        />
+        <TrafficSourceFilters initialFilters={filters} onCancel={onCancel} onApply={onApply} />
       </Stack>
       <TrafficSourceTable
         columns={columns}

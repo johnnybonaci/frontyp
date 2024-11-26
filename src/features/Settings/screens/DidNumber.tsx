@@ -7,8 +7,9 @@ import DidNumberFilters from '../components/DidNumber/DidNumberFilters'
 import ContentBox from 'components/ContentBox'
 import { transformFiltersToApi } from 'features/Settings/transformers/DidNumber'
 import DidNumberEdition from '../components/DidNumber/DidNumberEdition'
-import { DidNumberItem } from '../types/DidNumber'
+import { DidNumberFilter, DidNumberItem } from '../types/DidNumber'
 import { Stack } from '@mui/material'
+import { EMPTY_DID_NUMBER_FILTERS } from '../schema/DidNumber/DidNumberFilterSchema'
 
 const DidNumber: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.didNumber' })
@@ -16,10 +17,15 @@ const DidNumber: FC = () => {
   const [selectedDidNumber, setSelectedDidNumber] = useState<DidNumberItem>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
-  const { filters, initialFilters, onCancel, onApply } = useFilters(transformFiltersToApi)
+  const { filters, filtersToAPI, onCancel, onApply } = useFilters<DidNumberFilter>(
+    transformFiltersToApi,
+    undefined,
+    undefined,
+    EMPTY_DID_NUMBER_FILTERS
+  )
 
   const { didNumberItems, sorter, setSorter, paginator, loading } = useFetchDidNumber({
-    filters,
+    filters: filtersToAPI,
   })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
@@ -80,7 +86,7 @@ const DidNumber: FC = () => {
   return (
     <ContentBox>
       <Stack mt={2}>
-        <DidNumberFilters initialFilters={initialFilters} onCancel={onCancel} onApply={onApply} />
+        <DidNumberFilters initialFilters={filters} onCancel={onCancel} onApply={onApply} />
       </Stack>
       <DidNumberTable
         columns={columns}

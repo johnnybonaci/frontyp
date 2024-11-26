@@ -27,7 +27,6 @@ const useFetchPubIdList = ({ filters }: { filters: Filters }): UseFetchPubIdsIte
 
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/settings/pubid`,
-    canSearch: true,
     filters,
   })
 

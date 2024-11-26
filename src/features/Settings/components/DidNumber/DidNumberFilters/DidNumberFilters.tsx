@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useCallback, useEffect, type FC } from 'react'
 import { useFormik } from 'formik'
 import DidNumberFiltersSchema, {
-  EMPTY_BUYERS_FILTERS,
+  EMPTY_DID_NUMBER_FILTERS,
 } from 'features/Settings/schema/DidNumber/DidNumberFilterSchema'
 import FilterWrapper from 'src/components/Filters'
 import { type Filters } from 'types/filter'
@@ -21,7 +21,7 @@ const DidNumberFilters: FC<DidNumberFiltersProps> = ({
   onCancel,
   onApply,
   isSearching = false,
-  initialFilters = EMPTY_BUYERS_FILTERS,
+  initialFilters = EMPTY_DID_NUMBER_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.didNumber.filters' })
   const { trafficSourceOptions, offersOptions } = useData()
@@ -35,8 +35,8 @@ const DidNumberFilters: FC<DidNumberFiltersProps> = ({
   })
 
   const handleClear = useCallback(async () => {
-    await setValues(EMPTY_BUYERS_FILTERS)
-    onApply(EMPTY_BUYERS_FILTERS)
+    await setValues(EMPTY_DID_NUMBER_FILTERS)
+    onApply(EMPTY_DID_NUMBER_FILTERS)
   }, [initialFilters, setValues])
 
   const getFieldProps = useCallback(

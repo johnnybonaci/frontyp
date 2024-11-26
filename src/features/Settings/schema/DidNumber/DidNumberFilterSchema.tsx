@@ -1,7 +1,7 @@
 import { DidNumberFilter } from 'features/Settings/types/DidNumber'
 import * as Yup from 'yup'
 
-export const EMPTY_BUYERS_FILTERS: DidNumberFilter = {
+export const EMPTY_DID_NUMBER_FILTERS: DidNumberFilter = {
   id: '',
   description: '',
   campaignName: '',

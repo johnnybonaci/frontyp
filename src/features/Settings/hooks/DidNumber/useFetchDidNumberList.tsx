@@ -31,7 +31,6 @@ const useFetchDidNumberList = ({
 
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/settings/did`,
-    canSearch: true,
     filters,
   })
 

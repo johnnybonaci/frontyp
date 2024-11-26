@@ -7,8 +7,9 @@ import PubIdFilters from '../components/PubId/PubIdFilters'
 import ContentBox from 'components/ContentBox'
 import { transformFiltersToApi } from 'features/Settings/transformers/PubId'
 import PubIdEdition from '../components/PubId/PubIdEdition'
-import { PubIdItem } from '../types/PubId'
+import { PubIdItem, PubIdListFiltersFormValues } from '../types/PubId'
 import { Stack } from '@mui/material'
+import { EMPTY_PUBID_FILTERS } from '../schema/PubId/PubIdFiltersSchema'
 
 const PubIdList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId' })
@@ -16,9 +17,16 @@ const PubIdList: FC = () => {
   const [selectedPubId, setSelectedPubId] = useState<PubIdItem>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
-  const { filters, initialFilters, onCancel, onApply } = useFilters(transformFiltersToApi)
+  const { filters, filtersToAPI, onCancel, onApply } = useFilters<PubIdListFiltersFormValues>(
+    transformFiltersToApi,
+    undefined,
+    undefined,
+    EMPTY_PUBID_FILTERS
+  )
 
-  const { pubIdItems, sorter, setSorter, paginator, loading } = useFetchPubIdList({ filters })
+  const { pubIdItems, sorter, setSorter, paginator, loading } = useFetchPubIdList({
+    filters: filtersToAPI,
+  })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
 
@@ -53,7 +61,7 @@ const PubIdList: FC = () => {
   return (
     <ContentBox>
       <Stack mt={2}>
-        <PubIdFilters initialFilters={initialFilters} onCancel={onCancel} onApply={onApply} />
+        <PubIdFilters initialFilters={filters} onCancel={onCancel} onApply={onApply} />
       </Stack>
       <PubIdTable
         columns={columns}

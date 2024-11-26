@@ -25,3 +25,9 @@ export interface TrafficSourceToAPI
     provider_select: string
   }
 }
+
+export interface TrafficSourceFilter {
+  name: string
+  provider: string
+  trafficSourceProviderId: string
+}

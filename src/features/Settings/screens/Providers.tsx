@@ -7,8 +7,9 @@ import ProvidersFilters from '../components/Providers/ProvidersFilters'
 import ContentBox from 'components/ContentBox'
 import { transformFiltersToApi } from 'features/Settings/transformers/Providers'
 import ProvidersEdition from '../components/Providers/ProvidersEdition'
-import { ProvidersItem } from '../types/Providers'
+import { ProvidersFilter, ProvidersItem } from '../types/Providers'
 import { Stack } from '@mui/material'
+import { EMPTY_PROVIDERS_FILTERS } from '../schema/Providers/ProvidersFilterSchema'
 
 const Providers: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.providers' })
@@ -16,10 +17,15 @@ const Providers: FC = () => {
   const [selectedProviders, setSelectedProviders] = useState<ProvidersItem>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
 
-  const { filters, initialFilters, onCancel, onApply } = useFilters(transformFiltersToApi)
+  const { filters, filtersToAPI, onCancel, onApply } = useFilters<ProvidersFilter>(
+    transformFiltersToApi,
+    undefined,
+    undefined,
+    EMPTY_PROVIDERS_FILTERS
+  )
 
   const { providersItems, sorter, setSorter, paginator, loading } = useFetchProviders({
-    filters,
+    filters: filtersToAPI,
   })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
@@ -65,7 +71,7 @@ const Providers: FC = () => {
   return (
     <ContentBox>
       <Stack mt={2}>
-        <ProvidersFilters initialFilters={initialFilters} onCancel={onCancel} onApply={onApply} />
+        <ProvidersFilters initialFilters={filters} onCancel={onCancel} onApply={onApply} />
       </Stack>
       <ProvidersTable
         columns={columns}
