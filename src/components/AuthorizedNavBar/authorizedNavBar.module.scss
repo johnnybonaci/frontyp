@@ -38,6 +38,7 @@
   display: flex;
   background: var(--sidebar-bg);
   flex-direction: column;
+  max-width: var(--sidebar-width);
   min-width: var(--sidebar-width);
   align-items: center;
   flex: 1;
