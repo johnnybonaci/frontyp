@@ -21,7 +21,9 @@ const AuthorizedNavBar: FC<SidebarProps> = ({
       open={!collapsed}
       onClose={handleClickMenu}
       variant="persistent"
-      sx={{ width: !collapsed ? 'var(--sidebar-width)' : '0' }}
+      sx={{
+        width: !collapsed ? 'var(--sidebar-width)' : '0',
+      }}
     >
       <div className={styles.wrapper}>
         <div className={styles.header}>

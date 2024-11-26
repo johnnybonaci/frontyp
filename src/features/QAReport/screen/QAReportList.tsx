@@ -24,7 +24,7 @@ import { type QAReportItem } from 'features/QAReport/types'
 import dateFormat from 'utils/dateFormat.ts'
 import {
   DEFAULT_FILTERS,
-  QAReportListFiltersFormValues,
+  type QAReportListFiltersFormValues,
 } from '../components/QAReportFilters/QAReportFilters.tsx'
 
 const QAReportList: FC = () => {
@@ -70,7 +70,14 @@ const QAReportList: FC = () => {
         dataModifier: (item: QAReportItem) => item.vendorsTd,
       },
       { header: t('fields.buyersTd'), fieldName: 'buyers', sortable: true },
-      { header: t('fields.statusTd'), fieldName: 'status', sortable: true },
+      {
+        header: t('fields.statusTd'),
+        fieldName: 'status_td',
+        sortable: true,
+        dataModifier: (item: QAReportItem) => (
+          <span style={{ textTransform: 'capitalize' }}>{item.statusTd}</span>
+        ),
+      },
       {
         header: t('fields.holdDurations'),
         fieldName: 'hold_durations',
@@ -132,7 +139,7 @@ const QAReportList: FC = () => {
     {
       name: t('indicators.totalReachedAgent'),
       fieldName: 'totalReachedAgent',
-      value: qaReportIndicators?.totalReachedAgent,
+      value: qaReportIndicators?.totalReachedAgentQ,
     },
     {
       name: t('indicators.totalIvrQ'),

@@ -72,7 +72,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   }
 
   return {
-    leads_type: multipleSelectToApi(filters.leadsType),
+    convertions_offer1id: multipleSelectToApi(filters.offers),
     select_buyers: multipleSelectToApi(filters.buyers),
     traffic1source1id: multipleSelectToApi(filters.trafficSource),
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
@@ -83,6 +83,12 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     filter: multipleSelectToApi(filter, (item) => {
       return { field: item.field, type: item.type, value: item.value }
     }),
+    recordings_insurance: filters.insurance,
+    select_states: multipleSelectToApi(filters.state),
+    call_issues: filters.callIssues,
+    convertions_status: filters.status,
+    select_issues_types: multipleSelectToApi(filters.issueType),
+    leads_sub1id5: multipleSelectToApi(filters.pubIdYp),
   }
 }
 
@@ -92,7 +98,7 @@ export const transformFiltersFromUrl = (
   const { startOfDay, endOfDay } = getDayLimits()
 
   return {
-    leadsType: objectFromUrl(searchParams.get('leadsType')),
+    offers: objectFromUrl(searchParams.get('offers')),
     buyers: objectFromUrl(searchParams.get('buyers')),
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     pubId: objectFromUrl(searchParams.get('pubId')),
@@ -102,6 +108,12 @@ export const transformFiltersFromUrl = (
       ? new Date(searchParams.get('date_start')!)
       : startOfDay,
     endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
+    insurance: searchParams.get('insurance') ?? '',
+    state: objectFromUrl(searchParams.get('state')),
+    callIssues: searchParams.get('callIssues') ?? '',
+    status: searchParams.get('status') ?? '',
+    issueType: objectFromUrl(searchParams.get('issueType')),
+    pubIdYp: objectFromUrl(searchParams.get('pubIdYp')),
   }
 }
 
@@ -111,8 +123,8 @@ export const transformFiltersToUrl = (filters: QAReportListFiltersFormValues): U
   if (filters.pubId?.length) {
     params.set('pubId', JSON.stringify(filters.pubId))
   }
-  if (filters.leadsType?.length) {
-    params.set('leadsType', JSON.stringify(filters.leadsType))
+  if (filters.offers?.length) {
+    params.set('offers', JSON.stringify(filters.offers))
   }
   if (filters.phone) {
     params.set('phone', filters.phone)
@@ -131,6 +143,24 @@ export const transformFiltersToUrl = (filters: QAReportListFiltersFormValues): U
   }
   if (filters.endDate) {
     params.set('date_end', filters.endDate.toISOString())
+  }
+  if (filters.insurance) {
+    params.set('insurance', filters.insurance)
+  }
+  if (filters.state?.length) {
+    params.set('state', JSON.stringify(filters.state))
+  }
+  if (filters.status) {
+    params.set('status', filters.status)
+  }
+  if (filters.issueType?.length) {
+    params.set('issueType', JSON.stringify(filters.issueType))
+  }
+  if (filters.pubIdYp?.length) {
+    params.set('pubIdYp', JSON.stringify(filters.pubIdYp))
+  }
+  if (filters.callIssues) {
+    params.set('callIssues', filters.callIssues)
   }
 
   return params

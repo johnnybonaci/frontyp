@@ -53,9 +53,14 @@
     "state": "State",
     "buyers": "Buyers",
     "phone": "Phone",
-    "leadsType": "Offers",
+    "offers": "Offers",
     "date": "Date",
-    "selectOrAdd": "Select or Add"
+    "selectOrAdd": "Select or Add",
+    "issueType": "Issue Type",
+    "status": "Status",
+    "insurance": "Insurance",
+    "pubIdYp": "Pub ID YP",
+    "callIssues": "Call Issues"
   },
   "actions": {
     "view": "View"

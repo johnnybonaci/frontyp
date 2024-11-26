@@ -9,13 +9,21 @@ import CustomAutocomplete, {
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import { TextField } from '@mui/material'
 import useData from 'hooks/useData.tsx'
+import entitiesToOptions from 'utils/entityToOptions.ts'
+import Select from 'components/Select'
 
 export interface QAReportListFiltersFormValues {
   pubId: Option[]
+  pubIdYp: Option[]
+  insurance: string
+  issueType: Option[]
   subId: Option | null
   trafficSource: Option[]
   buyers: Option[]
-  leadsType: Option[]
+  state: Option[]
+  callIssues: string
+  offers: Option[]
+  status: string
   startDate: Date | null
   endDate: Date | null
   phone: string
@@ -33,7 +41,13 @@ export const DEFAULT_FILTERS: QAReportListFiltersFormValues = {
   subId: null,
   trafficSource: [],
   buyers: [],
-  leadsType: [],
+  offers: [],
+  pubIdYp: [],
+  callIssues: '',
+  issueType: [],
+  insurance: '',
+  state: [],
+  status: '',
   startDate: null,
   endDate: null,
   phone: '',
@@ -46,7 +60,15 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
   initialFilters = DEFAULT_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'QAReport.filters' })
-  const { trafficSourceOptions, leadTypeOptions } = useData()
+  const {
+    trafficSourceOptions,
+    offersOptions,
+    stateOptions,
+    statusOptions,
+    callIssuesOptions,
+    insuranceOptions,
+    issueTypeOptions,
+  } = useData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,
@@ -138,15 +160,63 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
             placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
-            options={leadTypeOptions}
-            {...getFieldProps('leadsType')}
+            resourceName="pubs"
+            {...getFieldProps('pubIdYp')}
             onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('leadsType', newValue)
+              void setFieldValue('pubIdYp', newValue)
             }}
-            label={t('leadsType')}
+            label={t('pubIdYp')}
+            placeholder={t('selectOrAdd')}
+          />
+          <CustomAutocomplete
+            options={stateOptions}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('state', newValue)
+            }}
+            label={t('state')}
+            value={values.state}
+            placeholder={t('selectOrAdd')}
+          />
+          <CustomAutocomplete
+            options={offersOptions}
+            {...getFieldProps('offers')}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('offers', newValue)
+            }}
+            label={t('offers')}
             placeholder={t('selectOrAdd')}
           />
           <TextField label={t('phone')} {...getFieldProps('phone')} onChange={handleChange} />
+          <CustomAutocomplete
+            options={issueTypeOptions}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('issueType', newValue)
+            }}
+            label={t('issueType')}
+            value={values.issueType}
+            placeholder={t('selectOrAdd')}
+          />
+          <Select
+            label={t('callIssues')}
+            options={entitiesToOptions(callIssuesOptions, {
+              fieldValue: 'id',
+              fieldLabel: 'title',
+            })}
+            fullWidth
+            {...getFieldProps('callIssues')}
+          />
+          <Select
+            label={t('insurance')}
+            options={entitiesToOptions(insuranceOptions, { fieldValue: 'id', fieldLabel: 'title' })}
+            fullWidth
+            {...getFieldProps('insurance')}
+          />
+          <Select
+            label={t('status')}
+            options={entitiesToOptions(statusOptions, { fieldValue: 'id', fieldLabel: 'title' })}
+            fullWidth
+            {...getFieldProps('status')}
+          />
         </>
       }
       isSearching={isSearching}

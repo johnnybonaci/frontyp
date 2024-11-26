@@ -70,7 +70,13 @@ const useTableSettings = (
       : initialColumns.map((col) => col.fieldName)
   )
 
-  const resetToDefaultSettings = () => {
+  const [orderedIndicatorKeys, setOrderedIndicatorKeys] = useState<string[]>(
+    getLocalStorageSettings(storageKey)?.orderedIndicators.length > 0
+      ? getLocalStorageSettings(storageKey)?.orderedIndicators
+      : initialIndicators.map((ind) => ind.name)
+  )
+
+  const resetToDefaultSettings = useCallback(() => {
     setColumns(initialColumns)
     setIndicators(initialIndicators)
 
@@ -83,13 +89,7 @@ const useTableSettings = (
 
     setOrderedColumnKeys(initialColumns.map((col) => col.fieldName))
     setOrderedIndicatorKeys(initialIndicators.map((ind) => ind.name))
-  }
-
-  const [orderedIndicatorKeys, setOrderedIndicatorKeys] = useState<string[]>(
-    getLocalStorageSettings(storageKey)?.orderedIndicators.length > 0
-      ? getLocalStorageSettings(storageKey)?.orderedIndicators
-      : initialIndicators.map((ind) => ind.name)
-  )
+  }, [initialColumns, initialIndicators])
 
   useEffect(() => {
     const settingsState = {
@@ -100,6 +100,24 @@ const useTableSettings = (
     }
     localStorage.setItem(storageKey, JSON.stringify(settingsState))
   }, [columnVisibility, indicatorVisibility, orderedColumnKeys, orderedIndicatorKeys])
+
+  useEffect(() => {
+    const localSettings = getLocalStorageSettings(storageKey)
+    const columnKeys = initialColumns.map((col) => col.fieldName)
+    const indicatorKeys = initialIndicators.map((ind) => ind.name)
+
+    const hasColumnMismatch =
+      columnKeys.length !== localSettings.orderedColumns.length ||
+      !columnKeys.every((key) => localSettings.orderedColumns.includes(key))
+
+    const hasIndicatorMismatch =
+      indicatorKeys.length !== localSettings.orderedIndicators.length ||
+      !indicatorKeys.every((key) => localSettings.orderedIndicators.includes(key))
+
+    if (hasColumnMismatch || hasIndicatorMismatch) {
+      resetToDefaultSettings()
+    }
+  }, [initialColumns, initialIndicators, resetToDefaultSettings, storageKey])
 
   const reorderColumns = useCallback((sourceIndex: number, destinationIndex: number) => {
     setOrderedColumnKeys((prevOrderedKeys) => {
@@ -172,13 +190,13 @@ const useTableSettings = (
   }, [indicators, initialIndicators])
 
   return {
-    columns: orderedColumnKeys.map(
-      (key) => columns.find((col) => col.fieldName === key) as ColumnSettings
-    ),
+    columns: orderedColumnKeys
+      .map((key) => columns.find((col) => col.fieldName === key))
+      .filter((col): col is ColumnSettings => col !== undefined),
     indicators: orderedIndicatorKeys.map(
       (key) => indicators.find((ind) => ind.name === key) as IndicatorSettings
     ),
-    visibleColumns,
+    visibleColumns: visibleColumns.filter((col) => col !== undefined),
     visibleIndicators,
     notVisibleColumns,
     notVisibleIndicators,
