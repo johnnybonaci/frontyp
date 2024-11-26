@@ -31,7 +31,6 @@ const useFetchProvidersList = ({
 
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/settings/provider`,
-    canSearch: true,
     filters,
   })
 

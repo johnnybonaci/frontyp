@@ -7,11 +7,11 @@ import { type RequestError } from 'src/hooks/useFetch.ts'
 import { type Paginator } from 'src/types/paginator'
 import { type Filters } from 'src/types/filter'
 import { type Sorter } from 'src/types/sorter'
-import { type TrafficSourceItem, type TrafficSourcesItemFromApi } from '../../types/TrafficSource'
-import { trafficSourcesItemFromApi } from '../../transformers/TrafficSource'
+import { type PhoneRoomItem, type PhoneRoomsItemFromApi } from '../../types/PhoneRoom'
+import { phoneRoomsItemFromApi } from '../../transformers/PhoneRoom'
 
-interface UseFetchTrafficSourcesItemsResponse {
-  trafficSourceItems: TrafficSourceItem[] | null
+interface UseFetchPhoneRoomsItemsResponse {
+  phoneRoomItems: PhoneRoomItem[] | null
   paginator: Paginator
   loading: boolean
   error: RequestError
@@ -20,28 +20,28 @@ interface UseFetchTrafficSourcesItemsResponse {
   setSorter: (fieldName: string, order: 'asc' | 'desc' | undefined) => void
 }
 
-const useFetchTrafficSourceList = ({
+const useFetchPhoneRoomList = ({
   filters,
 }: {
   filters: Filters
-}): UseFetchTrafficSourcesItemsResponse => {
+}): UseFetchPhoneRoomsItemsResponse => {
   const { t } = useTranslation()
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
-  const [trafficSourceItems, setTrafficSourcesItems] = useState<TrafficSourceItem[] | null>(null)
+  const [phoneRoomItems, setPhoneRoomsItems] = useState<PhoneRoomItem[] | null>(null)
 
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
-    url: `${config.api.baseUrl}/api/data/settings/trafficsource`,
+    url: `${config.api.baseUrl}/api/data/settings/phoneroom`,
     filters,
   })
 
   useEffect(() => {
     if (!response) return
 
-    const trafficSourcesItems = response.data.map((item: TrafficSourcesItemFromApi) =>
-      trafficSourcesItemFromApi(item)
+    const phoneRoomsItems = response.data.map((item: PhoneRoomsItemFromApi) =>
+      phoneRoomsItemFromApi(item)
     )
 
-    setTrafficSourcesItems(trafficSourcesItems)
+    setPhoneRoomsItems(phoneRoomsItems)
   }, [response?.data, t])
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const useFetchTrafficSourceList = ({
   }, [error, t])
 
   return {
-    trafficSourceItems,
+    phoneRoomItems,
     paginator,
     loading,
     error,
@@ -73,4 +73,4 @@ const useFetchTrafficSourceList = ({
   }
 }
 
-export default useFetchTrafficSourceList
+export default useFetchPhoneRoomList
