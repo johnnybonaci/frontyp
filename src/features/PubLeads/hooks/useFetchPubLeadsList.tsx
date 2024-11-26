@@ -31,26 +31,15 @@ interface UseFetchPubLeadsItemsResponse {
   setSorter: (fieldName: string, order: 'asc' | 'desc' | undefined) => void
 }
 
-const useFetchPubLeadsList = ({
-  filters,
-  canSearch,
-}: {
-  filters: Filters
-  canSearch: boolean
-}): UseFetchPubLeadsItemsResponse => {
+const useFetchPubLeadsList = ({ filters }: { filters: Filters }): UseFetchPubLeadsItemsResponse => {
   const { t } = useTranslation()
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
   const [pubLeadsItems, setPubLeadsItems] = useState<PubLeadsItem[] | null>(null)
   const [pubLeadsAverages, setPubLeadsAverages] = useState<PubLeadsAverages | null>(null)
-  const [pubLeadsPercentages, setPubLeadsPercentages] = useState<PubLeadsPercentages | null>(
-    null
-  )
+  const [pubLeadsPercentages, setPubLeadsPercentages] = useState<PubLeadsPercentages | null>(null)
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/leads`,
-    canSearch,
-    filters: {
-      ...filters,
-    },
+    filters,
   })
 
   useEffect(() => {

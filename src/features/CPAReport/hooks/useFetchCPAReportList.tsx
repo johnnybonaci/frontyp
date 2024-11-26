@@ -23,10 +23,8 @@ interface UseFetchCPAReportItemsResponse {
 
 const useFetchCPAReportList = ({
   filters,
-  canSearch,
 }: {
   filters: Filters
-  canSearch: boolean
 }): UseFetchCPAReportItemsResponse => {
   const { t } = useTranslation()
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
@@ -34,10 +32,8 @@ const useFetchCPAReportList = ({
   const [cpaReportIndicators, setCpaReportIndicators] = useState<CPAReportIndicators | null>(null)
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/report-cpa`,
-    canSearch,
-    filters: {
-      ...filters,
-    },
+    filters,
+    options: { updatePath: true },
   })
 
   useEffect(() => {

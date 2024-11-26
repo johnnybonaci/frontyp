@@ -28,7 +28,7 @@ interface QAReportFiltersProps {
   initialFilters?: QAReportListFiltersFormValues
 }
 
-const DEFAULT_FILTERS: QAReportListFiltersFormValues = {
+export const DEFAULT_FILTERS: QAReportListFiltersFormValues = {
   pubId: [],
   subId: null,
   trafficSource: [],

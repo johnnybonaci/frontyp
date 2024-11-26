@@ -105,7 +105,7 @@ export const transformFiltersFromUrl = (
   }
 }
 
-export const transformFiltersToUrl = (filters: QAReportListFiltersFormValues): string => {
+export const transformFiltersToUrl = (filters: QAReportListFiltersFormValues): URLSearchParams => {
   const params = new URLSearchParams()
 
   if (filters.pubId?.length) {
@@ -133,5 +133,5 @@ export const transformFiltersToUrl = (filters: QAReportListFiltersFormValues): s
     params.set('date_end', filters.endDate.toISOString())
   }
 
-  return params.toString()
+  return params
 }

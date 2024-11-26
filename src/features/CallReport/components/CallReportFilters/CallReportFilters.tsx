@@ -41,7 +41,7 @@ interface CallReportFiltersProps {
   initialFilters?: CallReportListFiltersFormValues
 }
 
-const DEFAULT_FILTERS = {
+export const DEFAULT_FILTERS = {
   offers: [],
   pubId: [],
   state: [],

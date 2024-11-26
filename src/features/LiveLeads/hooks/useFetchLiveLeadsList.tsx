@@ -33,10 +33,8 @@ interface UseFetchLiveLeadsItemsResponse {
 
 const useFetchLiveLeadsList = ({
   filters,
-  canSearch,
 }: {
   filters: Filters
-  canSearch: boolean
 }): UseFetchLiveLeadsItemsResponse => {
   const { t } = useTranslation()
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
@@ -45,12 +43,11 @@ const useFetchLiveLeadsList = ({
   const [liveLeadsPercentages, setLiveLeadsPercentages] = useState<LiveLeadsPercentages | null>(
     null
   )
+
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/leads`,
-    canSearch,
-    filters: {
-      ...filters,
-    },
+    filters,
+    options: { updatePath: true },
   })
 
   useEffect(() => {
