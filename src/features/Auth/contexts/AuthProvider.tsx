@@ -6,7 +6,7 @@ import useBrowserSession from 'features/Auth/hooks/useBrowserSession'
 // import useBrowserStorage from 'hooks/useBrowserStorage.ts'
 import useSessionUserFetch from 'features/Auth/hooks/useSessionUserFetch'
 import AuthInterceptors from 'features/Auth/components/AuthInterceptors'
-import type Session from 'features/Auth/models/Session'
+import Session from 'features/Auth/models/Session'
 import type AuthUser from 'features/Auth/models/AuthUser'
 // import useLoginWithSignatureFetch from 'features/Auth/hooks/useLoginWithSignatureFetch'
 import AuthContext from './AuthContext'
@@ -116,6 +116,10 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const initialize = async (): Promise<void> => {
     if (initialized.current) return
     initialized.current = true
+
+    getSessionUser().then((user: AuthUser) => {
+      initSession(new Session('', '', user))
+    })
 
     // if (cookies.yieldpro_session) {
     //   setIsAuthenticated(true)

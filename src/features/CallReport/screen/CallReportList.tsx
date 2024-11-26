@@ -35,6 +35,10 @@ import AccountCard from 'components/AccountCard'
 import RefreshButton from 'components/RefreshButton'
 import { useTranscript } from 'features/CallReport/hooks/useTranscript.tsx'
 import TranscriptStatus from 'components/TranscriptStatus'
+import {
+  CallReportListFiltersFormValues,
+  DEFAULT_FILTERS,
+} from '../components/CallReportFilters/CallReportFilters.tsx'
 
 const CallReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'CallReport' })
@@ -58,18 +62,12 @@ const CallReportList: FC = () => {
     setCollapsedViewDetails(!collapsedViewDetails)
   }, [setCollapsedViewDetails, collapsedViewDetails])
 
-  const {
-    onCancel,
-    onApply,
-    filters,
-    initialFilters,
-    loading: loadingFilters,
-  } = useFilters(transformFiltersToApi, transformFiltersFromUrl, transformFiltersToUrl)
-  const allFilters = useMemo(() => {
-    return {
-      ...filters,
-    }
-  }, [filters])
+  const { onCancel, onApply, filters, filtersToAPI } = useFilters<CallReportListFiltersFormValues>(
+    transformFiltersToApi,
+    transformFiltersFromUrl,
+    transformFiltersToUrl,
+    DEFAULT_FILTERS
+  )
 
   const {
     callReportItems,
@@ -81,14 +79,13 @@ const CallReportList: FC = () => {
     loading,
     refresh,
   } = useFetchCallReportList({
-    canSearch: !loadingFilters,
-    filters: allFilters,
+    filters: filtersToAPI,
   })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
   const { doFetch } = useExport({
     url: `${config.api.baseUrl}/export/calls`,
-    filters: allFilters,
+    filters: filtersToAPI,
     fileName: 'call_report',
   })
 
@@ -277,7 +274,7 @@ const CallReportList: FC = () => {
           onCancel={onCancel}
           onApply={onApply}
           isSearching={loading}
-          initialFilters={initialFilters}
+          initialFilters={filters}
         />
         <ListSettings
           columns={columns}
@@ -299,12 +296,12 @@ const CallReportList: FC = () => {
         ))}
       </div>
       <AccountCard
-        account={initialFilters.account}
-        name={initialFilters.name}
-        email={initialFilters.email}
-        typeOut={initialFilters.type_out}
-        vendor={initialFilters.vendor}
-        phone={initialFilters.phone}
+        account={filters.account}
+        name={filters.name}
+        email={filters.email}
+        typeOut={filters.type_out}
+        vendor={filters.vendor}
+        phone={filters.phone}
       />
       <CallReportTable
         columns={visibleColumns}
@@ -336,6 +333,7 @@ const CallReportList: FC = () => {
             insurance: selectedCallReport?.insuranceValue ?? undefined,
             insuranceName: selectedCallReport?.insuranceName ?? '',
             sale: selectedCallReport?.billable ?? undefined,
+            issueType: selectedCallReport?.issueType ?? '',
           }}
           onSubmit={handleEditInsurance}
         />

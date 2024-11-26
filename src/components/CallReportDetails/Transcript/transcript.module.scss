@@ -1,16 +1,17 @@
 .title {
   margin-top: 25px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
 .transcriptContent {
-  font-size: 12px;
+  font-size: 14px;
+  text-wrap: wrap;
+  padding-right: 10px;
 }
 
 .audio {
   width: 100%;
   outline: none;
-
 }

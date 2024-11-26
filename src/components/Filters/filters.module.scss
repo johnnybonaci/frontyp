@@ -49,10 +49,12 @@ $title-height: 85px;
 .submit {
   width: 100px;
   min-width: unset;
+  max-width: 100px;
 }
 
 .clear {
   width: 80px;
+  max-width: 80px;
   min-width: unset;
 }
 

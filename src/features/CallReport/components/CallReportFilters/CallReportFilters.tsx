@@ -10,7 +10,7 @@ import CustomAutocomplete, {
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
-import useData from "hooks/useData.tsx";
+import useData from 'hooks/useData.tsx'
 
 export interface CallReportListFiltersFormValues {
   offers: Option[]
@@ -41,7 +41,7 @@ interface CallReportFiltersProps {
   initialFilters?: CallReportListFiltersFormValues
 }
 
-const DEFAULT_FILTERS = {
+export const DEFAULT_FILTERS = {
   offers: [],
   pubId: [],
   state: [],
@@ -111,6 +111,10 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
     void setValues(initialFilters)
   }, [initialFilters, setValues])
 
+  useEffect(() => {
+    onApply(values)
+  }, [JSON.stringify(values)])
+
   return (
     <Filters
       onCancel={onCancel}
@@ -126,6 +130,7 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
               void setFieldValue('startDate', e[0])
               void setFieldValue('endDate', e[1])
             }}
+            withShortcuts
           />
           <TextField label={t('phone')} fullWidth {...getFieldProps('phone')} />
           <TextField

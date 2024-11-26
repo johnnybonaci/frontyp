@@ -16,6 +16,7 @@ import { type Filters } from 'types/filter'
 import { type CallReportListFiltersFormValues } from 'features/CallReport/components/CallReportFilters/CallReportFilters.tsx'
 import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
+import getDayLimits from 'utils/getDayLimits.ts'
 
 export const statusTFromApi = (status: StatusTValue): StatusT => {
   return {
@@ -199,6 +200,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): CallReportListFiltersFormValues => {
+  const { startOfDay, endOfDay } = getDayLimits()
+
   const parseOptions = (param: string | null): Option[] => {
     if (!param) return []
     try {
@@ -219,8 +222,8 @@ export const transformFiltersFromUrl = (
     callIssues: searchParams.get('callIssues') ?? '',
     startDate: searchParams.get('date_start')
       ? new Date(searchParams.get('date_start')!)
-      : new Date(),
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : new Date(),
+      : startOfDay,
+    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
     status: searchParams.get('status') ?? '',
     insurance: searchParams.get('insurance') ?? '',
     phone: searchParams.get('phone') ?? '',
@@ -234,7 +237,9 @@ export const transformFiltersFromUrl = (
   }
 }
 
-export const transformFiltersToUrl = (filters: CallReportListFiltersFormValues): string => {
+export const transformFiltersToUrl = (
+  filters: CallReportListFiltersFormValues
+): URLSearchParams => {
   const params = new URLSearchParams()
 
   if (filters.offers?.length) {
@@ -280,5 +285,5 @@ export const transformFiltersToUrl = (filters: CallReportListFiltersFormValues):
     params.set('didTd', filters.didTd)
   }
 
-  return params.toString()
+  return params
 }

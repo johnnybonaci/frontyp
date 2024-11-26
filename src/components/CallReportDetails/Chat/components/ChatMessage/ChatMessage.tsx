@@ -1,5 +1,6 @@
 import { Suspense, lazy, type ReactElement } from 'react'
 import c from 'classnames'
+import ReactMarkdown from 'react-markdown'
 import { BOT_AVATAR, USER_AVATAR } from '../../constants'
 import { type Message } from 'components/CallReportDetails/Chat/useChat.tsx'
 import styles from './chatMessage.module.scss'
@@ -22,7 +23,7 @@ const ChatMessage = ({ message, isLoading }: ChatMessageProps): ReactElement => 
           isLoading={isLoading}
         >
           <div className={c(styles.message, message.sender.isBotMessage && styles.botMessage)}>
-            {message.content}
+            <ReactMarkdown>{message.content}</ReactMarkdown>
           </div>
         </MessageRow>
       </Suspense>

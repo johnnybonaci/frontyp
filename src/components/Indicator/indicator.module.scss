@@ -4,7 +4,10 @@
   border: 1px solid var(--light-primary-color);
   border-radius: 15px;
   width: 100%;
+  justify-content: center;
   padding: 3px 12px;
+  min-height: 70px;
+  box-shadow: 0px 1px 8px 3px rgba(0, 0, 0, 0.05);
 
   .topContainer {
     display: flex;
@@ -13,11 +16,11 @@
     gap: 20px;
 
     .name {
-      font-size: 12px;
+      font-size: 14px;
     }
 
     .value {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
     }
   }

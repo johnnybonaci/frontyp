@@ -8,7 +8,7 @@ import CustomAutocomplete, {
 } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import { TextField } from '@mui/material'
-import useData from "hooks/useData.tsx";
+import useData from 'hooks/useData.tsx'
 
 export interface QAReportListFiltersFormValues {
   pubId: Option[]
@@ -28,7 +28,7 @@ interface QAReportFiltersProps {
   initialFilters?: QAReportListFiltersFormValues
 }
 
-const DEFAULT_FILTERS: QAReportListFiltersFormValues = {
+export const DEFAULT_FILTERS: QAReportListFiltersFormValues = {
   pubId: [],
   subId: null,
   trafficSource: [],
@@ -79,6 +79,10 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
     void setValues(initialFilters)
   }, [initialFilters, setValues])
 
+  useEffect(() => {
+    onApply(values)
+  }, [JSON.stringify(values)])
+
   return (
     <Filters
       onCancel={onCancel}
@@ -94,6 +98,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
               void setFieldValue('startDate', e[0])
               void setFieldValue('endDate', e[1])
             }}
+            withShortcuts
           />
           <CustomAutocomplete
             options={trafficSourceOptions}

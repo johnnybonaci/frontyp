@@ -35,7 +35,7 @@ interface LiveLeadsFiltersProps {
   initialFilters?: LiveLeadsListFiltersFormValues
 }
 
-const DEFAULT_FILTERS = {
+export const DEFAULT_FILTERS = {
   pubId: [],
   trafficSource: [],
   subId: null,
@@ -90,6 +90,10 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
     void setValues(initialFilters)
   }, [initialFilters, setValues])
 
+  useEffect(() => {
+    onApply(values)
+  }, [JSON.stringify(values)])
+
   return (
     <Filters
       onCancel={onCancel}
@@ -105,6 +109,7 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
               void setFieldValue('startDate', e[0])
               void setFieldValue('endDate', e[1])
             }}
+            withShortcuts
           />
           <TextField label={t('phone')} fullWidth {...getFieldProps('phone')} />
           <TextField label={t('firstName')} fullWidth {...getFieldProps('firstName')} />

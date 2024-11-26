@@ -8,6 +8,7 @@ import { type Filters } from 'types/filter'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { type QAReportListFiltersFormValues } from 'features/QAReport/components/QAReportFilters/QAReportFilters.tsx'
 import { objectFromUrl } from 'utils/utils.ts'
+import getDayLimits from 'utils/getDayLimits.ts'
 
 export const qaReportItemFromApi = (item: QAReportItemFromApi): QAReportItem => {
   return {
@@ -88,6 +89,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): QAReportListFiltersFormValues => {
+  const { startOfDay, endOfDay } = getDayLimits()
+
   return {
     leadsType: objectFromUrl(searchParams.get('leadsType')),
     buyers: objectFromUrl(searchParams.get('buyers')),
@@ -97,12 +100,12 @@ export const transformFiltersFromUrl = (
     phone: searchParams.get('phone') ?? '',
     startDate: searchParams.get('date_start')
       ? new Date(searchParams.get('date_start')!)
-      : new Date(),
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : new Date(),
+      : startOfDay,
+    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
   }
 }
 
-export const transformFiltersToUrl = (filters: QAReportListFiltersFormValues): string => {
+export const transformFiltersToUrl = (filters: QAReportListFiltersFormValues): URLSearchParams => {
   const params = new URLSearchParams()
 
   if (filters.pubId?.length) {
@@ -130,5 +133,5 @@ export const transformFiltersToUrl = (filters: QAReportListFiltersFormValues): s
     params.set('date_end', filters.endDate.toISOString())
   }
 
-  return params.toString()
+  return params
 }

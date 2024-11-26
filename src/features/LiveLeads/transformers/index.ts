@@ -11,6 +11,7 @@ import { type Filters } from 'types/filter'
 import { type LiveLeadsListFiltersFormValues } from 'features/LiveLeads/components/LiveLeadsFilters/LiveLeadsFilters.tsx'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { objectFromUrl } from 'utils/utils.ts'
+import getDayLimits from 'utils/getDayLimits.ts'
 
 export const liveLeadsItemFromApi = (item: LiveLeadsItemFromApi): LiveLeadsItem => {
   return {
@@ -146,6 +147,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): LiveLeadsListFiltersFormValues => {
+  const { startOfDay, endOfDay } = getDayLimits()
+
   return {
     subId: objectFromUrl(searchParams.get('subId'), null),
     leadsType: objectFromUrl(searchParams.get('leadsType')),
@@ -154,8 +157,8 @@ export const transformFiltersFromUrl = (
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     startDate: searchParams.get('date_start')
       ? new Date(searchParams.get('date_start')!)
-      : new Date(),
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : new Date(),
+      : startOfDay,
+    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
     status: searchParams.get('status') ?? '',
     firstName: searchParams.get('firstName') ?? '',
     phone: searchParams.get('phone') ?? '',
@@ -165,7 +168,7 @@ export const transformFiltersFromUrl = (
   }
 }
 
-export const transformFiltersToUrl = (filters: LiveLeadsListFiltersFormValues): string => {
+export const transformFiltersToUrl = (filters: LiveLeadsListFiltersFormValues): URLSearchParams => {
   const params = new URLSearchParams()
 
   if (filters.pubId?.length) {
@@ -179,7 +182,7 @@ export const transformFiltersToUrl = (filters: LiveLeadsListFiltersFormValues): 
     params.set('leadsType', JSON.stringify(filters.leadsType))
   }
 
-  if (filters.trafficSource.length) {
+  if (filters.trafficSource?.length) {
     params.set('trafficSource', JSON.stringify(filters.trafficSource))
   }
   if (filters.startDate) {
@@ -207,5 +210,5 @@ export const transformFiltersToUrl = (filters: LiveLeadsListFiltersFormValues): 
     params.set('phone', filters.phone)
   }
 
-  return params.toString()
+  return params
 }

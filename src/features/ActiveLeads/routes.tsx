@@ -1,5 +1,6 @@
 import { lazy } from 'react'
 import loadable from 'components/Loadable'
+import PERMISSIONS from 'permissions'
 
 export const ACTIVE_LEADS_PATHS = {
   LIST: '/administration/active-leads',
@@ -17,7 +18,7 @@ const ActiveLeadsRoutes = [
   {
     path: relativePath('LIST'),
     element: <ActiveLeadsList />,
-    permissions: [],
+    permissions: PERMISSIONS.LEADS,
   },
 ]
 

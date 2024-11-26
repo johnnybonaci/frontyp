@@ -14,14 +14,14 @@ import Indicator from 'components/Indicator/Indicator.tsx'
 import ContentBox from 'components/ContentBox'
 import { type LiveLeadsItem } from 'features/LiveLeads/types'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
-import { Drawer } from '@mui/material'
+import { Drawer, IconButton, Tooltip } from '@mui/material'
 import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
 import {
-  transformFiltersFromUrl,
   transformFiltersToApi,
+  transformFiltersFromUrl,
   transformFiltersToUrl,
 } from 'features/LiveLeads/transformers'
 import ExportButton from 'components/ExportButton'
@@ -31,6 +31,12 @@ import dateFormat from 'utils/dateFormat.ts'
 import AccountCard from 'components/AccountCard'
 import RefreshButton from 'components/RefreshButton'
 import { type CallReportItem } from 'features/CallReport/types'
+import { VisibilityOutlined } from '@mui/icons-material'
+import PhoneLink from 'components/PhoneLink/PhoneLink.tsx'
+import {
+  DEFAULT_FILTERS,
+  LiveLeadsListFiltersFormValues,
+} from '../components/LiveLeadsFilters/LiveLeadsFilters.tsx'
 
 const LiveLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'LiveLeads' })
@@ -42,18 +48,12 @@ const LiveLeadsList: FC = () => {
     setCollapsedViewDetails(!collapsedViewDetails)
   }, [setCollapsedViewDetails, collapsedViewDetails])
 
-  const {
-    onCancel,
-    onApply,
-    filters,
-    initialFilters,
-    loading: loadingFilters,
-  } = useFilters(transformFiltersToApi, transformFiltersFromUrl, transformFiltersToUrl)
-  const allFilters = useMemo(() => {
-    return {
-      ...filters,
-    }
-  }, [filters])
+  const { onCancel, onApply, filters, filtersToAPI } = useFilters<LiveLeadsListFiltersFormValues>(
+    transformFiltersToApi,
+    transformFiltersFromUrl,
+    transformFiltersToUrl,
+    DEFAULT_FILTERS
+  )
 
   const {
     liveLeadsItems,
@@ -65,14 +65,13 @@ const LiveLeadsList: FC = () => {
     loading,
     refresh,
   } = useFetchLiveLeadsList({
-    canSearch: !loadingFilters,
-    filters: allFilters,
+    filters: filtersToAPI,
   })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
   const { doFetch } = useExport({
     url: `${config.api.baseUrl}/export/leads`,
-    filters: allFilters,
+    filters: filtersToAPI,
     fileName: 'live_leads',
   })
 
@@ -87,10 +86,37 @@ const LiveLeadsList: FC = () => {
   const initialColumns = useMemo(
     () => [
       {
+        header: t('fields.data'),
+        fieldName: 'data',
+        sortable: false,
+        dataModifier: (item: LiveLeadsItem) => (
+          <IconButton
+            color="primary"
+            size="small"
+            onClick={() => {
+              handleOpenLiveLeadsDetails(item)
+            }}
+          >
+            <Tooltip title={t('details.title')}>
+              <VisibilityOutlined sx={{ fontSize: 14 }} />
+            </Tooltip>
+          </IconButton>
+        ),
+      },
+      {
         header: t('fields.phone'),
         fieldName: 'phone_id',
         sortable: true,
-        dataModifier: (item: LiveLeadsItem) => item.phone,
+        dataModifier: (item: LiveLeadsItem) => (
+          <PhoneLink
+            phone={item.phone}
+            account={item.id}
+            name={`${item.firstName} ${item.lastName}`}
+            email={item.email ?? ''}
+            typeOut={item.type ?? ''}
+            vendor={item.pubListId ?? ''}
+          />
+        ),
       },
       {
         header: t('fields.pubId'),
@@ -142,7 +168,7 @@ const LiveLeadsList: FC = () => {
         dataModifier: (data: CallReportItem) => dateFormat(data.createdAt, 'YYYY-MM-DD HH:mm:ss'),
       },
     ],
-    [t]
+    [t, filters?.startDate, filters?.endDate]
   )
 
   const initialIndicators = [
@@ -297,7 +323,7 @@ const LiveLeadsList: FC = () => {
           onCancel={onCancel}
           onApply={onApply}
           isSearching={loading}
-          initialFilters={initialFilters}
+          initialFilters={filters}
         />
         <ListSettings
           columns={columns}
@@ -319,12 +345,12 @@ const LiveLeadsList: FC = () => {
         ))}
       </div>
       <AccountCard
-        account={initialFilters.account}
-        name={initialFilters.name}
-        email={initialFilters.email}
-        typeOut={initialFilters.type_out}
-        vendor={initialFilters.vendor}
-        phone={initialFilters.phone}
+        account={filters.account}
+        name={filters.name}
+        email={filters.email}
+        typeOut={filters.type_out}
+        vendor={filters.vendor}
+        phone={filters.phone}
       />
       <LiveLeadsTable
         columns={visibleColumns}

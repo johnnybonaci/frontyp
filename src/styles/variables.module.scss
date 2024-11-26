@@ -64,9 +64,9 @@
   --chip-color-error: rgba(201, 58, 43, 1);
 
   --sidebar-text-color: var(--text-color);
-  --sidebar-selected-bg: #e7e7e7;
+  --sidebar-selected-bg: #dcdcdc;
   --sidebar-width: 222px;
-  --sidebar-bg: var(--white-base);
+  --sidebar-bg: #f3f3f3;
 
   @include media-breakpoint-down(md) {
     --sidebar-width: 0;

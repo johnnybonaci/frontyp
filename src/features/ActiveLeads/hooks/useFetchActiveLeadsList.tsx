@@ -33,10 +33,8 @@ interface UseFetchActiveLeadsItemsResponse {
 
 const useFetchActiveLeadsList = ({
   filters,
-  canSearch,
 }: {
   filters: Filters
-  canSearch: boolean
 }): UseFetchActiveLeadsItemsResponse => {
   const { t } = useTranslation()
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
@@ -46,10 +44,8 @@ const useFetchActiveLeadsList = ({
     useState<ActiveLeadsPercentages | null>(null)
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/leads`,
-    canSearch,
-    filters: {
-      ...filters,
-    },
+    filters,
+    options: { updatePath: true },
   })
 
   useEffect(() => {

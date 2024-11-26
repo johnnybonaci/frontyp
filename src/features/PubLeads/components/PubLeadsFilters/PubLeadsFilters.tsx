@@ -10,7 +10,7 @@ import CustomAutocomplete, {
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
-import useData from "hooks/useData.tsx";
+import useData from 'hooks/useData.tsx'
 
 export interface PubLeadsListFiltersFormValues {
   pubId: Option[]
@@ -35,7 +35,7 @@ interface PubLeadsFiltersProps {
   initialFilters?: PubLeadsListFiltersFormValues
 }
 
-const DEFAULT_FILTERS = {
+export const DEFAULT_FILTERS = {
   pubId: [],
   trafficSource: [],
   subId: null,
@@ -90,6 +90,10 @@ const PubLeadsFilters: FC<PubLeadsFiltersProps> = ({
     void setValues(initialFilters)
   }, [initialFilters, setValues])
 
+  useEffect(() => {
+    onApply(values)
+  }, [JSON.stringify(values)])
+
   return (
     <Filters
       onCancel={onCancel}
@@ -105,6 +109,7 @@ const PubLeadsFilters: FC<PubLeadsFiltersProps> = ({
               void setFieldValue('startDate', e[0])
               void setFieldValue('endDate', e[1])
             }}
+            withShortcuts
           />
           <TextField label={t('phone')} fullWidth {...getFieldProps('phone')} />
           <TextField label={t('firstName')} fullWidth {...getFieldProps('firstName')} />

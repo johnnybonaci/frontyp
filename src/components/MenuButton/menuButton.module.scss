@@ -9,7 +9,7 @@
   width: 100%;
   cursor: pointer;
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: 16px;
   padding: 5px 18px;
   transition: color 200ms ease;
   border-radius: 20px;
@@ -31,7 +31,7 @@
   }
 
   @include media-breakpoint-down(md) {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 
@@ -92,7 +92,7 @@
 .icon {
   display: flex;
   align-items: center;
-  font-size: 18px !important;
+  font-size: 20px !important;
   justify-content: center;
 }
 
