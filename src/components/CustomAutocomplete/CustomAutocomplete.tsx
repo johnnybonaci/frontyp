@@ -8,7 +8,7 @@ export interface Option {
 }
 
 interface MultipleAutocompleteProps {
-  value: Option[]
+  value: Option[] | Option
   onChange: (event: any, newValue: Array<string | Option>) => void
   label: string
   creatable?: boolean
@@ -52,9 +52,23 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
     <Autocomplete
       multiple={multiple}
       freeSolo={creatable}
-      /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      options={allOptions}
+      options={allOptions?.filter(
+        (option) =>
+          !value ||
+          (multiple
+            ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              !value?.some((selectedOption) =>
+                typeof option === 'string'
+                  ? option === selectedOption.title
+                  : option.title === selectedOption.title
+              )
+            : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              value?.title !== option?.title)
+      )}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.title)}
       value={value}
       onChange={handleChange}
