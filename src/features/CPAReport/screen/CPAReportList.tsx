@@ -63,7 +63,13 @@ const CPAReportList: FC = () => {
         header: t('fields.ucr'),
         fieldName: 'total_ucr',
         sortable: true,
-        dataModifier: (item: CPAReportItem) => item.totalUcr,
+        dataModifier: (item: CPAReportItem) => item.totalUcr + '%',
+      },
+      {
+        header: t('fields.variations'),
+        fieldName: 'total_ucr_1',
+        sortable: true,
+        dataModifier: (item: CPAReportItem) => item.variations,
       },
       {
         header: t('fields.cpa'),

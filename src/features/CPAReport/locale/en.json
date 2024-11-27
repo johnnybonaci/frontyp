@@ -15,6 +15,7 @@
     "cpa": "CPA",
     "costPerCalls": "Cost per Call",
     "billable": "Billable",
+    "variations": "Variations",
     "sales": "Sales",
     "state": "State",
     "totalCost": "Total Cost"
@@ -28,14 +29,14 @@
     "duration": "Duration"
   },
   "filters": {
-    "trafficSource": "Traffic Source",
+    "trafficSource": "Traffic Source TD",
     "pubId": "Pub ID",
     "subId": "Sub ID",
     "state": "State",
-    "buyers": "Buyers",
+    "buyers": "Buyers TD",
     "viewBy": "View By",
     "date": "Date",
-    "leadsType": "Leads Type",
+    "leadsType": "Type",
     "selectOrAdd": "Select or Add"
   },
   "actions": {

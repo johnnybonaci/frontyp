@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { decodeSearchParams, encodeSearchParams } from 'src/utils/parseSearchParams'
 import clearObject from 'src/utils/clearObject'
-import { Filters } from 'types/filter'
+import { type Filters } from 'types/filter'
 
 export type Filter = Record<string, any>
 

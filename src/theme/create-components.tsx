@@ -381,6 +381,8 @@ export function createComponents(): any {
           '& .MuiSvgIcon-root': {
             color: 'var(--lightest-text-color) !important',
             fontSize: 16,
+            position: 'absolute',
+            right: '-25px',
           },
         },
       },
@@ -441,6 +443,12 @@ export function createComponents(): any {
         tag: {
           margin: 0,
           marginRight: '3px',
+          textTransform: 'capitalize',
+        },
+        popper: {
+          '& .MuiAutocomplete-listbox': {
+            textTransform: 'capitalize',
+          },
         },
         inputRoot: {
           '&.Mui-disabled': {
@@ -449,15 +457,16 @@ export function createComponents(): any {
             },
           },
           fontSize: 16,
+          textTransform: 'capitalize',
           fontWeight: 500,
           lineHeight: '24px',
           padding: '10px 16px',
           display: 'flex',
-          alingItems: 'center',
+          alignItems: 'center',
           '&:focus': {
             borderRadius: 'var(--input-border-radius)',
             display: 'flex',
-            alingItems: 'center',
+            alignItems: 'center',
             justifyContent: 'flex-start',
             width: '90%',
           },
@@ -560,6 +569,9 @@ export function createComponents(): any {
             },
             '~ .Mui-disabled': {
               display: 'none !important',
+            },
+            '& .MuiMenuItem-root': {
+              textTransform: 'capitalize',
             },
           },
         },
@@ -687,6 +699,7 @@ export function createComponents(): any {
         root: {
           borderSpacing: 'unset',
           borderRadius: 16,
+          textAlign: 'center',
           borderCollapse: 'separate',
           overflow: 'hidden',
           border: '1px solid var(--table-border)',
@@ -697,6 +710,7 @@ export function createComponents(): any {
       styleOverrides: {
         root: {
           border: 'none',
+          textAlign: 'center',
           fontSize: 16,
           fontWeight: 400,
           fontFamily: 'var(--main-font)',
@@ -709,11 +723,13 @@ export function createComponents(): any {
       styleOverrides: {
         root: {
           border: 'none',
+          position: 'relative',
           [`& .${tableCellClasses.root}`]: {
             border: 'none',
             background: 'var(--lightest-primary-color)',
             color: 'var(--text-color)',
             fontSize: 14,
+            textAlign: 'center',
             fontWeight: 700,
             lineHeight: 1,
             letterSpacing: 0.5,
@@ -744,7 +760,6 @@ export function createComponents(): any {
         },
       },
     },
-
     MuiFormHelperText: {
       styleOverrides: {
         root: {

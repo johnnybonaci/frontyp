@@ -8,7 +8,7 @@ import { type Filters } from 'types/filter'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import {
   type CPAReportListFiltersFormValues,
-  VIEW_BY_OPTIONS,
+  DEFAULT_FILTERS,
 } from 'features/CPAReport/components/CPAReportFilters/CPAReportFilters.tsx'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
@@ -17,6 +17,7 @@ export const cpaReportItemFromApi = (item: CPAReportItemFromApi): CPAReportItem 
   return {
     totalRevenue: item.total_revenue,
     totalCost: item.total_cost,
+    variations: item.total_ucr_1,
     totalCalls: item.total_calls,
     totalBillables: item.total_billables,
     totalSales: item.total_sales,
@@ -70,7 +71,7 @@ export const transformFiltersFromUrl = (
     pubId: objectFromUrl(searchParams.get('pubId')),
     state: objectFromUrl(searchParams.get('state')),
     subId: objectFromUrl(searchParams.get('subId'), null),
-    viewBy: objectFromUrl(searchParams.get('viewBy'), VIEW_BY_OPTIONS[0]),
+    viewBy: objectFromUrl(searchParams.get('viewBy'), DEFAULT_FILTERS.viewBy),
     leadsType: objectFromUrl(searchParams.get('leadsType')),
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     buyers: objectFromUrl(searchParams.get('buyers')),

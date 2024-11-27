@@ -42,7 +42,7 @@ export const DEFAULT_FILTERS: CPAReportListFiltersFormValues = {
   leadsType: [],
   startDate: null,
   endDate: null,
-  viewBy: VIEW_BY_OPTIONS[0],
+  viewBy: VIEW_BY_OPTIONS[1],
 }
 
 const CPAReportFilters: FC<CPAReportFiltersProps> = ({

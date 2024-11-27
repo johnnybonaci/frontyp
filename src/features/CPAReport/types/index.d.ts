@@ -8,6 +8,7 @@ export interface CPAReportItemFromApi {
   total_cpa: number | string
   total_ucr: number | string
   total_unique: number
+  total_ucr_1: string
   total_cpc: number | string
   buyer_name: string
   _children?: CPAReportItemFromApi[]
@@ -22,6 +23,7 @@ export interface CPAReportItem {
   totalDurations: string
   totalCpa: number | string
   totalUcr: number | string
+  variations: string
   totalUnique: number
   totalCpc: number | string
   buyerName: string
