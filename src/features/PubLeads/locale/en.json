@@ -20,7 +20,7 @@
     "leadDate": "Lead Date"
   },
   "filters": {
-    "trafficSource": "Traffic Source",
+    "trafficSource": "Traffic Source TD",
     "pubId": "Pub ID",
     "pubIdYp": "Pub ID YP",
     "buyers": "Buyers",
@@ -29,7 +29,7 @@
     "date": "Date",
     "campaign": "Campaign",
     "phone": "Phone",
-    "leadsType": "Leads Type",
+    "leadsType": "Type",
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email",
