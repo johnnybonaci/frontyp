@@ -728,6 +728,7 @@ export function createComponents(): any {
             border: 'none',
             background: 'var(--lightest-primary-color)',
             color: 'var(--text-color)',
+            padding: '0 30px !important',
             fontSize: 14,
             textAlign: 'center',
             fontWeight: 700,
