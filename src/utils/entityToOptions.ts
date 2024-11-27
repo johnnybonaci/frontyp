@@ -21,13 +21,11 @@ export function entityToOption(
   entity: Entity,
   { fieldValue = 'id', fieldLabel = 'name' }: OptionConfig = {},
   addEntity: boolean = false
-): { name: any; value: any; entity?: any } {
+): { name: any; title: string; value: any; entity?: any } {
   return addEntity
     ? {
         entity,
         name: getNestedValue(entity, fieldLabel) || entity.name,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         title: getNestedValue(entity, fieldLabel) || entity.name,
         value:
           getNestedValue(entity, fieldValue) !== undefined

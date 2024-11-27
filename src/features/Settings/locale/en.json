@@ -128,8 +128,8 @@
       "campaign": "Campaign",
       "subId": "Sub ID",
       "pubId": "Pub ID",
-      "trafficSourceId": "Traffic Source ID",
-      "offerId": "Offer ID"
+      "trafficSource": "Traffic Source",
+      "offer": "Offer"
     },
     "filters": {
       "id": "Number",

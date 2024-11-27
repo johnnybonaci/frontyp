@@ -1,4 +1,6 @@
-import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
+import { TrafficSourceItem, TrafficSourcesItemFromApi } from '../TrafficSource'
+import { OfferItem, OfferItemFromApi } from '../Offers'
+import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 
 export interface DidNumberItemFromApi {
   id: number
@@ -7,7 +9,9 @@ export interface DidNumberItemFromApi {
   sub_id: number
   pub_id: number
   traffic_source_id: number
+  traffic_sources: TrafficSourcesItemFromApi
   offer_id: number
+  offers: OfferItemFromApi
   created_at: string
   updated_at: string
 }
@@ -18,12 +22,11 @@ export interface DidNumberItem {
   campaignName: string
   subId: number
   pubId: number
-  trafficSourceId: number
-  offerId: number
+  trafficSource: TrafficSourceItem
+  offer: OfferItem
 }
 
-export interface DidNumberForm
-  extends Omit<DidNumberItem, 'subId' | 'pubId' | 'trafficSourceId' | 'offerId' | 'campaignId'> {
+export interface DidNumberForm extends Omit<DidNumberItem, 'subId' | 'pubId'> {
   campaignName: string
   sub: Option | null
   pub: Option | null
@@ -44,7 +47,7 @@ export interface DidNumberFilter {
 export interface DidNumberToAPI
   extends Omit<
     DidNumberItemFromApi,
-    'created_at' | 'updated_at' | 'updated_at' | 'user_id' | 'group'
+    'created_at' | 'updated_at' | 'updated_at' | 'user_id' | 'group' | 'traffic_sources' | 'offers'
   > {
   sub_id: string
   pub_id: string

@@ -47,13 +47,7 @@ function DidNumberEdition({ open, onClose, didNumber }: DidNumberEditionProps): 
   useEffect(() => {
     if (didNumber) {
       resetForm({
-        values: didNumberToForm(
-          didNumber,
-          subIdOptions,
-          trafficSourceOptions,
-          offersOptions,
-          pubIdOptions
-        ),
+        values: didNumberToForm(didNumber, subIdOptions, pubIdOptions),
       })
     }
   }, [didNumber])

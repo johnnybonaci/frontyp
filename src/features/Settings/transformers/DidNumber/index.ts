@@ -8,6 +8,9 @@ import {
 } from '../../types/DidNumber'
 import { multipleSelectToApi } from 'src/transformers/apiTransformers'
 import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
+import { trafficSourcesItemFromApi } from '../TrafficSource'
+import { offerItemFromApi } from '../Offers'
+import { entityToOption } from 'utils/entityToOptions'
 
 export const transformFiltersToApi = (filters: DidNumberFilter): Filters => {
   const filter = []
@@ -82,8 +85,8 @@ export const didNumberItemFromApi = (data: DidNumberItemFromApi): DidNumberItem 
     campaign_name: campaignName,
     sub_id: subId,
     pub_id: pubId,
-    traffic_source_id: trafficSourceId,
-    offer_id: offerId,
+    traffic_sources,
+    offers,
   } = data
   return {
     id,
@@ -91,29 +94,25 @@ export const didNumberItemFromApi = (data: DidNumberItemFromApi): DidNumberItem 
     campaignName,
     subId,
     pubId,
-    trafficSourceId,
-    offerId,
+    trafficSource: trafficSourcesItemFromApi(traffic_sources),
+    offer: offerItemFromApi(offers),
   }
 }
 
 export const didNumberToForm = (
   data: DidNumberItem,
   subIdOptions: Option[],
-  trafficSourceOptions: Option[],
-  offersOptions: Option[],
   pubIdOptions: Option[]
 ): DidNumberForm => {
-  const { id, campaignName, subId, pubId, trafficSourceId, offerId, description } = data
+  const { id, campaignName, subId, pubId, trafficSource, offer, description } = data
 
   return {
     id,
     campaignName,
-    sub: subIdOptions.find((option) => Number(option.id) === Number(subId)) as Option,
-    pub: pubIdOptions.find((option) => Number(option.id) === Number(pubId)) as Option,
-    trafficSource: trafficSourceOptions.find(
-      (option) => Number(option.id) === Number(trafficSourceId)
-    ) as Option,
-    offer: offersOptions.find((option) => Number(option.id) === Number(offerId)) as Option,
+    sub: subIdOptions.find((option) => Number(option.id) === Number(subId))!,
+    pub: pubIdOptions.find((option) => Number(option.id) === Number(pubId))!,
+    trafficSource: entityToOption(trafficSource),
+    offer: entityToOption(offer),
     description,
   }
 }
