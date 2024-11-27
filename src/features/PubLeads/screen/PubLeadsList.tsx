@@ -34,7 +34,7 @@ import { VisibilityOutlined } from '@mui/icons-material'
 import PhoneLink from 'components/PhoneLink/PhoneLink.tsx'
 import {
   DEFAULT_FILTERS,
-  PubLeadsListFiltersFormValues,
+  type PubLeadsListFiltersFormValues,
 } from '../components/PubLeadsFilters/PubLeadsFilters.tsx'
 
 const PubLeadsList: FC = () => {
@@ -124,6 +124,12 @@ const PubLeadsList: FC = () => {
         dataModifier: (item: PubLeadsItem) => item.pubListId,
       },
       {
+        header: t('fields.pubIdYp'),
+        fieldName: 'sub_id5',
+        sortable: true,
+        dataModifier: (data: PubLeadsItem) => data.pubIdYp,
+      },
+      {
         header: t('fields.subId'),
         fieldName: 'subId',
         sortable: true,
@@ -176,6 +182,18 @@ const PubLeadsList: FC = () => {
       fieldName: 'totalSpend',
       value: formatMoneyIndicator(pubLeadsAverages?.totalSpend),
       growthPercentage: pubLeadsPercentages?.totalSpend,
+    },
+    {
+      name: t('indicators.totalSpendLeads'),
+      fieldName: 'totalSpendLeads',
+      value: formatMoneyIndicator(pubLeadsAverages?.totalSpendLeads),
+      growthPercentage: pubLeadsPercentages?.totalSpendLeads,
+    },
+    {
+      name: t('indicators.totalSpendCalls'),
+      fieldName: 'totalSpendCalls',
+      value: formatMoneyIndicator(pubLeadsAverages?.totalSpendCalls),
+      growthPercentage: pubLeadsPercentages?.totalSpendCalls,
     },
     {
       name: t('indicators.totalRevenue'),
@@ -284,18 +302,6 @@ const PubLeadsList: FC = () => {
       fieldName: 'totalRps',
       value: formatMoneyIndicator(pubLeadsAverages?.totalRps),
       growthPercentage: pubLeadsPercentages?.totalRps,
-    },
-    {
-      name: t('indicators.totalSpendLeads'),
-      fieldName: 'totalSpendLeads',
-      value: formatMoneyIndicator(pubLeadsAverages?.totalSpendLeads),
-      growthPercentage: pubLeadsPercentages?.totalSpendLeads,
-    },
-    {
-      name: t('indicators.totalSpendCalls'),
-      fieldName: 'totalSpendCalls',
-      value: formatMoneyIndicator(pubLeadsAverages?.totalSpendCalls),
-      growthPercentage: pubLeadsPercentages?.totalSpendCalls,
     },
   ]
 

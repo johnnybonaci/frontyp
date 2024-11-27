@@ -10,6 +10,7 @@ export interface ActiveLeadsItemFromApi {
   sub_id: string
   pub_list_id: number
   state: string
+  sub_id5: string
   data: any[]
   cpl: string
   campaign_name_id: string
@@ -27,6 +28,7 @@ export interface ActiveLeadsItem {
   firstName: string
   lastName: string
   email: string | null
+  pubIdYp: string
   zipCode: string | null
   universalLeadId: string
   trustedForm: string | null

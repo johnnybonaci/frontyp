@@ -15,7 +15,7 @@ import useData from 'hooks/useData.tsx'
 export interface PubLeadsListFiltersFormValues {
   pubId: Option[]
   trafficSource: Option[]
-  subId: Option | null
+  pubIdYp: Option[]
   leadsType: Option[]
   startDate: Date | null
   endDate: Date | null
@@ -38,7 +38,7 @@ interface PubLeadsFiltersProps {
 export const DEFAULT_FILTERS = {
   pubId: [],
   trafficSource: [],
-  subId: null,
+  pubIdYp: [],
   leadsType: [],
   startDate: null,
   endDate: null,
@@ -134,14 +134,13 @@ const PubLeadsFilters: FC<PubLeadsFiltersProps> = ({
             placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
-            creatable={false}
-            multiple={false}
-            {...getFieldProps('subId')}
-            resourceName="subs"
+            resourceName="pubs"
             onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('subId', newValue)
+              void setFieldValue('pubIdYp', newValue)
             }}
-            label={t('subId')}
+            label={t('pubIdYp')}
+            value={values.pubIdYp}
+            placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
             options={leadTypeOptions}

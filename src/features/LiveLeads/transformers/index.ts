@@ -25,6 +25,7 @@ export const liveLeadsItemFromApi = (item: LiveLeadsItemFromApi): LiveLeadsItem 
     universalLeadId: item.universal_lead_id,
     trustedForm: item.trusted_form,
     subId: item.sub_id,
+    pubIdYp: item.sub_id5,
     pubListId: item.pub_list_id,
     state: item.state,
     data: item.data,
@@ -132,6 +133,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     leads_type: multipleSelectToApi(filters.leadsType),
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
     subs_id: filters.subId?.id,
+    leads_sub1id5: multipleSelectToApi(filters.pubIdYp),
     campaign1name1id: filters.campaign?.id,
     convertions_traffic1source1id: multipleSelectToApi(filters.trafficSource),
     url_switch: 'leads',
@@ -150,7 +152,7 @@ export const transformFiltersFromUrl = (
   const { startOfDay, endOfDay } = getDayLimits()
 
   return {
-    subId: objectFromUrl(searchParams.get('subId'), null),
+    pubIdYp: objectFromUrl(searchParams.get('pubIdYp')),
     leadsType: objectFromUrl(searchParams.get('leadsType')),
     pubId: objectFromUrl(searchParams.get('pubId')),
     campaign: objectFromUrl(searchParams.get('campaign'), null),
@@ -174,8 +176,8 @@ export const transformFiltersToUrl = (filters: LiveLeadsListFiltersFormValues): 
   if (filters.pubId?.length) {
     params.set('pubId', JSON.stringify(filters.pubId))
   }
-  if (filters.subId) {
-    params.set('subId', JSON.stringify(filters.subId))
+  if (filters.pubIdYp?.length) {
+    params.set('pubIdYp', JSON.stringify(filters.pubIdYp))
   }
 
   if (filters.leadsType?.length) {
