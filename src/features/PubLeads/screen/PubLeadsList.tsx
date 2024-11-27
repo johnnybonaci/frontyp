@@ -187,13 +187,11 @@ const PubLeadsList: FC = () => {
       name: t('indicators.totalSpendLeads'),
       fieldName: 'totalSpendLeads',
       value: formatMoneyIndicator(pubLeadsAverages?.totalSpendLeads),
-      growthPercentage: pubLeadsPercentages?.totalSpendLeads,
     },
     {
       name: t('indicators.totalSpendCalls'),
       fieldName: 'totalSpendCalls',
       value: formatMoneyIndicator(pubLeadsAverages?.totalSpendCalls),
-      growthPercentage: pubLeadsPercentages?.totalSpendCalls,
     },
     {
       name: t('indicators.totalRevenue'),

@@ -183,13 +183,11 @@ const ActiveLeadsList: FC = () => {
       name: t('indicators.totalSpendLeads'),
       fieldName: 'totalSpendLeads',
       value: formatMoneyIndicator(activeLeadsAverages?.totalSpendLeads),
-      growthPercentage: activeLeadsPercentages?.totalSpendLeads,
     },
     {
       name: t('indicators.totalSpendCalls'),
       fieldName: 'totalSpendCalls',
       value: formatMoneyIndicator(activeLeadsAverages?.totalSpendCalls),
-      growthPercentage: activeLeadsPercentages?.totalSpendCalls,
     },
     {
       name: t('indicators.totalRevenue'),

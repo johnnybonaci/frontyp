@@ -187,13 +187,11 @@ const LiveLeadsList: FC = () => {
       name: t('indicators.totalSpendLeads'),
       fieldName: 'totalSpendLeads',
       value: formatMoneyIndicator(liveLeadsAverages?.totalSpendLeads),
-      growthPercentage: liveLeadsPercentages?.totalSpendLeads,
     },
     {
       name: t('indicators.totalSpendCalls'),
       fieldName: 'totalSpendCalls',
       value: formatMoneyIndicator(liveLeadsAverages?.totalSpendCalls),
-      growthPercentage: liveLeadsPercentages?.totalSpendCalls,
     },
     {
       name: t('indicators.totalRevenue'),
@@ -302,7 +300,7 @@ const LiveLeadsList: FC = () => {
       fieldName: 'totalRps',
       value: formatMoneyIndicator(liveLeadsAverages?.totalRps),
       growthPercentage: liveLeadsPercentages?.totalRps,
-    }
+    },
   ]
 
   const {
