@@ -41,6 +41,7 @@ export const callReportItemFromApi = (item: CallReportItemFromApi): CallReportIt
     vendorsTd: item.vendors_td,
     status: item.status,
     buyerId: item.buyer_id,
+    pubIdYp: item.sub_id5,
     issueType: item.call_ending_sooner_reason,
     buyers: item.buyers,
     revenue: item.revenue,
@@ -177,6 +178,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   return {
     convertions_offer1id: multipleSelectToApi(filters.offers),
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
+    leads_sub1id5: multipleSelectToApi(filters.pubIdYp),
     select_states: multipleSelectToApi(filters.state),
     convertions_traffic1source1id: filters.trafficSource,
     date_start: filters.startDate?.toISOString().slice(0, 10),
@@ -215,6 +217,7 @@ export const transformFiltersFromUrl = (
   return {
     offers: parseOptions(searchParams.get('offers')),
     pubId: parseOptions(searchParams.get('pubId')),
+    pubIdYp: parseOptions(searchParams.get('pubIdYp')),
     state: parseOptions(searchParams.get('state')),
     trafficSource: searchParams.get('trafficSource') ?? '',
     buyers: parseOptions(searchParams.get('buyers')),
@@ -247,6 +250,9 @@ export const transformFiltersToUrl = (
   }
   if (filters.pubId?.length) {
     params.set('pubId', JSON.stringify(filters.pubId))
+  }
+  if (filters.pubIdYp?.length) {
+    params.set('pubIdYp', JSON.stringify(filters.pubIdYp))
   }
   if (filters.state?.length) {
     params.set('state', JSON.stringify(filters.state))

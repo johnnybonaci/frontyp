@@ -15,6 +15,7 @@ import useData from 'hooks/useData.tsx'
 export interface CallReportListFiltersFormValues {
   offers: Option[]
   pubId: Option[]
+  pubIdYp: Option[]
   state: Option[]
   trafficSource: string
   buyers: Option[]
@@ -48,6 +49,7 @@ export const DEFAULT_FILTERS = {
   trafficSource: '',
   buyers: [],
   issueType: [],
+  pubIdYp: [],
   callIssues: '',
   startDate: null,
   endDate: null,
@@ -213,6 +215,15 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
             options={entitiesToOptions(statusOptions, { fieldValue: 'id', fieldLabel: 'title' })}
             fullWidth
             {...getFieldProps('status')}
+          />
+          <CustomAutocomplete
+            resourceName="pubs"
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('pubIdYp', newValue)
+            }}
+            label={t('pubIdYp')}
+            value={values.pubIdYp}
+            placeholder={t('selectOrAdd')}
           />
         </>
       }

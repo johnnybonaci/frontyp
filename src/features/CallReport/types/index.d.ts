@@ -29,6 +29,7 @@ export interface CallReportItemFromApi {
   offers: string
   offer_id: number
   pub_list_id: number
+  sub_id5: string
   date_sale: string
   calls: number
   converted: number
@@ -48,6 +49,7 @@ export interface CallReportItem {
   multiple?: CallReportMultiple
   didNumberId: number
   cpl: string
+  pubIdYp: string
   issueType: string | null
   vendorsTd: string
   status: string

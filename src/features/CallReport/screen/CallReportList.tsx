@@ -36,7 +36,7 @@ import RefreshButton from 'components/RefreshButton'
 import { useTranscript } from 'features/CallReport/hooks/useTranscript.tsx'
 import TranscriptStatus from 'components/TranscriptStatus'
 import {
-  CallReportListFiltersFormValues,
+  type CallReportListFiltersFormValues,
   DEFAULT_FILTERS,
 } from '../components/CallReportFilters/CallReportFilters.tsx'
 
@@ -159,6 +159,12 @@ const CallReportList: FC = () => {
         sortable: true,
         dataModifier: (data: CallReportItem) => data.pubListId,
       },
+      {
+        header: t('fields.pubIdYp'),
+        fieldName: 'sub_id5',
+        sortable: true,
+        dataModifier: (data: CallReportItem) => data.pubIdYp,
+      },
       { header: t('fields.offers'), fieldName: 'offers', sortable: true },
       {
         header: t('fields.vendorsTd'),
@@ -236,6 +242,12 @@ const CallReportList: FC = () => {
       fieldName: 'totalProfit',
       value: formatMoneyIndicator(callReportAverages?.totalProfit),
       growthPercentage: callReportPercentages?.totalProfit,
+    },
+    {
+      name: 'Total Answered',
+      fieldName: 'totalAnswered',
+      value: formatMoneyIndicator(callReportAverages?.totalAnswered),
+      growthPercentage: callReportPercentages?.totalAnswered,
     },
     {
       name: 'Total Calls',
