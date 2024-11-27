@@ -10,6 +10,7 @@ import BuyersEdition from '../components/Buyers/BuyersEdition'
 import { BuyersFilter, BuyersItem } from '../types/Buyers'
 import { Stack } from '@mui/material'
 import { EMPTY_BUYERS_FILTERS } from '../schema/Buyers/BuyersFilterSchema'
+import { TableColumn } from 'components/Table'
 
 const Buyers: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.buyers' })
@@ -29,7 +30,7 @@ const Buyers: FC = () => {
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
 
   const columns = useMemo(
-    () => [
+    (): TableColumn[] => [
       {
         header: t('fields.name'),
         fieldName: 'name',
@@ -38,11 +39,13 @@ const Buyers: FC = () => {
       {
         header: t('fields.buyerProviderId'),
         fieldName: 'buyerProviderId',
+        sortName: 'buyer_provider_id',
         sortable: true,
       },
       {
         header: t('fields.providerName'),
-        fieldName: 'providerId',
+        dataModifier: (item: BuyersItem) => `${item.provider.name} (${item.provider.id})`,
+        sortName: 'provider_id',
         sortable: true,
       },
       {

@@ -1,7 +1,8 @@
 import { Filters } from 'types/filter'
 import { BuyersForm, BuyersItem, BuyersItemFromApi, BuyersToAPI } from '../../types/Buyers'
 import { multipleSelectToApi } from 'src/transformers/apiTransformers'
-import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
+import { providersItemFromApi } from '../Providers'
+import { entityToOption } from 'utils/entityToOptions'
 
 export const transformFiltersToApi = (filters: Filters): Filters => {
   const filter = []
@@ -46,31 +47,23 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 }
 
 export const buyersItemFromApi = (data: BuyersItemFromApi): BuyersItem => {
-  const {
-    id,
-    name,
-    buyer_provider_id: buyerProviderId,
-    provider_id: providerId,
-    user_id: userId,
-  } = data
+  const { id, name, buyer_provider_id: buyerProviderId, provider, user_id: userId } = data
   return {
     id,
     name,
     buyerProviderId,
-    providerId,
+    provider: providersItemFromApi(provider),
     userId,
   }
 }
 
-export const buyersToForm = (data: BuyersItem, providersOptions: Option[]): BuyersForm => {
-  const { id, buyerProviderId, providerId, name } = data
+export const buyersToForm = (data: BuyersItem): BuyersForm => {
+  const { id, buyerProviderId, provider, name } = data
   return {
     id,
     name,
     buyerProviderId,
-    provider: providersOptions.find(
-      (option) => Number(option.id) === providerId
-    ) as Required<Option>,
+    provider: entityToOption(provider),
   }
 }
 
