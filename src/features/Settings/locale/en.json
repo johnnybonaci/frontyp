@@ -189,5 +189,48 @@
     },
     "save": "Save",
     "cancel": "Cancel"
+  },
+  "phoneRoom": {
+    "singular": "Phone Room",
+    "listing": {
+      "title": "Phone Room"
+    },
+    "edition": {
+      "title": "Edit Phone Room"
+    },
+    "actions": {
+      "edit": "Edit Phone Room"
+    },
+    "details": {
+      "title": "Phone Room Config"
+    },
+    "fields": {
+      "id": "Id",
+      "name": "Name",
+      "service": "Service",
+      "envKey": "Env Key",
+      "listId": "List ID",
+      "envUser": "Env User",
+      "active": "Active"
+    },
+    "filters": {
+      "id": "Id",
+      "name": "Name",
+      "service": "Service",
+      "active": "Active"
+    },
+    "form": {
+      "id": "Id",
+      "name": "Name",
+      "service": "Service",
+      "apiKey": "API Key",
+      "apiUser": "API User",
+      "envKey": "Env Key",
+      "listId": "List ID",
+      "envUser": "Env User",
+      "active": "Active"
+    },
+    "save": "Save",
+    "cancel": "Cancel"
   }  
 }

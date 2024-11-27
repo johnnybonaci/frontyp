@@ -22,6 +22,7 @@ const TrafficSource = loadable(
   lazy(async () => await import('features/Settings/screens/TrafficSource'))
 )
 const Buyers = loadable(lazy(async () => await import('features/Settings/screens/Buyers')))
+const PhoneRoom = loadable(lazy(async () => await import('features/Settings/screens/PhoneRoom')))
 const DidNumber = loadable(lazy(async () => await import('features/Settings/screens/DidNumber')))
 const Providers = loadable(lazy(async () => await import('features/Settings/screens/Providers')))
 
@@ -35,6 +36,7 @@ const SettingsRoutes = [
       { element: <Offers />, path: SETTINGS_PATHS.OFFERS },
       { element: <TrafficSource />, path: SETTINGS_PATHS.TRAFFIC_SOURCE },
       { element: <Buyers />, path: SETTINGS_PATHS.BUYERS },
+      { element: <PhoneRoom />, path: SETTINGS_PATHS.PHONE_ROOM },
       { element: <DidNumber />, path: SETTINGS_PATHS.DID_NUMBER },
       { element: <Providers />, path: SETTINGS_PATHS.PROVIDER },
     ],
