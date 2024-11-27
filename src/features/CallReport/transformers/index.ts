@@ -233,8 +233,8 @@ export const transformFiltersFromUrl = (
     terminatingPhone: searchParams.get('terminatingPhone') ?? '',
     didTd: searchParams.get('didTd') ?? '',
     account: searchParams.get('account') ?? '',
-    name: searchParams.get('name') ?? '',
-    email: searchParams.get('email') ?? '',
+    name: decodeURIComponent(searchParams.get('name') ?? ''),
+    email: decodeURIComponent(searchParams.get('email') ?? ''),
     type_out: searchParams.get('type_out') ?? '',
     vendor: searchParams.get('vendor') ?? '',
   }
@@ -289,6 +289,21 @@ export const transformFiltersToUrl = (
   }
   if (filters.didTd) {
     params.set('didTd', filters.didTd)
+  }
+  if (filters.account) {
+    params.set('account', filters.account)
+  }
+  if (filters.name) {
+    params.set('name', filters.name)
+  }
+  if (filters.email) {
+    params.set('email', filters.email)
+  }
+  if (filters.type_out) {
+    params.set('type_out', filters.type_out)
+  }
+  if (filters.vendor) {
+    params.set('vendor', filters.vendor)
   }
 
   return params

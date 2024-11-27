@@ -25,6 +25,7 @@ export const activeLeadsItemFromApi = (item: ActiveLeadsItemFromApi): ActiveLead
     universalLeadId: item.universal_lead_id,
     trustedForm: item.trusted_form,
     subId: item.sub_id,
+    pubIdYp: item.sub_id5,
     pubListId: item.pub_list_id,
     state: item.state,
     data: item.data,
@@ -129,6 +130,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   return {
     date_start: filters.startDate?.toISOString().slice(0, 10),
     date_end: filters.endDate?.toISOString().slice(0, 10),
+    leads_sub1id5: multipleSelectToApi(filters.pubIdYp),
     leads_type: multipleSelectToApi(filters.leadsType),
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
     subs_id: filters.subId?.id,
@@ -150,7 +152,6 @@ export const transformFiltersFromUrl = (
   const { startOfDay, endOfDay } = getDayLimits()
 
   return {
-    subId: objectFromUrl(searchParams.get('subId'), null),
     leadsType: objectFromUrl(searchParams.get('leadsType')),
     pubId: objectFromUrl(searchParams.get('pubId')),
     campaign: objectFromUrl(searchParams.get('campaign'), null),
@@ -158,6 +159,7 @@ export const transformFiltersFromUrl = (
     startDate: searchParams.get('date_start')
       ? new Date(searchParams.get('date_start')!)
       : startOfDay,
+    pubIdYp: objectFromUrl(searchParams.get('pubIdYp')),
     endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
     status: searchParams.get('status') ?? '',
     firstName: searchParams.get('firstName') ?? '',
@@ -176,8 +178,8 @@ export const transformFiltersToUrl = (
   if (filters.pubId?.length) {
     params.set('pubId', JSON.stringify(filters.pubId))
   }
-  if (filters.subId) {
-    params.set('subId', JSON.stringify(filters.subId))
+  if (filters.pubIdYp?.length) {
+    params.set('pubIdYp', JSON.stringify(filters.pubIdYp))
   }
 
   if (filters.leadsType?.length) {

@@ -33,7 +33,7 @@ import { type CallReportItem } from 'features/CallReport/types'
 import { VisibilityOutlined } from '@mui/icons-material'
 import PhoneLink from 'components/PhoneLink/PhoneLink.tsx'
 import {
-  ActiveLeadsListFiltersFormValues,
+  type ActiveLeadsListFiltersFormValues,
   DEFAULT_FILTERS,
 } from '../components/ActiveLeadsFilters/ActiveLeadsFilters.tsx'
 
@@ -126,6 +126,12 @@ const ActiveLeadsList: FC = () => {
         dataModifier: (item: ActiveLeadsItem) => item.pubListId,
       },
       {
+        header: t('fields.pubIdYp'),
+        fieldName: 'sub_id5',
+        sortable: true,
+        dataModifier: (data: ActiveLeadsItem) => data.pubIdYp,
+      },
+      {
         header: t('fields.subId'),
         fieldName: 'subId',
         sortable: true,
@@ -172,6 +178,18 @@ const ActiveLeadsList: FC = () => {
       fieldName: 'totalSpend',
       value: formatMoneyIndicator(activeLeadsAverages?.totalSpend),
       growthPercentage: activeLeadsPercentages?.totalSpend,
+    },
+    {
+      name: t('indicators.totalSpendLeads'),
+      fieldName: 'totalSpendLeads',
+      value: formatMoneyIndicator(activeLeadsAverages?.totalSpendLeads),
+      growthPercentage: activeLeadsPercentages?.totalSpendLeads,
+    },
+    {
+      name: t('indicators.totalSpendCalls'),
+      fieldName: 'totalSpendCalls',
+      value: formatMoneyIndicator(activeLeadsAverages?.totalSpendCalls),
+      growthPercentage: activeLeadsPercentages?.totalSpendCalls,
     },
     {
       name: t('indicators.totalRevenue'),
@@ -280,18 +298,6 @@ const ActiveLeadsList: FC = () => {
       fieldName: 'totalRps',
       value: formatMoneyIndicator(activeLeadsAverages?.totalRps),
       growthPercentage: activeLeadsPercentages?.totalRps,
-    },
-    {
-      name: t('indicators.totalSpendLeads'),
-      fieldName: 'totalSpendLeads',
-      value: formatMoneyIndicator(activeLeadsAverages?.totalSpendLeads),
-      growthPercentage: activeLeadsPercentages?.totalSpendLeads,
-    },
-    {
-      name: t('indicators.totalSpendCalls'),
-      fieldName: 'totalSpendCalls',
-      value: formatMoneyIndicator(activeLeadsAverages?.totalSpendCalls),
-      growthPercentage: activeLeadsPercentages?.totalSpendCalls,
     },
   ]
 

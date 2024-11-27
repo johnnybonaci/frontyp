@@ -11,6 +11,7 @@ export interface PubLeadsItemFromApi {
   pub_list_id: number
   state: string
   data: any[]
+  sub_id5: string
   cpl: string
   campaign_name_id: string
   vendors_yp: string
@@ -29,6 +30,7 @@ export interface PubLeadsItem {
   email: string | null
   zipCode: string | null
   universalLeadId: string
+  pubIdYp: string
   trustedForm: string | null
   subId: string
   pubListId: number

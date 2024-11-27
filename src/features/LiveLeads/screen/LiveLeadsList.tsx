@@ -34,7 +34,7 @@ import { VisibilityOutlined } from '@mui/icons-material'
 import PhoneLink from 'components/PhoneLink/PhoneLink.tsx'
 import {
   DEFAULT_FILTERS,
-  LiveLeadsListFiltersFormValues,
+  type LiveLeadsListFiltersFormValues,
 } from '../components/LiveLeadsFilters/LiveLeadsFilters.tsx'
 
 const LiveLeadsList: FC = () => {
@@ -124,6 +124,12 @@ const LiveLeadsList: FC = () => {
         dataModifier: (item: LiveLeadsItem) => item.pubListId,
       },
       {
+        header: t('fields.pubIdYp'),
+        fieldName: 'sub_id5',
+        sortable: true,
+        dataModifier: (data: LiveLeadsItem) => data.pubIdYp,
+      },
+      {
         header: t('fields.subId'),
         fieldName: 'subId',
         sortable: true,
@@ -176,6 +182,18 @@ const LiveLeadsList: FC = () => {
       fieldName: 'totalSpend',
       value: formatMoneyIndicator(liveLeadsAverages?.totalSpend),
       growthPercentage: liveLeadsPercentages?.totalSpend,
+    },
+    {
+      name: t('indicators.totalSpendLeads'),
+      fieldName: 'totalSpendLeads',
+      value: formatMoneyIndicator(liveLeadsAverages?.totalSpendLeads),
+      growthPercentage: liveLeadsPercentages?.totalSpendLeads,
+    },
+    {
+      name: t('indicators.totalSpendCalls'),
+      fieldName: 'totalSpendCalls',
+      value: formatMoneyIndicator(liveLeadsAverages?.totalSpendCalls),
+      growthPercentage: liveLeadsPercentages?.totalSpendCalls,
     },
     {
       name: t('indicators.totalRevenue'),
@@ -284,19 +302,7 @@ const LiveLeadsList: FC = () => {
       fieldName: 'totalRps',
       value: formatMoneyIndicator(liveLeadsAverages?.totalRps),
       growthPercentage: liveLeadsPercentages?.totalRps,
-    },
-    {
-      name: t('indicators.totalSpendLeads'),
-      fieldName: 'totalSpendLeads',
-      value: formatMoneyIndicator(liveLeadsAverages?.totalSpendLeads),
-      growthPercentage: liveLeadsPercentages?.totalSpendLeads,
-    },
-    {
-      name: t('indicators.totalSpendCalls'),
-      fieldName: 'totalSpendCalls',
-      value: formatMoneyIndicator(liveLeadsAverages?.totalSpendCalls),
-      growthPercentage: liveLeadsPercentages?.totalSpendCalls,
-    },
+    }
   ]
 
   const {

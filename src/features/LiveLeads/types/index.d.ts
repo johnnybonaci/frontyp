@@ -14,6 +14,7 @@ export interface LiveLeadsItemFromApi {
   cpl: string
   campaign_name_id: string
   vendors_yp: string
+  sub_id5: string
   phone: number
   calls: number
   status: string
@@ -26,6 +27,7 @@ export interface LiveLeadsItem {
   type: string
   firstName: string
   lastName: string
+  pubIdYp: string
   email: string | null
   zipCode: string | null
   universalLeadId: string

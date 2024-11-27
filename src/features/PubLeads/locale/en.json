@@ -7,10 +7,11 @@
   },
   "fields": {
     "phone": "Phone",
-    "pubId": "Pubs",
+    "pubId": "Pub TD",
     "subId": "Subs",
     "vendor": "Vendor",
     "type": "Type",
+    "pubIdYp": "Pub YP",
     "data": "Data",
     "firstName": "First Name",
     "lastName": "Last Name",
@@ -21,7 +22,7 @@
   "filters": {
     "trafficSource": "Traffic Source",
     "pubId": "Pub ID",
-    "subId": "Sub ID",
+    "pubIdYp": "Pub ID YP",
     "buyers": "Buyers",
     "status": "Status",
     "all": "All",
