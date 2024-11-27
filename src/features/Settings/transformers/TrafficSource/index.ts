@@ -6,7 +6,7 @@ import {
   TrafficSourceToAPI,
 } from '../../types/TrafficSource'
 import { multipleSelectToApi } from 'src/transformers/apiTransformers'
-import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
+import { entityToOption } from 'utils/entityToOptions'
 
 export const transformFiltersToApi = (filters: Filters): Filters => {
   const filter = []
@@ -43,32 +43,22 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 }
 
 export const trafficSourcesItemFromApi = (data: TrafficSourcesItemFromApi): TrafficSourceItem => {
-  const {
-    id,
-    name,
-    traffic_source_provider_id: trafficSourceProviderId,
-    provider_id: providerId,
-  } = data
+  const { id, name, traffic_source_provider_id: trafficSourceProviderId, provider } = data
   return {
     id,
     name,
     trafficSourceProviderId,
-    providerId,
+    provider,
   }
 }
 
-export const trafficSourcesToForm = (
-  data: TrafficSourceItem,
-  providersOptions: Option[]
-): TrafficSourceForm => {
-  const { id, trafficSourceProviderId, providerId, name } = data
+export const trafficSourcesToForm = (data: TrafficSourceItem): TrafficSourceForm => {
+  const { id, trafficSourceProviderId, name, provider } = data
   return {
     id,
     name,
     trafficSourceProviderId,
-    provider: providersOptions.find(
-      (option) => Number(option.id) === providerId
-    ) as Required<Option>,
+    provider: entityToOption(provider),
   }
 }
 

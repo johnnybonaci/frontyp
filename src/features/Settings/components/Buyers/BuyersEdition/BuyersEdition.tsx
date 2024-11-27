@@ -73,13 +73,7 @@ function BuyersEdition({ open, onClose, buyers }: BuyersEditionProps): React.Rea
   )
 
   return (
-    <Drawer
-      open={open}
-      onClose={onClose}
-      anchor="right"
-      sx={{ position: 'relative' }}
-      variant="persistent"
-    >
+    <Drawer open={open} onClose={onClose} anchor="right">
       <DrawerHeader title={t('edition.title')} onClose={onClose} />
       <DrawerContent>
         <form onSubmit={handleSubmit} noValidate>

@@ -32,10 +32,10 @@ const SortableTable: FC<SortableTableProps> = ({
   )
 
   const sortableColumns = useMemo(() => {
-    return columns.map(({ header, fieldName, sortable, ...restColumn }) => {
+    return columns.map(({ header, sortName, fieldName, sortable, ...restColumn }) => {
       if (!sortable) return { header, fieldName, ...restColumn }
 
-      const active = orderBy === fieldName
+      const active = orderBy === (sortName || fieldName)
 
       return {
         fieldName,
@@ -46,7 +46,7 @@ const SortableTable: FC<SortableTableProps> = ({
             header={header}
             direction={active ? order : 'desc'}
             onClick={() => {
-              handleClickSort(fieldName)
+              handleClickSort(sortName || fieldName)
             }}
           />
         ),
