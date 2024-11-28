@@ -4,6 +4,8 @@
   "regeneratedSuccessfully": "Reprocessed successfully",
   "transcriptSuccessfully": "Transcript in Progress",
   "roles": "Call Report",
+  "sale": "Sale",
+  "saleToReview": "Sale to Review",
   "calls": "Calls",
   "listing": {
     "title": "Call Report"

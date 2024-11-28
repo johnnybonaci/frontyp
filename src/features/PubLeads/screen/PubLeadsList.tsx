@@ -131,7 +131,7 @@ const PubLeadsList: FC = () => {
       },
       {
         header: t('fields.subId'),
-        fieldName: 'subId',
+        fieldName: 'sub_id',
         sortable: true,
         dataModifier: (item: PubLeadsItem) => item.subId,
       },
