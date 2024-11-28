@@ -45,15 +45,13 @@ function PubIdOfferEdition({
     initialValues: EMPTY_PUB_ID_OFFER,
     validateOnChange: false,
     validationSchema: PubIdOfferSchema,
-    onSubmit,
+    onSubmit: (data) => onSubmit(data as Required<PubIdOffer>, pub!),
   })
 
   useEffect(() => {
-    if (pubIdOffer) {
-      resetForm({
-        values: pubIdOffer,
-      })
-    }
+    resetForm({
+      values: pubIdOffer ?? EMPTY_PUB_ID_OFFER,
+    })
   }, [pubIdOffer])
 
   const debouncedValidateField = useCallback(_.debounce(setFieldTouched, 500), [setFieldTouched])
@@ -89,7 +87,10 @@ function PubIdOfferEdition({
                 <CustomCheckbox
                   label={t('fields.sendToTD')}
                   {...getFieldProps('sendToTD')}
-                  onChange={(isChecked: boolean) => setFieldValue('sendToTD', isChecked)}
+                  onChange={(isChecked: boolean) => {
+                    setFieldValue('sendToTD', isChecked)
+                    debouncedValidateField('sendToTD')
+                  }}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -97,28 +98,40 @@ function PubIdOfferEdition({
                 <CustomCheckbox
                   label={t('fields.sendToTrualliant')}
                   {...getFieldProps('sendToTrualliant')}
-                  onChange={(isChecked: boolean) => setFieldValue('sendToTrualliant', isChecked)}
+                  onChange={(isChecked: boolean) => {
+                    setFieldValue('sendToTrualliant', isChecked)
+                    debouncedValidateField('sendToTrualliant')
+                  }}
                 />
               </Grid>
               <Grid item xs={6}>
                 <CustomCheckbox
                   label={t('fields.sendToPhoneRoom2')}
                   {...getFieldProps('sendToPhoneRoom2')}
-                  onChange={(isChecked: boolean) => setFieldValue('sendToPhoneRoom2', isChecked)}
+                  onChange={(isChecked: boolean) => {
+                    setFieldValue('sendToPhoneRoom2', isChecked)
+                    debouncedValidateField('sendToPhoneRoom2')
+                  }}
                 />
               </Grid>
               <Grid item xs={6}>
                 <CustomCheckbox
                   label={t('fields.sendToConvoso')}
                   {...getFieldProps('sendToConvoso')}
-                  onChange={(isChecked: boolean) => setFieldValue('sendToConvoso', isChecked)}
+                  onChange={(isChecked: boolean) => {
+                    setFieldValue('sendToConvoso', isChecked)
+                    debouncedValidateField('sendToConvoso')
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
                 <CustomCheckbox
                   label={t('fields.interleave')}
                   {...getFieldProps('interleave')}
-                  onChange={(isChecked: boolean) => setFieldValue('interleave', isChecked)}
+                  onChange={(isChecked: boolean) => {
+                    setFieldValue('interleave', isChecked)
+                    debouncedValidateField('interleave')
+                  }}
                 />
               </Grid>
             </Grid>

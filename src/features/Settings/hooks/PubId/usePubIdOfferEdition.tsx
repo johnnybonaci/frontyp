@@ -3,10 +3,11 @@ import config from '../../../../config.tsx'
 import { useTranslation } from 'react-i18next'
 import { enqueueSnackbar } from 'notistack'
 import { useEffect } from 'react'
-import { PubIdOffer } from '../../types/PubId'
+import { PubIdItem, PubIdOffer } from '../../types/PubId'
+import { pubIdOfferEditedToAPI } from 'features/Settings/transformers/PubId/index.ts'
 
 export interface UsePubIdOfferEditionReturn {
-  onSubmit: (data: PubIdOffer) => Promise<void>
+  onSubmit: (data: Required<PubIdOffer>, pub: PubIdItem) => Promise<void>
   loading: boolean
   error: RequestError | null
 }
@@ -15,11 +16,11 @@ export const usePubIdOfferEdition = (pubOfferId?: number): UsePubIdOfferEditionR
   const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId' })
   const { doFetch, response, error, loading } = useFetch()
 
-  const onSubmit = async (data: PubIdOffer): Promise<void> => {
+  const onSubmit = async (data: Required<PubIdOffer>, pub: PubIdItem): Promise<void> => {
     if (pubOfferId)
       doFetch({
         url: `${config.api.baseUrl}/api/v1/pubsoffer/update/${pubOfferId}`,
-        data,
+        data: pubIdOfferEditedToAPI(data, pub),
         method: 'POST',
       })
   }

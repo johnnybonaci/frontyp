@@ -24,17 +24,17 @@ const AuthInterceptors: FC<AuthInterceptorsProps> = ({ children }) => {
     }
   )
 
-  axios.interceptors.response.use(
-    (response) => response,
-    async (error: AxiosError) => {
-      if (error.response && error.response.status === 401) {
-        tryToSetNewLoginRedirect()
-        void logout(false)
-      }
+  // axios.interceptors.response.use(
+  //   (response) => response,
+  //   async (error: AxiosError) => {
+  //     if (error.response && error.response.status === 401) {
+  //       tryToSetNewLoginRedirect()
+  //       void logout(false)
+  //     }
 
-      return await Promise.reject(error)
-    }
-  )
+  //     return await Promise.reject(error)
+  //   }
+  // )
 
   return <>{children}</>
 }

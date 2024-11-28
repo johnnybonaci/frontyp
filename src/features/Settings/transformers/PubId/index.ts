@@ -4,6 +4,7 @@ import {
   PubIdForm,
   PubIdItem,
   PubIdOffer,
+  PubIdOfferEditedToAPI,
   PubIdsItemFromApi,
   PubIdToAPI,
 } from '../../types/PubId'
@@ -80,6 +81,41 @@ export const pubIdsToForm = (data: PubIdItem, userOptions: Option[]): PubIdForm 
       cpl: String(cpl[key]),
       user: userOptions.find((option) => Number(option.id) === Number(key))!,
     })),
+  }
+}
+
+export const pubIdOfferEditedToAPI = (
+  data: Required<PubIdOffer>,
+  pub: PubIdItem
+): PubIdOfferEditedToAPI => {
+  const {
+    id,
+    sendToTD,
+    sendToConvoso,
+    sendToPhoneRoom2,
+    sendToTrualliant,
+    trafficSourceId,
+    listId,
+    callCenterId,
+    campaignId,
+    interleave,
+  } = data
+
+  return {
+    id,
+    form: {
+      send_td: String(sendToTD),
+      pr1: String(sendToTrualliant),
+      pr2: String(sendToPhoneRoom2),
+      pr3: String(sendToConvoso),
+      interleave: String(interleave),
+      list_id: listId,
+      campaign_id: campaignId,
+      traffic_source_id: trafficSourceId,
+      cc_id: callCenterId,
+    },
+    offer_id: 20002,
+    pub_list_id: pub.id,
   }
 }
 

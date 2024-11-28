@@ -76,6 +76,23 @@ export interface PubIdOffer {
   callCenterId?: string
 }
 
+export interface PubIdOfferEditedToAPI {
+  id: number
+  form: {
+    send_td: string
+    pr1: string
+    pr2: string
+    pr3: string
+    interleave: string
+    list_id: string
+    campaign_id: string
+    traffic_source_id: string
+    cc_id: string
+  }
+  offer_id: number
+  pub_list_id: number
+}
+
 export interface PubIdListFiltersFormValues {
   pubId: Option[]
   trafficSource: string
