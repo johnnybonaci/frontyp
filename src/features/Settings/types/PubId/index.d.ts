@@ -2,14 +2,12 @@ export interface PubIdsItemFromApi {
   id: number
   name: string
   cpl: Cpl
-  pubs: Pub[]
+  pubs: PubFromAPI[]
 }
 
-export interface Cpl {
-  '1': number
-}
+export type Cpl = Record<string, number>
 
-export interface Pub {
+export interface PubFromAPI {
   id: number
   offer_id: number
   pub_list_id: number
@@ -19,8 +17,16 @@ export interface Pub {
 }
 
 export interface Setup {
-  provider: Provider
-  phone_room: PhoneRoom
+  provider?: Provider
+  phone_room?: PhoneRoom
+  call_center?: CallCenter
+  traffic_source?: TrafficSource
+}
+
+export interface CallCenter {
+  id: string
+  list_id: string[]
+  campaign_id: string
 }
 
 export interface Provider {
@@ -32,6 +38,8 @@ export interface Provider {
 export interface PhoneRoom {
   '1': boolean
   '2': boolean
+  '3': boolean
+  '4': boolean
   type: boolean
 }
 
@@ -47,10 +55,25 @@ export interface Offers {
   updated_at: any
 }
 
-interface PubIdItem {
+export interface PubIdItem {
   id: number
   name: string
-  cpl: Record<string, string>
+  cpl: Cpl
+  ACA: PubIdOffer
+  MC: PubIdOffer
+}
+
+export interface PubIdOffer {
+  id: number
+  sendToTD: boolean
+  sendToTrualliant: boolean
+  sendToPhoneRoom2: boolean
+  sendToConvoso: boolean
+  interleave: boolean
+  listId?: string
+  campaignId?: string
+  trafficSourceId?: string
+  callCenterId?: string
 }
 
 export interface PubIdListFiltersFormValues {

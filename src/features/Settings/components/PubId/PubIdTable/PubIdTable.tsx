@@ -8,7 +8,7 @@ import { type SortableTableProps } from 'components/Table/components/withSortHea
 import withActions from 'components/Table/components/withActions'
 import withPagination from 'components/Table/components/withPagination'
 import withSortHeaders from 'components/Table/components/withSortHeader'
-import { type PubIdItem } from 'features/Settings/types'
+import { type PubIdItem } from 'features/Settings/types/PubId'
 
 const PaginatedTable = withPagination(Table as ComponentType<any>)
 const SortableTable = withSortHeaders(PaginatedTable as ComponentType<any>)

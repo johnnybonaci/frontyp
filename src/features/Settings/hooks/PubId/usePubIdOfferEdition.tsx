@@ -3,24 +3,23 @@ import config from '../../../../config.tsx'
 import { useTranslation } from 'react-i18next'
 import { enqueueSnackbar } from 'notistack'
 import { useEffect } from 'react'
-import { PubIdForm } from '../../types/PubId'
-import { pubIdEditedToAPI } from '../../transformers/PubId/index.ts'
+import { PubIdOffer } from '../../types/PubId'
 
-export interface UsePubIdEditionReturn {
-  onSubmit: (data: PubIdForm) => Promise<void>
+export interface UsePubIdOfferEditionReturn {
+  onSubmit: (data: PubIdOffer) => Promise<void>
   loading: boolean
   error: RequestError | null
 }
 
-export const usePubIdEdition = (pubId?: number): UsePubIdEditionReturn => {
+export const usePubIdOfferEdition = (pubOfferId?: number): UsePubIdOfferEditionReturn => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId' })
   const { doFetch, response, error, loading } = useFetch()
 
-  const onSubmit = async (data: PubIdForm): Promise<void> => {
-    if (pubId)
+  const onSubmit = async (data: PubIdOffer): Promise<void> => {
+    if (pubOfferId)
       doFetch({
-        url: `${config.api.baseUrl}/api/v1/pubs/update/${pubId}`,
-        data: pubIdEditedToAPI(data),
+        url: `${config.api.baseUrl}/api/v1/pubsoffer/update/${pubOfferId}`,
+        data,
         method: 'POST',
       })
   }

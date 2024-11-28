@@ -15,7 +15,26 @@
       "title": "Pub Ids"
     },
     "edition": {
-      "title": "Edit Pub Id"
+      "title": "Edit Pub Id",
+      "MC": "Edit MC",
+      "ACA": "Edit ACA"
+    },
+    "offerEdition": {
+      "title": "Edit {{type}} Offer ({{id}})",
+      "fields": {
+        "id": "ID",
+        "sendToTD": "Send to TD",
+        "sendToTrualliant": "Send to Trualliant",
+        "sendToPhoneRoom2": "Send to Phone Room 2",
+        "sendToConvoso": "Send to Convoso",
+        "interleave": "Interleave",
+        "listId": "List ID",
+        "campaignId": "Campaign ID",
+        "trafficSourceId": "Traffic Source ID",
+        "callCenterId": "Call Center ID"
+      },
+      "save": "Save",
+      "cancel": "Cancel"
     },
     "actions": {
       "edit": "Edit Pub Id"
@@ -24,7 +43,9 @@
       "pubs": "Pubs",
       "name": "Name",
       "user": "User",
-      "cpl": "Cpl"
+      "cpl": "Cpl",
+      "ACA": "ACA",
+      "MC": "MC"
     },
     "filters": {
       "pubs": "Pubs",
@@ -117,7 +138,7 @@
       "title": "Did Numbers"
     },
     "edition": {
-      "title": "Edit Did Number"
+      "title": "Edit Did Number"      
     },
     "actions": {
       "edit": "Edit Did Number"
@@ -129,7 +150,7 @@
       "subId": "Sub ID",
       "pubId": "Pub ID",
       "trafficSource": "Traffic Source",
-      "offer": "Offer"
+      "offer": "Offer"      
     },
     "filters": {
       "id": "Number",
