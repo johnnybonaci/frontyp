@@ -178,7 +178,9 @@ const CallReportList: FC = () => {
         header: t('fields.status'),
         fieldName: 'status',
         sortable: true,
-        dataModifier: (data: CallReportItem) => <CallStatus status={data.status} />,
+        dataModifier: (data: CallReportItem) => (
+          <CallStatus status={data.status} billable={data.billable} />
+        ),
       },
       { header: t('fields.revenue'), fieldName: 'revenue', sortable: true },
       { header: t('fields.cpl'), fieldName: 'cpl', sortable: true },
