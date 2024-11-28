@@ -47,11 +47,11 @@
     "totalCallDroppedPercentage": "% Call Dropped"
   },
   "filters": {
-    "trafficSource": "Traffic Source",
+    "trafficSource": "Traffic Source TD",
     "pubId": "Pub ID",
     "subId": "Sub ID",
     "state": "State",
-    "buyers": "Buyers",
+    "buyers": "Buyers TD",
     "phone": "Phone",
     "offers": "Offers",
     "date": "Date",
