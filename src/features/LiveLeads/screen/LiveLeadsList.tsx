@@ -36,6 +36,7 @@ import {
   DEFAULT_FILTERS,
   type LiveLeadsListFiltersFormValues,
 } from '../components/LiveLeadsFilters/LiveLeadsFilters.tsx'
+import LeadType from 'components/LeadType'
 
 const LiveLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'LiveLeads' })
@@ -141,7 +142,18 @@ const LiveLeadsList: FC = () => {
         sortable: true,
         dataModifier: (item: LiveLeadsItem) => item.vendorsYp,
       },
-      { header: t('fields.type'), fieldName: 'type', sortable: true },
+      {
+        header: t('fields.type'),
+        fieldName: 'type',
+        sortable: true,
+        dataModifier: (item: LiveLeadsItem) => <LeadType type={item.type} />,
+      },
+      {
+        header: t('fields.campaignName'),
+        fieldName: 'campaign_name_id',
+        sortable: true,
+        dataModifier: (item: LiveLeadsItem) => item.campaignNameId,
+      },
       {
         header: t('fields.firstName'),
         fieldName: 'first_name',

@@ -15,6 +15,7 @@
     "type": "Type",
     "firstName": "First Name",
     "lastName": "Last Name",
+    "campaignName": "Campaign Name",
     "email": "Email",
     "cpl": "CPL",
     "leadDate": "Lead Date"

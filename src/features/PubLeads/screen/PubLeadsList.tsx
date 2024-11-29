@@ -36,6 +36,8 @@ import {
   DEFAULT_FILTERS,
   type PubLeadsListFiltersFormValues,
 } from '../components/PubLeadsFilters/PubLeadsFilters.tsx'
+import { type LiveLeadsItem } from 'features/LiveLeads/types'
+import LeadType from 'components/LeadType'
 
 const PubLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'PubLeads' })
@@ -141,7 +143,18 @@ const PubLeadsList: FC = () => {
         sortable: true,
         dataModifier: (item: PubLeadsItem) => item.vendorsYp,
       },
-      { header: t('fields.type'), fieldName: 'type', sortable: true },
+      {
+        header: t('fields.type'),
+        fieldName: 'type',
+        sortable: true,
+        dataModifier: (item: LiveLeadsItem) => <LeadType type={item.type} />,
+      },
+      {
+        header: t('fields.campaignName'),
+        fieldName: 'campaign_name_id',
+        sortable: true,
+        dataModifier: (item: LiveLeadsItem) => item.campaignNameId,
+      },
       {
         header: t('fields.firstName'),
         fieldName: 'first_name',
