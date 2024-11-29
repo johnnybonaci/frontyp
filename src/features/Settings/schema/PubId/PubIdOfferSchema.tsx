@@ -8,10 +8,10 @@ export const EMPTY_PUB_ID_OFFER: PubIdOffer = {
   sendToPhoneRoom2: false,
   sendToConvoso: false,
   interleave: false,
-  listId: '',
-  campaignId: '',
-  trafficSourceId: '',
-  callCenterId: '',
+  listId: '1000',
+  campaignId: '1000',
+  trafficSourceId: '1000',
+  callCenterId: '158',
 }
 
 const PubIdOfferSchema = Yup.object({

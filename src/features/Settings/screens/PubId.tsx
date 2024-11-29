@@ -7,7 +7,7 @@ import PubIdFilters from '../components/PubId/PubIdFilters'
 import ContentBox from 'components/ContentBox'
 import { transformFiltersToApi } from 'features/Settings/transformers/PubId'
 import PubIdEdition from '../components/PubId/PubIdEdition'
-import { PubIdItem, PubIdListFiltersFormValues } from '../types/PubId'
+import { PubIdItem, PubIdListFiltersFormValues, PubIdOfferType } from '../types/PubId'
 import { IconButton, Stack, Tooltip } from '@mui/material'
 import { EMPTY_PUBID_FILTERS } from '../schema/PubId/PubIdFiltersSchema'
 import { TableColumn } from 'components/Table'
@@ -18,7 +18,7 @@ const PubIdList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId' })
 
   const [selectedPubId, setSelectedPubId] = useState<PubIdItem>()
-  const [selectedOfferType, setSelectedOffselectedOfferType] = useState<'ACA' | 'MC'>()
+  const [selectedOfferType, setSelectedOffselectedOfferType] = useState<PubIdOfferType>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
   const [collapsedOfferEdition, setCollapsedOfferEdition] = useState(true)
 
@@ -33,7 +33,7 @@ const PubIdList: FC = () => {
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
 
-  const openOfferEdition = useCallback((pubIdItem: PubIdItem, type: 'ACA' | 'MC' = 'ACA') => {
+  const openOfferEdition = useCallback((pubIdItem: PubIdItem, type: PubIdOfferType = 'ACA') => {
     setCollapsedOfferEdition(false)
     setSelectedOffselectedOfferType(type)
     setSelectedPubId(pubIdItem)

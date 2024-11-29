@@ -6,7 +6,7 @@ import _ from 'lodash'
 import { Button, Drawer, Grid, Stack, TextField } from '@mui/material'
 import DrawerContent from 'components/DrawerContent'
 import DrawerHeader from 'components/DrawerHeader'
-import { PubIdItem, PubIdOffer } from 'features/Settings/types/PubId'
+import { PubIdItem, PubIdOffer, PubIdOfferType } from 'features/Settings/types/PubId'
 import PubIdOfferSchema, {
   EMPTY_PUB_ID_OFFER,
 } from 'features/Settings/schema/PubId/PubIdOfferSchema'
@@ -17,7 +17,7 @@ interface PubIdOfferEditionProps {
   open: boolean
   onClose: () => void
   pub?: PubIdItem
-  type?: 'ACA' | 'MC'
+  type?: PubIdOfferType
 }
 
 function PubIdOfferEdition({
@@ -50,7 +50,7 @@ function PubIdOfferEdition({
 
   useEffect(() => {
     resetForm({
-      values: pubIdOffer ?? EMPTY_PUB_ID_OFFER,
+      values: pubIdOffer,
     })
   }, [pubIdOffer])
 

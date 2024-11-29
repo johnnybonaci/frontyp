@@ -79,11 +79,11 @@ export interface PubIdOffer {
 export interface PubIdOfferEditedToAPI {
   id: number
   form: {
-    send_td: string
-    pr1: string
-    pr2: string
-    pr3: string
-    interleave: string
+    send_td?: string
+    pr1?: string
+    pr2?: string
+    pr3?: string
+    interleave?: string
     list_id: string
     campaign_id: string
     traffic_source_id: string
@@ -124,3 +124,5 @@ export interface PubIdToAPI {
   name: string
   form: Record<string, string>
 }
+
+export type PubIdOfferType = 'ACA' | 'MC'
