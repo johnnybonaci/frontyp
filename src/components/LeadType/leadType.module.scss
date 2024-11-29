@@ -1,0 +1,67 @@
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  align-items: center;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  padding: 0 10px;
+  width: fit-content;
+  font-weight: 500;
+  border: 1px solid var(--light-primary-color);
+  gap: 10px;
+}
+
+.indicator {
+  height: 7px;
+  width: 7px;
+  min-width: 7px;
+  min-height: 7px;
+  border-radius: 50%;
+}
+
+.aca {
+  .indicator {
+    background: #84cc16; /* Lime 500 */
+  }
+  border-color: #ecfccb; /* Lime 200 */
+}
+
+.mc {
+  .indicator {
+    background: #f97316; /* Orange 500 */
+  }
+  border-color: #ffedd5; /* Orange 200 */
+}
+
+.legal {
+  .indicator {
+    background: #3b82f6; /* Blue 500 */
+  }
+  border-color: #dbeafe; /* Blue 200 */
+}
+
+.debt {
+  .indicator {
+    background: #eab308; /* Yellow 500 */
+  }
+  border-color: #fef9c3; /* Yellow 200 */
+}
+
+.taxDebt {
+  .indicator {
+    background: #ef4444; /* Red 500 */
+  }
+  border-color: #fee2e2; /* Red 200 */
+}
+
+.default {
+  .indicator {
+    background: #06b6d4; /* Cyan 500 */
+  }
+  border-color: #cffafe; /* Cyan 200 */
+}
