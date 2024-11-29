@@ -39,8 +39,9 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 }
 
 export const pubIdsItemFromApi = (data: PubIdsItemFromApi): PubIdItem => {
-  const { id, name, cpl, pubs } = data
-  const [ACA, MC] = pubs || []
+  const { id, name, cpl, pubs = [] } = data
+  const ACA = pubs.find((pub) => pub.offers.type === 'ACA')
+  const MC = pubs.find((pub) => pub.offers.type === 'MC')
 
   return {
     id,
