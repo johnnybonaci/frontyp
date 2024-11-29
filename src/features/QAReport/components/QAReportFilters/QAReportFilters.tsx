@@ -141,16 +141,6 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
             placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
-            creatable={false}
-            multiple={false}
-            resourceName="subs"
-            {...getFieldProps('subId')}
-            onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('subId', newValue)
-            }}
-            label={t('subId')}
-          />
-          <CustomAutocomplete
             resourceName="buyers"
             {...getFieldProps('buyers')}
             onChange={(_event: any, newValue: any[]) => {
