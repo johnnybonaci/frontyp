@@ -33,7 +33,7 @@ const CallStatus: FC<CallStatusProps> = ({ status, billable }) => {
     switch (billable) {
       case 1:
         return { name: t('sale'), className: styles.sale }
-      case 0:
+      case 2:
         return { name: t('saleToReview'), className: styles.saleToReview }
       default:
         return null
