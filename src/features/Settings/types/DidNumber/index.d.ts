@@ -1,5 +1,5 @@
 import { TrafficSourceItem, TrafficSourcesItemFromApi } from '../TrafficSource'
-import { OfferItem, OfferItemFromApi } from '../Offers'
+import { OffersItem, OffersItemFromApi } from '../Offers'
 import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 
 export interface DidNumberItemFromApi {
@@ -11,7 +11,7 @@ export interface DidNumberItemFromApi {
   traffic_source_id: number
   traffic_sources: TrafficSourcesItemFromApi
   offer_id: number
-  offers: OfferItemFromApi
+  offers: OffersItemFromApi
   created_at: string
   updated_at: string
 }
@@ -23,7 +23,7 @@ export interface DidNumberItem {
   subId: number
   pubId: number
   trafficSource: TrafficSourceItem
-  offer: OfferItem
+  offer: OffersItem
 }
 
 export interface DidNumberForm extends Omit<DidNumberItem, 'subId' | 'pubId'> {

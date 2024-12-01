@@ -60,14 +60,33 @@
     "listing": {
       "title": "Offers"
     },
+    "edition": {
+      "title": "Edit Offer"
+    },
+    "actions": {
+      "edit": "Edit Offer"
+    },
     "fields": {
-      "pubs": "Pubs",
-      "name": "Name"
+      "name": "Name",
+      "type": "type",
+      "sourceUrl": "Source URL",
+      "providerName": "Provider Name"
     },
     "filters": {
-      "pubs": "Pubs",
-      "name": "Name"
-    }
+      "name": "Name",
+      "type": "type",
+      "sourceUrl": "Source URL",
+      "provider": "Provider"
+    },
+    "form": {
+      "name": "Name",
+      "type": "type",
+      "sourceUrl": "Source URL",
+      "provider": "Provider",
+      "apiKey": "API Key"
+    },
+    "save": "Save",
+    "cancel": "Cancel"
   },
   "trafficSource": {
     "singular": "Traffic Source",

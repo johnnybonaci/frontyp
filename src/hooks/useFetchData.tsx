@@ -18,6 +18,7 @@ export interface UseFetchDataResponse {
   leadTypeOptions: Option[]
   campaignOptions: Option[]
   subIdOptions: Option[]
+  providersOptions: Option[]
   loading: boolean
   error: RequestError
 }
@@ -40,6 +41,7 @@ const useFetchData = (): UseFetchDataResponse => {
   const [leadTypeOptions, setLeadTypeOptions] = useState<Option[]>([])
   const [campaignOptions, setCampaignOptions] = useState<Option[]>([])
   const [subIdOptions, setSubIdOptions] = useState<Option[]>([])
+  const [providersOptions, setProvidersOptions] = useState<Option[]>([])
   const [error] = useState<RequestError>(null)
 
   const { doFetch, response, loading } = useFetch(`${config.api.baseUrl}/api/data`)
@@ -121,6 +123,12 @@ const useFetchData = (): UseFetchDataResponse => {
         title: option.sub_id,
       }))
     )
+    setProvidersOptions(
+      data.providers.map((option: any) => ({
+        id: option.id,
+        title: option.name,
+      }))
+    )
   }, [
     response,
     setBuyerOptions,
@@ -155,6 +163,7 @@ const useFetchData = (): UseFetchDataResponse => {
     saleOptions,
     campaignOptions,
     subIdOptions,
+    providersOptions,
     loading,
     error,
   }

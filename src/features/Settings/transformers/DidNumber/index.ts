@@ -9,7 +9,7 @@ import {
 import { multipleSelectToApi } from 'src/transformers/apiTransformers'
 import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 import { trafficSourcesItemFromApi } from '../TrafficSource'
-import { offerItemFromApi } from '../Offers'
+import { offersItemFromApi } from '../Offers'
 import { entityToOption } from 'utils/entityToOptions'
 
 export const transformFiltersToApi = (filters: DidNumberFilter): Filters => {
@@ -95,7 +95,7 @@ export const didNumberItemFromApi = (data: DidNumberItemFromApi): DidNumberItem 
     subId,
     pubId,
     trafficSource: trafficSourcesItemFromApi(traffic_sources),
-    offer: offerItemFromApi(offers),
+    offer: offersItemFromApi(offers),
   }
 }
 
