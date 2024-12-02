@@ -9,6 +9,7 @@ import { type Filters } from 'src/types/filter'
 import { type Sorter } from 'src/types/sorter'
 import { type DidNumberItem, type DidNumberItemFromApi } from '../../types/DidNumber'
 import { didNumberItemFromApi } from '../../transformers/DidNumber'
+import useData from 'hooks/useData'
 
 interface UseFetchDidNumberItemsResponse {
   didNumberItems: DidNumberItem[] | null
@@ -28,6 +29,7 @@ const useFetchDidNumberList = ({
   const { t } = useTranslation()
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
   const [didNumberItems, setDidNumberItems] = useState<DidNumberItem[] | null>(null)
+  const { providersOptions } = useData()
 
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/settings/did`,
@@ -38,7 +40,7 @@ const useFetchDidNumberList = ({
     if (!response) return
 
     const didNumbersItems = response.data.map((item: DidNumberItemFromApi) =>
-      didNumberItemFromApi(item)
+      didNumberItemFromApi(item, providersOptions)
     )
 
     setDidNumberItems(didNumbersItems)

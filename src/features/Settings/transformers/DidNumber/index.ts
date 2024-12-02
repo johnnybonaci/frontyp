@@ -78,7 +78,10 @@ export const transformFiltersToApi = (filters: DidNumberFilter): Filters => {
   }
 }
 
-export const didNumberItemFromApi = (data: DidNumberItemFromApi): DidNumberItem => {
+export const didNumberItemFromApi = (
+  data: DidNumberItemFromApi,
+  providersOptions: Option[]
+): DidNumberItem => {
   const {
     id,
     description,
@@ -95,7 +98,7 @@ export const didNumberItemFromApi = (data: DidNumberItemFromApi): DidNumberItem 
     subId,
     pubId,
     trafficSource: trafficSourcesItemFromApi(traffic_sources),
-    offer: offersItemFromApi(offers),
+    offer: offersItemFromApi(offers, providersOptions),
   }
 }
 
