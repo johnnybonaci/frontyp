@@ -11,6 +11,7 @@ import { buyersToForm } from 'features/Settings/transformers/Buyers'
 import _ from 'lodash'
 import CustomAutocomplete from 'components/CustomAutocomplete/CustomAutocomplete'
 import useFetchProviders from 'hooks/useFetchProviders'
+import useFetchUsers from 'hooks/useFetchUsers'
 
 interface BuyersEditionProps {
   open: boolean
@@ -22,6 +23,7 @@ function BuyersEdition({ open, onClose, buyers }: BuyersEditionProps): React.Rea
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.buyers' })
   const { onSubmit } = useBuyersEdition(buyers?.id)
   const { providersOptions } = useFetchProviders()
+  const { userOptions } = useFetchUsers()
 
   const {
     handleChange,
@@ -44,7 +46,7 @@ function BuyersEdition({ open, onClose, buyers }: BuyersEditionProps): React.Rea
   useEffect(() => {
     if (buyers) {
       resetForm({
-        values: buyersToForm(buyers, providersOptions),
+        values: buyersToForm(buyers),
       })
     }
   }, [buyers])
@@ -73,13 +75,7 @@ function BuyersEdition({ open, onClose, buyers }: BuyersEditionProps): React.Rea
   )
 
   return (
-    <Drawer
-      open={open}
-      onClose={onClose}
-      anchor="right"
-      sx={{ position: 'relative' }}
-      variant="persistent"
-    >
+    <Drawer open={open} onClose={onClose} anchor="right">
       <DrawerHeader title={t('edition.title')} onClose={onClose} />
       <DrawerContent>
         <form onSubmit={handleSubmit} noValidate>
@@ -94,6 +90,18 @@ function BuyersEdition({ open, onClose, buyers }: BuyersEditionProps): React.Rea
             creatable={false}
             multiple={false}
           />
+
+          <CustomAutocomplete
+            {...getFieldProps('user')}
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('user', newValue)
+            }}
+            options={userOptions}
+            creatable={false}
+            multiple={false}
+          />
+
+          <TextField fullWidth sx={{ mr: 2 }} {...getFieldProps('revenue')} />
 
           <Stack
             direction="row"

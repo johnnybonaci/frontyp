@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Button, Drawer, IconButton, Stack, TextField } from '@mui/material'
 import DrawerContent from 'components/DrawerContent'
 import DrawerHeader from 'components/DrawerHeader'
-import { PubIdForm, PubIdItem } from 'features/Settings/types'
+import { PubIdForm, PubIdItem } from 'features/Settings/types/PubId'
 import { AddCircleOutlineOutlined, DeleteOutlined } from '@mui/icons-material'
 import { generateUniqueId } from 'utils/utils'
 import { useFormik } from 'formik'
@@ -98,13 +98,7 @@ function PubIdEdition({ open, onClose, pub }: PubIdEditionProps): React.ReactNod
   }
 
   return (
-    <Drawer
-      open={open}
-      onClose={onClose}
-      anchor="right"
-      sx={{ position: 'relative' }}
-      variant="persistent"
-    >
+    <Drawer open={open} onClose={onClose} anchor="right">
       <DrawerHeader title={t('edition.title')} onClose={onClose} />
       <DrawerContent>
         <form onSubmit={handleSubmit} noValidate>

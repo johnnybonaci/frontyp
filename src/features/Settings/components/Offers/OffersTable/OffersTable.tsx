@@ -8,22 +8,22 @@ import { type SortableTableProps } from 'components/Table/components/withSortHea
 import withActions from 'components/Table/components/withActions'
 import withPagination from 'components/Table/components/withPagination'
 import withSortHeaders from 'components/Table/components/withSortHeader'
-import { type PubIdItem } from 'features/Settings/types/PubId'
+import { type OffersItem } from 'features/Settings/types/Offers'
 
 const PaginatedTable = withPagination(Table as ComponentType<any>)
 const SortableTable = withSortHeaders(PaginatedTable as ComponentType<any>)
 const TableWithActions = withActions(SortableTable as ComponentType<any>)
 
-interface PubIdTableProps
+interface OffersTableProps
   extends PaginatedTableProps,
     SortableTableProps,
     TableWithActionsProps,
     TableProps {
-  onClickEdit: (pubIdItem: PubIdItem) => void
+  onClickEdit: (offersItem: OffersItem) => void
 }
 
-const PubIdTable: FC<PubIdTableProps> = ({ onClickEdit, ...restOfProps }) => {
-  const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId.actions' })
+const OffersTable: FC<OffersTableProps> = ({ onClickEdit, ...restOfProps }) => {
+  const { t } = useTranslation('features', { keyPrefix: 'Settings.offers.actions' })
 
   const actions = [
     {
@@ -37,4 +37,4 @@ const PubIdTable: FC<PubIdTableProps> = ({ onClickEdit, ...restOfProps }) => {
   return <TableWithActions {...restOfProps} actions={actions} onRight />
 }
 
-export default PubIdTable
+export default OffersTable

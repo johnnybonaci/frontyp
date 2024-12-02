@@ -7,15 +7,20 @@ import PubIdFilters from '../components/PubId/PubIdFilters'
 import ContentBox from 'components/ContentBox'
 import { transformFiltersToApi } from 'features/Settings/transformers/PubId'
 import PubIdEdition from '../components/PubId/PubIdEdition'
-import { PubIdItem, PubIdListFiltersFormValues } from '../types/PubId'
-import { Stack } from '@mui/material'
+import { PubIdItem, PubIdListFiltersFormValues, PubIdOfferType } from '../types/PubId'
+import { IconButton, Stack, Tooltip } from '@mui/material'
 import { EMPTY_PUBID_FILTERS } from '../schema/PubId/PubIdFiltersSchema'
+import { TableColumn } from 'components/Table'
+import { EditOutlined } from '@mui/icons-material'
+import PubIdOfferEdition from '../components/PubId/PubIdOfferEdition'
 
 const PubIdList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId' })
 
   const [selectedPubId, setSelectedPubId] = useState<PubIdItem>()
+  const [selectedOfferType, setSelectedOffselectedOfferType] = useState<PubIdOfferType>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
+  const [collapsedOfferEdition, setCollapsedOfferEdition] = useState(true)
 
   const { filters, filtersToAPI, onCancel, onApply } = useFilters<PubIdListFiltersFormValues>(
     EMPTY_PUBID_FILTERS,
@@ -28,8 +33,18 @@ const PubIdList: FC = () => {
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
 
+  const openOfferEdition = useCallback((pubIdItem: PubIdItem, type: PubIdOfferType = 'ACA') => {
+    setCollapsedOfferEdition(false)
+    setSelectedOffselectedOfferType(type)
+    setSelectedPubId(pubIdItem)
+  }, [])
+
+  const closeOfferEdition = useCallback(() => {
+    setCollapsedOfferEdition(true)
+  }, [])
+
   const columns = useMemo(
-    () => [
+    (): TableColumn[] => [
       {
         header: t('fields.pubs'),
         fieldName: 'id',
@@ -40,6 +55,26 @@ const PubIdList: FC = () => {
         fieldName: 'name',
         sortable: true,
       },
+      {
+        header: t('fields.ACA'),
+        dataModifier: (pubIdItem: PubIdItem) => (
+          <IconButton color="primary" onClick={() => openOfferEdition(pubIdItem, 'ACA')}>
+            <Tooltip title={t('edition.ACA')}>
+              <EditOutlined />
+            </Tooltip>
+          </IconButton>
+        ),
+      },
+      {
+        header: t('fields.MC'),
+        dataModifier: (pubIdItem: PubIdItem) => (
+          <IconButton color="primary" onClick={() => openOfferEdition(pubIdItem, 'MC')}>
+            <Tooltip title={t('edition.MC')}>
+              <EditOutlined />
+            </Tooltip>
+          </IconButton>
+        ),
+      },
     ],
     [t]
   )
@@ -49,8 +84,8 @@ const PubIdList: FC = () => {
   }, [setCollapsedViewEdition, collapsedViewEdition])
 
   const handleOpenPubIdEdition = useCallback(
-    (pubLeads: PubIdItem) => {
-      setSelectedPubId(pubLeads)
+    (pubIdItem: PubIdItem) => {
+      setSelectedPubId(pubIdItem)
       toggleViewDetails()
     },
     [toggleViewDetails, setSelectedPubId]
@@ -76,6 +111,12 @@ const PubIdList: FC = () => {
         displayResultsMessage={displayResultsMessage}
       />
       <PubIdEdition open={!collapsedViewEdition} onClose={toggleViewDetails} pub={selectedPubId} />
+      <PubIdOfferEdition
+        open={!collapsedOfferEdition}
+        onClose={closeOfferEdition}
+        pub={selectedPubId}
+        type={selectedOfferType}
+      />
     </ContentBox>
   )
 }

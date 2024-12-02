@@ -3,24 +3,24 @@ import config from '../../../../config.tsx'
 import { useTranslation } from 'react-i18next'
 import { enqueueSnackbar } from 'notistack'
 import { useEffect } from 'react'
-import { PubIdForm } from '../../types/PubId'
-import { pubIdEditedToAPI } from '../../transformers/PubId/index.ts'
+import { OffersForm } from '../../types/Offers/index'
+import { offersEditedToAPI } from '../../transformers/Offers/index.ts'
 
-export interface UsePubIdEditionReturn {
-  onSubmit: (data: PubIdForm) => Promise<void>
+export interface UseOffersEditionReturn {
+  onSubmit: (data: OffersForm) => Promise<void>
   loading: boolean
   error: RequestError | null
 }
 
-export const usePubIdEdition = (pubId?: number): UsePubIdEditionReturn => {
-  const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId' })
+export const useOffersEdition = (offers?: number): UseOffersEditionReturn => {
+  const { t } = useTranslation('features', { keyPrefix: 'Settings.offers' })
   const { doFetch, response, error, loading } = useFetch()
 
-  const onSubmit = async (data: PubIdForm): Promise<void> => {
-    if (pubId)
+  const onSubmit = async (data: OffersForm): Promise<void> => {
+    if (offers)
       doFetch({
-        url: `${config.api.baseUrl}/api/v1/pubs/update/${pubId}`,
-        data: pubIdEditedToAPI(data),
+        url: `${config.api.baseUrl}/api/v1/trafficsource/update/${offers}`,
+        data: offersEditedToAPI(data),
         method: 'POST',
       })
   }
@@ -28,7 +28,7 @@ export const usePubIdEdition = (pubId?: number): UsePubIdEditionReturn => {
   useEffect(() => {
     if (!response) return
 
-    enqueueSnackbar(t('pubIdEditedSuccessfully'), {
+    enqueueSnackbar(t('offersEditedSuccessfully'), {
       variant: 'success',
       autoHideDuration: 2000,
     })

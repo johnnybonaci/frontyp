@@ -1,30 +1,27 @@
 import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useFormik } from 'formik'
-import _ from 'lodash'
-
-import DidNumberSchema, { EMPTY_BUYERS } from 'features/Settings/schema/DidNumber/DidNumberSchema'
-import { useDidNumberEdition } from 'features/Settings/hooks/DidNumber/useDidNumberEdition'
-import { DidNumberForm, DidNumberItem } from 'features/Settings/types/DidNumber'
-import { didNumberToForm } from 'features/Settings/transformers/DidNumber'
-
 import { Button, Drawer, Stack, TextField } from '@mui/material'
 import DrawerContent from 'components/DrawerContent'
 import DrawerHeader from 'components/DrawerHeader'
+import { OffersForm, OffersItem } from 'features/Settings/types/Offers'
+import { useFormik } from 'formik'
+import OffersSchema, { EMPTY_OFFERS } from 'features/Settings/schema/Offers/OffersSchema'
+import { useOffersEdition } from 'features/Settings/hooks/Offers/useOffersEdition'
+import { offersToForm } from 'features/Settings/transformers/Offers'
+import _ from 'lodash'
 import CustomAutocomplete from 'components/CustomAutocomplete/CustomAutocomplete'
-
 import useData from 'hooks/useData'
 
-interface DidNumberEditionProps {
+interface OffersEditionProps {
   open: boolean
   onClose: () => void
-  didNumber?: DidNumberItem
+  offers?: OffersItem
 }
 
-function DidNumberEdition({ open, onClose, didNumber }: DidNumberEditionProps): React.ReactNode {
-  const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.didNumber' })
-  const { onSubmit } = useDidNumberEdition(didNumber?.id)
-  const { subIdOptions, trafficSourceOptions, offersOptions, pubIdOptions } = useData()
+function OffersEdition({ open, onClose, offers }: OffersEditionProps): React.ReactNode {
+  const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.offers' })
+  const { onSubmit } = useOffersEdition(offers?.id)
+  const { providersOptions, leadTypeOptions } = useData()
 
   const {
     handleChange,
@@ -37,20 +34,20 @@ function DidNumberEdition({ open, onClose, didNumber }: DidNumberEditionProps): 
     errors,
     touched,
     isValid,
-  } = useFormik<DidNumberForm>({
-    initialValues: EMPTY_BUYERS,
+  } = useFormik<OffersForm>({
+    initialValues: EMPTY_OFFERS,
     validateOnChange: false,
-    validationSchema: DidNumberSchema,
+    validationSchema: OffersSchema,
     onSubmit,
   })
 
   useEffect(() => {
-    if (didNumber) {
+    if (offers) {
       resetForm({
-        values: didNumberToForm(didNumber, subIdOptions, pubIdOptions),
+        values: offersToForm(offers),
       })
     }
-  }, [didNumber])
+  }, [offers])
 
   const debouncedValidateField = useCallback(_.debounce(setFieldTouched, 500), [setFieldTouched])
 
@@ -80,44 +77,27 @@ function DidNumberEdition({ open, onClose, didNumber }: DidNumberEditionProps): 
       <DrawerHeader title={t('edition.title')} onClose={onClose} />
       <DrawerContent>
         <form onSubmit={handleSubmit} noValidate>
-          <TextField fullWidth {...getFieldProps('description')} />
+          <TextField fullWidth sx={{ mr: 2 }} {...getFieldProps('name')} />
           <CustomAutocomplete
-            {...getFieldProps('sub')}
+            {...getFieldProps('type')}
             onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('sub', newValue)
+              void setFieldValue('type', newValue)
             }}
-            options={subIdOptions}
+            options={leadTypeOptions}
             creatable={false}
             multiple={false}
           />
-          <TextField fullWidth {...getFieldProps('campaignName')} />
+          <TextField fullWidth sx={{ mr: 2 }} {...getFieldProps('sourceUrl')} />
           <CustomAutocomplete
-            {...getFieldProps('trafficSource')}
+            {...getFieldProps('provider')}
             onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('trafficSource', newValue)
+              void setFieldValue('provider', newValue)
             }}
-            options={trafficSourceOptions}
+            options={providersOptions}
             creatable={false}
             multiple={false}
           />
-          <CustomAutocomplete
-            {...getFieldProps('offer')}
-            onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('offer', newValue)
-            }}
-            options={offersOptions}
-            creatable={false}
-            multiple={false}
-          />
-          <CustomAutocomplete
-            {...getFieldProps('pub')}
-            onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('pub', newValue)
-            }}
-            options={pubIdOptions}
-            creatable={false}
-            multiple={false}
-          />
+          <TextField fullWidth sx={{ mr: 2 }} type="password" {...getFieldProps('apiKey')} />
 
           <Stack
             direction="row"
@@ -142,4 +122,4 @@ function DidNumberEdition({ open, onClose, didNumber }: DidNumberEditionProps): 
   )
 }
 
-export default DidNumberEdition
+export default OffersEdition

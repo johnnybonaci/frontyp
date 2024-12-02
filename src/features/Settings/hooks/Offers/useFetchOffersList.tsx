@@ -7,12 +7,12 @@ import { type RequestError } from 'src/hooks/useFetch.ts'
 import { type Paginator } from 'src/types/paginator'
 import { type Filters } from 'src/types/filter'
 import { type Sorter } from 'src/types/sorter'
-import { type BuyersItem, type BuyersItemFromApi } from '../../types/Buyers'
-import { buyersItemFromApi } from '../../transformers/Buyers'
-import useFetchUsers from 'hooks/useFetchUsers'
+import { type OffersItem, type OffersItemFromApi } from '../../types/Offers'
+import { offersItemFromApi } from '../../transformers/Offers'
+import useData from 'hooks/useData'
 
-interface UseFetchBuyersItemsResponse {
-  buyersItems: BuyersItem[] | null
+interface UseFetchOffersItemsResponse {
+  offersItems: OffersItem[] | null
   paginator: Paginator
   loading: boolean
   error: RequestError
@@ -21,26 +21,25 @@ interface UseFetchBuyersItemsResponse {
   setSorter: (fieldName: string, order: 'asc' | 'desc' | undefined) => void
 }
 
-const useFetchBuyersList = ({ filters }: { filters: Filters }): UseFetchBuyersItemsResponse => {
+const useFetchOffersList = ({ filters }: { filters: Filters }): UseFetchOffersItemsResponse => {
   const { t } = useTranslation()
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
-  const { userOptions } = useFetchUsers()
-
-  const [buyersItems, setBuyersItems] = useState<BuyersItem[] | null>(null)
+  const [offersItems, setOffersItems] = useState<OffersItem[] | null>(null)
+  const { providersOptions } = useData()
 
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
-    url: `${config.api.baseUrl}/api/data/settings/buyer`,
+    url: `${config.api.baseUrl}/api/data/settings/offer`,
     filters,
   })
 
   useEffect(() => {
     if (!response) return
 
-    const buyerssItems = response.data.map((item: BuyersItemFromApi) =>
-      buyersItemFromApi(item, userOptions)
+    const offersItems = response.data.map((item: OffersItemFromApi) =>
+      offersItemFromApi(item, providersOptions)
     )
 
-    setBuyersItems(buyerssItems)
+    setOffersItems(offersItems)
   }, [response?.data, t])
 
   useEffect(() => {
@@ -62,7 +61,7 @@ const useFetchBuyersList = ({ filters }: { filters: Filters }): UseFetchBuyersIt
   }, [error, t])
 
   return {
-    buyersItems,
+    offersItems,
     paginator,
     loading,
     error,
@@ -72,4 +71,4 @@ const useFetchBuyersList = ({ filters }: { filters: Filters }): UseFetchBuyersIt
   }
 }
 
-export default useFetchBuyersList
+export default useFetchOffersList

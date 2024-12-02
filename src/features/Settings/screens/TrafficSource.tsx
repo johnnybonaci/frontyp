@@ -38,12 +38,14 @@ const TrafficSource: FC = () => {
       {
         header: t('fields.trafficSourceProviderId'),
         fieldName: 'trafficSourceProviderId',
+        sortName: 'traffic_source_provider_id',
         sortable: true,
       },
       {
         header: t('fields.providerName'),
-        fieldName: 'providerId',
+        sortName: 'provider_id',
         sortable: true,
+        dataModifier: (item: TrafficSourceItem) => `${item.provider.name} (${item.provider.id})`,
       },
     ],
     [t]

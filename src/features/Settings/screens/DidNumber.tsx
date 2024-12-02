@@ -10,6 +10,7 @@ import DidNumberEdition from '../components/DidNumber/DidNumberEdition'
 import { DidNumberFilter, DidNumberItem } from '../types/DidNumber'
 import { Stack } from '@mui/material'
 import { EMPTY_DID_NUMBER_FILTERS } from '../schema/DidNumber/DidNumberFilterSchema'
+import { TableColumn } from 'components/Table'
 
 const DidNumber: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.didNumber' })
@@ -29,7 +30,7 @@ const DidNumber: FC = () => {
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
 
   const columns = useMemo(
-    () => [
+    (): TableColumn[] => [
       {
         header: t('fields.id'),
         fieldName: 'id',
@@ -43,26 +44,31 @@ const DidNumber: FC = () => {
       {
         header: t('fields.campaign'),
         fieldName: 'campaignName',
+        sortName: 'campaign_name',
         sortable: true,
       },
       {
         header: t('fields.subId'),
         fieldName: 'subId',
+        sortName: 'sub_id',
         sortable: true,
       },
       {
         header: t('fields.pubId'),
         fieldName: 'pubId',
+        sortName: 'pub_id',
         sortable: true,
       },
       {
-        header: t('fields.trafficSourceId'),
-        fieldName: 'trafficSourceId',
+        header: t('fields.trafficSource'),
+        dataModifier: (item: DidNumberItem) => item.trafficSource.name,
+        sortName: 'traffic_source_id',
         sortable: true,
       },
       {
-        header: t('fields.offerId'),
-        fieldName: 'offerId',
+        header: t('fields.offer'),
+        dataModifier: (item: DidNumberItem) => item.offer.name,
+        sortName: 'offer_id',
         sortable: true,
       },
     ],
