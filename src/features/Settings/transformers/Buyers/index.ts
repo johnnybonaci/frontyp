@@ -3,6 +3,7 @@ import { BuyersForm, BuyersItem, BuyersItemFromApi, BuyersToAPI } from '../../ty
 import { multipleSelectToApi } from 'src/transformers/apiTransformers'
 import { providersItemFromApi } from '../Providers'
 import { entityToOption } from 'utils/entityToOptions'
+import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 
 export const transformFiltersToApi = (filters: Filters): Filters => {
   const filter = []
@@ -46,7 +47,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   }
 }
 
-export const buyersItemFromApi = (data: BuyersItemFromApi): BuyersItem => {
+export const buyersItemFromApi = (data: BuyersItemFromApi, userOptions: Option[]): BuyersItem => {
   const { id, name, buyer_provider_id: buyerProviderId, provider, user_id: userId } = data
   return {
     id,
@@ -54,29 +55,35 @@ export const buyersItemFromApi = (data: BuyersItemFromApi): BuyersItem => {
     buyerProviderId,
     provider: providersItemFromApi(provider),
     userId,
+    user: userId ? userOptions.find((user) => String(user.id) === String(userId))! : null,
   }
 }
 
 export const buyersToForm = (data: BuyersItem): BuyersForm => {
-  const { id, buyerProviderId, provider, name } = data
+  const { id, buyerProviderId, provider, name, user } = data
   return {
     id,
     name,
     buyerProviderId,
     provider: entityToOption(provider),
+    user,
+    revenue: '',
   }
 }
 
 export const buyersEditedToAPI = (data: BuyersForm): BuyersToAPI => {
-  const { name, buyerProviderId, provider, id } = data
+  const { name, buyerProviderId, provider, id, user, revenue } = data
 
   return {
     id,
     name,
     buyer_provider_id: buyerProviderId,
     provider_id: String(provider.id),
+    user_id: user ? String(user.id) : null,
+    revenue,
     form: {
       provider_select: String(provider.id),
+      user_select: String(user?.id),
     },
   }
 }

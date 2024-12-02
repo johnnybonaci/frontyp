@@ -9,6 +9,7 @@ import { type Filters } from 'src/types/filter'
 import { type Sorter } from 'src/types/sorter'
 import { type BuyersItem, type BuyersItemFromApi } from '../../types/Buyers'
 import { buyersItemFromApi } from '../../transformers/Buyers'
+import useFetchUsers from 'hooks/useFetchUsers'
 
 interface UseFetchBuyersItemsResponse {
   buyersItems: BuyersItem[] | null
@@ -23,6 +24,8 @@ interface UseFetchBuyersItemsResponse {
 const useFetchBuyersList = ({ filters }: { filters: Filters }): UseFetchBuyersItemsResponse => {
   const { t } = useTranslation()
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
+  const { userOptions } = useFetchUsers()
+
   const [buyersItems, setBuyersItems] = useState<BuyersItem[] | null>(null)
 
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
@@ -33,7 +36,9 @@ const useFetchBuyersList = ({ filters }: { filters: Filters }): UseFetchBuyersIt
   useEffect(() => {
     if (!response) return
 
-    const buyerssItems = response.data.map((item: BuyersItemFromApi) => buyersItemFromApi(item))
+    const buyerssItems = response.data.map((item: BuyersItemFromApi) =>
+      buyersItemFromApi(item, userOptions)
+    )
 
     setBuyersItems(buyerssItems)
   }, [response?.data, t])
