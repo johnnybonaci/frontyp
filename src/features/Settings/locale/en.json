@@ -240,7 +240,8 @@
       "title": "Edit Phone Room"
     },
     "actions": {
-      "edit": "Edit Phone Room"
+      "edit": "Edit Phone Room",
+      "viewConfig": "View config"
     },
     "details": {
       "title": "Phone Room Config"
