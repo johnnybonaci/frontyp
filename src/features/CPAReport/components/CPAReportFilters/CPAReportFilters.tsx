@@ -52,7 +52,7 @@ const CPAReportFilters: FC<CPAReportFiltersProps> = ({
   initialFilters = DEFAULT_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'CPAReport.filters' })
-  const { stateOptions, trafficSourceOptions, leadTypeOptions } = useData()
+  const { stateOptions, trafficSourceOptions, leadTypeOptions, callBuyerOptions } = useData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,
@@ -135,7 +135,7 @@ const CPAReportFilters: FC<CPAReportFiltersProps> = ({
             label={t('subId')}
           />
           <CustomAutocomplete
-            resourceName="buyers"
+            options={callBuyerOptions}
             {...getFieldProps('buyers')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('buyers', newValue)
