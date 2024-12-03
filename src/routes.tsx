@@ -16,9 +16,10 @@ import QAReportRoutes from 'features/QAReport/routes.tsx'
 import LiveLeadsRoutes from 'features/LiveLeads/routes.tsx'
 import ActiveLeadsRoutes from 'features/ActiveLeads/routes.tsx'
 import PubLeadsRoutes from 'features/PubLeads/routes.tsx'
+import SettingsRoutes from 'features/Settings/routes'
 
 interface Route {
-  path: string
+  path?: string
   element: ReactNode
   children?: Route[]
   orValidation?: boolean
@@ -26,28 +27,36 @@ interface Route {
 }
 
 // ==============================|| ROUTING RENDER ||============================== //
-const MainRoutes = {
+const AdministrationRoutes = {
   path: '/administration/',
   element: (
     <AuthPreLoaders>
       <PrivateLayout />
     </AuthPreLoaders>
   ),
+  children: [DashboardRoutes, ...AuthPrivateRoutes],
+}
+
+const MainRoutes = {
+  path: '/',
+  element: (
+    <AuthPreLoaders>
+      <PrivateLayout />
+    </AuthPreLoaders>
+  ),
   children: [
-    DashboardRoutes,
-    ...AuthPrivateRoutes,
+    {
+      index: true,
+      element: <BaseDashboard />,
+    },
     ...CallReportRoutes,
     ...CPAReportRoutes,
     ...QAReportRoutes,
     ...LiveLeadsRoutes,
     ...ActiveLeadsRoutes,
     ...PubLeadsRoutes,
+    ...SettingsRoutes,
   ],
-}
-
-const BaseRoute = {
-  path: '/',
-  element: <BaseDashboard />,
 }
 
 const PrivateRoutesAuth = {
@@ -86,9 +95,9 @@ const routesWithPermissions = (routes: Route): Route => {
 export default function Routes(): any {
   return useRoutes([
     routesWithPermissions(MainRoutes),
+    routesWithPermissions(AdministrationRoutes),
     PublicRoutes,
     PrivateRoutesAuth,
-    BaseRoute,
     ...ErrorRoutes,
   ])
 }

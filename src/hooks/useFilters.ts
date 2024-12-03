@@ -30,10 +30,10 @@ const defaultTransformToUrl = (filters: Filters): URLSearchParams => {
 }
 
 export default function useFilters<T extends Filters>(
+  initialValues: any = {},
   transformerToAPI: TransformerToAPI<T>,
   transformerFromURL: TransformerFromURL = defaultTransformFromUrl,
   transformerToURL: TransformerToURL<T> = defaultTransformToUrl,
-  initialValues: any = {},
   skipFilterFromCount: string[] = []
 ): FiltersReturnType<T> {
   const [isOpenFilters, setIsOpenFilters] = useState(false)

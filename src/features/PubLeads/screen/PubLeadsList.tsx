@@ -50,10 +50,10 @@ const PubLeadsList: FC = () => {
   }, [setCollapsedViewDetails, collapsedViewDetails])
 
   const { onCancel, onApply, filters, filtersToAPI } = useFilters<PubLeadsListFiltersFormValues>(
+    DEFAULT_FILTERS,
     transformFiltersToApi,
     transformFiltersFromUrl,
-    transformFiltersToUrl,
-    DEFAULT_FILTERS
+    transformFiltersToUrl
   )
 
   const {

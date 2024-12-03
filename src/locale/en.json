@@ -26,7 +26,8 @@
     "phoneRoomReports": "Phone Room Reports",
     "users": "Users",
     "userList": "User List",
-    "userRoles": "User Roles"
+    "userRoles": "User Roles",
+    "settings": "Settings"
   },
   "errors": {
     "401": {

@@ -15,9 +15,17 @@ import {
   SupervisedUserCircleOutlined,
   TrendingUpOutlined,
   VerifiedUserOutlined,
+  SettingsOutlined,
 } from '@mui/icons-material'
 import { type SidebarComponents } from 'components/PrivateLayout/types'
 import PERMISSIONS from 'permissions'
+import { SETTINGS_PATHS } from 'features/Settings/routes'
+import { LIVE_LEADS_PATHS } from 'features/LiveLeads/routes'
+import { ACTIVE_LEADS_PATHS } from 'features/ActiveLeads/routes'
+import { PUB_LEADS_PATHS } from 'features/PubLeads/routes'
+import { CALL_REPORT_PATHS } from 'features/CallReport/routes'
+import { CPA_REPORT_PATHS } from 'features/CPAReport/routes'
+import { QA_REPORT_PATHS } from 'features/QAReport/routes'
 
 export interface UseSidebarComponentsResult {
   components: SidebarComponents
@@ -32,17 +40,17 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
         permission: PERMISSIONS.LEADS,
         items: [
           {
-            to: 'live-leads',
+            to: LIVE_LEADS_PATHS.LIST,
             icon: GroupsOutlined,
             label: t('menu:liveLeads'),
           },
           {
-            to: 'active-leads',
+            to: ACTIVE_LEADS_PATHS.LIST,
             icon: SupervisedUserCircleOutlined,
             label: t('menu:activeLeads'),
           },
           {
-            to: 'pub-leads',
+            to: PUB_LEADS_PATHS.LIST,
             icon: GroupWorkOutlined,
             label: t('menu:pubsLeads'),
           },
@@ -59,17 +67,17 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
         permission: PERMISSIONS.CALLS,
         items: [
           {
-            to: 'call-report',
+            to: CALL_REPORT_PATHS.LIST,
             icon: CallOutlined,
             label: t('menu:callsReport'),
           },
           {
-            to: 'cpa-report',
+            to: CPA_REPORT_PATHS.LIST,
             icon: AssessmentOutlined,
             label: t('menu:cpaReport'),
           },
           {
-            to: 'qa-report',
+            to: QA_REPORT_PATHS.LIST,
             icon: CheckCircleOutline,
             label: t('menu:qaReport'),
           },
@@ -138,6 +146,17 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             redirectOutside: true,
             icon: ManageAccountsOutlined,
             label: t('menu:userRoles'),
+          },
+        ],
+      },
+      {
+        title: t('menu:settings'),
+        permission: PERMISSIONS.SETTINGS,
+        items: [
+          {
+            to: SETTINGS_PATHS.BASE + '/' + SETTINGS_PATHS.PUBID,
+            icon: SettingsOutlined,
+            label: t('menu:settings'),
           },
         ],
       },
