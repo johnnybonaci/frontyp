@@ -8,6 +8,7 @@ const ScreenContext = createContext<UseFetchDataResponse>({
   issueTypeOptions: [],
   offersOptions: [],
   pubIdOptions: [],
+  callBuyerOptions: [],
   statusOptions: [],
   insuranceOptions: [],
   callIssuesOptions: [],

@@ -27,10 +27,10 @@ const CPAReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'CPAReport' })
 
   const { onCancel, onApply, filters, filtersToAPI } = useFilters(
+    DEFAULT_FILTERS,
     transformFiltersToApi,
     transformFiltersFromUrl,
-    transformFiltersToUrl,
-    DEFAULT_FILTERS
+    transformFiltersToUrl
   )
 
   const { cpaReportIndicators, cpaReportItems, sorter, setSorter, paginator, loading, refresh } =

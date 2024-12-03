@@ -63,6 +63,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
   const {
     trafficSourceOptions,
     offersOptions,
+    callBuyerOptions,
     stateOptions,
     statusOptions,
     callIssuesOptions,
@@ -141,7 +142,7 @@ const QAReportFilters: FC<QAReportFiltersProps> = ({
             placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
-            resourceName="buyers"
+            options={callBuyerOptions}
             {...getFieldProps('buyers')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('buyers', newValue)

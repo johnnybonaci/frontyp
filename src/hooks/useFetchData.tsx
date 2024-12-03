@@ -10,6 +10,7 @@ export interface UseFetchDataResponse {
   trafficSourceOptions: Option[]
   issueTypeOptions: Option[]
   offersOptions: Option[]
+  callBuyerOptions: Option[]
   pubIdOptions: Option[]
   statusOptions: Option[]
   insuranceOptions: Option[]
@@ -26,6 +27,7 @@ export interface UseFetchDataResponse {
 const useFetchData = (): UseFetchDataResponse => {
   const [stateOptions, setStateOptions] = useState<Option[]>([])
   const [buyerOptions, setBuyerOptions] = useState<Option[]>([])
+  const [callBuyerOptions, setCallBuyerOptions] = useState<Option[]>([])
   const [trafficSourceOptions, setTrafficSourceOptions] = useState<Option[]>([])
   const [issueTypeOptions, setIssueTypeOptions] = useState<Option[]>([])
   const [offersOptions, setOffersOptions] = useState<Option[]>([])
@@ -59,6 +61,12 @@ const useFetchData = (): UseFetchDataResponse => {
     )
     setBuyerOptions(
       data.partners.map((option: any) => ({
+        id: option.id,
+        title: option.name,
+      }))
+    )
+    setCallBuyerOptions(
+      data.callPartners?.map((option: any) => ({
         id: option.id,
         title: option.name,
       }))
@@ -163,6 +171,7 @@ const useFetchData = (): UseFetchDataResponse => {
     saleOptions,
     campaignOptions,
     subIdOptions,
+    callBuyerOptions,
     providersOptions,
     loading,
     error,
