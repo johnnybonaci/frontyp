@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Autocomplete, TextField, Chip, debounce } from '@mui/material'
+import { Autocomplete, TextField, Chip, debounce, SxProps } from '@mui/material'
 import useGetOptions from 'hooks/useGetOptions.ts'
 
 export interface Option {
@@ -10,18 +10,22 @@ export interface Option {
 interface MultipleAutocompleteProps {
   value: Option[] | Option
   onChange: (event: any, newValue: Array<string | Option>) => void
+  onBlur?: (e: any) => void
   label: string
   creatable?: boolean
   resourceName?: string
   filterName?: string
   multiple?: boolean
   placeholder?: string
+  helperText?: string
   options?: Option[]
+  sx?: SxProps
 }
 
 const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   value,
   onChange,
+  onBlur,
   multiple = true,
   creatable = true,
   label,
@@ -29,6 +33,8 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   options,
   resourceName,
   filterName = 'search',
+  helperText,
+  sx = {},
 }) => {
   const [inputValue, setInputValue] = useState('')
   const resourceOptions = useGetOptions([resourceName ?? ''], {
@@ -77,11 +83,19 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
       }, 500)}
       renderTags={(value: Option[], getTagProps) =>
         value.map((option, index) => (
-          <Chip label={option.title} {...getTagProps({ index })} key={option.title} />
+          <Chip label={option.title} {...getTagProps({ index })} key={option.id} />
         ))
       }
-      sx={{ root: { height: 'unset !important' } }}
-      renderInput={(params) => <TextField {...params} label={label} placeholder={placeholder} />}
+      sx={{ ...sx, root: { height: 'unset !important' } }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          onBlur={onBlur}
+          label={label}
+          placeholder={placeholder}
+          helperText={helperText}
+        />
+      )}
     />
   )
 }

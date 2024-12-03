@@ -3,11 +3,8 @@ import loadable from 'components/Loadable'
 import PERMISSIONS from 'permissions'
 
 export const ACTIVE_LEADS_PATHS = {
-  LIST: '/administration/active-leads',
+  LIST: '/active-leads',
 }
-
-const relativePath = (path: 'LIST'): string =>
-  ACTIVE_LEADS_PATHS[path].replace('/administration/', '')
 
 // dashboard routing
 const ActiveLeadsList = loadable(
@@ -16,7 +13,7 @@ const ActiveLeadsList = loadable(
 
 const ActiveLeadsRoutes = [
   {
-    path: relativePath('LIST'),
+    path: ACTIVE_LEADS_PATHS.LIST,
     element: <ActiveLeadsList />,
     permissions: PERMISSIONS.LEADS,
   },

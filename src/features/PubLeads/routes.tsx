@@ -2,12 +2,9 @@ import { lazy } from 'react'
 import loadable from 'components/Loadable'
 import PERMISSIONS from 'permissions'
 
-export const LIVE_LEADS_PATHS = {
-  LIST: '/administration/pub-leads',
+export const PUB_LEADS_PATHS = {
+  LIST: '/pub-leads',
 }
-
-const relativePath = (path: 'LIST'): string =>
-  LIVE_LEADS_PATHS[path].replace('/administration/', '')
 
 // dashboard routing
 const PubLeadsList = loadable(
@@ -16,7 +13,7 @@ const PubLeadsList = loadable(
 
 const PubLeadsRoutes = [
   {
-    path: relativePath('LIST'),
+    path: PUB_LEADS_PATHS.LIST,
     element: <PubLeadsList />,
     permissions: PERMISSIONS.LEADS,
   },

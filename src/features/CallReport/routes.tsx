@@ -3,11 +3,8 @@ import loadable from 'components/Loadable'
 import PERMISSIONS from 'permissions'
 
 export const CALL_REPORT_PATHS = {
-  LIST: '/administration/call-report',
+  LIST: '/call-report',
 }
-
-const relativePath = (path: 'LIST'): string =>
-  CALL_REPORT_PATHS[path].replace('/administration/', '')
 
 // dashboard routing
 const CallReportList = loadable(
@@ -16,7 +13,7 @@ const CallReportList = loadable(
 
 const CallReportRoutes = [
   {
-    path: relativePath('LIST'),
+    path: CALL_REPORT_PATHS.LIST,
     element: <CallReportList />,
     permissions: PERMISSIONS.CALLS,
   },

@@ -20,7 +20,8 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 
 export interface TableColumn {
   header: string | ReactNode
-  fieldName: string
+  fieldName?: string
+  sortName?: string
   sortable?: boolean
   dataModifier?: (data: any) => ReactNode | string | null
   cellStyles?: CSSProperties
