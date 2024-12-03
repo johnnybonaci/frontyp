@@ -46,6 +46,8 @@ const SortableTable: FC<SortableTableProps> = ({
             header={header}
             direction={active ? order : 'desc'}
             onClick={() => {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
               handleClickSort(sortName || fieldName)
             }}
           />
