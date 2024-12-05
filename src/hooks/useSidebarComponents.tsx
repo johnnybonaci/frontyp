@@ -26,6 +26,7 @@ import { PUB_LEADS_PATHS } from 'features/PubLeads/routes'
 import { CALL_REPORT_PATHS } from 'features/CallReport/routes'
 import { CPA_REPORT_PATHS } from 'features/CPAReport/routes'
 import { QA_REPORT_PATHS } from 'features/QAReport/routes'
+import { CPC_REPORT_PATHS } from "features/CPCReport/routes.tsx";
 
 export interface UseSidebarComponentsResult {
   components: SidebarComponents
@@ -55,8 +56,8 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             label: t('menu:pubsLeads'),
           },
           {
-            to: 'leads/pageviews',
-            redirectOutside: true,
+            to: CPC_REPORT_PATHS.LIST,
+            redirectOutside: false,
             icon: BarChartOutlined,
             label: t('menu:cpcReport'),
           },
