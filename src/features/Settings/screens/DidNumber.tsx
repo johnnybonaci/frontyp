@@ -23,7 +23,7 @@ const DidNumber: FC = () => {
     transformFiltersToApi
   )
 
-  const { didNumberItems, sorter, setSorter, paginator, loading } = useFetchDidNumber({
+  const { didNumberItems, sorter, setSorter, paginator, loading, refresh } = useFetchDidNumber({
     filters: filtersToAPI,
   })
 
@@ -87,6 +87,11 @@ const DidNumber: FC = () => {
     [toggleViewDetails, setSelectedDidNumber]
   )
 
+  const onEditSuccess = useCallback(() => {
+    refresh()
+    toggleViewDetails()
+  }, [refresh, toggleViewDetails])
+
   return (
     <ContentBox>
       <Stack mt={2}>
@@ -109,6 +114,7 @@ const DidNumber: FC = () => {
       <DidNumberEdition
         open={!collapsedViewEdition}
         onClose={toggleViewDetails}
+        onEditSuccess={onEditSuccess}
         didNumber={selectedDidNumber}
       />
     </ContentBox>

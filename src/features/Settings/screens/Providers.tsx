@@ -22,7 +22,7 @@ const Providers: FC = () => {
     transformFiltersToApi
   )
 
-  const { providersItems, sorter, setSorter, paginator, loading } = useFetchProviders({
+  const { providersItems, sorter, setSorter, paginator, loading, refresh } = useFetchProviders({
     filters: filtersToAPI,
   })
 
@@ -66,6 +66,11 @@ const Providers: FC = () => {
     [toggleViewDetails, setSelectedProviders]
   )
 
+  const onEditSuccess = useCallback(() => {
+    refresh()
+    toggleViewDetails()
+  }, [refresh, toggleViewDetails])
+
   return (
     <ContentBox>
       <Stack mt={2}>
@@ -88,6 +93,7 @@ const Providers: FC = () => {
       <ProvidersEdition
         open={!collapsedViewEdition}
         onClose={toggleViewDetails}
+        onEditSuccess={onEditSuccess}
         providers={selectedProviders}
       />
     </ContentBox>

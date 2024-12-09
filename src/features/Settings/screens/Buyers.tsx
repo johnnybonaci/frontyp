@@ -23,7 +23,7 @@ const Buyers: FC = () => {
     transformFiltersToApi
   )
 
-  const { buyersItems, sorter, setSorter, paginator, loading } = useFetchBuyers({
+  const { buyersItems, sorter, setSorter, paginator, loading, refresh } = useFetchBuyers({
     filters: filtersToAPI,
   })
 
@@ -71,6 +71,11 @@ const Buyers: FC = () => {
     [toggleViewDetails, setSelectedBuyers]
   )
 
+  const onEditSuccess = useCallback(() => {
+    refresh()
+    toggleViewDetails()
+  }, [refresh, toggleViewDetails])
+
   return (
     <ContentBox>
       <Stack mt={2}>
@@ -93,6 +98,7 @@ const Buyers: FC = () => {
       <BuyersEdition
         open={!collapsedViewEdition}
         onClose={toggleViewDetails}
+        onEditSuccess={onEditSuccess}
         buyers={selectedBuyers}
       />
     </ContentBox>

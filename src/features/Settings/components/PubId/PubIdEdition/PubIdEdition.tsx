@@ -17,12 +17,13 @@ import _ from 'lodash'
 interface PubIdEditionProps {
   open: boolean
   onClose: () => void
+  onEditSuccess: () => void
   pub?: PubIdItem
 }
 
 const EMPTY_PUB_USER = { name: '', cpl: 0 }
 
-function PubIdEdition({ open, onClose, pub }: PubIdEditionProps): React.ReactNode {
+function PubIdEdition({ open, onClose, onEditSuccess, pub }: PubIdEditionProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.pubId' })
   const { onSubmit } = usePubIdEdition(pub?.id)
   const { userOptions } = useFetchUsers()
@@ -43,7 +44,7 @@ function PubIdEdition({ open, onClose, pub }: PubIdEditionProps): React.ReactNod
     validateOnChange: false,
     validationSchema: PubIdSchema,
     onSubmit: (data) => {
-      onSubmit(data).then(() => onClose())
+      onSubmit(data).then(onEditSuccess)
     },
   })
 

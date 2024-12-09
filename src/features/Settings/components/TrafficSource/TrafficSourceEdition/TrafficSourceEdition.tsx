@@ -17,12 +17,14 @@ import useFetchProviders from 'hooks/useFetchProviders'
 interface TrafficSourceEditionProps {
   open: boolean
   onClose: () => void
+  onEditSuccess: () => void
   trafficSource?: TrafficSourceItem
 }
 
 function TrafficSourceEdition({
   open,
   onClose,
+  onEditSuccess,
   trafficSource,
 }: TrafficSourceEditionProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.trafficSource' })
@@ -45,7 +47,7 @@ function TrafficSourceEdition({
     validateOnChange: false,
     validationSchema: TrafficSourceSchema,
     onSubmit: (data) => {
-      onSubmit(data).then(() => onClose())
+      onSubmit(data).then(onEditSuccess)
     },
   })
 

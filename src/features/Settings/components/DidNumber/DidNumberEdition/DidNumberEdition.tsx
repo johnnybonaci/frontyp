@@ -19,10 +19,16 @@ import useFetchPubIdsByOfferOptions from 'features/Settings/hooks/PubId/useFetch
 interface DidNumberEditionProps {
   open: boolean
   onClose: () => void
+  onEditSuccess: () => void
   didNumber?: DidNumberItem
 }
 
-function DidNumberEdition({ open, onClose, didNumber }: DidNumberEditionProps): React.ReactNode {
+function DidNumberEdition({
+  open,
+  onClose,
+  onEditSuccess,
+  didNumber,
+}: DidNumberEditionProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.didNumber' })
   const { onSubmit } = useDidNumberEdition(didNumber?.id)
   const { subIdOptions, trafficSourceOptions, offersOptions, pubIdOptions } = useData()
@@ -43,7 +49,7 @@ function DidNumberEdition({ open, onClose, didNumber }: DidNumberEditionProps): 
     validateOnChange: false,
     validationSchema: DidNumberSchema,
     onSubmit: (data) => {
-      onSubmit(data).then(() => onClose())
+      onSubmit(data).then(onEditSuccess)
     },
   })
 

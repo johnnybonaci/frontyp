@@ -27,7 +27,7 @@ const PubIdList: FC = () => {
     transformFiltersToApi
   )
 
-  const { pubIdItems, sorter, setSorter, paginator, loading } = useFetchPubIdList({
+  const { pubIdItems, sorter, setSorter, paginator, loading, refresh } = useFetchPubIdList({
     filters: filtersToAPI,
   })
 
@@ -91,6 +91,11 @@ const PubIdList: FC = () => {
     [toggleViewDetails, setSelectedPubId]
   )
 
+  const onEditSuccess = useCallback(() => {
+    refresh()
+    toggleViewDetails()
+  }, [refresh, toggleViewDetails])
+
   return (
     <ContentBox>
       <Stack mt={2}>
@@ -110,10 +115,16 @@ const PubIdList: FC = () => {
         onPageChange={setPage}
         displayResultsMessage={displayResultsMessage}
       />
-      <PubIdEdition open={!collapsedViewEdition} onClose={toggleViewDetails} pub={selectedPubId} />
+      <PubIdEdition
+        open={!collapsedViewEdition}
+        onClose={toggleViewDetails}
+        onEditSuccess={onEditSuccess}
+        pub={selectedPubId}
+      />
       <PubIdOfferEdition
         open={!collapsedOfferEdition}
         onClose={closeOfferEdition}
+        onEditSuccess={onEditSuccess}
         pub={selectedPubId}
         type={selectedOfferType}
       />

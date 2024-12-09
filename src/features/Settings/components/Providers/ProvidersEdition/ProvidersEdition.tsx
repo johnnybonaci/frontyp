@@ -20,10 +20,16 @@ import Select from 'components/Select'
 interface ProvidersEditionProps {
   open: boolean
   onClose: () => void
+  onEditSuccess: () => void
   providers?: ProvidersItem
 }
 
-function ProvidersEdition({ open, onClose, providers }: ProvidersEditionProps): React.ReactNode {
+function ProvidersEdition({
+  open,
+  onClose,
+  onEditSuccess,
+  providers,
+}: ProvidersEditionProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.providers' })
   const { onSubmit } = useProvidersEdition(providers?.id)
   const { yesNoStatusOptions } = useFetchYesNoStatusOptions()
@@ -44,7 +50,7 @@ function ProvidersEdition({ open, onClose, providers }: ProvidersEditionProps): 
     validateOnChange: false,
     validationSchema: ProvidersSchema,
     onSubmit: (data) => {
-      onSubmit(data).then(() => onClose())
+      onSubmit(data).then(onEditSuccess)
     },
   })
 
