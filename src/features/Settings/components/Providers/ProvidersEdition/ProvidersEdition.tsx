@@ -43,7 +43,9 @@ function ProvidersEdition({ open, onClose, providers }: ProvidersEditionProps): 
     initialValues: EMPTY_PROVIDERS,
     validateOnChange: false,
     validationSchema: ProvidersSchema,
-    onSubmit,
+    onSubmit: (data) => {
+      onSubmit(data).then(() => onClose())
+    },
   })
 
   useEffect(() => {

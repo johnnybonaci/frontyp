@@ -44,7 +44,9 @@ function TrafficSourceEdition({
     initialValues: EMPTY_TRAFFIC_SOURCE,
     validateOnChange: false,
     validationSchema: TrafficSourceSchema,
-    onSubmit,
+    onSubmit: (data) => {
+      onSubmit(data).then(() => onClose())
+    },
   })
 
   useEffect(() => {

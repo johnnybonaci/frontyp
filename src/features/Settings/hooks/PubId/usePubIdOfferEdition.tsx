@@ -17,18 +17,17 @@ export const usePubIdOfferEdition = (pubOfferId?: number): UsePubIdOfferEditionR
   const { doFetch, response, error, loading } = useFetch()
 
   const onSubmit = async (data: Required<PubIdOffer>, pub: PubIdItem): Promise<void> => {
-    if (pubOfferId)
-      doFetch({
-        url: `${config.api.baseUrl}/api/v1/pubsoffer/update/${pubOfferId}`,
-        data: pubIdOfferEditedToAPI(data, pub),
-        method: 'POST',
-      })
+    return doFetch({
+      url: `${config.api.baseUrl}/api/v1/pubsoffer/update/${pubOfferId !== undefined ? pubOfferId : ''}`,
+      data: pubIdOfferEditedToAPI(data, pub),
+      method: 'POST',
+    })
   }
 
   useEffect(() => {
     if (!response) return
 
-    enqueueSnackbar(t('pubIdEditedSuccessfully'), {
+    enqueueSnackbar(t('common:genericEdition', { type: t('singular') }), {
       variant: 'success',
       autoHideDuration: 2000,
     })
@@ -37,7 +36,7 @@ export const usePubIdOfferEdition = (pubOfferId?: number): UsePubIdOfferEditionR
   useEffect(() => {
     if (!error) return
 
-    enqueueSnackbar(t(error.message, { defaultValue: 'genericError' }), {
+    enqueueSnackbar(error.message || t('common:genericError'), {
       variant: 'error',
       autoHideDuration: 2000,
     })

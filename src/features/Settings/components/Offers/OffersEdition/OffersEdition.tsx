@@ -38,7 +38,9 @@ function OffersEdition({ open, onClose, offers }: OffersEditionProps): React.Rea
     initialValues: EMPTY_OFFERS,
     validateOnChange: false,
     validationSchema: OffersSchema,
-    onSubmit,
+    onSubmit: (data) => {
+      onSubmit(data).then(() => onClose())
+    },
   })
 
   useEffect(() => {

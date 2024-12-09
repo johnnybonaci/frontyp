@@ -18,8 +18,8 @@ export const usePhoneRoomEdition = (phoneRoom?: number): UsePhoneRoomEditionRetu
 
   const onSubmit = async (data: PhoneRoomForm): Promise<void> => {
     if (phoneRoom)
-      doFetch({
-        url: `${config.api.baseUrl}/api/v1/trafficsource/update/${phoneRoom}`,
+      return doFetch({
+        url: `${config.api.baseUrl}/api/v1/phoneroom/update/${phoneRoom}`,
         data: phoneRoomEditedToAPI(data),
         method: 'POST',
       })
@@ -28,7 +28,7 @@ export const usePhoneRoomEdition = (phoneRoom?: number): UsePhoneRoomEditionRetu
   useEffect(() => {
     if (!response) return
 
-    enqueueSnackbar(t('phoneRoomEditedSuccessfully'), {
+    enqueueSnackbar(t('common:genericEdition', { type: t('singular') }), {
       variant: 'success',
       autoHideDuration: 2000,
     })
@@ -37,7 +37,7 @@ export const usePhoneRoomEdition = (phoneRoom?: number): UsePhoneRoomEditionRetu
   useEffect(() => {
     if (!error) return
 
-    enqueueSnackbar(t(error.message, { defaultValue: 'genericError' }), {
+    enqueueSnackbar(error.message || t('common:genericError'), {
       variant: 'error',
       autoHideDuration: 2000,
     })

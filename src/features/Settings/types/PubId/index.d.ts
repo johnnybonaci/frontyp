@@ -64,7 +64,7 @@ export interface PubIdItem {
 }
 
 export interface PubIdOffer {
-  id: number
+  id?: number
   sendToTD: boolean
   sendToTrualliant: boolean
   sendToPhoneRoom2: boolean
@@ -77,7 +77,7 @@ export interface PubIdOffer {
 }
 
 export interface PubIdOfferEditedToAPI {
-  id: number
+  id: number | ''
   form: {
     send_td?: string
     pr1?: string

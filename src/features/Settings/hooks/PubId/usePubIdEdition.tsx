@@ -18,7 +18,7 @@ export const usePubIdEdition = (pubId?: number): UsePubIdEditionReturn => {
 
   const onSubmit = async (data: PubIdForm): Promise<void> => {
     if (pubId)
-      doFetch({
+      return doFetch({
         url: `${config.api.baseUrl}/api/v1/pubs/update/${pubId}`,
         data: pubIdEditedToAPI(data),
         method: 'POST',
@@ -28,7 +28,7 @@ export const usePubIdEdition = (pubId?: number): UsePubIdEditionReturn => {
   useEffect(() => {
     if (!response) return
 
-    enqueueSnackbar(t('pubIdEditedSuccessfully'), {
+    enqueueSnackbar(t('common:genericEdition', { type: t('singular') }), {
       variant: 'success',
       autoHideDuration: 2000,
     })
@@ -37,7 +37,7 @@ export const usePubIdEdition = (pubId?: number): UsePubIdEditionReturn => {
   useEffect(() => {
     if (!error) return
 
-    enqueueSnackbar(t(error.message, { defaultValue: 'genericError' }), {
+    enqueueSnackbar(error.message || t('common:genericError'), {
       variant: 'error',
       autoHideDuration: 2000,
     })

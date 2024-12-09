@@ -42,7 +42,9 @@ function PubIdEdition({ open, onClose, pub }: PubIdEditionProps): React.ReactNod
     initialValues: EMPTY_PUBID,
     validateOnChange: false,
     validationSchema: PubIdSchema,
-    onSubmit,
+    onSubmit: (data) => {
+      onSubmit(data).then(() => onClose())
+    },
   })
 
   useEffect(() => {

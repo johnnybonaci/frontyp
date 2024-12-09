@@ -40,7 +40,9 @@ function PhoneRoomEdition({ open, onClose, phoneRoom }: PhoneRoomEditionProps): 
     initialValues: EMPTY_PHONE_ROOM,
     validateOnChange: false,
     validationSchema: PhoneRoomSchema,
-    onSubmit,
+    onSubmit: (data) => {
+      onSubmit(data).then(() => onClose())
+    },
   })
 
   useEffect(() => {

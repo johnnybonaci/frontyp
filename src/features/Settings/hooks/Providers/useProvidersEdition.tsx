@@ -18,8 +18,8 @@ export const useProvidersEdition = (providers?: number): UseProvidersEditionRetu
 
   const onSubmit = async (data: ProvidersForm): Promise<void> => {
     if (providers)
-      doFetch({
-        url: `${config.api.baseUrl}/api/v1/buyer/update/${providers}`,
+      return doFetch({
+        url: `${config.api.baseUrl}/api/v1/provider/update/${providers}`,
         data: providersEditedToAPI(data),
         method: 'POST',
       })
@@ -28,7 +28,7 @@ export const useProvidersEdition = (providers?: number): UseProvidersEditionRetu
   useEffect(() => {
     if (!response) return
 
-    enqueueSnackbar(t('providersEditedSuccessfully'), {
+    enqueueSnackbar(t('common:genericEdition', { type: t('singular') }), {
       variant: 'success',
       autoHideDuration: 2000,
     })
@@ -37,7 +37,7 @@ export const useProvidersEdition = (providers?: number): UseProvidersEditionRetu
   useEffect(() => {
     if (!error) return
 
-    enqueueSnackbar(t(error.message, { defaultValue: 'genericError' }), {
+    enqueueSnackbar(error.message || t('common:genericError'), {
       variant: 'error',
       autoHideDuration: 2000,
     })

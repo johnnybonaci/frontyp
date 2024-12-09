@@ -63,14 +63,14 @@ export const providersItemFromApi = (data: ProvidersItemFromApi): ProvidersItem 
 }
 
 export const providersToForm = (data: ProvidersItem): ProvidersForm => {
-  const { id, name, service, url, active } = data
+  const { id, name, service, url, active, apiKey } = data
 
   return {
     id,
     name,
     service,
     url,
-    apiKey: '',
+    apiKey,
     active: Boolean(active),
   }
 }
@@ -84,7 +84,7 @@ export const providersEditedToAPI = (data: ProvidersForm): ProvidersToAPI => {
     service,
     url,
     api_key: apiKey,
-    active: Boolean(active),
+    active: Number(active),
     form: {},
   }
 }

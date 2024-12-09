@@ -52,6 +52,7 @@ const Buyers: FC = () => {
         header: t('fields.userName'),
         dataModifier: (item: BuyersItem) =>
           item.user ? `${item.user?.title} (${item.user?.id})` : '-',
+        sortName: 'user_id',
         sortable: true,
       },
     ],

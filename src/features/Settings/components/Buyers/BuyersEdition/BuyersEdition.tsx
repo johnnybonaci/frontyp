@@ -40,7 +40,9 @@ function BuyersEdition({ open, onClose, buyers }: BuyersEditionProps): React.Rea
     initialValues: EMPTY_BUYERS,
     validateOnChange: false,
     validationSchema: BuyersSchema,
-    onSubmit,
+    onSubmit: (data) => {
+      onSubmit(data).then(() => onClose())
+    },
   })
 
   useEffect(() => {

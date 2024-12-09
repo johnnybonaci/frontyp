@@ -130,6 +130,7 @@
     "top_nav": {
       "change_language": "Change language"
     },
+    "genericEdition": "The {{type}}'s edition has been successfully",
     "filters": {
       "title": "Filters",
       "search": "Search",
