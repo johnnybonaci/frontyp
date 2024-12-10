@@ -132,7 +132,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     date_start: filters.startDate?.toISOString().slice(0, 10),
     date_end: filters.endDate?.toISOString().slice(0, 10),
     leads_sub1id5: multipleSelectToApi(filters.pubIdYp),
-    leads_type: multipleSelectToApi(filters.leadsType),
+    leads_type: filters.leadsType?.map((item: any) => item.id).join(','),
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
     subs_id: filters.subId?.id,
     campaign1name1id: filters.campaign?.id,
