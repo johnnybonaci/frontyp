@@ -40,8 +40,8 @@ export const DEFAULT_FILTERS: CPAReportListFiltersFormValues = {
   trafficSource: [],
   buyers: [],
   leadsType: [],
-  startDate: null,
-  endDate: null,
+  startDate: new Date(),
+  endDate: new Date(),
   viewBy: VIEW_BY_OPTIONS[1],
 }
 

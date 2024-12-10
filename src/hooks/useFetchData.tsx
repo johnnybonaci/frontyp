@@ -24,6 +24,16 @@ export interface UseFetchDataResponse {
   error: RequestError
 }
 
+export const ALL_LEADS_OPTION = 'all'
+
+export const LEAD_STATUS_OPTIONS = [
+  { id: 'Contact', title: 'Contact' },
+  { id: 'Billable', title: 'Billable' },
+  { id: 'No Contact', title: 'No Contact' },
+  { id: 'Billable,Contact,No Contact', title: 'All Calls' },
+  { id: ALL_LEADS_OPTION, title: 'All Leads' },
+]
+
 const useFetchData = (): UseFetchDataResponse => {
   const [stateOptions, setStateOptions] = useState<Option[]>([])
   const [buyerOptions, setBuyerOptions] = useState<Option[]>([])

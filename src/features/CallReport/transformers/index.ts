@@ -17,6 +17,7 @@ import { type CallReportListFiltersFormValues } from 'features/CallReport/compon
 import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
+import { capitalize } from 'lodash'
 
 export const statusTFromApi = (status: StatusTValue): StatusT => {
   return {
@@ -175,6 +176,28 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     })
   }
 
+  const status: any = {}
+  if (
+    filters.status === 'SALE' ||
+    filters.status === 'SALE TO REVIEW' ||
+    filters.status === 'FAILED'
+  ) {
+    if (filters.status === 'SALE') {
+      status.recordings_billable = 1
+    }
+
+    if (filters.status === 'SALE TO REVIEW') {
+      status.recordings_billable = 2
+    }
+
+    if (filters.status === 'FAILED') {
+      status.recordings_billable = 4
+    }
+  } else {
+    status.status = capitalize(filters.status)
+    status.convertions_status = capitalize(filters.status)
+  }
+
   return {
     convertions_offer1id: multipleSelectToApi(filters.offers),
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
@@ -183,14 +206,13 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     convertions_traffic1source1id: filters.trafficSource,
     date_start: filters.startDate?.toISOString().slice(0, 10),
     date_end: filters.endDate?.toISOString().slice(0, 10),
-    convertions_status: filters.status,
+    ...status,
     convertions_phone1id: '',
     phone: filters.phone,
     select_buyers: multipleSelectToApi(filters.buyers),
     convertions_id: '',
     recordings_status: '',
     select_issues_types: multipleSelectToApi(filters.issueType),
-    recordings_billable: '',
     recordings_insurance: filters.insurance,
     call_issues: filters.callIssues,
     filter: multipleSelectToApi(filter, (item) => {
