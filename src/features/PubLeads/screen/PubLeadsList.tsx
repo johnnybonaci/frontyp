@@ -17,7 +17,10 @@ import PrivateScreenTitle from 'components/PrivateScreenTitle'
 import { Drawer, IconButton, Tooltip } from '@mui/material'
 import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
-import useTableSettings from 'hooks/useTableSettings.tsx'
+import useTableSettings, {
+  DoubleIndicatorSettings,
+  IndicatorSettings,
+} from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
 import {
   transformFiltersFromUrl,
@@ -38,6 +41,7 @@ import {
 } from '../components/PubLeadsFilters/PubLeadsFilters.tsx'
 import { type LiveLeadsItem } from 'features/LiveLeads/types'
 import LeadType from 'components/LeadType'
+import { DOUBLE_INDICATOR } from 'utils/constants.ts'
 
 const PubLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'PubLeads' })
@@ -189,7 +193,7 @@ const PubLeadsList: FC = () => {
     [t]
   )
 
-  const initialIndicators = [
+  const initialIndicators: (IndicatorSettings | DoubleIndicatorSettings)[] = [
     {
       name: t('indicators.totalSpend'),
       fieldName: 'totalSpend',
@@ -197,14 +201,19 @@ const PubLeadsList: FC = () => {
       growthPercentage: pubLeadsPercentages?.totalSpend,
     },
     {
-      name: t('indicators.totalSpendLeads'),
-      fieldName: 'totalSpendLeads',
-      value: formatMoneyIndicator(pubLeadsAverages?.totalSpendLeads),
-    },
-    {
-      name: t('indicators.totalSpendCalls'),
-      fieldName: 'totalSpendCalls',
-      value: formatMoneyIndicator(pubLeadsAverages?.totalSpendCalls),
+      name: t('indicators.spends'),
+      fieldName: 'spend',
+      type: DOUBLE_INDICATOR,
+      values: [
+        {
+          name: t('indicators.totalSpendLeads'),
+          value: formatMoneyIndicator(pubLeadsPercentages?.totalSpendLeads),
+        },
+        {
+          name: t('indicators.totalSpendCalls'),
+          value: formatMoneyIndicator(pubLeadsPercentages?.totalSpendCalls),
+        },
+      ],
     },
     {
       name: t('indicators.totalRevenue'),

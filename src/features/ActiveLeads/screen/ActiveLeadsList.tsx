@@ -17,7 +17,10 @@ import PrivateScreenTitle from 'components/PrivateScreenTitle'
 import { Drawer, IconButton, Tooltip } from '@mui/material'
 import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
-import useTableSettings from 'hooks/useTableSettings.tsx'
+import useTableSettings, {
+  DoubleIndicatorSettings,
+  IndicatorSettings,
+} from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
 import {
   transformFiltersFromUrl,
@@ -36,8 +39,9 @@ import {
   type ActiveLeadsListFiltersFormValues,
   DEFAULT_FILTERS,
 } from '../components/ActiveLeadsFilters/ActiveLeadsFilters.tsx'
-import { LiveLeadsItem } from "features/LiveLeads/types";
-import LeadType from "components/LeadType";
+import { LiveLeadsItem } from 'features/LiveLeads/types'
+import LeadType from 'components/LeadType'
+import { DOUBLE_INDICATOR } from 'utils/constants.ts'
 
 const ActiveLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'ActiveLeads' })
@@ -191,7 +195,7 @@ const ActiveLeadsList: FC = () => {
     [t]
   )
 
-  const initialIndicators = [
+  const initialIndicators: (IndicatorSettings | DoubleIndicatorSettings)[] = [
     {
       name: t('indicators.totalSpend'),
       fieldName: 'totalSpend',
@@ -199,14 +203,19 @@ const ActiveLeadsList: FC = () => {
       growthPercentage: activeLeadsPercentages?.totalSpend,
     },
     {
-      name: t('indicators.totalSpendLeads'),
-      fieldName: 'totalSpendLeads',
-      value: formatMoneyIndicator(activeLeadsAverages?.totalSpendLeads),
-    },
-    {
-      name: t('indicators.totalSpendCalls'),
-      fieldName: 'totalSpendCalls',
-      value: formatMoneyIndicator(activeLeadsAverages?.totalSpendCalls),
+      name: t('indicators.spends'),
+      fieldName: 'spend',
+      type: DOUBLE_INDICATOR,
+      values: [
+        {
+          name: t('indicators.totalSpendLeads'),
+          value: formatMoneyIndicator(activeLeadsPercentages?.totalSpendLeads),
+        },
+        {
+          name: t('indicators.totalSpendCalls'),
+          value: formatMoneyIndicator(activeLeadsPercentages?.totalSpendCalls),
+        },
+      ],
     },
     {
       name: t('indicators.totalRevenue'),

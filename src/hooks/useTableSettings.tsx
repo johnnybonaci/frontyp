@@ -7,23 +7,32 @@ export interface ColumnSettings {
 }
 
 export interface IndicatorSettings {
+  type?: string
   fieldName: string
   name: string
   value: any
   growthPercentage?: number
 }
 
+export interface DoubleIndicatorSettings {
+  type: string
+  fieldName: string
+  name: string
+  values: { name: string; value: string }[]
+  growthPercentage?: number
+}
+
 const useTableSettings = (
   initialColumns: ColumnSettings[],
-  initialIndicators: IndicatorSettings[],
+  initialIndicators: (IndicatorSettings | DoubleIndicatorSettings)[],
   key: string
 ): {
   columns: ColumnSettings[]
-  indicators: IndicatorSettings[]
+  indicators: (IndicatorSettings | DoubleIndicatorSettings)[]
   visibleColumns: ColumnSettings[]
-  visibleIndicators: IndicatorSettings[]
+  visibleIndicators: (IndicatorSettings | DoubleIndicatorSettings)[]
   notVisibleColumns: ColumnSettings[]
-  notVisibleIndicators: IndicatorSettings[]
+  notVisibleIndicators: (IndicatorSettings | DoubleIndicatorSettings)[]
   reorderColumns: (sourceIndex: number, destinationIndex: number) => void
   reorderIndicators: (sourceIndex: number, destinationIndex: number) => void
   toggleColumnVisibility: (fieldName: string) => void
@@ -55,7 +64,8 @@ const useTableSettings = (
   }
 
   const [columns, setColumns] = useState<ColumnSettings[]>(initialColumns)
-  const [indicators, setIndicators] = useState<IndicatorSettings[]>(initialIndicators)
+  const [indicators, setIndicators] =
+    useState<(IndicatorSettings | DoubleIndicatorSettings)[]>(initialIndicators)
 
   const [columnVisibility, setColumnVisibility] = useState<Record<string, boolean>>(
     getLocalStorageSettings(storageKey)?.columnVisibility ?? {}
