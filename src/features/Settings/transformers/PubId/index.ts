@@ -130,10 +130,10 @@ export const pubIdEditedToAPI = (data: PubIdForm): PubIdToAPI => {
 
   const formData: Record<string, string> = {}
 
-  form.forEach((formItem, index) => {
-    formData[`cpl_${index + 1}`] = String(formItem.cpl)
-    formData[`keyu_${index + 1}`] = String(index)
-    formData[`user_p${index + 1}`] = String(formItem.user.id)
+  form.forEach((formItem) => {
+    formData[`cpl_${formItem.user.id}`] = String(formItem.cpl)
+    formData[`keyu_${formItem.user.id}`] = String(formItem.user.id)
+    formData[`user_p${formItem.user.id}`] = String(formItem.user.id)
   })
 
   return {
