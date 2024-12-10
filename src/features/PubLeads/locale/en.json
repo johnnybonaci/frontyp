@@ -56,8 +56,9 @@
     "totalRpl": "RPL",
     "totalRpc": "RPC",
     "totalRps": "RPS",
-    "totalSpendLeads": "Spend Leads",
-    "totalSpendCalls": "Spend Calls"
+    "spends": "Spend",
+    "totalSpendLeads": "Leads",
+    "totalSpendCalls": "Calls"
   },
   "actions": {
     "view": "View"
