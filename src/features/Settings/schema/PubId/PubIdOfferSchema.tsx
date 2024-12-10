@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 import { PubIdOffer } from '../../types/PubId'
 
 export const EMPTY_PUB_ID_OFFER: PubIdOffer = {
-  id: 0,
+  id: undefined,
   sendToTD: false,
   sendToTrualliant: false,
   sendToPhoneRoom2: false,
@@ -15,7 +15,7 @@ export const EMPTY_PUB_ID_OFFER: PubIdOffer = {
 }
 
 const PubIdOfferSchema = Yup.object({
-  id: Yup.number().required('validations:required'),
+  id: Yup.number(),
   sendToTD: Yup.bool().required('validations:required'),
   sendToTrualliant: Yup.bool().required('validations:required'),
   sendToPhoneRoom2: Yup.bool().required('validations:required'),

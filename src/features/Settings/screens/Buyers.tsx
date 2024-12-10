@@ -23,7 +23,7 @@ const Buyers: FC = () => {
     transformFiltersToApi
   )
 
-  const { buyersItems, sorter, setSorter, paginator, loading } = useFetchBuyers({
+  const { buyersItems, sorter, setSorter, paginator, loading, refresh } = useFetchBuyers({
     filters: filtersToAPI,
   })
 
@@ -52,6 +52,7 @@ const Buyers: FC = () => {
         header: t('fields.userName'),
         dataModifier: (item: BuyersItem) =>
           item.user ? `${item.user?.title} (${item.user?.id})` : '-',
+        sortName: 'user_id',
         sortable: true,
       },
     ],
@@ -69,6 +70,11 @@ const Buyers: FC = () => {
     },
     [toggleViewDetails, setSelectedBuyers]
   )
+
+  const onEditSuccess = useCallback(() => {
+    refresh()
+    toggleViewDetails()
+  }, [refresh, toggleViewDetails])
 
   return (
     <ContentBox>
@@ -92,6 +98,7 @@ const Buyers: FC = () => {
       <BuyersEdition
         open={!collapsedViewEdition}
         onClose={toggleViewDetails}
+        onEditSuccess={onEditSuccess}
         buyers={selectedBuyers}
       />
     </ContentBox>

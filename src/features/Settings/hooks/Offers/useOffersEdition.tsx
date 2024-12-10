@@ -18,8 +18,8 @@ export const useOffersEdition = (offers?: number): UseOffersEditionReturn => {
 
   const onSubmit = async (data: OffersForm): Promise<void> => {
     if (offers)
-      doFetch({
-        url: `${config.api.baseUrl}/api/v1/trafficsource/update/${offers}`,
+      return doFetch({
+        url: `${config.api.baseUrl}/api/v1/offers/update/${offers}`,
         data: offersEditedToAPI(data),
         method: 'POST',
       })
@@ -28,7 +28,7 @@ export const useOffersEdition = (offers?: number): UseOffersEditionReturn => {
   useEffect(() => {
     if (!response) return
 
-    enqueueSnackbar(t('offersEditedSuccessfully'), {
+    enqueueSnackbar(t('common:genericEdition', { type: t('singular') }), {
       variant: 'success',
       autoHideDuration: 2000,
     })
@@ -37,7 +37,7 @@ export const useOffersEdition = (offers?: number): UseOffersEditionReturn => {
   useEffect(() => {
     if (!error) return
 
-    enqueueSnackbar(t(error.message, { defaultValue: 'genericError' }), {
+    enqueueSnackbar(error.message || t('common:genericError'), {
       variant: 'error',
       autoHideDuration: 2000,
     })

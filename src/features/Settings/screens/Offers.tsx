@@ -22,7 +22,7 @@ const Offers: FC = () => {
     transformFiltersToApi
   )
 
-  const { offersItems, sorter, setSorter, paginator, loading } = useFetchOffers({
+  const { offersItems, sorter, setSorter, paginator, loading, refresh } = useFetchOffers({
     filters: filtersToAPI,
   })
 
@@ -69,6 +69,11 @@ const Offers: FC = () => {
     [toggleViewDetails, setSelectedOffers]
   )
 
+  const onEditSuccess = useCallback(() => {
+    refresh()
+    toggleViewDetails()
+  }, [refresh, toggleViewDetails])
+
   return (
     <ContentBox>
       <Stack mt={2}>
@@ -91,6 +96,7 @@ const Offers: FC = () => {
       <OffersEdition
         open={!collapsedViewEdition}
         onClose={toggleViewDetails}
+        onEditSuccess={onEditSuccess}
         offers={selectedOffers}
       />
     </ContentBox>

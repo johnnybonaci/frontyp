@@ -14,14 +14,21 @@ import DrawerHeader from 'components/DrawerHeader'
 import CustomAutocomplete from 'components/CustomAutocomplete/CustomAutocomplete'
 
 import useData from 'hooks/useData'
+import useFetchPubIdsByOfferOptions from 'features/Settings/hooks/PubId/useFetchPubIdsByOfferOptions'
 
 interface DidNumberEditionProps {
   open: boolean
   onClose: () => void
+  onEditSuccess: () => void
   didNumber?: DidNumberItem
 }
 
-function DidNumberEdition({ open, onClose, didNumber }: DidNumberEditionProps): React.ReactNode {
+function DidNumberEdition({
+  open,
+  onClose,
+  onEditSuccess,
+  didNumber,
+}: DidNumberEditionProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.didNumber' })
   const { onSubmit } = useDidNumberEdition(didNumber?.id)
   const { subIdOptions, trafficSourceOptions, offersOptions, pubIdOptions } = useData()
@@ -41,8 +48,12 @@ function DidNumberEdition({ open, onClose, didNumber }: DidNumberEditionProps): 
     initialValues: EMPTY_BUYERS,
     validateOnChange: false,
     validationSchema: DidNumberSchema,
-    onSubmit,
+    onSubmit: (data) => {
+      onSubmit(data).then(onEditSuccess)
+    },
   })
+
+  const { pubIdsByOfferOptions } = useFetchPubIdsByOfferOptions(values.offer?.id)
 
   useEffect(() => {
     if (didNumber) {
@@ -95,6 +106,7 @@ function DidNumberEdition({ open, onClose, didNumber }: DidNumberEditionProps): 
             {...getFieldProps('trafficSource')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('trafficSource', newValue)
+              debouncedValidateField('trafficSource')
             }}
             options={trafficSourceOptions}
             creatable={false}
@@ -104,6 +116,8 @@ function DidNumberEdition({ open, onClose, didNumber }: DidNumberEditionProps): 
             {...getFieldProps('offer')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('offer', newValue)
+              void setFieldValue('pub', null)
+              debouncedValidateField('offer')
             }}
             options={offersOptions}
             creatable={false}
@@ -113,8 +127,9 @@ function DidNumberEdition({ open, onClose, didNumber }: DidNumberEditionProps): 
             {...getFieldProps('pub')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('pub', newValue)
+              debouncedValidateField('pub')
             }}
-            options={pubIdOptions}
+            options={pubIdsByOfferOptions}
             creatable={false}
             multiple={false}
           />

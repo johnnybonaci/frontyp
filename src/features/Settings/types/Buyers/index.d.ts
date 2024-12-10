@@ -11,6 +11,7 @@ export interface BuyersItemFromApi {
   user_id: number | null
   created_at: string
   updated_at: any
+  revenue: string
 }
 
 export interface BuyersItem {
@@ -20,11 +21,11 @@ export interface BuyersItem {
   provider: ProvidersItem
   userId: number | null
   user: Option | null
+  revenue: string
 }
 
 export interface BuyersForm extends Omit<BuyersItem, 'provider' | 'userId'> {
   provider: Option
-  revenue: string
 }
 
 export interface BuyersFilter extends Partial<BuyersForm> {

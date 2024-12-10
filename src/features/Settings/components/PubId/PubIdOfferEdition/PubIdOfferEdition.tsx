@@ -16,6 +16,7 @@ import CustomCheckbox from 'components/CustomCheckbox'
 interface PubIdOfferEditionProps {
   open: boolean
   onClose: () => void
+  onEditSuccess: () => void
   pub?: PubIdItem
   type?: PubIdOfferType
 }
@@ -23,6 +24,7 @@ interface PubIdOfferEditionProps {
 function PubIdOfferEdition({
   open,
   onClose,
+  onEditSuccess,
   pub,
   type = 'ACA',
 }: PubIdOfferEditionProps): React.ReactNode {
@@ -45,7 +47,7 @@ function PubIdOfferEdition({
     initialValues: EMPTY_PUB_ID_OFFER,
     validateOnChange: false,
     validationSchema: PubIdOfferSchema,
-    onSubmit: (data) => onSubmit(data as Required<PubIdOffer>, pub!),
+    onSubmit: (data) => onSubmit(data as Required<PubIdOffer>, pub!).then(onEditSuccess),
   })
 
   useEffect(() => {

@@ -48,7 +48,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 }
 
 export const buyersItemFromApi = (data: BuyersItemFromApi, userOptions: Option[]): BuyersItem => {
-  const { id, name, buyer_provider_id: buyerProviderId, provider, user_id: userId } = data
+  const { id, name, buyer_provider_id: buyerProviderId, provider, user_id: userId, revenue } = data
   return {
     id,
     name,
@@ -56,18 +56,19 @@ export const buyersItemFromApi = (data: BuyersItemFromApi, userOptions: Option[]
     provider: providersItemFromApi(provider),
     userId,
     user: userId ? userOptions.find((user) => String(user.id) === String(userId))! : null,
+    revenue,
   }
 }
 
 export const buyersToForm = (data: BuyersItem): BuyersForm => {
-  const { id, buyerProviderId, provider, name, user } = data
+  const { id, buyerProviderId, provider, name, user, revenue } = data
   return {
     id,
     name,
     buyerProviderId,
     provider: entityToOption(provider),
     user,
-    revenue: '',
+    revenue: revenue ?? '',
   }
 }
 

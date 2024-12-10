@@ -24,7 +24,7 @@ const PhoneRoom: FC = () => {
     transformFiltersToApi
   )
 
-  const { phoneRoomItems, sorter, setSorter, paginator, loading } = useFetchPhoneRoom({
+  const { phoneRoomItems, sorter, setSorter, paginator, loading, refresh } = useFetchPhoneRoom({
     filters: filtersToAPI,
   })
 
@@ -75,6 +75,11 @@ const PhoneRoom: FC = () => {
     [toggleViewEdition, setSelectedPhoneRoom]
   )
 
+  const onEditSuccess = useCallback(() => {
+    refresh()
+    toggleViewEdition()
+  }, [refresh, toggleViewEdition])
+
   return (
     <ContentBox>
       <Stack mt={2}>
@@ -99,6 +104,7 @@ const PhoneRoom: FC = () => {
         open={!collapsedViewEdition}
         onClose={toggleViewEdition}
         phoneRoom={selectedPhoneRoom}
+        onEditSuccess={onEditSuccess}
       />
       <PhoneRoomConfigDetails
         open={!collapsedConfigViewDetails}

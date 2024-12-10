@@ -60,14 +60,14 @@ export const phoneRoomsItemFromApi = (data: PhoneRoomsItemFromApi): PhoneRoomIte
 }
 
 export const phoneRoomsToForm = (data: PhoneRoomItem): PhoneRoomForm => {
-  const { id, name, service, envKey, envUser, listId, active } = data
+  const { id, name, service, envKey, envUser, listId, active, apiKey, apiUser } = data
 
   return {
     id,
     name,
     service,
-    apiUser: '',
-    apiKey: '',
+    apiUser,
+    apiKey,
     envKey,
     envUser,
     listId,
@@ -89,7 +89,7 @@ export const phoneRoomEditedToAPI = (data: PhoneRoomForm): PhoneRoomToAPI => {
       env_user: envUser,
       list_id: listId,
     },
-    active: Boolean(active),
+    active: Number(active),
     form: {},
   }
 }

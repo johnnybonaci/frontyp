@@ -34,7 +34,6 @@ export interface PhoneRoomForm extends Omit<PhoneRoomItem, 'providerId'> {
 
 export interface PhoneRoomToAPI
   extends Omit<PhoneRoomsItemFromApi, 'created_at' | 'updated_at' | 'updated_at'> {
-  active: boolean
   form: {}
 }
 
