@@ -108,7 +108,7 @@ export const pubIdOfferEditedToAPI = (
   } = data
 
   return {
-    id,
+    id: id === 0 ? '' : id,
     form: clearObject({
       send_td: sendToTD ? String(sendToTD) : undefined,
       pr1: sendToTrualliant ? String(sendToTrualliant) : undefined,

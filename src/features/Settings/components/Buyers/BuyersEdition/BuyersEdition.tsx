@@ -16,10 +16,16 @@ import useFetchUsers from 'hooks/useFetchUsers'
 interface BuyersEditionProps {
   open: boolean
   onClose: () => void
+  onEditSuccess: () => void
   buyers?: BuyersItem
 }
 
-function BuyersEdition({ open, onClose, buyers }: BuyersEditionProps): React.ReactNode {
+function BuyersEdition({
+  open,
+  onClose,
+  onEditSuccess,
+  buyers,
+}: BuyersEditionProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.buyers' })
   const { onSubmit } = useBuyersEdition(buyers?.id)
   const { providersOptions } = useFetchProviders()
@@ -40,7 +46,9 @@ function BuyersEdition({ open, onClose, buyers }: BuyersEditionProps): React.Rea
     initialValues: EMPTY_BUYERS,
     validateOnChange: false,
     validationSchema: BuyersSchema,
-    onSubmit,
+    onSubmit: (data) => {
+      onSubmit(data).then(onEditSuccess)
+    },
   })
 
   useEffect(() => {

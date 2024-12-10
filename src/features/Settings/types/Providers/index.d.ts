@@ -32,6 +32,5 @@ export interface ProvidersToAPI
     ProvidersItemFromApi,
     'created_at' | 'updated_at' | 'updated_at' | 'user_id' | 'group'
   > {
-  active: boolean
   form: {}
 }

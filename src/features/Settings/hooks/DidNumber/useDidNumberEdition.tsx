@@ -18,8 +18,8 @@ export const useDidNumberEdition = (didNumber?: number): UseDidNumberEditionRetu
 
   const onSubmit = async (data: DidNumberForm): Promise<void> => {
     if (didNumber)
-      doFetch({
-        url: `${config.api.baseUrl}/api/v1/buyer/update/${didNumber}`,
+      return doFetch({
+        url: `${config.api.baseUrl}/api/v1/did/update/${didNumber}`,
         data: didNumberEditedToAPI(data),
         method: 'POST',
       })
@@ -28,7 +28,7 @@ export const useDidNumberEdition = (didNumber?: number): UseDidNumberEditionRetu
   useEffect(() => {
     if (!response) return
 
-    enqueueSnackbar(t('didNumberEditedSuccessfully'), {
+    enqueueSnackbar(t('common:genericEdition', { type: t('singular') }), {
       variant: 'success',
       autoHideDuration: 2000,
     })
@@ -37,7 +37,7 @@ export const useDidNumberEdition = (didNumber?: number): UseDidNumberEditionRetu
   useEffect(() => {
     if (!error) return
 
-    enqueueSnackbar(t(error.message, { defaultValue: 'genericError' }), {
+    enqueueSnackbar(error.message || t('common:genericError'), {
       variant: 'error',
       autoHideDuration: 2000,
     })

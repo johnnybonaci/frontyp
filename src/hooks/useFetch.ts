@@ -111,7 +111,7 @@ const useFetch = (
           // eslint-disable-next-line no-void
           resolve(void doFetch(params))
         }, debounceWait)
-      });
+      })
     },
     [doFetch, debounceWait]
   )

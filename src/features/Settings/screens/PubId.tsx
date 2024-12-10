@@ -6,18 +6,19 @@ import useFetchPubIdList from 'features/Settings/hooks/PubId/useFetchPubIdList'
 import PubIdFilters from '../components/PubId/PubIdFilters'
 import ContentBox from 'components/ContentBox'
 import { transformFiltersToApi } from 'features/Settings/transformers/PubId'
-import PubIdEdition from '../components/PubId/PubIdEdition'
+import PubIdForm from '../components/PubId/PubIdForm'
 import { PubIdItem, PubIdListFiltersFormValues, PubIdOfferType } from '../types/PubId'
 import { IconButton, Stack, Tooltip } from '@mui/material'
 import { EMPTY_PUBID_FILTERS } from '../schema/PubId/PubIdFiltersSchema'
 import { TableColumn } from 'components/Table'
 import { EditOutlined } from '@mui/icons-material'
 import PubIdOfferEdition from '../components/PubId/PubIdOfferEdition'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
 const PubIdList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.pubId' })
 
-  const [selectedPubId, setSelectedPubId] = useState<PubIdItem>()
+  const [selectedPubId, setSelectedPubId] = useState<PubIdItem | null>(null)
   const [selectedOfferType, setSelectedOffselectedOfferType] = useState<PubIdOfferType>()
   const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
   const [collapsedOfferEdition, setCollapsedOfferEdition] = useState(true)
@@ -27,7 +28,7 @@ const PubIdList: FC = () => {
     transformFiltersToApi
   )
 
-  const { pubIdItems, sorter, setSorter, paginator, loading } = useFetchPubIdList({
+  const { pubIdItems, sorter, setSorter, paginator, loading, refresh } = useFetchPubIdList({
     filters: filtersToAPI,
   })
 
@@ -83,7 +84,7 @@ const PubIdList: FC = () => {
     setCollapsedViewEdition(!collapsedViewEdition)
   }, [setCollapsedViewEdition, collapsedViewEdition])
 
-  const handleOpenPubIdEdition = useCallback(
+  const handleOpenPubIdForm = useCallback(
     (pubIdItem: PubIdItem) => {
       setSelectedPubId(pubIdItem)
       toggleViewDetails()
@@ -91,9 +92,26 @@ const PubIdList: FC = () => {
     [toggleViewDetails, setSelectedPubId]
   )
 
+  const onEditSuccess = useCallback(() => {
+    refresh()
+    toggleViewDetails()
+  }, [refresh, toggleViewDetails])
+
   return (
     <ContentBox>
-      <Stack mt={2}>
+      <Stack mt={2} direction="row" justifyContent="end">
+        <IconButton
+          onClick={() => {
+            setSelectedPubId(null)
+            toggleViewDetails()
+          }}
+          color="primary"
+          size="large"
+        >
+          <Tooltip title={t('creation.label')}>
+            <AddCircleOutlineIcon />
+          </Tooltip>
+        </IconButton>
         <PubIdFilters initialFilters={filters} onCancel={onCancel} onApply={onApply} />
       </Stack>
       <PubIdTable
@@ -104,17 +122,23 @@ const PubIdList: FC = () => {
         onSort={setSorter}
         perPage={perPage}
         onRowsPerPageChange={setPerPage}
-        onClickEdit={handleOpenPubIdEdition}
+        onClickEdit={handleOpenPubIdForm}
         count={lastPage}
         page={page}
         onPageChange={setPage}
         displayResultsMessage={displayResultsMessage}
       />
-      <PubIdEdition open={!collapsedViewEdition} onClose={toggleViewDetails} pub={selectedPubId} />
+      <PubIdForm
+        open={!collapsedViewEdition}
+        onClose={toggleViewDetails}
+        onEditSuccess={onEditSuccess}
+        pub={selectedPubId}
+      />
       <PubIdOfferEdition
         open={!collapsedOfferEdition}
         onClose={closeOfferEdition}
-        pub={selectedPubId}
+        onEditSuccess={onEditSuccess}
+        pub={selectedPubId!}
         type={selectedOfferType}
       />
     </ContentBox>

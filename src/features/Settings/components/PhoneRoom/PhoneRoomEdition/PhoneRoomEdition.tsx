@@ -17,10 +17,16 @@ import useFetchYesNoStatusOptions from 'hooks/useFetchYesNoStatusOptions'
 interface PhoneRoomEditionProps {
   open: boolean
   onClose: () => void
+  onEditSuccess: () => void
   phoneRoom?: PhoneRoomItem
 }
 
-function PhoneRoomEdition({ open, onClose, phoneRoom }: PhoneRoomEditionProps): React.ReactNode {
+function PhoneRoomEdition({
+  open,
+  onClose,
+  onEditSuccess,
+  phoneRoom,
+}: PhoneRoomEditionProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.phoneRoom' })
   const { onSubmit } = usePhoneRoomEdition(phoneRoom?.id)
   const { yesNoStatusOptions } = useFetchYesNoStatusOptions()
@@ -40,7 +46,9 @@ function PhoneRoomEdition({ open, onClose, phoneRoom }: PhoneRoomEditionProps): 
     initialValues: EMPTY_PHONE_ROOM,
     validateOnChange: false,
     validationSchema: PhoneRoomSchema,
-    onSubmit,
+    onSubmit: (data) => {
+      onSubmit(data).then(onEditSuccess)
+    },
   })
 
   useEffect(() => {

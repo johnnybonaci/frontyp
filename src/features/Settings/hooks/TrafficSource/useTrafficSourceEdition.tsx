@@ -18,7 +18,7 @@ export const useTrafficSourceEdition = (trafficSource?: number): UseTrafficSourc
 
   const onSubmit = async (data: TrafficSourceForm): Promise<void> => {
     if (trafficSource)
-      doFetch({
+      return doFetch({
         url: `${config.api.baseUrl}/api/v1/trafficsource/update/${trafficSource}`,
         data: trafficSourceEditedToAPI(data),
         method: 'POST',
@@ -28,7 +28,7 @@ export const useTrafficSourceEdition = (trafficSource?: number): UseTrafficSourc
   useEffect(() => {
     if (!response) return
 
-    enqueueSnackbar(t('trafficSourceEditedSuccessfully'), {
+    enqueueSnackbar(t('common:genericEdition', { type: t('singular') }), {
       variant: 'success',
       autoHideDuration: 2000,
     })
@@ -37,7 +37,7 @@ export const useTrafficSourceEdition = (trafficSource?: number): UseTrafficSourc
   useEffect(() => {
     if (!error) return
 
-    enqueueSnackbar(t(error.message, { defaultValue: 'genericError' }), {
+    enqueueSnackbar(error.message || t('common:genericError'), {
       variant: 'error',
       autoHideDuration: 2000,
     })

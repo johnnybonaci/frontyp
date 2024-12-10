@@ -19,6 +19,10 @@
       "MC": "Edit MC",
       "ACA": "Edit ACA"
     },
+    "creation": {
+      "title": "Create Pub Id",
+      "label": "Create Pub Id"
+    },
     "offerEdition": {
       "title": "Edit {{type}} Offer ({{id}})",
       "fields": {

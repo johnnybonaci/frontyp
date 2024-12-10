@@ -22,9 +22,10 @@ const TrafficSource: FC = () => {
     transformFiltersToApi
   )
 
-  const { trafficSourceItems, sorter, setSorter, paginator, loading } = useFetchTrafficSource({
-    filters: filtersToAPI,
-  })
+  const { trafficSourceItems, sorter, setSorter, paginator, loading, refresh } =
+    useFetchTrafficSource({
+      filters: filtersToAPI,
+    })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
 
@@ -63,6 +64,11 @@ const TrafficSource: FC = () => {
     [toggleViewDetails, setSelectedTrafficSource]
   )
 
+  const onEditSuccess = useCallback(() => {
+    refresh()
+    toggleViewDetails()
+  }, [refresh, toggleViewDetails])
+
   return (
     <ContentBox>
       <Stack mt={2}>
@@ -85,6 +91,7 @@ const TrafficSource: FC = () => {
       <TrafficSourceEdition
         open={!collapsedViewEdition}
         onClose={toggleViewDetails}
+        onEditSuccess={onEditSuccess}
         trafficSource={selectedTrafficSource}
       />
     </ContentBox>

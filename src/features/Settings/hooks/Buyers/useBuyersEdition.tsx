@@ -18,7 +18,7 @@ export const useBuyersEdition = (buyers?: number): UseBuyersEditionReturn => {
 
   const onSubmit = async (data: BuyersForm): Promise<void> => {
     if (buyers)
-      doFetch({
+      return doFetch({
         url: `${config.api.baseUrl}/api/v1/buyer/update/${buyers}`,
         data: buyersEditedToAPI(data),
         method: 'POST',
@@ -28,7 +28,7 @@ export const useBuyersEdition = (buyers?: number): UseBuyersEditionReturn => {
   useEffect(() => {
     if (!response) return
 
-    enqueueSnackbar(t('buyersEditedSuccessfully'), {
+    enqueueSnackbar(t('common:genericEdition', { type: t('singular') }), {
       variant: 'success',
       autoHideDuration: 2000,
     })
@@ -37,7 +37,7 @@ export const useBuyersEdition = (buyers?: number): UseBuyersEditionReturn => {
   useEffect(() => {
     if (!error) return
 
-    enqueueSnackbar(t(error.message, { defaultValue: 'genericError' }), {
+    enqueueSnackbar(error.message || t('common:genericError'), {
       variant: 'error',
       autoHideDuration: 2000,
     })

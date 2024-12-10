@@ -15,10 +15,16 @@ import useData from 'hooks/useData'
 interface OffersEditionProps {
   open: boolean
   onClose: () => void
+  onEditSuccess: () => void
   offers?: OffersItem
 }
 
-function OffersEdition({ open, onClose, offers }: OffersEditionProps): React.ReactNode {
+function OffersEdition({
+  open,
+  onClose,
+  onEditSuccess,
+  offers,
+}: OffersEditionProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.offers' })
   const { onSubmit } = useOffersEdition(offers?.id)
   const { providersOptions, leadTypeOptions } = useData()
@@ -38,7 +44,9 @@ function OffersEdition({ open, onClose, offers }: OffersEditionProps): React.Rea
     initialValues: EMPTY_OFFERS,
     validateOnChange: false,
     validationSchema: OffersSchema,
-    onSubmit,
+    onSubmit: (data) => {
+      onSubmit(data).then(onEditSuccess)
+    },
   })
 
   useEffect(() => {
