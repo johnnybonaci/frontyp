@@ -3,7 +3,7 @@ import DateRangePicker from 'react-datepicker'
 import { TextField, FormControl, FormHelperText, FormLabel } from '@mui/material'
 import CalendarWithShortcuts from './CalendarWithShortcuts'
 
-import { DateRange } from './types'
+import { type DateRange } from './types'
 import { DATE_OPTIONS } from './constants'
 
 import 'react-datepicker/dist/react-datepicker.css'
@@ -50,6 +50,7 @@ const CustomDateRangePicker: React.FC<DateRangePickerProps> = ({
         onChange={changeSelectedValues}
         onCalendarClose={updateValues}
         customInput={<TextField />}
+        monthsShown={2}
         popperPlacement="top-end"
         calendarContainer={({ children }) =>
           withShortcuts ? (

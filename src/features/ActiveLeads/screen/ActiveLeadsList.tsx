@@ -108,7 +108,7 @@ const ActiveLeadsList: FC = () => {
       },
       {
         header: t('fields.phone'),
-        fieldName: 'phone_id',
+        fieldName: 'phone',
         sortable: true,
         dataModifier: (item: ActiveLeadsItem) => (
           <PhoneLink

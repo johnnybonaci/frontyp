@@ -48,8 +48,8 @@ export const DEFAULT_FILTERS: QAReportListFiltersFormValues = {
   insurance: '',
   state: [],
   status: '',
-  startDate: null,
-  endDate: null,
+  startDate: new Date(),
+  endDate: new Date(),
   phone: '',
 }
 

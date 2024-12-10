@@ -12,6 +12,7 @@ import { type PubLeadsListFiltersFormValues } from 'features/PubLeads/components
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
+import { ALL_LEADS_OPTION } from 'hooks/useFetchData.tsx'
 
 export const pubLeadsItemFromApi = (item: PubLeadsItemFromApi): PubLeadsItem => {
   return {
@@ -95,7 +96,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 
   if (filters.phone) {
     filter.push({
-      field: 'phone_id',
+      field: 'phone',
       type: 'like',
       value: filters.phone,
     })
@@ -134,8 +135,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     leads_sub1id5: multipleSelectToApi(filters.pubIdYp),
     campaign1name1id: filters.campaign?.id,
     convertions_traffic1source1id: multipleSelectToApi(filters.trafficSource),
-    convertions_status: filters.status,
-    status: filters.status,
+    convertions_status: filters.status === ALL_LEADS_OPTION ? '' : filters.status,
+    status: filters.status === ALL_LEADS_OPTION ? '' : filters.status,
     url_switch: 'tracking-campaign',
     date_record: 'date_created',
     filter: multipleSelectToApi(filter, (item) => {
