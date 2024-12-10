@@ -22,6 +22,7 @@ import { type CPAReportItem } from 'features/CPAReport/types'
 import styles from './cpaReportList.module.scss'
 import useFetchCPAReportList from 'features/CPAReport/hooks/useFetchCPAReportList.tsx'
 import { DEFAULT_FILTERS } from '../components/CPAReportFilters/CPAReportFilters.tsx'
+import CPAVariation from 'components/CPAVariation'
 
 const CPAReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'CPAReport' })
@@ -69,7 +70,7 @@ const CPAReportList: FC = () => {
         header: t('fields.variations'),
         fieldName: 'total_ucr_1',
         sortable: true,
-        dataModifier: (item: CPAReportItem) => item.variations,
+        dataModifier: (item: CPAReportItem) => <CPAVariation variation={item.variations} />,
       },
       {
         header: t('fields.cpa'),

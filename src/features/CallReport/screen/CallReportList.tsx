@@ -248,7 +248,7 @@ const CallReportList: FC = () => {
     {
       name: 'Total Answered',
       fieldName: 'totalAnswered',
-      value: formatMoneyIndicator(callReportAverages?.totalAnswered),
+      value: formatIndicator(callReportAverages?.totalAnswered),
       growthPercentage: callReportPercentages?.totalAnswered,
     },
     {

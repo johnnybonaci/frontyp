@@ -1,0 +1,28 @@
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  align-items: center;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  padding: 0 10px;
+  width: fit-content;
+  font-weight: bold;
+  gap: 10px;
+}
+
+.up {
+  color: rgb(34 197 94); /* Lime 500 */
+}
+
+.down {
+  color: #ef4444; /* Red 500 */
+}
+
+.same {
+  color: rgb(107 114 128);
+}

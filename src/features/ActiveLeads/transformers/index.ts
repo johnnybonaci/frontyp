@@ -12,6 +12,7 @@ import { type ActiveLeadsListFiltersFormValues } from 'features/ActiveLeads/comp
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
+import { ALL_LEADS_OPTION } from 'hooks/useFetchData.tsx'
 
 export const activeLeadsItemFromApi = (item: ActiveLeadsItemFromApi): ActiveLeadsItem => {
   return {
@@ -97,7 +98,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 
   if (filters.phone) {
     filter.push({
-      field: 'phone_id',
+      field: 'phone',
       type: 'like',
       value: filters.phone,
     })
@@ -136,8 +137,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     subs_id: filters.subId?.id,
     campaign1name1id: filters.campaign?.id,
     convertions_traffic1source1id: multipleSelectToApi(filters.trafficSource),
-    convertions_status: filters.status,
-    status: filters.status,
+    convertions_status: filters.status === ALL_LEADS_OPTION ? '' : filters.status,
+    status: filters.status === ALL_LEADS_OPTION ? '' : filters.status,
     url_switch: 'leads',
     date_record: 'date_sale',
     filter: multipleSelectToApi(filter, (item) => {

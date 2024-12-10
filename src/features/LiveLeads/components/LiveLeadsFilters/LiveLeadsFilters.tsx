@@ -11,6 +11,7 @@ import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import useData from 'hooks/useData.tsx'
+import { LEAD_STATUS_OPTIONS } from 'hooks/useFetchData.tsx'
 
 export interface LiveLeadsListFiltersFormValues {
   pubId: Option[]
@@ -40,8 +41,8 @@ export const DEFAULT_FILTERS = {
   trafficSource: [],
   pubIdYp: [],
   leadsType: [],
-  startDate: null,
-  endDate: null,
+  startDate: new Date(),
+  endDate: new Date(),
   status: '',
   phone: '',
   firstName: '',
@@ -57,7 +58,7 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
   initialFilters = DEFAULT_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'LiveLeads.filters' })
-  const { trafficSourceOptions, statusOptions, leadTypeOptions } = useData()
+  const { trafficSourceOptions, leadTypeOptions } = useData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,
@@ -120,7 +121,6 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
             {...getFieldProps('trafficSource')}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('trafficSource', newValue)
-              void setFieldValue('pubId', newValue)
             }}
             label={t('trafficSource')}
             value={values.trafficSource}
@@ -154,7 +154,10 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
           />
           <Select
             label={t('status')}
-            options={entitiesToOptions(statusOptions, { fieldValue: 'id', fieldLabel: 'title' })}
+            options={entitiesToOptions(LEAD_STATUS_OPTIONS, {
+              fieldValue: 'id',
+              fieldLabel: 'title',
+            })}
             fullWidth
             {...getFieldProps('status')}
           />

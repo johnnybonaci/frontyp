@@ -102,4 +102,9 @@
   .react-datepicker__day--outside {
     color: var(--light-text-color);
   }
+
+  .react-datepicker__day--outside-month {
+    opacity: 0;
+    height: 0px;
+  }
 }
