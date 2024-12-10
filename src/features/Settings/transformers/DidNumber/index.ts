@@ -10,7 +10,6 @@ import { multipleSelectToApi } from 'src/transformers/apiTransformers'
 import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 import { trafficSourcesItemFromApi } from '../TrafficSource'
 import { offersItemFromApi } from '../Offers'
-import { entityToOption } from 'utils/entityToOptions'
 
 export const transformFiltersToApi = (filters: DidNumberFilter): Filters => {
   const filter = []
@@ -114,8 +113,8 @@ export const didNumberToForm = (
     campaignName,
     sub: subIdOptions.find((option) => Number(option.id) === Number(subId))!,
     pub: pubIdOptions.find((option) => Number(option.id) === Number(pubId))!,
-    trafficSource: entityToOption(trafficSource),
-    offer: entityToOption(offer),
+    trafficSource: { id: String(trafficSource.id), title: trafficSource.name },
+    offer: { id: String(offer.id), title: offer.name },
     description,
   }
 }
@@ -127,7 +126,7 @@ export const didNumberEditedToAPI = (data: DidNumberForm): DidNumberToAPI => {
     id,
     description,
     campaign_name: campaignName,
-    sub_id: String(sub?.id),
+    sub_id: sub?.id ? String(sub?.id) : '',
     pub_id: String(pub?.id),
     traffic_source_id: String(trafficSource?.id),
     offer_id: String(offer?.id),

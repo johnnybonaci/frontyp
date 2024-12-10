@@ -6,7 +6,6 @@ import {
   TrafficSourceToAPI,
 } from '../../types/TrafficSource'
 import { multipleSelectToApi } from 'src/transformers/apiTransformers'
-import { entityToOption } from 'utils/entityToOptions'
 
 export const transformFiltersToApi = (filters: Filters): Filters => {
   const filter = []
@@ -58,7 +57,7 @@ export const trafficSourcesToForm = (data: TrafficSourceItem): TrafficSourceForm
     id,
     name,
     trafficSourceProviderId,
-    provider: entityToOption(provider),
+    provider: { id: provider.id, title: provider.name },
   }
 }
 
