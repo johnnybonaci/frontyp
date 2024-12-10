@@ -3,29 +3,29 @@ import { useTranslation } from 'react-i18next'
 import { Button, Drawer, IconButton, Stack, TextField } from '@mui/material'
 import DrawerContent from 'components/DrawerContent'
 import DrawerHeader from 'components/DrawerHeader'
-import { PubIdForm, PubIdItem } from 'features/Settings/types/PubId'
+import { type PubIdForm as PubIdFormType, PubIdItem } from 'features/Settings/types/PubId'
 import { AddCircleOutlineOutlined, DeleteOutlined } from '@mui/icons-material'
 import { generateUniqueId } from 'utils/utils'
 import { useFormik } from 'formik'
 import PubIdSchema, { EMPTY_PUBID } from 'features/Settings/schema/PubId/PubIdSchema'
-import { usePubIdEdition } from 'features/Settings/hooks/PubId/usePubIdEdition'
+import { usePubIdForm } from 'features/Settings/hooks/PubId/usePubIdForm'
 import { pubIdsToForm } from 'features/Settings/transformers/PubId'
 import CustomAutocomplete, { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 import useFetchUsers from 'hooks/useFetchUsers'
 import _ from 'lodash'
 
-interface PubIdEditionProps {
+interface PubIdFormProps {
   open: boolean
   onClose: () => void
   onEditSuccess: () => void
-  pub?: PubIdItem
+  pub?: PubIdItem | null
 }
 
 const EMPTY_PUB_USER = { name: '', cpl: 0 }
 
-function PubIdEdition({ open, onClose, onEditSuccess, pub }: PubIdEditionProps): React.ReactNode {
+function PubIdForm({ open, onClose, onEditSuccess, pub }: PubIdFormProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Settings.pubId' })
-  const { onSubmit } = usePubIdEdition(pub?.id)
+  const { onSubmit } = usePubIdForm(pub?.id)
   const { userOptions } = useFetchUsers()
 
   const {
@@ -39,7 +39,7 @@ function PubIdEdition({ open, onClose, onEditSuccess, pub }: PubIdEditionProps):
     errors,
     touched,
     isValid,
-  } = useFormik<PubIdForm>({
+  } = useFormik<PubIdFormType>({
     initialValues: EMPTY_PUBID,
     validateOnChange: false,
     validationSchema: PubIdSchema,
@@ -49,11 +49,9 @@ function PubIdEdition({ open, onClose, onEditSuccess, pub }: PubIdEditionProps):
   })
 
   useEffect(() => {
-    if (pub) {
-      resetForm({
-        values: pubIdsToForm(pub, userOptions),
-      })
-    }
+    resetForm({
+      values: pub ? pubIdsToForm(pub, userOptions) : EMPTY_PUBID,
+    })
   }, [pub])
 
   const debouncedValidateField = useCallback(_.debounce(setFieldTouched, 500), [setFieldTouched])
@@ -102,11 +100,11 @@ function PubIdEdition({ open, onClose, onEditSuccess, pub }: PubIdEditionProps):
 
   return (
     <Drawer open={open} onClose={onClose} anchor="right">
-      <DrawerHeader title={t('edition.title')} onClose={onClose} />
+      <DrawerHeader title={t(pub ? 'edition.title' : 'creation.title')} onClose={onClose} />
       <DrawerContent>
         <form onSubmit={handleSubmit} noValidate>
           <Stack direction="row" alignItems="end" mb={2}>
-            <TextField sx={{ mr: 2 }} {...getFieldProps('name')} />
+            <TextField sx={{ mr: 2 }} label={t('fields.name')} {...getFieldProps('name')} />
             <Button
               startIcon={<AddCircleOutlineOutlined />}
               variant="contained"
@@ -178,4 +176,4 @@ function PubIdEdition({ open, onClose, onEditSuccess, pub }: PubIdEditionProps):
   )
 }
 
-export default PubIdEdition
+export default PubIdForm
