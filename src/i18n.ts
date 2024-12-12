@@ -11,6 +11,7 @@ import enLiveLeadsJSON from 'src/features/LiveLeads/locale/en.json'
 import enActiveLeadsJSON from 'src/features/ActiveLeads/locale/en.json'
 import enPubLeadsJSON from 'src/features/PubLeads/locale/en.json'
 import enSettingsJSON from 'src/features/Settings/locale/en.json'
+import enCallCampaignJSON from 'src/features/CallCampaigns/locale/en.json'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -43,6 +44,7 @@ i18n.addResourceBundle('en', 'features', {
   ActiveLeads: enActiveLeadsJSON,
   PubLeads: enPubLeadsJSON,
   Settings: enSettingsJSON,
+  CallCampaign: enCallCampaignJSON,
 })
 
 export default i18n

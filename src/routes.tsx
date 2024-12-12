@@ -18,6 +18,7 @@ import ActiveLeadsRoutes from 'features/ActiveLeads/routes.tsx'
 import PubLeadsRoutes from 'features/PubLeads/routes.tsx'
 import SettingsRoutes from 'features/Settings/routes'
 import CPCReportRoutes from 'features/CPCReport/routes.tsx'
+import CallCampaignRoutes from 'features/CallCampaigns/routes'
 
 interface Route {
   path?: string
@@ -58,6 +59,7 @@ const MainRoutes = {
     ...PubLeadsRoutes,
     ...SettingsRoutes,
     ...CPCReportRoutes,
+    ...CallCampaignRoutes,
   ],
 }
 
