@@ -1,0 +1,34 @@
+{
+  "singular": "User",
+  "listing": {
+    "title": "Users"
+  },
+  "fields": {
+    "id": "ID",
+    "email": "Email",
+    "type": "Type",
+    "updatedAt": "Updated At",
+    "pubId": "Pub ID",
+    "userName": "Name",
+    "vendors": "Vendors",
+    "roleName": "Role",
+    "profilePhotoUrl": "Profile Photo URL"
+  },
+  "filters": {
+    "id": "ID",
+    "email": "Email",
+    "type": "Type",
+    "updatedAt": "Updated At",
+    "pubId": "Pub ID",
+    "userName": "Name",
+    "vendors": "Vendors",
+    "roleName": "Role",
+    "profilePhotoUrl": "Profile Photo URL"
+  },
+  "actions": {
+    "view": "View"
+  },
+  "details": {
+    "title": "User Details"
+  }
+}

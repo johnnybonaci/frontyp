@@ -150,7 +150,6 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
         items: [
           {
             to: 'users',
-            redirectOutside: true,
             icon: PersonOutlined,
             label: t('menu:userList'),
           },
