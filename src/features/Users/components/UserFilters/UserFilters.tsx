@@ -3,25 +3,8 @@ import { useCallback, type FC, useEffect } from 'react'
 import { useFormik } from 'formik'
 import UserFiltersSchema from 'src/features/Users/schema/UserFiltersSchema'
 import Filters from 'src/components/Filters/index.ts'
-import CustomAutocomplete, {
-  type Option,
-} from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
-import CustomDateRangePicker from 'components/CustomDateRangePicker'
-import useData from 'hooks/useData.tsx'
-import Select from 'components/Select'
-import entitiesToOptions from 'utils/entityToOptions'
-
-export interface UserListFiltersFormValues {
-  viewBy?: string
-  pubIdTD?: Option[]
-  ccId?: Option[]
-  startDate: Date | null
-  endDate: Date | null
-  type?: Option[]
-  trafficSourceTD?: Option[]
-  pubIdYp?: Option[]
-  campaignYP?: string
-}
+import { type UserListFiltersFormValues } from 'features/Users/types'
+import { TextField } from '@mui/material'
 
 interface UserFiltersProps {
   onCancel: () => void
@@ -31,14 +14,12 @@ interface UserFiltersProps {
 }
 
 export const DEFAULT_FILTERS: UserListFiltersFormValues = {
-  viewBy: '',
-  pubIdTD: [],
-  ccId: [],
-  startDate: null,
-  endDate: null,
-  type: [],
-  trafficSourceTD: [],
-  pubIdYp: [],
+  email: '',
+  type: '',
+  pubId: '',
+  userName: '',
+  vendors: '',
+  roleName: '',
 }
 
 const UserFilters: FC<UserFiltersProps> = ({
@@ -48,7 +29,6 @@ const UserFilters: FC<UserFiltersProps> = ({
   initialFilters = DEFAULT_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'User.filters' })
-  const { trafficSourceOptions, offersOptions, campaignOptions } = useData()
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,
@@ -93,72 +73,12 @@ const UserFilters: FC<UserFiltersProps> = ({
       onClear={handleClear}
       topFilters={
         <>
-          <Select
-            label={t('viewBy')}
-            options={[{ name: 'Campaign YP', value: 'leads.sub_id3' }]}
-            fullWidth
-            {...getFieldProps('viewBy')}
-          />
-          <CustomDateRangePicker
-            label={t('date')}
-            value={[values.startDate ?? undefined, values.endDate ?? undefined]}
-            onChange={(e: any) => {
-              void setFieldValue('startDate', e[0])
-              void setFieldValue('endDate', e[1])
-            }}
-            withShortcuts
-          />
-          <CustomAutocomplete
-            resourceName="pubs"
-            {...getFieldProps('pubIdTD')}
-            onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('pubIdTD', newValue)
-            }}
-            label={t('pubIdTD')}
-            creatable={false}
-          />
-          <Select
-            label={t('campaignYP')}
-            options={entitiesToOptions(campaignOptions, { fieldLabel: 'title', fieldValue: 'id' })}
-            fullWidth
-            {...getFieldProps('campaignYP')}
-          />
-          <CustomAutocomplete
-            resourceName="pubs"
-            {...getFieldProps('ccId')}
-            onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('ccId', newValue)
-            }}
-            label={t('ccId')}
-            creatable={false}
-          />
-          <CustomAutocomplete
-            options={offersOptions}
-            {...getFieldProps('type')}
-            onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('type', newValue)
-            }}
-            label={t('type')}
-            creatable={false}
-          />
-          <CustomAutocomplete
-            options={trafficSourceOptions}
-            {...getFieldProps('trafficSourceTD')}
-            onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('trafficSourceTD', newValue)
-            }}
-            label={t('trafficSourceTD')}
-            creatable={false}
-          />
-          <CustomAutocomplete
-            resourceName="pubs"
-            {...getFieldProps('pubIdYp')}
-            onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('pubIdYp', newValue)
-            }}
-            label={t('pubIdYp')}
-            creatable={false}
-          />
+          <TextField label={t('email')} {...getFieldProps('email')} />
+          <TextField label={t('type')} {...getFieldProps('type')} />
+          <TextField label={t('pubId')} {...getFieldProps('pubId')} />
+          <TextField label={t('userName')} {...getFieldProps('userName')} />
+          <TextField label={t('vendors')} {...getFieldProps('vendors')} />
+          <TextField label={t('roleName')} {...getFieldProps('roleName')} />
         </>
       }
       isSearching={isSearching}

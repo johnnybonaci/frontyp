@@ -4,21 +4,18 @@ import useFilters from 'src/hooks/useFilters'
 import UserFilters from '../components/UserFilters/index.ts'
 import ContentBox from 'components/ContentBox'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
-import { transformFiltersFromUrl, transformFiltersToApi } from 'features/Users/transformers'
+import { transformFiltersToApi } from 'features/Users/transformers'
 import useFetchUserList from 'features/Users/hooks/useFetchUserList.tsx'
 import styles from './userList.module.scss'
 import UserTable from 'features/Users/components/UserTable'
-import {
-  DEFAULT_FILTERS,
-  type UserListFiltersFormValues,
-} from '../components/UserFilters/UserFilters.tsx'
+import { DEFAULT_FILTERS } from '../components/UserFilters/UserFilters.tsx'
+import { UserListFiltersFormValues } from '../types/index'
 
 const UserList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'User' })
   const { onCancel, onApply, filters, filtersToAPI } = useFilters<UserListFiltersFormValues>(
     DEFAULT_FILTERS,
-    transformFiltersToApi,
-    transformFiltersFromUrl
+    transformFiltersToApi
   )
 
   const { userItems, sorter, setSorter, loading, paginator } = useFetchUserList({
