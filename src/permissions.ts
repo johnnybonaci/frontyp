@@ -2,7 +2,7 @@ const PERMISSIONS: Record<string, string> = {
   PROFILE: 'profile',
   LEADS: 'leads',
   CALLS: 'calls',
-  CAMPAIGNS: 'campaigns',
+  CAMPAIGNS: 'campaign',
   JORNAYA: 'jornaya',
   PHONE_ROOM: 'phone_room',
   PERFORMANCE: 'performance',

@@ -90,7 +90,6 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
         items: [
           {
             to: 'leads/campaign-dashboard',
-            redirectOutside: true,
             icon: AdsClickOutlined,
             label: t('menu:callCampaigns'),
           },
