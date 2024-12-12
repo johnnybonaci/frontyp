@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import DateRangePicker from 'react-datepicker'
 import { TextField, FormControl, FormHelperText, FormLabel } from '@mui/material'
 import CalendarWithShortcuts from './CalendarWithShortcuts'
@@ -26,6 +26,7 @@ const CustomDateRangePicker: React.FC<DateRangePickerProps> = ({
 }) => {
   const [startDate, setStartDate] = useState(value[0])
   const [endDate, setEndDate] = useState(value[1])
+  const ref = useRef<(m: number) => void>()
 
   const changeSelectedValues = (e: any) => {
     setStartDate(e[0])
@@ -38,6 +39,7 @@ const CustomDateRangePicker: React.FC<DateRangePickerProps> = ({
 
   const onClickShorcuts = (shorcutRange: DateRange) => {
     changeSelectedValues(shorcutRange)
+    if (shorcutRange[0]) ref.current?.(shorcutRange[0]?.getMonth())
   }
 
   return (
@@ -52,6 +54,58 @@ const CustomDateRangePicker: React.FC<DateRangePickerProps> = ({
         customInput={<TextField />}
         monthsShown={2}
         popperPlacement="top-end"
+        renderCustomHeader={({
+          monthDate,
+          changeMonth,
+          customHeaderCount,
+          decreaseMonth,
+          increaseMonth,
+        }) => {
+          if (ref)
+            ref.current = (month: number) => {
+              changeMonth(month)
+            }
+
+          return (
+            <div style={{ height: '28px' }}>
+              <button
+                aria-label="Previous Month"
+                className={'react-datepicker__navigation react-datepicker__navigation--previous'}
+                style={customHeaderCount === 1 ? { visibility: 'hidden' } : undefined}
+                onClick={decreaseMonth}
+              >
+                <span
+                  className={
+                    'react-datepicker__navigation-icon react-datepicker__navigation-icon--previous'
+                  }
+                >
+                  {'<'}
+                </span>
+              </button>
+              <span className="react-datepicker__current-month">
+                {monthDate.toLocaleString('en-US', {
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </span>
+              <button
+                aria-label="Next Month"
+                className={'react-datepicker__navigation react-datepicker__navigation--next'}
+                style={customHeaderCount === 0 ? { visibility: 'hidden' } : undefined}
+                onClick={increaseMonth}
+              >
+                <span
+                  className={
+                    'react-datepicker__navigation-icon react-datepicker__navigation-icon--next'
+                  }
+                >
+                  {'>'}
+                </span>
+              </button>
+            </div>
+          )
+        }}
+        showMonthDropdown
         calendarContainer={({ children }) =>
           withShortcuts ? (
             <CalendarWithShortcuts

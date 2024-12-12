@@ -5,9 +5,13 @@ import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
 import styles from './listSettings.module.scss'
 import ReorderableList from 'components/ReorderableList'
-import { type ColumnSettings, type IndicatorSettings } from 'hooks/useTableSettings.tsx'
+import {
+  DoubleIndicatorSettings,
+  type ColumnSettings,
+  type IndicatorSettings,
+} from 'hooks/useTableSettings.tsx'
 
-type Item = ColumnSettings | IndicatorSettings
+type Item = ColumnSettings | IndicatorSettings | DoubleIndicatorSettings
 
 interface ListSettingsProps {
   columns: Item[]

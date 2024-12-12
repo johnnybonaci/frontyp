@@ -17,7 +17,10 @@ import PrivateScreenTitle from 'components/PrivateScreenTitle'
 import { Drawer, IconButton, Tooltip } from '@mui/material'
 import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
-import useTableSettings from 'hooks/useTableSettings.tsx'
+import useTableSettings, {
+  DoubleIndicatorSettings,
+  IndicatorSettings,
+} from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
 import {
   transformFiltersToApi,
@@ -37,6 +40,7 @@ import {
   type LiveLeadsListFiltersFormValues,
 } from '../components/LiveLeadsFilters/LiveLeadsFilters.tsx'
 import LeadType from 'components/LeadType'
+import { DOUBLE_INDICATOR as DOUBLE_INDICATOR } from 'utils/constants.ts'
 
 const LiveLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'LiveLeads' })
@@ -188,7 +192,7 @@ const LiveLeadsList: FC = () => {
     [t, filters?.startDate, filters?.endDate]
   )
 
-  const initialIndicators = [
+  const initialIndicators: (IndicatorSettings | DoubleIndicatorSettings)[] = [
     {
       name: t('indicators.totalSpend'),
       fieldName: 'totalSpend',
@@ -196,14 +200,19 @@ const LiveLeadsList: FC = () => {
       growthPercentage: liveLeadsPercentages?.totalSpend,
     },
     {
-      name: t('indicators.totalSpendLeads'),
-      fieldName: 'totalSpendLeads',
-      value: formatMoneyIndicator(liveLeadsAverages?.totalSpendLeads),
-    },
-    {
-      name: t('indicators.totalSpendCalls'),
-      fieldName: 'totalSpendCalls',
-      value: formatMoneyIndicator(liveLeadsAverages?.totalSpendCalls),
+      name: t('indicators.spends'),
+      fieldName: 'spend',
+      type: DOUBLE_INDICATOR,
+      values: [
+        {
+          name: t('indicators.totalSpendLeads'),
+          value: formatMoneyIndicator(liveLeadsAverages?.totalSpendLeads),
+        },
+        {
+          name: t('indicators.totalSpendCalls'),
+          value: formatMoneyIndicator(liveLeadsAverages?.totalSpendCalls),
+        },
+      ],
     },
     {
       name: t('indicators.totalRevenue'),
