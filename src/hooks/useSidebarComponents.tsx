@@ -26,14 +26,49 @@ import { PUB_LEADS_PATHS } from 'features/PubLeads/routes'
 import { CALL_REPORT_PATHS } from 'features/CallReport/routes'
 import { CPA_REPORT_PATHS } from 'features/CPAReport/routes'
 import { QA_REPORT_PATHS } from 'features/QAReport/routes'
-import { CPC_REPORT_PATHS } from "features/CPCReport/routes.tsx";
+import { CPC_REPORT_PATHS } from 'features/CPCReport/routes.tsx'
+import { COMPLIANCE_PATHS } from 'features/Compliance/routes.tsx'
+import useData from 'hooks/useData.tsx'
+import { COMPLIANCE_BOT_PATHS } from 'features/ComplianceBot/routes.tsx'
 
 export interface UseSidebarComponentsResult {
   components: SidebarComponents
 }
 
 export default function useSidebarComponents(): UseSidebarComponentsResult {
+  const { TRACKDRIVE_PROVIDER_ID } = useData()
   const { t } = useTranslation()
+
+  const phoneRoom =
+    TRACKDRIVE_PROVIDER_ID === '2'
+      ? [
+          {
+            title: t('menu:phoneRoom'),
+            permission: PERMISSIONS.PHONE_ROOM,
+            items: [
+              {
+                to: 'leads/phone-room',
+                redirectOutside: true,
+                icon: PhoneEnabledOutlined,
+                label: t('menu:phoneRoomLeads'),
+              },
+              {
+                to: 'leads/performance-phone-room',
+                redirectOutside: true,
+                icon: TrendingUpOutlined,
+                label: t('menu:phoneRoomPerformance'),
+              },
+              {
+                to: 'leads/reports-phone-room',
+                redirectOutside: true,
+                icon: InsertChartOutlined,
+                label: t('menu:phoneRoomReports'),
+              },
+            ],
+          },
+        ]
+      : []
+
   const components = useMemo(
     () => [
       {
@@ -100,37 +135,14 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
         permission: PERMISSIONS.JORNAYA,
         items: [
           {
-            to: 'leads/jornaya-id',
-            redirectOutside: true,
+            to: TRACKDRIVE_PROVIDER_ID === '1' ? COMPLIANCE_BOT_PATHS.LIST : COMPLIANCE_PATHS.LIST,
+            redirectOutside: false,
             icon: VerifiedUserOutlined,
             label: t('menu:compliance'),
           },
         ],
       },
-      {
-        title: t('menu:phoneRoom'),
-        permission: PERMISSIONS.PHONE_ROOM,
-        items: [
-          {
-            to: 'leads/phone-room',
-            redirectOutside: true,
-            icon: PhoneEnabledOutlined,
-            label: t('menu:phoneRoomLeads'),
-          },
-          {
-            to: 'leads/performance-phone-room',
-            redirectOutside: true,
-            icon: TrendingUpOutlined,
-            label: t('menu:phoneRoomPerformance'),
-          },
-          {
-            to: 'leads/reports-phone-room',
-            redirectOutside: true,
-            icon: InsertChartOutlined,
-            label: t('menu:phoneRoomReports'),
-          },
-        ],
-      },
+      ...phoneRoom,
       {
         title: t('menu:users'),
         permission: PERMISSIONS.USERS,
@@ -161,7 +173,7 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
         ],
       },
     ],
-    [t]
+    [t, phoneRoom, TRACKDRIVE_PROVIDER_ID]
   )
 
   return { components }
