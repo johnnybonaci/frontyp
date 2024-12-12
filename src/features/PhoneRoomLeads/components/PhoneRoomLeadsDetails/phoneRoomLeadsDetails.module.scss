@@ -1,0 +1,23 @@
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  max-width: 450px;
+}
+
+.item {
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: column;
+}
+
+.itemLabel {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.itemValue {
+  font-size: 18px;
+  overflow-wrap: break-word;
+  text-wrap: wrap;
+}
