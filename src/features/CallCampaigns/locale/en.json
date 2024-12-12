@@ -1,0 +1,78 @@
+{
+  "singular": "Call Campaign",
+  "insuranceEditedSuccessfully": "Insurance edited successfully",
+  "regeneratedSuccessfully": "Reprocessed successfully",
+  "transcriptSuccessfully": "Transcript in Progress",
+  "yes": "Yes",
+  "no": "No",
+  "roles": "Call Campaign",
+  "calls": "Calls",
+  "listing": {
+    "title": "Call Campaign"
+  },
+  "fields": {
+    "campaignName": "Campaign Yp",
+    "vendorsTd": "T.Source Td",
+    "subId4": "Offer Td",
+    "pubId": "Pub Id Td",
+    "subId2": "Pub Id Yp",
+    "vendorsYp": "T.Source Yp",
+    "type": "Type",
+    "totalLeads": "Total Leads",
+    "totalCalls": "Total Calls",
+    "totalAnswered": "Total Answered",
+    "totalBillable": "Total Billable",
+    "totalSpend": "Total Spend",
+    "totalSpendLeads": "Spend Leads",
+    "totalSpendCalls": "Spend Calls",
+    "grossRevenue": "Revenue",
+    "grossProfit": "Gross Profit",
+    "grossMargin": "ROI",
+    "costPerLead": "CPL",
+    "revPerLead": "RPL",
+    "costPerCalls": "CPC",
+    "revPerCalls": "RPC",
+    "costPerSales": "CPS",
+    "revenuePerSale": "RPS",
+    "callPer": "CALL %",
+    "cpaPer": "CPA %"
+  },
+  "indicators": {
+    "totalSpend": "Total Spend",
+    "totalRevenue": "Total Revenue",
+    "totalProfit": "Total Gross Profit",
+    "totalRoi": "Total ROI",
+    "totalConvertion": "Convertion Rate",
+    "totalLeadstocall": "Leads to Call",
+    "totalLeads": "Total Leads",
+    "totalCalls": "Total Calls",
+    "totalAnswered": "Total Answered",
+    "totalBillable": "Total Billable",
+    "totalAnsweredtobillable": "Answered Billable",
+    "totalCallstoanswered": "Calls Answered",
+    "totalCpl": "CPL",
+    "totalCpc": "CPC",
+    "totalCps": "CPS",
+    "totalRpl": "RPL",
+    "totalRpc": "RPC",
+    "totalRps": "RPS",
+    "totalSpendLeads": "Spend leads",
+    "totalSpendCalls": "Spend calls",
+    "totalUniquecalls": "Total unique calls"
+  },
+  "filters": {
+    "viewBy": "View By",
+    "date": "Date",
+    "pubIdTD": "Pub ID",
+    "ccId": "CC ID",
+    "type": "Offers",
+    "trafficSourceTD": "Traffic Source TD",
+    "pubIdYp": "Pub ID YP"
+  },
+  "actions": {
+    "view": "View"
+  },
+  "details": {
+    "title": "Call Campaign Details"
+  }
+}
