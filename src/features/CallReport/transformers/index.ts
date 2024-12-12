@@ -208,7 +208,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     date_end: filters.endDate?.toISOString().slice(0, 10),
     ...status,
     convertions_phone1id: '',
-    phone: filters.phone,
+    phone: '',
     select_buyers: multipleSelectToApi(filters.buyers),
     convertions_id: '',
     recordings_status: '',
