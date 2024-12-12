@@ -30,6 +30,7 @@ import { CPC_REPORT_PATHS } from 'features/CPCReport/routes.tsx'
 import { COMPLIANCE_PATHS } from 'features/Compliance/routes.tsx'
 import useData from 'hooks/useData.tsx'
 import { COMPLIANCE_BOT_PATHS } from 'features/ComplianceBot/routes.tsx'
+import { PHONE_ROOM_LEADS_PATHS } from 'features/PhoneRoomLeads/routes.tsx'
 
 export interface UseSidebarComponentsResult {
   components: SidebarComponents
@@ -47,8 +48,8 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             permission: PERMISSIONS.PHONE_ROOM,
             items: [
               {
-                to: 'leads/phone-room',
-                redirectOutside: true,
+                to: PHONE_ROOM_LEADS_PATHS.LIST,
+                redirectOutside: false,
                 icon: PhoneEnabledOutlined,
                 label: t('menu:phoneRoomLeads'),
               },

@@ -1,0 +1,50 @@
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  align-items: center;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  padding: 0 10px;
+  width: fit-content;
+  text-transform: capitalize;
+  font-weight: 500;
+  border: 1px solid var(--light-primary-color);
+  gap: 10px;
+}
+
+.indicator {
+  height: 7px;
+  width: 7px;
+  min-width: 7px;
+  min-height: 7px;
+  border-radius: 50%;
+}
+
+.sent {
+  .indicator {
+    background: #22c55e; /* Green 500 */
+  }
+  border-color: #bbf7d0; /* Green 200 */
+  color: #15803d; /* Green 700 */
+}
+
+.rejected {
+  .indicator {
+    background: #facc15; /* Yellow 500 */
+  }
+  border-color: #fef08a; /* Yellow 200 */
+  color: #ca8a04; /* Yellow 700 */
+}
+
+.default {
+  .indicator {
+    background: #06b6d4; /* Cyan 500 */
+  }
+  border-color: #cffafe; /* Cyan 200 */
+  color: #0891b2; /* Cyan 700 */
+}
