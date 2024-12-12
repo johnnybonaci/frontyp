@@ -18,21 +18,21 @@ export interface DoubleIndicatorSettings {
   type: string
   fieldName: string
   name: string
-  values: { name: string; value: string }[]
+  values: Array<{ name: string; value: string }>
   growthPercentage?: number
 }
 
 const useTableSettings = (
   initialColumns: ColumnSettings[],
-  initialIndicators: (IndicatorSettings | DoubleIndicatorSettings)[],
+  initialIndicators: Array<IndicatorSettings | DoubleIndicatorSettings>,
   key: string
 ): {
   columns: ColumnSettings[]
-  indicators: (IndicatorSettings | DoubleIndicatorSettings)[]
+  indicators: Array<IndicatorSettings | DoubleIndicatorSettings>
   visibleColumns: ColumnSettings[]
-  visibleIndicators: (IndicatorSettings | DoubleIndicatorSettings)[]
+  visibleIndicators: Array<IndicatorSettings | DoubleIndicatorSettings>
   notVisibleColumns: ColumnSettings[]
-  notVisibleIndicators: (IndicatorSettings | DoubleIndicatorSettings)[]
+  notVisibleIndicators: Array<IndicatorSettings | DoubleIndicatorSettings>
   reorderColumns: (sourceIndex: number, destinationIndex: number) => void
   reorderIndicators: (sourceIndex: number, destinationIndex: number) => void
   toggleColumnVisibility: (fieldName: string) => void
@@ -65,7 +65,7 @@ const useTableSettings = (
 
   const [columns, setColumns] = useState<ColumnSettings[]>(initialColumns)
   const [indicators, setIndicators] =
-    useState<(IndicatorSettings | DoubleIndicatorSettings)[]>(initialIndicators)
+    useState<Array<IndicatorSettings | DoubleIndicatorSettings>>(initialIndicators)
 
   const [columnVisibility, setColumnVisibility] = useState<Record<string, boolean>>(
     getLocalStorageSettings(storageKey)?.columnVisibility ?? {}
@@ -207,7 +207,7 @@ const useTableSettings = (
       (key) => indicators.find((ind) => ind.name === key) as IndicatorSettings
     ),
     visibleColumns: visibleColumns.filter((col) => col !== undefined),
-    visibleIndicators,
+    visibleIndicators: visibleIndicators.filter((ind) => ind !== undefined),
     notVisibleColumns,
     notVisibleIndicators,
     reorderColumns,

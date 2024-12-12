@@ -18,8 +18,8 @@ import { Drawer, IconButton, Tooltip } from '@mui/material'
 import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
 import useTableSettings, {
-  DoubleIndicatorSettings,
-  IndicatorSettings,
+  type DoubleIndicatorSettings,
+  type IndicatorSettings,
 } from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
 import {
@@ -40,7 +40,7 @@ import {
   type LiveLeadsListFiltersFormValues,
 } from '../components/LiveLeadsFilters/LiveLeadsFilters.tsx'
 import LeadType from 'components/LeadType'
-import { DOUBLE_INDICATOR as DOUBLE_INDICATOR } from 'utils/constants.ts'
+import { DOUBLE_INDICATOR } from 'utils/constants.ts'
 
 const LiveLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'LiveLeads' })
@@ -192,7 +192,7 @@ const LiveLeadsList: FC = () => {
     [t, filters?.startDate, filters?.endDate]
   )
 
-  const initialIndicators: (IndicatorSettings | DoubleIndicatorSettings)[] = [
+  const initialIndicators: Array<IndicatorSettings | DoubleIndicatorSettings> = [
     {
       name: t('indicators.totalSpend'),
       fieldName: 'totalSpend',
