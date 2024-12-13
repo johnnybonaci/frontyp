@@ -61,12 +61,7 @@ const useFetchData = (): UseFetchDataResponse => {
   const [subIdOptions, setSubIdOptions] = useState<Option[]>([])
   const [providersOptions, setProvidersOptions] = useState<Option[]>([])
   const [error] = useState<RequestError>(null)
-  const [rolesOptions] = useState<Option[]>([
-    { id: 'admin', title: 'Admin' },
-    { id: 'client', title: 'Client' },
-    { id: 'super_admin', title: 'Super Admin' },
-    { id: 'user', title: 'User' },
-  ])
+  const [rolesOptions, setRolesOptions] = useState<Option[]>([])
 
   const { doFetch, response, loading } = useFetch(`${config.api.baseUrl}/api/data`)
 
@@ -160,6 +155,12 @@ const useFetchData = (): UseFetchDataResponse => {
       }))
     )
     setTRACKDRIVE_PROVIDER_ID(data?.provider_id ?? '2')
+    setRolesOptions(
+      data.roles.map((role: string) => ({
+        id: role,
+        title: role,
+      }))
+    )
   }, [
     response,
     setBuyerOptions,
