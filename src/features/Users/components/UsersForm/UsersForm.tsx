@@ -19,7 +19,7 @@ interface UsersEditionProps {
   user?: UserItem
 }
 
-function UsersEdition({ open, onClose, onEditSuccess, user }: UsersEditionProps): React.ReactNode {
+function UsersForm({ open, onClose, onEditSuccess, user }: UsersEditionProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'User' })
   const { onSubmit } = useUsersEdition(user?.id)
   const { leadTypeOptions, pubIdOptions, rolesOptions } = useData()
@@ -75,14 +75,29 @@ function UsersEdition({ open, onClose, onEditSuccess, user }: UsersEditionProps)
 
   return (
     <Drawer open={open} onClose={onClose} anchor="right">
-      <DrawerHeader title={t('edition.title')} onClose={onClose} />
+      <DrawerHeader title={t(`${user ? 'edition' : 'creation'}.title`)} onClose={onClose} />
       <DrawerContent>
         <form onSubmit={handleSubmit} noValidate>
           <Stack>
             <TextField fullWidth {...getFieldProps('userName')} />
-            <TextField fullWidth {...getFieldProps('email')} />
-            <TextField fullWidth {...getFieldProps('newPassword')} type="password" />
-            <TextField fullWidth {...getFieldProps('newPasswordConfirmation')} type="password" />
+            <TextField
+              fullWidth
+              {...getFieldProps('email')}
+              type="email"
+              InputProps={{ autoComplete: 'email' }}
+            />
+            <TextField
+              fullWidth
+              {...getFieldProps('newPassword')}
+              type="password"
+              InputProps={{ autoComplete: 'new-password' }}
+            />
+            <TextField
+              fullWidth
+              {...getFieldProps('newPasswordConfirmation')}
+              type="password"
+              InputProps={{ autoComplete: 'new-password' }}
+            />
 
             <CustomAutocomplete
               {...getFieldProps('type')}
@@ -141,4 +156,4 @@ function UsersEdition({ open, onClose, onEditSuccess, user }: UsersEditionProps)
   )
 }
 
-export default UsersEdition
+export default UsersForm

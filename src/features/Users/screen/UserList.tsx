@@ -10,13 +10,15 @@ import styles from './userList.module.scss'
 import UserTable from 'features/Users/components/UserTable'
 import { DEFAULT_FILTERS } from '../components/UserFilters/UserFilters.tsx'
 import { UserItem, UserListFiltersFormValues } from '../types/index'
-import UsersEdition from '../components/UsersEdition/index.ts'
+import UsersForm from '../components/UsersForm/index.ts'
+import { IconButton, Tooltip } from '@mui/material'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
 const UserList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'User' })
 
   const [selectedUser, setSelectedUser] = useState<UserItem>()
-  const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
+  const [collapsedViewForm, setCollapsedViewForm] = useState(true)
 
   const { onCancel, onApply, filters, filtersToAPI } = useFilters<UserListFiltersFormValues>(
     DEFAULT_FILTERS,
@@ -75,27 +77,32 @@ const UserList: FC = () => {
     [t]
   )
 
-  const toggleViewEdition = useCallback(() => {
-    setCollapsedViewEdition(!collapsedViewEdition)
-  }, [setCollapsedViewEdition, collapsedViewEdition])
+  const toggleViewForm = useCallback(() => {
+    setCollapsedViewForm(!collapsedViewForm)
+  }, [setCollapsedViewForm, collapsedViewForm])
 
   const handleOpenUserEdition = useCallback(
-    (user: UserItem) => {
+    (user?: UserItem) => {
       setSelectedUser(user)
-      toggleViewEdition()
+      toggleViewForm()
     },
-    [toggleViewEdition, setSelectedUser]
+    [toggleViewForm, setSelectedUser]
   )
 
-  const onEditSuccess = useCallback(() => {
+  const onFormSubmitSuccess = useCallback(() => {
     refresh()
-    toggleViewEdition()
-  }, [refresh, toggleViewEdition])
+    toggleViewForm()
+  }, [refresh, toggleViewForm])
 
   return (
     <ContentBox>
       <PrivateScreenTitle title={t('listing.title')} />
       <div className={styles.actions}>
+        <IconButton onClick={() => handleOpenUserEdition()} color="primary" size="large">
+          <Tooltip title={t('actions.create')}>
+            <AddCircleOutlineIcon />
+          </Tooltip>
+        </IconButton>
         <UserFilters
           onCancel={onCancel}
           onApply={onApply}
@@ -117,10 +124,10 @@ const UserList: FC = () => {
         perPage={paginator.perPage}
         onRowsPerPageChange={paginator.setPerPage}
       />
-      <UsersEdition
-        open={!collapsedViewEdition}
-        onClose={toggleViewEdition}
-        onEditSuccess={onEditSuccess}
+      <UsersForm
+        open={!collapsedViewForm}
+        onClose={toggleViewForm}
+        onEditSuccess={onFormSubmitSuccess}
         user={selectedUser}
       />
     </ContentBox>
