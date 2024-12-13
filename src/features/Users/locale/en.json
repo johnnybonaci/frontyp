@@ -1,7 +1,12 @@
 {
   "singular": "User",
+  "save": "Save",
+  "cancel": "Cancel",
   "listing": {
     "title": "Users"
+  },
+  "edition": {
+    "title": "User edition"
   },
   "fields": {
     "id": "ID",
@@ -25,8 +30,21 @@
     "roleName": "Role",
     "profilePhotoUrl": "Profile Photo URL"
   },
+  "form": {
+    "id": "ID",
+    "email": "Email",
+    "type": "Type",
+    "updatedAt": "Updated At",
+    "pubId": "Pub ID",
+    "userName": "Name",
+    "vendors": "Vendors",
+    "role": "Role",
+    "newPassword": "New Password",
+    "newPasswordConfirmation": "New Password Confirmation"
+  },
   "actions": {
-    "view": "View"
+    "view": "View",
+    "edit": "Edit"
   },
   "details": {
     "title": "User Details"

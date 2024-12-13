@@ -1,4 +1,4 @@
-import { useMemo, type FC } from 'react'
+import { useCallback, useMemo, useState, type FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import useFilters from 'src/hooks/useFilters'
 import UserFilters from '../components/UserFilters/index.ts'
@@ -9,16 +9,21 @@ import useFetchUserList from 'features/Users/hooks/useFetchUserList.tsx'
 import styles from './userList.module.scss'
 import UserTable from 'features/Users/components/UserTable'
 import { DEFAULT_FILTERS } from '../components/UserFilters/UserFilters.tsx'
-import { UserListFiltersFormValues } from '../types/index'
+import { UserItem, UserListFiltersFormValues } from '../types/index'
+import UsersEdition from '../components/UsersEdition/index.ts'
 
 const UserList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'User' })
+
+  const [selectedUser, setSelectedUser] = useState<UserItem>()
+  const [collapsedViewEdition, setCollapsedViewEdition] = useState(true)
+
   const { onCancel, onApply, filters, filtersToAPI } = useFilters<UserListFiltersFormValues>(
     DEFAULT_FILTERS,
     transformFiltersToApi
   )
 
-  const { userItems, sorter, setSorter, loading, paginator } = useFetchUserList({
+  const { userItems, sorter, setSorter, loading, paginator, refresh } = useFetchUserList({
     filters: filtersToAPI,
   })
 
@@ -70,6 +75,23 @@ const UserList: FC = () => {
     [t]
   )
 
+  const toggleViewEdition = useCallback(() => {
+    setCollapsedViewEdition(!collapsedViewEdition)
+  }, [setCollapsedViewEdition, collapsedViewEdition])
+
+  const handleOpenUserEdition = useCallback(
+    (user: UserItem) => {
+      setSelectedUser(user)
+      toggleViewEdition()
+    },
+    [toggleViewEdition, setSelectedUser]
+  )
+
+  const onEditSuccess = useCallback(() => {
+    refresh()
+    toggleViewEdition()
+  }, [refresh, toggleViewEdition])
+
   return (
     <ContentBox>
       <PrivateScreenTitle title={t('listing.title')} />
@@ -86,6 +108,7 @@ const UserList: FC = () => {
         rows={userItems}
         loading={loading}
         onSort={setSorter}
+        onClickEdit={handleOpenUserEdition}
         count={paginator.lastPage}
         page={paginator.page}
         sorter={sorter}
@@ -93,6 +116,12 @@ const UserList: FC = () => {
         displayResultsMessage={paginator.displayResultsMessage}
         perPage={paginator.perPage}
         onRowsPerPageChange={paginator.setPerPage}
+      />
+      <UsersEdition
+        open={!collapsedViewEdition}
+        onClose={toggleViewEdition}
+        onEditSuccess={onEditSuccess}
+        user={selectedUser}
       />
     </ContentBox>
   )
