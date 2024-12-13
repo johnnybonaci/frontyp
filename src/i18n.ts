@@ -14,6 +14,7 @@ import enSettingsJSON from 'src/features/Settings/locale/en.json'
 import enComplianceJSON from 'src/features/Compliance/locale/en.json'
 import enComplianceBotJSON from 'src/features/ComplianceBot/locale/en.json'
 import enCallCampaignJSON from 'src/features/CallCampaigns/locale/en.json'
+import enPhoneRoomLeadsJSON from 'src/features/PhoneRoomLeads/locale/en.json'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -49,6 +50,7 @@ i18n.addResourceBundle('en', 'features', {
   Compliance: enComplianceJSON,
   Settings: enSettingsJSON,
   CallCampaign: enCallCampaignJSON,
+  PhoneRoomLeads: enPhoneRoomLeadsJSON,
 })
 
 export default i18n
