@@ -16,6 +16,7 @@ const UserSchema = Yup.object({
   userName: Yup.string().required('validations:required'),
   email: Yup.string().email('validations:invalidEmail').required('validations:required'),
   newPassword: Yup.string()
+    .required('validations:required')
     .min(MIN_CHARS_FOR_PASSWORD, 'validations:validationMin')
     .strongPassword(),
   newPasswordConfirmation: Yup.string()

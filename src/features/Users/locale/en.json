@@ -8,6 +8,9 @@
   "edition": {
     "title": "User edition"
   },
+  "creation": {
+    "title": "User creation"
+  },
   "fields": {
     "id": "ID",
     "email": "Email",
@@ -44,7 +47,8 @@
   },
   "actions": {
     "view": "View",
-    "edit": "Edit"
+    "edit": "Edit",
+    "create": "Create"
   },
   "details": {
     "title": "User Details"
