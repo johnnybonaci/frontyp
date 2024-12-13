@@ -18,6 +18,7 @@ const ScreenContext = createContext<UseFetchDataResponse>({
   campaignOptions: [],
   subIdOptions: [],
   providersOptions: [],
+  rolesOptions: [],
   loading: false,
   error: null,
 })
