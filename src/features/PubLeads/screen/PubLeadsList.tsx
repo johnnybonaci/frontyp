@@ -120,6 +120,8 @@ const PubLeadsList: FC = () => {
             email={item.email ?? ''}
             typeOut={item.type ?? ''}
             vendor={item.pubListId ?? ''}
+            status={item.status ?? ''}
+            hasCalls={item.calls > 0}
           />
         ),
       },
