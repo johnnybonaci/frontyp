@@ -12,6 +12,7 @@ import {
 } from 'features/CPAReport/components/CPAReportFilters/CPAReportFilters.tsx'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
+import moment from 'moment'
 
 export const cpaReportItemFromApi = (item: CPAReportItemFromApi): CPAReportItem => {
   return {
@@ -56,8 +57,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     view_by: filters.viewBy?.id,
     leads_type: multipleSelectToApi(filters.leadsType),
     traffic1source1id: multipleSelectToApi(filters.trafficSource),
-    date_start: filters.startDate?.toISOString().slice(0, 10),
-    date_end: filters.endDate?.toISOString().slice(0, 10),
+    date_start: filters.startDate?.toLocaleDateString('sv'),
+    date_end: filters.endDate?.toLocaleDateString('sv'),
     subs_id: filters.subId?.id,
   }
 }
@@ -76,9 +77,11 @@ export const transformFiltersFromUrl = (
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     buyers: objectFromUrl(searchParams.get('buyers')),
     startDate: searchParams.get('date_start')
-      ? new Date(searchParams.get('date_start')!)
+      ? moment(searchParams.get('date_start')!).toDate()
       : startOfDay,
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
+    endDate: searchParams.get('date_end')
+      ? moment(searchParams.get('date_end')!).toDate()
+      : endOfDay,
   }
 }
 
@@ -109,10 +112,10 @@ export const transformFiltersToUrl = (filters: CPAReportListFiltersFormValues): 
     params.set('subId', JSON.stringify(filters.subId))
   }
   if (filters.startDate) {
-    params.set('date_start', filters.startDate.toISOString())
+    params.set('date_start', filters.startDate.toLocaleDateString('sv'))
   }
   if (filters.endDate) {
-    params.set('date_end', filters.endDate.toISOString())
+    params.set('date_end', filters.endDate.toLocaleDateString('sv'))
   }
 
   return params

@@ -13,6 +13,7 @@ import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { ALL_LEADS_OPTION } from 'hooks/useFetchData.tsx'
+import moment from 'moment'
 
 export const pubLeadsItemFromApi = (item: PubLeadsItemFromApi): PubLeadsItem => {
   return {
@@ -127,8 +128,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   }
 
   return {
-    date_start: filters.startDate?.toISOString().slice(0, 10),
-    date_end: filters.endDate?.toISOString().slice(0, 10),
+    date_start: filters.startDate?.toLocaleDateString('sv'),
+    date_end: filters.endDate?.toLocaleDateString('sv'),
     leads_type: filters.leadsType?.map((item: any) => item.id).join(','),
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
     subs_id: filters.subId?.id,
@@ -157,9 +158,11 @@ export const transformFiltersFromUrl = (
     campaign: objectFromUrl(searchParams.get('campaign'), null),
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     startDate: searchParams.get('date_start')
-      ? new Date(searchParams.get('date_start')!)
+      ? moment(searchParams.get('date_start')!).toDate()
       : startOfDay,
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
+    endDate: searchParams.get('date_end')
+      ? moment(searchParams.get('date_end')!).toDate()
+      : endOfDay,
     status: searchParams.get('status') ?? '',
     firstName: searchParams.get('firstName') ?? '',
     phone: searchParams.get('phone') ?? '',
@@ -187,10 +190,10 @@ export const transformFiltersToUrl = (filters: PubLeadsListFiltersFormValues): U
     params.set('trafficSource', JSON.stringify(filters.trafficSource))
   }
   if (filters.startDate) {
-    params.set('date_start', filters.startDate.toISOString())
+    params.set('date_start', filters.startDate.toLocaleDateString('sv'))
   }
   if (filters.endDate) {
-    params.set('date_end', filters.endDate.toISOString())
+    params.set('date_end', filters.endDate.toLocaleDateString('sv'))
   }
   if (filters.status) {
     params.set('status', filters.status)

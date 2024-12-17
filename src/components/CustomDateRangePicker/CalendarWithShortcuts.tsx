@@ -1,6 +1,5 @@
 import { Box, Chip, Stack } from '@mui/material'
 import { DateOption, DateRange } from './types'
-import moment from 'moment'
 
 interface CalendarWithShortCutsProps {
   children: React.ReactNode
@@ -10,7 +9,10 @@ interface CalendarWithShortCutsProps {
 }
 
 function isSameDateRange(dr1: DateRange, dr2: DateRange) {
-  return moment(dr1[0]).isSame(moment(dr2[0]), 'D') && moment(dr1[1]).isSame(moment(dr2[1]), 'D')
+  return (
+    dr1[0]?.toLocaleDateString('sv') === dr2[0]?.toLocaleDateString('sv') &&
+    dr1[1]?.toLocaleDateString('sv') === dr2[1]?.toLocaleDateString('sv')
+  )
 }
 
 export default function CalendarWithShortcuts({

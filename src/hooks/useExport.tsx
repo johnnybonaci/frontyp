@@ -33,7 +33,7 @@ const useExport = (
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = `${options.fileName}_${new Date().toISOString().slice(0, 10)}.xlsx`
+      a.download = `${options.fileName}_${new Date().toLocaleDateString('sv')}.xlsx`
       a.click()
       URL.revokeObjectURL(url)
       enqueueSnackbar(t('downloadSuccess'), {
