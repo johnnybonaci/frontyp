@@ -1,9 +1,11 @@
 import dayjs, { type Dayjs } from 'dayjs'
+import { DEFAULT_DATE_TIMEZONE } from 'utils/constants.ts'
 
 function dateFormat(
   date: string | Date | number | Dayjs | null | undefined,
-  toFormat = 'DD/MM/YYYY',
-  fromFormat?: string
+  toFormat = 'MM/DD/YYYY',
+  fromFormat?: string,
+  timeZone: string = DEFAULT_DATE_TIMEZONE
 ): string {
   if (!date) {
     return ''
@@ -12,7 +14,11 @@ function dateFormat(
   const dateValue: Dayjs = dayjs(date, fromFormat)
 
   if (dateValue.isValid() && dateValue.format(toFormat) !== 'Invalid date') {
-    return dateValue.format(toFormat)
+    const toLocalTimezone = new Date(dateValue.format(toFormat)).toLocaleString('en', {
+      timeZone,
+    })
+
+    return dayjs(toLocalTimezone).format(toFormat)
   }
 
   return ''

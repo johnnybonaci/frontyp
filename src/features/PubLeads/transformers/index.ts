@@ -13,7 +13,8 @@ import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { ALL_LEADS_OPTION } from 'hooks/useFetchData.tsx'
-import { dateNoTimezoneToString, stringDateNoTimezoneToDate } from 'utils/dateWithoutTimezone.ts'
+import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const pubLeadsItemFromApi = (item: PubLeadsItemFromApi): PubLeadsItem => {
   return {
@@ -149,7 +150,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): PubLeadsListFiltersFormValues => {
-  const { startOfDay, endOfDay } = getDayLimits()
+  const { startOfDay } = getDayLimits()
 
   return {
     pubIdYp: objectFromUrl(searchParams.get('pubIdYp')),
@@ -158,11 +159,9 @@ export const transformFiltersFromUrl = (
     campaign: objectFromUrl(searchParams.get('campaign'), null),
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     startDate: searchParams.get('date_start')
-      ? stringDateNoTimezoneToDate(searchParams.get('date_start')!)
+      ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
-    endDate: searchParams.get('date_end')
-      ? stringDateNoTimezoneToDate(searchParams.get('date_end')!)
-      : endOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     status: searchParams.get('status') ?? '',
     firstName: searchParams.get('firstName') ?? '',
     phone: searchParams.get('phone') ?? '',

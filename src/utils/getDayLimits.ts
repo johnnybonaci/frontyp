@@ -1,8 +1,8 @@
-import moment from 'moment'
+import currentDate from 'utils/currentDate.ts'
 
 export default function getDayLimits(): { startOfDay: Date; endOfDay: Date } {
   return {
-    startOfDay: moment().startOf('date').toDate(),
-    endOfDay: moment().startOf('date').toDate(),
+    startOfDay: currentDate(),
+    endOfDay: currentDate(),
   }
 }

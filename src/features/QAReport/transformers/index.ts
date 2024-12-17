@@ -9,7 +9,8 @@ import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { type QAReportListFiltersFormValues } from 'features/QAReport/components/QAReportFilters/QAReportFilters.tsx'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
-import { dateNoTimezoneToString, stringDateNoTimezoneToDate } from 'utils/dateWithoutTimezone.ts'
+import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const qaReportItemFromApi = (item: QAReportItemFromApi): QAReportItem => {
   return {
@@ -96,7 +97,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): QAReportListFiltersFormValues => {
-  const { startOfDay, endOfDay } = getDayLimits()
+  const { startOfDay } = getDayLimits()
 
   return {
     offers: objectFromUrl(searchParams.get('offers')),
@@ -106,11 +107,9 @@ export const transformFiltersFromUrl = (
     subId: objectFromUrl(searchParams.get('subId'), null),
     phone: searchParams.get('phone') ?? '',
     startDate: searchParams.get('date_start')
-      ? stringDateNoTimezoneToDate(searchParams.get('date_start')!)
+      ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
-    endDate: searchParams.get('date_end')
-      ? stringDateNoTimezoneToDate(searchParams.get('date_end')!)
-      : endOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     insurance: searchParams.get('insurance') ?? '',
     state: objectFromUrl(searchParams.get('state')),
     callIssues: searchParams.get('callIssues') ?? '',
