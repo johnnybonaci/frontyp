@@ -13,7 +13,7 @@ import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { ALL_LEADS_OPTION } from 'hooks/useFetchData.tsx'
-import moment from 'moment'
+import { dateNoTimezoneToString, stringDateNoTimezoneToDate } from 'utils/dateWithoutTimezone.ts'
 
 export const activeLeadsItemFromApi = (item: ActiveLeadsItemFromApi): ActiveLeadsItem => {
   return {
@@ -130,8 +130,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   }
 
   return {
-    date_start: filters.startDate?.toLocaleDateString('sv'),
-    date_end: filters.endDate?.toLocaleDateString('sv'),
+    date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
+    date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined,
     leads_sub1id5: multipleSelectToApi(filters.pubIdYp),
     leads_type: filters.leadsType?.map((item: any) => item.id).join(','),
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
@@ -159,11 +159,11 @@ export const transformFiltersFromUrl = (
     campaign: objectFromUrl(searchParams.get('campaign'), null),
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     startDate: searchParams.get('date_start')
-      ? moment(searchParams.get('date_start')!).toDate()
+      ? stringDateNoTimezoneToDate(searchParams.get('date_start')!)
       : startOfDay,
     pubIdYp: objectFromUrl(searchParams.get('pubIdYp')),
     endDate: searchParams.get('date_end')
-      ? moment(searchParams.get('date_end')!).toDate()
+      ? stringDateNoTimezoneToDate(searchParams.get('date_end')!)
       : endOfDay,
     status: searchParams.get('status') ?? '',
     firstName: searchParams.get('firstName') ?? '',
@@ -194,10 +194,10 @@ export const transformFiltersToUrl = (
     params.set('trafficSource', JSON.stringify(filters.trafficSource))
   }
   if (filters.startDate) {
-    params.set('date_start', filters.startDate.toLocaleDateString('sv'))
+    params.set('date_start', dateNoTimezoneToString(filters.startDate))
   }
   if (filters.endDate) {
-    params.set('date_end', filters.endDate.toLocaleDateString('sv'))
+    params.set('date_end', dateNoTimezoneToString(filters.endDate))
   }
   if (filters.status) {
     params.set('status', filters.status)

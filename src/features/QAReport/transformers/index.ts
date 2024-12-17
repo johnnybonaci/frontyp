@@ -9,7 +9,7 @@ import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { type QAReportListFiltersFormValues } from 'features/QAReport/components/QAReportFilters/QAReportFilters.tsx'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
-import moment from 'moment'
+import { dateNoTimezoneToString, stringDateNoTimezoneToDate } from 'utils/dateWithoutTimezone.ts'
 
 export const qaReportItemFromApi = (item: QAReportItemFromApi): QAReportItem => {
   return {
@@ -78,8 +78,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     traffic1source1id: multipleSelectToApi(filters.trafficSource),
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
     subs_id: filters.subId?.id,
-    date_start: filters.startDate?.toLocaleDateString('sv'),
-    date_end: filters.endDate?.toLocaleDateString('sv'),
+    date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
+    date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined,
     phone: filters.phone,
     filter: multipleSelectToApi(filter, (item) => {
       return { field: item.field, type: item.type, value: item.value }
@@ -106,10 +106,10 @@ export const transformFiltersFromUrl = (
     subId: objectFromUrl(searchParams.get('subId'), null),
     phone: searchParams.get('phone') ?? '',
     startDate: searchParams.get('date_start')
-      ? moment(searchParams.get('date_start')!).toDate()
+      ? stringDateNoTimezoneToDate(searchParams.get('date_start')!)
       : startOfDay,
     endDate: searchParams.get('date_end')
-      ? moment(searchParams.get('date_end')!).toDate()
+      ? stringDateNoTimezoneToDate(searchParams.get('date_end')!)
       : endOfDay,
     insurance: searchParams.get('insurance') ?? '',
     state: objectFromUrl(searchParams.get('state')),
@@ -142,10 +142,10 @@ export const transformFiltersToUrl = (filters: QAReportListFiltersFormValues): U
     params.set('subId', JSON.stringify(filters.subId))
   }
   if (filters.startDate) {
-    params.set('date_start', filters.startDate.toLocaleDateString('sv'))
+    params.set('date_start', dateNoTimezoneToString(filters.startDate))
   }
   if (filters.endDate) {
-    params.set('date_end', filters.endDate.toLocaleDateString('sv'))
+    params.set('date_end', dateNoTimezoneToString(filters.endDate))
   }
   if (filters.insurance) {
     params.set('insurance', filters.insurance)

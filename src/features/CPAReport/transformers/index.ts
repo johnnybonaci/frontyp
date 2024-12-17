@@ -12,7 +12,7 @@ import {
 } from 'features/CPAReport/components/CPAReportFilters/CPAReportFilters.tsx'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
-import moment from 'moment'
+import { dateNoTimezoneToString, stringDateNoTimezoneToDate } from 'utils/dateWithoutTimezone.ts'
 
 export const cpaReportItemFromApi = (item: CPAReportItemFromApi): CPAReportItem => {
   return {
@@ -57,8 +57,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     view_by: filters.viewBy?.id,
     leads_type: multipleSelectToApi(filters.leadsType),
     traffic1source1id: multipleSelectToApi(filters.trafficSource),
-    date_start: filters.startDate?.toLocaleDateString('sv'),
-    date_end: filters.endDate?.toLocaleDateString('sv'),
+    date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
+    date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined,
     subs_id: filters.subId?.id,
   }
 }
@@ -77,10 +77,10 @@ export const transformFiltersFromUrl = (
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     buyers: objectFromUrl(searchParams.get('buyers')),
     startDate: searchParams.get('date_start')
-      ? moment(searchParams.get('date_start')!).toDate()
+      ? stringDateNoTimezoneToDate(searchParams.get('date_start')!)
       : startOfDay,
     endDate: searchParams.get('date_end')
-      ? moment(searchParams.get('date_end')!).toDate()
+      ? stringDateNoTimezoneToDate(searchParams.get('date_end')!)
       : endOfDay,
   }
 }
@@ -112,10 +112,10 @@ export const transformFiltersToUrl = (filters: CPAReportListFiltersFormValues): 
     params.set('subId', JSON.stringify(filters.subId))
   }
   if (filters.startDate) {
-    params.set('date_start', filters.startDate.toLocaleDateString('sv'))
+    params.set('date_start', dateNoTimezoneToString(filters.startDate))
   }
   if (filters.endDate) {
-    params.set('date_end', filters.endDate.toLocaleDateString('sv'))
+    params.set('date_end', dateNoTimezoneToString(filters.endDate))
   }
 
   return params
