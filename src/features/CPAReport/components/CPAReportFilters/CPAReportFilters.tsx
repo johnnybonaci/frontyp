@@ -8,6 +8,7 @@ import CustomAutocomplete, {
 } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import useData from 'hooks/useData.tsx'
+import currentDate from 'utils/currentDate.ts'
 
 export interface CPAReportListFiltersFormValues {
   pubId: Option[]
@@ -40,8 +41,8 @@ export const DEFAULT_FILTERS: CPAReportListFiltersFormValues = {
   trafficSource: [],
   buyers: [],
   leadsType: [],
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: currentDate(),
+  endDate: currentDate(),
   viewBy: VIEW_BY_OPTIONS[1],
 }
 

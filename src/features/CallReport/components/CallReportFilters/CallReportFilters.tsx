@@ -11,6 +11,7 @@ import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import useData from 'hooks/useData.tsx'
+import currentDate from 'utils/currentDate.ts'
 
 export interface CallReportListFiltersFormValues {
   offers: Option[]
@@ -51,8 +52,8 @@ export const DEFAULT_FILTERS = {
   issueType: [],
   pubIdYp: [],
   callIssues: '',
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: currentDate(),
+  endDate: currentDate(),
   status: '',
   insurance: '',
   phone: '',

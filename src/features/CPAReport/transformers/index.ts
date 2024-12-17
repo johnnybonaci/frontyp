@@ -12,6 +12,8 @@ import {
 } from 'features/CPAReport/components/CPAReportFilters/CPAReportFilters.tsx'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
+import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const cpaReportItemFromApi = (item: CPAReportItemFromApi): CPAReportItem => {
   return {
@@ -56,8 +58,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     view_by: filters.viewBy?.id,
     leads_type: multipleSelectToApi(filters.leadsType),
     traffic1source1id: multipleSelectToApi(filters.trafficSource),
-    date_start: filters.startDate?.toISOString().slice(0, 10),
-    date_end: filters.endDate?.toISOString().slice(0, 10),
+    date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
+    date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined,
     subs_id: filters.subId?.id,
   }
 }
@@ -65,7 +67,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): CPAReportListFiltersFormValues => {
-  const { startOfDay, endOfDay } = getDayLimits()
+  const { startOfDay } = getDayLimits()
 
   return {
     pubId: objectFromUrl(searchParams.get('pubId')),
@@ -76,9 +78,9 @@ export const transformFiltersFromUrl = (
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     buyers: objectFromUrl(searchParams.get('buyers')),
     startDate: searchParams.get('date_start')
-      ? new Date(searchParams.get('date_start')!)
+      ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
   }
 }
 
@@ -109,10 +111,10 @@ export const transformFiltersToUrl = (filters: CPAReportListFiltersFormValues): 
     params.set('subId', JSON.stringify(filters.subId))
   }
   if (filters.startDate) {
-    params.set('date_start', filters.startDate.toISOString())
+    params.set('date_start', dateNoTimezoneToString(filters.startDate))
   }
   if (filters.endDate) {
-    params.set('date_end', filters.endDate.toISOString())
+    params.set('date_end', dateNoTimezoneToString(filters.endDate))
   }
 
   return params

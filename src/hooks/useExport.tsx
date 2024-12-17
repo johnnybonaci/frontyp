@@ -2,6 +2,7 @@ import useFetch, { type RequestError } from './useFetch'
 import { useTranslation } from 'react-i18next'
 import { useEffect } from 'react'
 import { enqueueSnackbar } from 'notistack'
+import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone'
 
 type DownloadFilters = Record<string, any>
 
@@ -33,7 +34,7 @@ const useExport = (
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = `${options.fileName}_${new Date().toISOString().slice(0, 10)}.xlsx`
+      a.download = `${options.fileName}_${dateNoTimezoneToString(new Date())}.xlsx`
       a.click()
       URL.revokeObjectURL(url)
       enqueueSnackbar(t('downloadSuccess'), {

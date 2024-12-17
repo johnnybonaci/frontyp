@@ -1,6 +1,6 @@
 import { Box, Chip, Stack } from '@mui/material'
 import { DateOption, DateRange } from './types'
-import moment from 'moment'
+import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone'
 
 interface CalendarWithShortCutsProps {
   children: React.ReactNode
@@ -10,7 +10,14 @@ interface CalendarWithShortCutsProps {
 }
 
 function isSameDateRange(dr1: DateRange, dr2: DateRange) {
-  return moment(dr1[0]).isSame(moment(dr2[0]), 'D') && moment(dr1[1]).isSame(moment(dr2[1]), 'D')
+  return (
+    dr1[0] &&
+    dr2[0] &&
+    dateNoTimezoneToString(dr1[0]) === dateNoTimezoneToString(dr2[0]) &&
+    dr1[1] &&
+    dr2[1] &&
+    dateNoTimezoneToString(dr1[1]) === dateNoTimezoneToString(dr2[1])
+  )
 }
 
 export default function CalendarWithShortcuts({

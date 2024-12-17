@@ -13,6 +13,8 @@ import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { ALL_LEADS_OPTION } from 'hooks/useFetchData.tsx'
+import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const activeLeadsItemFromApi = (item: ActiveLeadsItemFromApi): ActiveLeadsItem => {
   return {
@@ -129,8 +131,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   }
 
   return {
-    date_start: filters.startDate?.toISOString().slice(0, 10),
-    date_end: filters.endDate?.toISOString().slice(0, 10),
+    date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
+    date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined,
     leads_sub1id5: multipleSelectToApi(filters.pubIdYp),
     leads_type: filters.leadsType?.map((item: any) => item.id).join(','),
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
@@ -150,7 +152,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): ActiveLeadsListFiltersFormValues => {
-  const { startOfDay, endOfDay } = getDayLimits()
+  const { startOfDay } = getDayLimits()
 
   return {
     leadsType: objectFromUrl(searchParams.get('leadsType')),
@@ -158,10 +160,10 @@ export const transformFiltersFromUrl = (
     campaign: objectFromUrl(searchParams.get('campaign'), null),
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     startDate: searchParams.get('date_start')
-      ? new Date(searchParams.get('date_start')!)
+      ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     pubIdYp: objectFromUrl(searchParams.get('pubIdYp')),
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
     status: searchParams.get('status') ?? '',
     firstName: searchParams.get('firstName') ?? '',
     phone: searchParams.get('phone') ?? '',
@@ -191,10 +193,10 @@ export const transformFiltersToUrl = (
     params.set('trafficSource', JSON.stringify(filters.trafficSource))
   }
   if (filters.startDate) {
-    params.set('date_start', filters.startDate.toISOString())
+    params.set('date_start', dateNoTimezoneToString(filters.startDate))
   }
   if (filters.endDate) {
-    params.set('date_end', filters.endDate.toISOString())
+    params.set('date_end', dateNoTimezoneToString(filters.endDate))
   }
   if (filters.status) {
     params.set('status', filters.status)

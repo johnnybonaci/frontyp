@@ -18,6 +18,8 @@ import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.ts
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { capitalize } from 'lodash'
+import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
+import dateFromUrl from "utils/dateFromUrl.ts";
 
 export const statusTFromApi = (status: StatusTValue): StatusT => {
   return {
@@ -204,8 +206,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     leads_sub1id5: multipleSelectToApi(filters.pubIdYp),
     select_states: multipleSelectToApi(filters.state),
     convertions_traffic1source1id: filters.trafficSource,
-    date_start: filters.startDate?.toISOString().slice(0, 10),
-    date_end: filters.endDate?.toISOString().slice(0, 10),
+    date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
+    date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined,
     ...status,
     convertions_phone1id: '',
     phone: '',
@@ -224,7 +226,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): CallReportListFiltersFormValues => {
-  const { startOfDay, endOfDay } = getDayLimits()
+  const { startOfDay } = getDayLimits()
 
   const parseOptions = (param: string | null): Option[] => {
     if (!param) return []
@@ -246,9 +248,9 @@ export const transformFiltersFromUrl = (
     issueType: parseOptions(searchParams.get('issueType')),
     callIssues: searchParams.get('callIssues') ?? '',
     startDate: searchParams.get('date_start')
-      ? new Date(searchParams.get('date_start')!)
+      ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     status: searchParams.get('status') ?? '',
     insurance: searchParams.get('insurance') ?? '',
     phone: searchParams.get('phone') ?? '',
@@ -292,10 +294,10 @@ export const transformFiltersToUrl = (
     params.set('trafficSource', filters.trafficSource)
   }
   if (filters.startDate) {
-    params.set('date_start', filters.startDate.toISOString())
+    params.set('date_start', dateNoTimezoneToString(filters.startDate))
   }
   if (filters.endDate) {
-    params.set('date_end', filters.endDate.toISOString())
+    params.set('date_end', dateNoTimezoneToString(filters.endDate))
   }
   if (filters.status) {
     params.set('status', filters.status)
