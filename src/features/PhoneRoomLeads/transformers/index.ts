@@ -76,8 +76,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     date_end: filters.endDate?.toISOString().slice(0, 10),
     leads_type: filters.leadsType?.id,
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
-    subs_id: filters.subId?.id,
-    campaign1name1id: filters.campaign?.id,
+    subs_id: filters.subId?.value,
+    campaign1name1id: filters.campaign?.value,
     phone1room1logs_status: filters.status === ALL_PHONE_ROOM_LEAD_OPTION ? null : filters.status,
     filter: multipleSelectToApi(filter, (item) => {
       return { field: item.field, type: item.type, value: item.value }
