@@ -6,7 +6,7 @@ import DrawerHeader from 'components/DrawerHeader'
 import { type UserForm, type UserItem } from 'features/Users/types'
 import { useFormik } from 'formik'
 import UsersSchema, { EMPTY_USER } from 'features/Users/schema/UserSchema'
-import { useUsersEdition } from 'features/Users/hooks/useUsersEdition'
+import { useUserForm } from 'features/Users/hooks/useUserForm'
 import { userToForm } from 'features/Users/transformers'
 import _ from 'lodash'
 import CustomAutocomplete from 'components/CustomAutocomplete/CustomAutocomplete'
@@ -21,7 +21,7 @@ interface UsersEditionProps {
 
 function UsersForm({ open, onClose, onEditSuccess, user }: UsersEditionProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'User' })
-  const { onSubmit } = useUsersEdition(user?.id)
+  const { onSubmit } = useUserForm(user?.id)
   const { leadTypeOptions, pubIdOptions, rolesOptions } = useData()
 
   const {

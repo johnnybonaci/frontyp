@@ -12,17 +12,24 @@ export interface UseUsersEditionReturn {
   error: RequestError | null
 }
 
-export const useUsersEdition = (users?: number): UseUsersEditionReturn => {
+export const useUserForm = (userId?: number): UseUsersEditionReturn => {
   const { t } = useTranslation('features', { keyPrefix: 'Settings.users' })
   const { doFetch, response, error, loading } = useFetch()
 
   const onSubmit = async (data: UserForm): Promise<void> => {
-    if (users)
+    if (userId) {
       return doFetch({
-        url: `${config.api.baseUrl}/api/v1/user/update/${users}`,
+        url: `${config.api.baseUrl}/api/v1/users/${userId}`,
+        data: userEditedToAPI(data),
+        method: 'PUT',
+      })
+    } else {
+      return doFetch({
+        url: `${config.api.baseUrl}/api/v1/users`,
         data: userEditedToAPI(data),
         method: 'POST',
       })
+    }
   }
 
   useEffect(() => {
