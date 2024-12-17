@@ -1,51 +1,71 @@
 import moment from 'moment'
-import { DateOption } from './types'
+import { type DateOption } from './types'
+import dateFromUrl from 'utils/dateFromUrl.ts'
+import { DEFAULT_DATE_TIMEZONE } from 'utils/constants.ts'
 
 export const DATE_OPTIONS: DateOption[] = [
   {
     text: 'Today',
     key: 'today',
-    value: [moment().startOf('date').toDate(), moment().endOf('date').toDate()],
+    value: [
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).startOf('date').format()),
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).endOf('date').format()),
+    ],
   },
   {
     text: 'Yesterday',
     key: 'yesterday',
     value: [
-      moment().subtract(1, 'days').startOf('date').toDate(),
-      moment().subtract(1, 'days').endOf('date').toDate(),
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'days').startOf('date').format()),
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'days').endOf('date').format()),
     ],
   },
   {
     text: 'Today & Yesterday',
     key: 'today_and_yesterday',
-    value: [moment().subtract(1, 'days').toDate(), moment().toDate()],
+    value: [
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'days').format()),
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).format()),
+    ],
   },
   {
     text: 'Last 3 days',
     key: 'last_3_days',
-    value: [moment().subtract(3, 'days').toDate(), moment().toDate()],
+    value: [
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(3, 'days').format()),
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).format()),
+    ],
   },
   {
     text: 'Last 7 days',
     key: 'last_7_days',
-    value: [moment().subtract(7, 'days').toDate(), moment().toDate()],
+    value: [
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(7, 'days').format()),
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).format()),
+    ],
   },
   {
     text: 'Last 30 days',
     key: 'last_30_days',
-    value: [moment().subtract(30, 'days').toDate(), moment().toDate()],
+    value: [
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(30, 'days').format()),
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).format()),
+    ],
   },
   {
     text: 'This month',
     key: 'this_month',
-    value: [moment().startOf('month').toDate(), moment().endOf('month').toDate()],
+    value: [
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).startOf('month').format()),
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).endOf('month').format()),
+    ],
   },
   {
     text: 'Last month',
     key: 'last_month',
     value: [
-      moment().subtract(1, 'month').startOf('month').toDate(),
-      moment().subtract(1, 'month').endOf('month').toDate(),
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'month').startOf('month').format()),
+      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'month').endOf('month').format()),
     ],
   },
 ]

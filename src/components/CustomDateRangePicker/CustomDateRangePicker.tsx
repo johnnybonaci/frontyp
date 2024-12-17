@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import DateRangePicker from 'react-datepicker'
 import { TextField, FormControl, FormHelperText, FormLabel } from '@mui/material'
 import CalendarWithShortcuts from './CalendarWithShortcuts'
@@ -33,9 +33,9 @@ const CustomDateRangePicker: React.FC<DateRangePickerProps> = ({
     setEndDate(e[1])
   }
 
-  const updateValues = () => {
-    onChange([startDate, endDate])
-  }
+  useEffect(() => {
+    if (endDate) onChange([startDate, endDate])
+  }, [startDate, endDate])
 
   const onClickShorcuts = (shorcutRange: DateRange) => {
     changeSelectedValues(shorcutRange)
@@ -50,7 +50,6 @@ const CustomDateRangePicker: React.FC<DateRangePickerProps> = ({
         endDate={endDate}
         selectsRange
         onChange={changeSelectedValues}
-        onCalendarClose={updateValues}
         customInput={<TextField />}
         monthsShown={2}
         popperPlacement="top-end"

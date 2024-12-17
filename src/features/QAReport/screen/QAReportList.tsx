@@ -19,7 +19,7 @@ import config from '../../../config.tsx'
 import RefreshButton from 'components/RefreshButton'
 import useFetchQAReportList from 'features/QAReport/hooks/useFetchQAReportList.tsx'
 import styles from './qaReportList.module.scss'
-import QAReportTable from 'features/QAReport/components/CPAReportTable'
+import QAReportTable from 'src/features/QAReport/components/QAReportTable'
 import { type QAReportItem } from 'features/QAReport/types'
 import dateFormat from 'utils/dateFormat.ts'
 import {

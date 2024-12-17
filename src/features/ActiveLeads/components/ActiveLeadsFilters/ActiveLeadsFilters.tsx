@@ -12,6 +12,7 @@ import Select from 'components/Select'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import useData from 'hooks/useData.tsx'
 import { LEAD_STATUS_OPTIONS } from 'hooks/useFetchData.tsx'
+import currentDate from 'utils/currentDate.ts'
 
 export interface ActiveLeadsListFiltersFormValues {
   pubId: Option[]
@@ -41,8 +42,8 @@ export const DEFAULT_FILTERS = {
   trafficSource: [],
   pubIdYp: [],
   leadsType: [],
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: currentDate(),
+  endDate: currentDate(),
   status: '',
   phone: '',
   firstName: '',

@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
-import PhoneIcon from '@mui/icons-material/Phone'
+import PhoneDisabledIcon from '@mui/icons-material/PhoneDisabled'
+import PhoneForwardedIcon from '@mui/icons-material/PhoneForwarded'
 import { type FC } from 'react'
 import { CALL_REPORT_PATHS } from 'features/CallReport/routes.tsx'
 
@@ -10,9 +11,20 @@ interface PhoneLinkProps {
   email: string
   typeOut: string
   vendor: string | number
+  status?: string
+  hasCalls?: boolean
 }
 
-const PhoneLink: FC<PhoneLinkProps> = ({ phone, account, name, email, typeOut, vendor }) => {
+const PhoneLink: FC<PhoneLinkProps> = ({
+  phone,
+  account,
+  name,
+  email,
+  typeOut,
+  vendor,
+  status,
+  hasCalls,
+}) => {
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const date_start = queryParams.get('date_start') || ''
@@ -29,18 +41,40 @@ const PhoneLink: FC<PhoneLinkProps> = ({ phone, account, name, email, typeOut, v
     vendor: vendor.toString(),
   }).toString()
 
+  let IconComponent = PhoneDisabledIcon
+  let iconStyle = { color: '#9CA3AF' }
+
+  if (hasCalls) {
+    switch (status) {
+      case 'Billable':
+        IconComponent = PhoneForwardedIcon
+        iconStyle = { color: '#16A34A' }
+        break
+      case 'Contact':
+        IconComponent = PhoneForwardedIcon
+        iconStyle = { color: '#F59E0B' }
+        break
+      default:
+        IconComponent = PhoneForwardedIcon
+        iconStyle = { color: '#2563EB' }
+        break
+    }
+  }
+
   return (
     <Link
-      to={`${CALL_REPORT_PATHS.LIST}?${newQueryParams}`}
+      // @ts-ignore
+      to={hasCalls ? `${CALL_REPORT_PATHS.LIST}?${newQueryParams}` : undefined}
       style={{
         textDecoration: 'none',
-        color: 'inherit',
+        color: hasCalls ? iconStyle.color : '#9CA3AF',
         fontWeight: 'bold',
         display: 'flex',
         alignItems: 'center',
+        pointerEvents: hasCalls ? 'auto' : 'none',
       }}
     >
-      <PhoneIcon fontSize="small" />
+      <IconComponent fontSize="small" style={iconStyle} />
       <span style={{ marginLeft: 6 }}>{phone}</span>
     </Link>
   )

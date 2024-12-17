@@ -11,6 +11,7 @@ import { TextField } from '@mui/material'
 import useData from 'hooks/useData.tsx'
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
+import currentDate from 'utils/currentDate.ts'
 
 export interface QAReportListFiltersFormValues {
   pubId: Option[]
@@ -48,8 +49,8 @@ export const DEFAULT_FILTERS: QAReportListFiltersFormValues = {
   insurance: '',
   state: [],
   status: '',
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: currentDate(),
+  endDate: currentDate(),
   phone: '',
 }
 
