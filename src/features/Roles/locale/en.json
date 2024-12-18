@@ -1,0 +1,56 @@
+{
+  "singular": "Role",
+  "save": "Save",
+  "cancel": "Cancel",
+  "listing": {
+    "title": "Roles"
+  },
+  "edition": {
+    "title": "Role edition"
+  },
+  "creation": {
+    "title": "Role creation"
+  },
+  "fields": {
+    "id": "ID",
+    "email": "Email",
+    "type": "Type",
+    "updatedAt": "Updated At",
+    "pubId": "Pub ID",
+    "roleName": "Name",
+    "vendors": "Vendors",
+    "roleName": "Role",
+    "profilePhotoUrl": "Profile Photo URL"
+  },
+  "filters": {
+    "id": "ID",
+    "email": "Email",
+    "type": "Type",
+    "updatedAt": "Updated At",
+    "pubId": "Pub ID",
+    "roleName": "Name",
+    "vendors": "Vendors",
+    "roleName": "Role",
+    "profilePhotoUrl": "Profile Photo URL"
+  },
+  "form": {
+    "id": "ID",
+    "email": "Email",
+    "type": "Type",
+    "updatedAt": "Updated At",
+    "pubId": "Pub ID",
+    "roleName": "Name",
+    "vendors": "Vendors",
+    "role": "Role",
+    "newPassword": "New Password",
+    "newPasswordConfirmation": "New Password Confirmation"
+  },
+  "actions": {
+    "view": "View",
+    "edit": "Edit",
+    "create": "Create"
+  },
+  "details": {
+    "title": "Role Details"
+  }
+}
