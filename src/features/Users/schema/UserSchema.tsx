@@ -7,12 +7,12 @@ export const EMPTY_USER: UserForm = {
   email: '',
   newPassword: '',
   newPasswordConfirmation: '',
-  type: { id: '', title: '' },
-  pubId: { id: '', title: '' },
-  role: { id: '', title: '' },
+  type: null,
+  pubId: null,
+  role: null,
 }
 
-const UserSchema = Yup.object({
+export const UserCreationSchema = Yup.object({
   userName: Yup.string().required('validations:required'),
   email: Yup.string().email('validations:invalidEmail').required('validations:required'),
   newPassword: Yup.string()
@@ -27,4 +27,17 @@ const UserSchema = Yup.object({
   role: Yup.object().required('validations:required'),
 })
 
-export default UserSchema
+export const UserEditionSchema = Yup.object({
+  userName: Yup.string().required('validations:required'),
+  email: Yup.string().email('validations:invalidEmail').required('validations:required'),
+  newPassword: Yup.string()
+    .min(MIN_CHARS_FOR_PASSWORD, 'validations:validationMin')
+    .strongPassword(),
+  newPasswordConfirmation: Yup.string().oneOf(
+    [Yup.ref('newPassword'), ''],
+    'validations:passwordConfirmationMatch'
+  ),
+  type: Yup.object().required('validations:required'),
+  pubId: Yup.object().required('validations:required'),
+  role: Yup.object().required('validations:required'),
+})

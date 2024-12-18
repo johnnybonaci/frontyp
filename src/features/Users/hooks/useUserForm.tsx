@@ -17,19 +17,11 @@ export const useUserForm = (userId?: number): UseUsersEditionReturn => {
   const { doFetch, response, error, loading } = useFetch()
 
   const onSubmit = async (data: UserForm): Promise<void> => {
-    if (userId) {
-      return doFetch({
-        url: `${config.api.baseUrl}/api/v1/users/${userId}`,
-        data: userEditedToAPI(data),
-        method: 'PUT',
-      })
-    } else {
-      return doFetch({
-        url: `${config.api.baseUrl}/api/v1/users`,
-        data: userEditedToAPI(data),
-        method: 'POST',
-      })
-    }
+    return doFetch({
+      url: `${config.api.baseUrl}/api/v1/users/${userId || ''}`,
+      data: userEditedToAPI(data),
+      method: userId ? 'PUT' : 'POST',
+    })
   }
 
   useEffect(() => {

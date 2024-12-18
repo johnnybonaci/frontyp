@@ -28,9 +28,9 @@ export interface UserForm
   extends Omit<UserItem, 'id' | 'profilePhotoUrl' | 'updatedAt' | 'vendors' | 'roleName'> {
   newPassword?: string
   newPasswordConfirmation?: string
-  type: Option
-  pubId: Option
-  role: Option
+  type: Option | null
+  pubId: Option | null
+  role: Option | null
 }
 
 export interface UserListFiltersFormValues {
@@ -42,8 +42,12 @@ export interface UserListFiltersFormValues {
   roleName?: string | null
 }
 
-export interface UserToAPI
-  extends Omit<UserItemFromApi, 'id' | 'profile_photo_url' | 'vendors' | 'updated_at'> {
-  new_password?: string
-  new_password_confirmation?: string
+export interface UserToAPI {
+  name: string
+  email: string
+  password?: string
+  password_confirmation?: string
+  type_selected?: string
+  pub_id_selected?: string
+  role_selected?: string
 }
