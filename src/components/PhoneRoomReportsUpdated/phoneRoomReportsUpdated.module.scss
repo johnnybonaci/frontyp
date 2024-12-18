@@ -1,0 +1,31 @@
+.cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 6px;
+  padding: 0px 8px;
+  font-weight: 500;
+
+  &.updated {
+    background-color: #bbf7d0; // bg-green-200
+    color: #15803d; // text-green-700
+  }
+
+  &.notUpdated {
+    background-color: transparent; // bg-gray-200
+    color: #4b5563; // text-gray-700
+  }
+}
+
+.icon {
+  width: 6px;
+  height: 6px;
+
+  &.updatedIcon {
+    fill: #22c55e; // fill-green-500
+  }
+
+  &.notUpdatedIcon {
+    fill: #9ca3af; // fill-gray-500
+  }
+}

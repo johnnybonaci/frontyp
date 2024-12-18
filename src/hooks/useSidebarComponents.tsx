@@ -30,8 +30,9 @@ import { CPC_REPORT_PATHS } from 'features/CPCReport/routes.tsx'
 import { COMPLIANCE_PATHS } from 'features/Compliance/routes.tsx'
 import useData from 'hooks/useData.tsx'
 import { COMPLIANCE_BOT_PATHS } from 'features/ComplianceBot/routes.tsx'
-import { PHONE_ROOM_PERFORMANCE_PATHS } from "features/PhoneRoomPerformance/routes.tsx";
+import { PHONE_ROOM_PERFORMANCE_PATHS } from 'features/PhoneRoomPerformance/routes.tsx'
 import { PHONE_ROOM_LEADS_PATHS } from 'features/PhoneRoomLeads/routes.tsx'
+import { PHONE_ROOM_REPORTS_PATHS } from 'features/PhoneRoomReports/routes.tsx'
 
 export interface UseSidebarComponentsResult {
   components: SidebarComponents
@@ -61,8 +62,8 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
                 label: t('menu:phoneRoomPerformance'),
               },
               {
-                to: 'leads/reports-phone-room',
-                redirectOutside: true,
+                to: PHONE_ROOM_REPORTS_PATHS.LIST,
+                redirectOutside: false,
                 icon: InsertChartOutlined,
                 label: t('menu:phoneRoomReports'),
               },

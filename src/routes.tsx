@@ -25,6 +25,7 @@ import { type TrackDriveProviderIdType } from 'hooks/useFetchData.tsx'
 import CallCampaignRoutes from 'features/CallCampaigns/routes'
 import PhoneRoomPerformanceRoutes from 'features/PhoneRoomPerformance/routes.tsx'
 import PhoneRoomLeadsRoutes from 'features/PhoneRoomLeads/routes.tsx'
+import PhoneRoomReportsRoutes from 'features/PhoneRoomReports/routes.tsx'
 import UserRoutes from 'features/Users/routes'
 
 interface Route {
@@ -72,6 +73,7 @@ const MainRoutes = {
     ...CallCampaignRoutes,
     ...PhoneRoomPerformanceRoutes,
     ...PhoneRoomLeadsRoutes,
+    ...PhoneRoomReportsRoutes,
     ...UserRoutes,
   ],
 }
