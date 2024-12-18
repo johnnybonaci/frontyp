@@ -1,0 +1,24 @@
+{
+  "singular": "Phone Room Performance",
+  "listing": {
+    "title": "Phone Room Performance"
+  },
+  "fields": {
+    "pubId": "Pub ID",
+    "subId": "Sub ID",
+    "recordCount": "Record Count",
+    "totalDials": "Total Dials",
+    "avgDials": "Avg Dials/Record",
+    "contactRate": "Contact Rate",
+    "transferRate": "Transfer Rate",
+    "costRecord": "Cost/Record",
+    "revRecord": "Rev/Record",
+    "profitRecord": "Avg Profit/Record"
+  },
+  "filters": {
+    "subId": "Sub ID",
+    "pubId": "Pub ID",
+    "leadsType": "Type",
+    "selectOrAdd": "Select or Add"
+  }
+}

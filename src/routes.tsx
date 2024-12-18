@@ -23,6 +23,7 @@ import ComplianceBotRoutes from 'features/ComplianceBot/routes.tsx'
 import BusinessRouteMiddleware from 'components/BusinessRouteMiddleware'
 import { type TrackDriveProviderIdType } from 'hooks/useFetchData.tsx'
 import CallCampaignRoutes from 'features/CallCampaigns/routes'
+import PhoneRoomPerformanceRoutes from 'features/PhoneRoomPerformance/routes.tsx'
 import PhoneRoomLeadsRoutes from 'features/PhoneRoomLeads/routes.tsx'
 
 interface Route {
@@ -68,6 +69,7 @@ const MainRoutes = {
     ...ComplianceBotRoutes,
     ...CPCReportRoutes,
     ...CallCampaignRoutes,
+    ...PhoneRoomPerformanceRoutes,
     ...PhoneRoomLeadsRoutes,
   ],
 }
