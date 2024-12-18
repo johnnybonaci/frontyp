@@ -23,6 +23,7 @@ export interface UseFetchDataResponse {
   subIdOptions: Option[]
   TRACKDRIVE_PROVIDER_ID: TrackDriveProviderIdType
   providersOptions: Option[]
+  rolesOptions: Option[]
   loading: boolean
   error: RequestError
 }
@@ -60,6 +61,7 @@ const useFetchData = (): UseFetchDataResponse => {
   const [subIdOptions, setSubIdOptions] = useState<Option[]>([])
   const [providersOptions, setProvidersOptions] = useState<Option[]>([])
   const [error] = useState<RequestError>(null)
+  const [rolesOptions, setRolesOptions] = useState<Option[]>([])
 
   const { doFetch, response, loading } = useFetch(`${config.api.baseUrl}/api/data`)
 
@@ -153,6 +155,12 @@ const useFetchData = (): UseFetchDataResponse => {
       }))
     )
     setTRACKDRIVE_PROVIDER_ID(data?.provider_id ?? '2')
+    setRolesOptions(
+      data.roles.map((role: string) => ({
+        id: role,
+        title: role,
+      }))
+    )
   }, [
     response,
     setBuyerOptions,
@@ -193,6 +201,7 @@ const useFetchData = (): UseFetchDataResponse => {
     providersOptions,
     loading,
     error,
+    rolesOptions,
   }
 }
 

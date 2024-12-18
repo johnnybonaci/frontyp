@@ -1,0 +1,32 @@
+@import "src/styles/mixins.module.scss";
+
+.kpis {
+  @include kpis()
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.buttonContainer {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.selectedChildren {
+  display: flex;
+  flex-direction: column;
+  min-width: 700px;
+  gap: 10px;
+  border-radius: 10px;
+  padding: 15px;
+  overflow-y: auto;
+
+  > :not(:last-child) {
+    border-bottom: 1px solid var(--lighter-text-color);
+  }
+}

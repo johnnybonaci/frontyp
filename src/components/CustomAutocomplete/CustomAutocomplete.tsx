@@ -11,6 +11,7 @@ interface MultipleAutocompleteProps {
   value: Option[] | Option
   onChange: (event: any, newValue: Array<string | Option>) => void
   onBlur?: (e: any) => void
+  error?: boolean
   label: string
   creatable?: boolean
   resourceName?: string
@@ -26,6 +27,7 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   value,
   onChange,
   onBlur,
+  error = false,
   multiple = true,
   creatable = true,
   label,
@@ -92,6 +94,7 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
           {...params}
           onBlur={onBlur}
           label={label}
+          error={error}
           placeholder={placeholder}
           helperText={helperText}
         />

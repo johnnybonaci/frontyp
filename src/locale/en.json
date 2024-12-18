@@ -69,7 +69,14 @@
     "file-invalid-type": "The selected file type is not allowed.",
     "fileTypeMustBeCsv": "The selected file type is not allowed. It must be a .csv file.",
     "invalidDate": "Please enter a valid date.",
-    "invalidHour": "Please enter a valid time."
+    "invalidEmail": "Please enter a valid email.",
+    "invalidHour": "Please enter a valid time.",
+    "passwordConfirmationMatch": "Passwords must match.",
+    "validationMin": "Password must be at least 8 characters long",
+    "passwordWithNoLowercase": "Password must have at least one lowercase letter",
+    "passwordWithNoUppercase": "Password must have at least one uppercase letter",
+    "passwordWithNoDigit": "Password must have at least one digit",
+    "passwordWithNoSpecialChar": "Password must have at least one special character"
   },
   "export": "Export",
   "fields": {
