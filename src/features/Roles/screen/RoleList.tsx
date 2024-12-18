@@ -16,7 +16,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import dateFormat from 'utils/dateFormat.ts'
 
 const RoleList: FC = () => {
-  const { t } = useTranslation('features', { keyPrefix: 'Role' })
+  const { t, i18n } = useTranslation('features', { keyPrefix: 'Role' })
 
   const [selectedRole, setSelectedRole] = useState<RoleItem>()
   const [collapsedViewForm, setCollapsedViewForm] = useState(true)
@@ -42,7 +42,7 @@ const RoleList: FC = () => {
         header: t('fields.permissions'),
         fieldName: 'permissionList',
         sortable: false,
-        dataModifier: (roleItem: RoleItem) => roleItem.permissions.join(','),
+        dataModifier: (roleItem: RoleItem) => i18n.t('_toList', { val: roleItem.permissions }),
       },
       {
         header: t('fields.createdAt'),
