@@ -13,37 +13,29 @@
   },
   "fields": {
     "id": "ID",
-    "email": "Email",
-    "type": "Type",
-    "updatedAt": "Updated At",
-    "pubId": "Pub ID",
-    "roleName": "Name",
-    "vendors": "Vendors",
-    "roleName": "Role",
-    "profilePhotoUrl": "Profile Photo URL"
+    "name": "Name",
+    "permissions": "Permissions",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
   },
   "filters": {
     "id": "ID",
-    "email": "Email",
-    "type": "Type",
-    "updatedAt": "Updated At",
-    "pubId": "Pub ID",
-    "roleName": "Name",
-    "vendors": "Vendors",
-    "roleName": "Role",
-    "profilePhotoUrl": "Profile Photo URL"
+    "name": "Name",
+    "permissions": "Permissions",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
   },
   "form": {
     "id": "ID",
-    "email": "Email",
-    "type": "Type",
+    "name": "Name",
+    "permissions": "Permissions",
+    "createdAt": "Created At",
     "updatedAt": "Updated At",
-    "pubId": "Pub ID",
-    "roleName": "Name",
-    "vendors": "Vendors",
-    "role": "Role",
-    "newPassword": "New Password",
-    "newPasswordConfirmation": "New Password Confirmation"
+    "permissionsList": {
+      "p1": "Permission 1",
+      "p2": "Permission 2",
+      "p3": "Permission 3"
+    }
   },
   "actions": {
     "view": "View",

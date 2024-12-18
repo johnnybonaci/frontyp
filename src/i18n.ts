@@ -18,6 +18,7 @@ import enPhoneRoomLeadsJSON from 'src/features/PhoneRoomLeads/locale/en.json'
 import enPhoneRoomReportsJSON from 'src/features/PhoneRoomReports/locale/en.json'
 import enPhoneRoomPerformanceJSON from 'src/features/PhoneRoomPerformance/locale/en.json'
 import enUserJSON from 'src/features/Users/locale/en.json'
+import enRoleJSON from 'src/features/Roles/locale/en.json'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -57,6 +58,7 @@ i18n.addResourceBundle('en', 'features', {
   PhoneRoomReports: enPhoneRoomReportsJSON,
   PhoneRoomPerformance: enPhoneRoomPerformanceJSON,
   User: enUserJSON,
+  Role: enRoleJSON,
 })
 
 export default i18n

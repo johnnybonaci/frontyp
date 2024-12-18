@@ -3,7 +3,7 @@ import loadable from 'components/Loadable'
 import PERMISSIONS from 'permissions'
 
 export const ROLE_PATHS = {
-  ROLES: 'user/roles',
+  ROLES: 'users/roles',
 }
 
 const RoleList = loadable(lazy(async () => await import('src/features/Roles/screen/RoleList')))

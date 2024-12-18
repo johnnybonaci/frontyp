@@ -2,21 +2,18 @@ import _ from 'lodash'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 
 import { type Filters } from 'types/filter'
-import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import { RoleToAPI, type RoleForm, type RoleItem, type RoleItemFromApi } from '../types/index'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const roleItemFromApi = (item: RoleItemFromApi): RoleItem => {
-  const { id, email, type, updated_at, pub_id, role_name, vendors, profile_photo_url } = item
+  const { id, name, permissions, created_at, updated_at } = item
 
   return {
     id,
-    email,
-    type,
-    updatedAt: updated_at,
-    pubId: pub_id,
-    roleName: role_name,
-    vendors,
-    profilePhotoUrl: profile_photo_url,
+    name,
+    permissions,
+    createdAt: dateFromUrl(created_at),
+    updatedAt: dateFromUrl(updated_at),
   }
 }
 
@@ -78,32 +75,21 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   }
 }
 
-export const roleToForm = (
-  data: RoleItem,
-  typeOptions: Option[],
-  pubIdOptions: Option[],
-  roleOptions: Option[]
-): RoleForm => {
-  const { roleName, email, type, pubId } = data
+export const roleToForm = (data: RoleItem): RoleForm => {
+  const { id, name, permissions } = data
 
   return {
-    email,
-    type: typeOptions.find((op) => op.title === type) || null,
-    pubId: pubIdOptions.find((op) => op.id === pubId) || null,
-    role: roleOptions.find((op) => op.id === roleName) || null,
+    id,
+    name,
+    permissions,
   }
 }
 
 export const roleEditedToAPI = (data: RoleForm): RoleToAPI => {
-  const { email, newPassword, newPasswordConfirmation, type, pubId, role } = data
+  const { name, permissions } = data
 
   return {
-    name: 'name',
-    email,
-    password: newPassword,
-    password_confirmation: newPasswordConfirmation,
-    type_selected: type?.id,
-    pub_id_selected: pubId?.id,
-    role_selected: role?.id,
+    name,
+    permissions,
   }
 }
