@@ -13,7 +13,7 @@ const UserRoutes = [
   {
     path: USER_PATHS.LIST,
     element: <UserList />,
-    permissions: PERMISSIONS.CALLS,
+    permissions: PERMISSIONS.USERS,
   },
 ]
 
