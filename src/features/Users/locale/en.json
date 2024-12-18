@@ -1,0 +1,56 @@
+{
+  "singular": "User",
+  "save": "Save",
+  "cancel": "Cancel",
+  "listing": {
+    "title": "Users"
+  },
+  "edition": {
+    "title": "User edition"
+  },
+  "creation": {
+    "title": "User creation"
+  },
+  "fields": {
+    "id": "ID",
+    "email": "Email",
+    "type": "Type",
+    "updatedAt": "Updated At",
+    "pubId": "Pub ID",
+    "userName": "Name",
+    "vendors": "Vendors",
+    "roleName": "Role",
+    "profilePhotoUrl": "Profile Photo URL"
+  },
+  "filters": {
+    "id": "ID",
+    "email": "Email",
+    "type": "Type",
+    "updatedAt": "Updated At",
+    "pubId": "Pub ID",
+    "userName": "Name",
+    "vendors": "Vendors",
+    "roleName": "Role",
+    "profilePhotoUrl": "Profile Photo URL"
+  },
+  "form": {
+    "id": "ID",
+    "email": "Email",
+    "type": "Type",
+    "updatedAt": "Updated At",
+    "pubId": "Pub ID",
+    "userName": "Name",
+    "vendors": "Vendors",
+    "role": "Role",
+    "newPassword": "New Password",
+    "newPasswordConfirmation": "New Password Confirmation"
+  },
+  "actions": {
+    "view": "View",
+    "edit": "Edit",
+    "create": "Create"
+  },
+  "details": {
+    "title": "User Details"
+  }
+}
