@@ -91,9 +91,9 @@ export const userToForm = (
   return {
     userName,
     email,
-    type: typeOptions.find((op) => op.title === type)!,
-    pubId: pubIdOptions.find((op) => op.id === pubId)!,
-    role: roleOptions.find((op) => op.id === roleName)!,
+    type: typeOptions.find((op) => op.title === type) || null,
+    pubId: pubIdOptions.find((op) => op.id === pubId) || null,
+    role: roleOptions.find((op) => op.id === roleName) || null,
   }
 }
 
@@ -101,12 +101,12 @@ export const userEditedToAPI = (data: UserForm): UserToAPI => {
   const { userName, email, newPassword, newPasswordConfirmation, type, pubId, role } = data
 
   return {
-    user_name: userName,
+    name: userName,
     email,
-    new_password: newPassword,
-    new_password_confirmation: newPasswordConfirmation,
-    type: type.id,
-    pub_id: Number(pubId.id),
-    role_name: role.id,
+    password: newPassword,
+    password_confirmation: newPasswordConfirmation,
+    type_selected: type?.id,
+    pub_id_selected: pubId?.id,
+    role_selected: role?.id,
   }
 }

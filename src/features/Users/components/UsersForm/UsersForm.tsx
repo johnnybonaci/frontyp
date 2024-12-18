@@ -5,7 +5,7 @@ import DrawerContent from 'components/DrawerContent'
 import DrawerHeader from 'components/DrawerHeader'
 import { type UserForm, type UserItem } from 'features/Users/types'
 import { useFormik } from 'formik'
-import UsersSchema, { EMPTY_USER } from 'features/Users/schema/UserSchema'
+import { EMPTY_USER, UserCreationSchema, UserEditionSchema } from 'features/Users/schema/UserSchema'
 import { useUserForm } from 'features/Users/hooks/useUserForm'
 import { userToForm } from 'features/Users/transformers'
 import _ from 'lodash'
@@ -38,7 +38,7 @@ function UsersForm({ open, onClose, onEditSuccess, user }: UsersEditionProps): R
   } = useFormik<UserForm>({
     initialValues: EMPTY_USER,
     validateOnChange: false,
-    validationSchema: UsersSchema,
+    validationSchema: user?.id ? UserEditionSchema : UserCreationSchema,
     onSubmit: (data) => {
       onSubmit(data).then(onEditSuccess)
     },
