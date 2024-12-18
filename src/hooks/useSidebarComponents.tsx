@@ -34,6 +34,7 @@ import { PHONE_ROOM_PERFORMANCE_PATHS } from 'features/PhoneRoomPerformance/rout
 import { PHONE_ROOM_LEADS_PATHS } from 'features/PhoneRoomLeads/routes.tsx'
 import { PHONE_ROOM_REPORTS_PATHS } from 'features/PhoneRoomReports/routes.tsx'
 import { USER_PATHS } from 'features/Users/routes'
+import { ROLE_PATHS } from 'features/Roles/routes'
 
 export interface UseSidebarComponentsResult {
   components: SidebarComponents
@@ -157,7 +158,7 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             label: t('menu:userList'),
           },
           {
-            to: USER_PATHS.ROLES,
+            to: ROLE_PATHS.LIST,
             icon: ManageAccountsOutlined,
             label: t('menu:userRoles'),
           },
