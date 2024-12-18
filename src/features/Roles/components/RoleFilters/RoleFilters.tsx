@@ -14,11 +14,7 @@ interface RoleFiltersProps {
 }
 
 export const DEFAULT_FILTERS: RoleListFiltersFormValues = {
-  email: '',
-  type: '',
-  pubId: '',
-  roleName: '',
-  vendors: '',
+  name: '',
 }
 
 const RoleFilters: FC<RoleFiltersProps> = ({
@@ -45,6 +41,7 @@ const RoleFilters: FC<RoleFiltersProps> = ({
   const getFieldProps = useCallback(
     (name: string) => ({
       name,
+      label: t('name'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       value: values[name],
@@ -72,12 +69,7 @@ const RoleFilters: FC<RoleFiltersProps> = ({
       onClear={handleClear}
       topFilters={
         <>
-          <TextField label={t('email')} {...getFieldProps('email')} />
-          <TextField label={t('type')} {...getFieldProps('type')} />
-          <TextField label={t('pubId')} {...getFieldProps('pubId')} />
-          <TextField label={t('roleName')} {...getFieldProps('roleName')} />
-          <TextField label={t('vendors')} {...getFieldProps('vendors')} />
-          <TextField label={t('roleName')} {...getFieldProps('roleName')} />
+          <TextField {...getFieldProps('name')} />
         </>
       }
       isSearching={isSearching}

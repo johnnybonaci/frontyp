@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Drawer, Stack, TextField } from '@mui/material'
+import { Button, Drawer, Stack, TextField, Typography } from '@mui/material'
 import DrawerContent from 'components/DrawerContent'
 import DrawerHeader from 'components/DrawerHeader'
-import { type RoleForm, type RoleItem } from 'features/Roles/types'
+import { type RoleForm, type RoleItem, type Permission } from 'features/Roles/types'
 import { useFormik } from 'formik'
-import { EMPTY_ROLE, RoleCreationSchema, RoleEditionSchema } from 'features/Roles/schema/RoleSchema'
+import RoleSchema, { EMPTY_ROLE } from 'features/Roles/schema/RoleSchema'
 import { useRoleForm } from 'features/Roles/hooks/useRoleForm'
 import { roleToForm } from 'features/Roles/transformers'
 import _ from 'lodash'
-import CustomAutocomplete from 'components/CustomAutocomplete/CustomAutocomplete'
-import useData from 'hooks/useData'
+import CustomCheckbox from 'components/CustomCheckbox'
+import useFetchPermissionList from 'features/Roles/hooks/useFetchPermissionList'
 
 interface RolesEditionProps {
   open: boolean
@@ -22,7 +22,7 @@ interface RolesEditionProps {
 function RolesForm({ open, onClose, onEditSuccess, role }: RolesEditionProps): React.ReactNode {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Role' })
   const { onSubmit } = useRoleForm(role?.id)
-  const { leadTypeOptions, pubIdOptions, rolesOptions } = useData()
+  const { permissionItems } = useFetchPermissionList()
 
   const {
     handleChange,
@@ -38,7 +38,7 @@ function RolesForm({ open, onClose, onEditSuccess, role }: RolesEditionProps): R
   } = useFormik<RoleForm>({
     initialValues: EMPTY_ROLE,
     validateOnChange: false,
-    validationSchema: role?.id ? RoleEditionSchema : RoleCreationSchema,
+    validationSchema: RoleSchema,
     onSubmit: (data) => {
       onSubmit(data).then(onEditSuccess)
     },
@@ -46,7 +46,7 @@ function RolesForm({ open, onClose, onEditSuccess, role }: RolesEditionProps): R
 
   useEffect(() => {
     resetForm({
-      values: role ? roleToForm(role, leadTypeOptions, pubIdOptions, rolesOptions) : EMPTY_ROLE,
+      values: role ? roleToForm(role) : EMPTY_ROLE,
     })
   }, [role])
 
@@ -73,64 +73,37 @@ function RolesForm({ open, onClose, onEditSuccess, role }: RolesEditionProps): R
     [handleChange, values, setFieldValue, errors, touched, i18n]
   )
 
+  const handlePermissionChange = (permissionName: Permission) => {
+    let newPermissions = []
+
+    if (values.permissions.includes(permissionName)) {
+      newPermissions = values.permissions.filter((p) => p !== permissionName)
+    } else {
+      newPermissions = [...values.permissions, permissionName]
+    }
+
+    setFieldValue('permissions', newPermissions)
+    debouncedValidateField('permissions')
+  }
+
   return (
     <Drawer open={open} onClose={onClose} anchor="right">
       <DrawerHeader title={t(`${role ? 'edition' : 'creation'}.title`)} onClose={onClose} />
       <DrawerContent>
         <form onSubmit={handleSubmit} noValidate>
-          <Stack>
-            <TextField fullWidth {...getFieldProps('roleName')} />
-            <TextField
-              fullWidth
-              {...getFieldProps('email')}
-              type="email"
-              InputProps={{ autoComplete: 'email' }}
-            />
-            <TextField
-              fullWidth
-              {...getFieldProps('newPassword')}
-              type="password"
-              InputProps={{ autoComplete: 'new-password' }}
-            />
-            <TextField
-              fullWidth
-              {...getFieldProps('newPasswordConfirmation')}
-              type="password"
-              InputProps={{ autoComplete: 'new-password' }}
-            />
-
-            <CustomAutocomplete
-              {...getFieldProps('type')}
-              onChange={(_event: any, newValue: any[]) => {
-                void setFieldValue('type', newValue)
-                debouncedValidateField('type')
-              }}
-              options={leadTypeOptions}
-              creatable={false}
-              multiple={false}
-            />
-
-            <CustomAutocomplete
-              {...getFieldProps('pubId')}
-              onChange={(_event: any, newValue: any[]) => {
-                void setFieldValue('pubId', newValue)
-                debouncedValidateField('pubId')
-              }}
-              options={pubIdOptions}
-              creatable={false}
-              multiple={false}
-            />
-
-            <CustomAutocomplete
-              {...getFieldProps('role')}
-              onChange={(_event: any, newValue: any[]) => {
-                void setFieldValue('role', newValue)
-                debouncedValidateField('role')
-              }}
-              options={rolesOptions}
-              creatable={false}
-              multiple={false}
-            />
+          <Stack spacing={2}>
+            <TextField {...getFieldProps('name')} />
+            <Stack alignItems="left" spacing={1}>
+              <Typography variant="subtitle1">{t('form.permissions')}</Typography>
+              {permissionItems?.map((permissionName) => (
+                <CustomCheckbox
+                  key={permissionName}
+                  value={Boolean(values.permissions.includes(permissionName))}
+                  onChange={() => handlePermissionChange(permissionName)}
+                  label={t(`form.permissionsList.${permissionName}`)}
+                />
+              ))}
+            </Stack>
           </Stack>
 
           <Stack

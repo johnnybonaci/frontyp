@@ -13,6 +13,7 @@ import { RoleItem, RoleListFiltersFormValues } from '../types/index'
 import RolesForm from '../components/RolesForm/index.ts'
 import { IconButton, Tooltip } from '@mui/material'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
+import dateFormat from 'utils/dateFormat.ts'
 
 const RoleList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'Role' })
@@ -32,46 +33,23 @@ const RoleList: FC = () => {
   const initialColumns = useMemo(
     () => [
       {
-        header: t('fields.id'),
-        fieldName: 'id',
-        sortName: 'id',
+        header: t('fields.name'),
+        fieldName: 'name',
+        sortName: 'name',
         sortable: true,
       },
       {
-        header: t('fields.email'),
-        fieldName: 'email',
-        sortName: 'email',
-        sortable: true,
+        header: t('fields.permissions'),
+        fieldName: 'permissionList',
+        sortable: false,
+        dataModifier: (roleItem: RoleItem) => roleItem.permissions.join(','),
       },
       {
-        header: t('fields.roleName'),
-        fieldName: 'roleName',
-        sortName: 'role_name',
+        header: t('fields.createdAt'),
+        fieldName: 'createdAt',
+        sortName: 'created_at',
         sortable: true,
-      },
-      {
-        header: t('fields.type'),
-        fieldName: 'type',
-        sortName: 'type',
-        sortable: true,
-      },
-      {
-        header: t('fields.pubId'),
-        fieldName: 'pubId',
-        sortName: 'pub_id',
-        sortable: true,
-      },
-      {
-        header: t('fields.vendors'),
-        fieldName: 'vendors',
-        sortName: 'vendors',
-        sortable: true,
-      },
-      {
-        header: t('fields.roleName'),
-        fieldName: 'roleName',
-        sortName: 'role_name',
-        sortable: true,
+        dataModifier: (roleItem: RoleItem) => dateFormat(roleItem.createdAt),
       },
     ],
     [t]

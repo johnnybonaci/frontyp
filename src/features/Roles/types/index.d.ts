@@ -2,50 +2,26 @@ import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 
 export interface RoleItemFromApi {
   id: number
-  email: string
-  type?: string
+  name: string
+  permissions: Permission[]
+  created_at: string
   updated_at: string
-  pub_id?: number
-  role_name: string
-  vendors?: string
-  profile_photo_url: string
 }
 
 export interface RoleItem {
   id: number
-  email: string
-  type?: string
-  updatedAt: string
-  pubId?: number
-  roleName: string
-  vendors?: string
-  roleName?: string
-  profilePhotoUrl: string
+  name: string
+  permissions: Permission[]
+  createdAt: Date
+  updatedAt: Date
 }
 
-export interface RoleForm
-  extends Omit<RoleItem, 'id' | 'profilePhotoUrl' | 'updatedAt' | 'vendors' | 'roleName'> {
-  newPassword?: string
-  newPasswordConfirmation?: string
-  type: Option | null
-  pubId: Option | null
-  role: Option | null
-}
+export interface RoleForm extends Pick<RoleItem, 'id' | 'name' | 'permissions'> {}
 
 export interface RoleListFiltersFormValues {
-  email?: string | null
-  type?: string | null
-  pubId?: string | null
-  roleName?: string | null
-  vendors?: string | null
+  name?: string | null
 }
 
-export interface RoleToAPI {
-  name: string
-  email: string
-  password?: string
-  password_confirmation?: string
-  type_selected?: string
-  pub_id_selected?: string
-  role_selected?: string
-}
+export interface RoleToAPI extends Pick<RoleItem, 'name' | 'permissions'> {}
+
+export type Permission = string
