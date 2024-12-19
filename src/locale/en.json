@@ -174,6 +174,7 @@
     "_toDateTimeRange": "{{dateFrom, datetime}} at {{timeFrom, datetime}} - {{dateTo, datetime}} at {{timeTo, datetime}}",
     "_toDateTimeRangeDiscount": "Starts on {{dateFrom, datetime}} at {{timeFrom, datetime}} and ends on {{dateTo, datetime}} at {{timeTo, datetime}}",
     "_toList": "{{val, list}}",
+    "_toListRemaining": "{{val, _toListRemaining}}",
     "createdSuccessfully": "New {{type, lowercase}} created successfully!",
     "deletedSuccessfully": "The {{type, lowercase}} has been successfully deleted!",
     "editedSuccessfully": "The {{type, lowercase}} has been successfully edited!",

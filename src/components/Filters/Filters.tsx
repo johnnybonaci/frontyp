@@ -6,12 +6,14 @@ import { type FilterProps } from 'components/Filters/types'
 import { Close, Tune } from '@mui/icons-material'
 import styles from './filters.module.scss'
 import DrawerContent from 'components/DrawerContent'
+import c from 'classnames'
 
 const Filters: FC<FilterProps> = ({
   onApply,
   onClear,
   topFilters,
   bottomFilters,
+  singleColumn = false,
   // isSearching = false,
 }) => {
   const [collapsed, setCollapsed] = useState(true)
@@ -37,7 +39,7 @@ const Filters: FC<FilterProps> = ({
   return (
     <form noValidate onSubmit={handleApply} className={styles.wrapper}>
       <Drawer open={!collapsed} onClose={toggleFilters} anchor="right">
-        <div className={styles.filters}>
+        <div className={c(styles.filters, singleColumn ? styles.filters_singleColumn : undefined)}>
           <div className={styles.titleContainer}>
             <Typography variant="h1" className={styles.title}>
               {t('title')}
@@ -68,7 +70,12 @@ const Filters: FC<FilterProps> = ({
           </div>
           <DrawerContent>
             {!collapsed && (
-              <div className={styles.filtersContainer}>
+              <div
+                className={c(
+                  styles.filtersContainer,
+                  singleColumn ? styles.singleColumn : undefined
+                )}
+              >
                 {topFilters}
                 {bottomFilters}
               </div>
