@@ -52,7 +52,7 @@ const RoleList: FC = () => {
         header: t('fields.createdAt'),
         fieldName: 'createdAt',
         sortName: 'created_at',
-        sortable: true,
+        sortable: false,
         dataModifier: (roleItem: RoleItem) => dateFormat(roleItem.createdAt),
       },
     ],
