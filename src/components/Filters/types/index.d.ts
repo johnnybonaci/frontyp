@@ -7,4 +7,5 @@ export interface FilterProps {
   topFilters?: ReactNode
   bottomFilters?: ReactNode
   isSearching?: boolean
+  singleColumn?: boolean
 }
