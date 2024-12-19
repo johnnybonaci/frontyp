@@ -19,6 +19,7 @@ import enPhoneRoomReportsJSON from 'src/features/PhoneRoomReports/locale/en.json
 import enPhoneRoomPerformanceJSON from 'src/features/PhoneRoomPerformance/locale/en.json'
 import enUserJSON from 'src/features/Users/locale/en.json'
 import enRoleJSON from 'src/features/Roles/locale/en.json'
+import replaceLast from 'utils/replaceLast'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -46,8 +47,17 @@ i18n.services?.formatter?.add(
   (values: string[], _, options: any = {}): string => {
     const { limit = 3 } = options
     const list = values.slice(0, limit)
+    let trans
 
-    return `${list.join(', ')}... (+${values.length - limit} more)`
+    if (values.length === 0) {
+      trans = ''
+    } else if (values.length > limit) {
+      trans = `${list.join(', ')}... (+${values.length - limit} more)`
+    } else {
+      trans = replaceLast(list.join(', '), ',', ' and')
+    }
+
+    return trans
   }
 )
 
