@@ -11,6 +11,7 @@ import { roleToForm } from 'features/Roles/transformers'
 import _ from 'lodash'
 import CustomCheckbox from 'components/CustomCheckbox'
 import useFetchPermissionList from 'features/Roles/hooks/useFetchPermissionList'
+import humanize from 'utils/humanize'
 
 interface RolesEditionProps {
   open: boolean
@@ -95,12 +96,12 @@ function RolesForm({ open, onClose, onEditSuccess, role }: RolesEditionProps): R
             <TextField {...getFieldProps('name')} />
             <Stack alignItems="left" spacing={1}>
               <Typography variant="subtitle1">{t('form.permissions')}</Typography>
-              {permissionItems?.map((permissionName) => (
+              {permissionItems?.map((permission) => (
                 <CustomCheckbox
-                  key={permissionName}
-                  value={Boolean(values.permissions.includes(permissionName))}
-                  onChange={() => handlePermissionChange(permissionName)}
-                  label={t(`form.permissionsList.${permissionName}`)}
+                  key={permission.id}
+                  value={Boolean(values.permissions.includes(permission.name))}
+                  onChange={() => handlePermissionChange(permission.name)}
+                  label={humanize(permission.name)}
                 />
               ))}
             </Stack>

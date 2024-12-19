@@ -14,6 +14,7 @@ import RolesForm from '../components/RolesForm/index.ts'
 import { IconButton, Tooltip } from '@mui/material'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import dateFormat from 'utils/dateFormat.ts'
+import humanize from 'utils/humanize.ts'
 
 const RoleList: FC = () => {
   const { t, i18n } = useTranslation('features', { keyPrefix: 'Role' })
@@ -42,7 +43,10 @@ const RoleList: FC = () => {
         header: t('fields.permissions'),
         fieldName: 'permissionList',
         sortable: false,
-        dataModifier: (roleItem: RoleItem) => i18n.t('_toList', { val: roleItem.permissions }),
+        dataModifier: (roleItem: RoleItem) =>
+          i18n.t('_toListRemaining', {
+            val: roleItem.permissions.map(humanize),
+          }),
       },
       {
         header: t('fields.createdAt'),

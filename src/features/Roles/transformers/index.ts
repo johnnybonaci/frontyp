@@ -10,7 +10,7 @@ export const roleItemFromApi = (item: RoleItemFromApi): RoleItem => {
   return {
     id,
     name,
-    permissions,
+    permissions: permissions.map((p) => p.name),
     createdAt: dateFromUrl(created_at),
     updatedAt: dateFromUrl(updated_at),
   }

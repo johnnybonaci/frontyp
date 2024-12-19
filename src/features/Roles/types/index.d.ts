@@ -3,7 +3,7 @@ import { Option } from 'components/CustomAutocomplete/CustomAutocomplete'
 export interface RoleItemFromApi {
   id: number
   name: string
-  permissions: Permission[]
+  permissions: PermissionFromAPI[]
   created_at: string
   updated_at: string
 }
@@ -23,5 +23,11 @@ export interface RoleListFiltersFormValues {
 }
 
 export interface RoleToAPI extends Pick<RoleItem, 'name' | 'permissions'> {}
+
+export interface PermissionFromAPI {
+  id: string
+  name: string
+  created_at: string
+}
 
 export type Permission = string

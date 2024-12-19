@@ -30,12 +30,7 @@
     "name": "Name",
     "permissions": "Permissions",
     "createdAt": "Created At",
-    "updatedAt": "Updated At",
-    "permissionsList": {
-      "permission1": "Permission 1",
-      "permission2": "Permission 2",
-      "permission3": "Permission 3"
-    }
+    "updatedAt": "Updated At"    
   },
   "actions": {
     "view": "View",
