@@ -73,6 +73,7 @@ const RoleFilters: FC<RoleFiltersProps> = ({
         </>
       }
       isSearching={isSearching}
+      singleColumn
     />
   )
 }
