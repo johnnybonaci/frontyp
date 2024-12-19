@@ -27,6 +27,7 @@ import PhoneRoomPerformanceRoutes from 'features/PhoneRoomPerformance/routes.tsx
 import PhoneRoomLeadsRoutes from 'features/PhoneRoomLeads/routes.tsx'
 import PhoneRoomReportsRoutes from 'features/PhoneRoomReports/routes.tsx'
 import UserRoutes from 'features/Users/routes'
+import RoleRoutes from 'features/Roles/routes'
 
 interface Route {
   path?: string
@@ -75,6 +76,7 @@ const MainRoutes = {
     ...PhoneRoomLeadsRoutes,
     ...PhoneRoomReportsRoutes,
     ...UserRoutes,
+    ...RoleRoutes,
   ],
 }
 

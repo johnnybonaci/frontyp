@@ -18,6 +18,8 @@ import enPhoneRoomLeadsJSON from 'src/features/PhoneRoomLeads/locale/en.json'
 import enPhoneRoomReportsJSON from 'src/features/PhoneRoomReports/locale/en.json'
 import enPhoneRoomPerformanceJSON from 'src/features/PhoneRoomPerformance/locale/en.json'
 import enUserJSON from 'src/features/Users/locale/en.json'
+import enRoleJSON from 'src/features/Roles/locale/en.json'
+import replaceLast from 'utils/replaceLast'
 
 void i18n.use(initReactI18next).init({
   resources: {
@@ -40,6 +42,25 @@ i18n.services.formatter.add('lowercase', (value: string) => {
   return value.toLowerCase()
 })
 
+i18n.services?.formatter?.add(
+  '_toListRemaining',
+  (values: string[], _, options: any = {}): string => {
+    const { limit = 3 } = options
+    const list = values.slice(0, limit)
+    let trans
+
+    if (values.length === 0) {
+      trans = ''
+    } else if (values.length > limit) {
+      trans = `${list.join(', ')}... (+${values.length - limit} more)`
+    } else {
+      trans = replaceLast(list.join(', '), ',', ' and')
+    }
+
+    return trans
+  }
+)
+
 i18n.addResourceBundle('en', 'features', {
   Auth: enAuthJSON,
   CallReport: enCallReportJSON,
@@ -57,6 +78,7 @@ i18n.addResourceBundle('en', 'features', {
   PhoneRoomReports: enPhoneRoomReportsJSON,
   PhoneRoomPerformance: enPhoneRoomPerformanceJSON,
   User: enUserJSON,
+  Role: enRoleJSON,
 })
 
 export default i18n
