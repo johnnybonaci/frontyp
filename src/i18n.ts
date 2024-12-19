@@ -41,6 +41,16 @@ i18n.services.formatter.add('lowercase', (value: string) => {
   return value.toLowerCase()
 })
 
+i18n.services?.formatter?.add(
+  '_toListRemaining',
+  (values: string[], _, options: any = {}): string => {
+    const { limit = 3 } = options
+    const list = values.slice(0, limit)
+
+    return `${list.join(', ')}... (+${values.length - limit} more)`
+  }
+)
+
 i18n.addResourceBundle('en', 'features', {
   Auth: enAuthJSON,
   CallReport: enCallReportJSON,
