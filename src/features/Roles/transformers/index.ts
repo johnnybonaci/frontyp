@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 
 import { type Filters } from 'types/filter'
 import { RoleToAPI, type RoleForm, type RoleItem, type RoleItemFromApi } from '../types/index'
@@ -18,60 +17,8 @@ export const roleItemFromApi = (item: RoleItemFromApi): RoleItem => {
 }
 
 export const transformFiltersToApi = (filters: Filters): Filters => {
-  const filter = []
-
-  if (filters.email) {
-    filter.push({
-      field: 'email',
-      type: 'like',
-      value: filters.email,
-    })
-  }
-
-  if (filters.type) {
-    filter.push({
-      field: 'type',
-      type: 'like',
-      value: filters.type,
-    })
-  }
-
-  if (filters.pubId) {
-    filter.push({
-      field: 'pub_id',
-      type: 'like',
-      value: filters.pubId,
-    })
-  }
-
-  if (filters.roleName) {
-    filter.push({
-      field: 'role_name',
-      type: 'like',
-      value: filters.roleName,
-    })
-  }
-
-  if (filters.vendors) {
-    filter.push({
-      field: 'vendors',
-      type: 'like',
-      value: filters.vendors,
-    })
-  }
-
-  if (filters.roleName) {
-    filter.push({
-      field: 'role_name',
-      type: 'like',
-      value: filters.roleName,
-    })
-  }
-
   return {
-    filter: multipleSelectToApi(filter, (item) => {
-      return { field: item.field, type: item.type, value: item.value }
-    }),
+    search: filters.name,
   }
 }
 
