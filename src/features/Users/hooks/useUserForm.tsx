@@ -18,7 +18,7 @@ export const useUserForm = (userId?: number): UseUsersEditionReturn => {
 
   const onSubmit = async (data: UserForm): Promise<void> => {
     return doFetch({
-      url: `${config.api.baseUrl}/api/data/users/${userId || ''}`,
+      url: `${config.api.baseUrl}/users/${userId || ''}`,
       data: userEditedToAPI(data),
       method: userId ? 'PUT' : 'POST',
     })
