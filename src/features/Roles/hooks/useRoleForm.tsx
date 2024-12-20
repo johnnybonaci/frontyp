@@ -18,7 +18,7 @@ export const useRoleForm = (roleId?: number): UseRolesEditionReturn => {
 
   const onSubmit = async (data: RoleForm): Promise<void> => {
     return doFetch({
-      url: `${config.api.baseUrl}/api/v1/roles/${roleId || ''}`,
+      url: `${config.api.baseUrl}/api/data/roles/${roleId || ''}`,
       data: roleEditedToAPI(data),
       method: roleId ? 'PUT' : 'POST',
     })

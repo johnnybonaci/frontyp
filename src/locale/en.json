@@ -76,7 +76,8 @@
     "passwordWithNoLowercase": "Password must have at least one lowercase letter",
     "passwordWithNoUppercase": "Password must have at least one uppercase letter",
     "passwordWithNoDigit": "Password must have at least one digit",
-    "passwordWithNoSpecialChar": "Password must have at least one special character"
+    "passwordWithNoSpecialChar": "Password must have at least one special character",
+    "role_name": "The name field must only contain letters, numbers, dashes, and underscores"
   },
   "export": "Export",
   "fields": {
