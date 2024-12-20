@@ -37,7 +37,7 @@ const RoleList: FC = () => {
         header: t('fields.name'),
         fieldName: 'name',
         sortName: 'name',
-        sortable: true,
+        sortable: false,
       },
       {
         header: t('fields.permissions'),

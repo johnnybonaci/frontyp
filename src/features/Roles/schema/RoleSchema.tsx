@@ -8,7 +8,9 @@ export const EMPTY_ROLE: RoleForm = {
 }
 
 const RoleSchema = Yup.object({
-  name: Yup.string().required('validations:required'),
+  name: Yup.string()
+    .matches(/^[a-zA-Z0-9_-]+$/, 'validations:role_name')
+    .required('validations:required'),
   permissions: Yup.array().min(1, 'validations:minLenght').required('validations:required'),
 })
 
