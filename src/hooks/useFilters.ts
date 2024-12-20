@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { decodeSearchParams, encodeSearchParams } from 'src/utils/parseSearchParams'
 import clearObject from 'src/utils/clearObject'
@@ -38,12 +38,16 @@ export default function useFilters<T extends Filters>(
 ): FiltersReturnType<T> {
   const [isOpenFilters, setIsOpenFilters] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
-  const filtersFromURL = useMemo(() => transformerFromURL(searchParams), [])
+  const filtersFromURL = useMemo(() => transformerFromURL(searchParams), [searchParams])
 
   const [filters, setFilters] = useState<T>({
     ...initialValues,
     ...filtersFromURL,
   })
+
+  useEffect(() => {
+    setFilters(filtersFromURL as SetStateAction<T>)
+  }, [filtersFromURL])
 
   const onCancel = useCallback(() => {
     setIsOpenFilters(false)
