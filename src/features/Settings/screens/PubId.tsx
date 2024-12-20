@@ -92,10 +92,15 @@ const PubIdList: FC = () => {
     [toggleViewDetails, setSelectedPubId]
   )
 
-  const onEditSuccess = useCallback(() => {
+  const onEditPubIdSuccess = useCallback(() => {
     refresh()
     toggleViewDetails()
   }, [refresh, toggleViewDetails])
+
+  const onEditOfferSuccess = useCallback(() => {
+    refresh()
+    closeOfferEdition()
+  }, [refresh, closeOfferEdition])
 
   return (
     <ContentBox>
@@ -131,13 +136,13 @@ const PubIdList: FC = () => {
       <PubIdForm
         open={!collapsedViewEdition}
         onClose={toggleViewDetails}
-        onEditSuccess={onEditSuccess}
+        onEditSuccess={onEditPubIdSuccess}
         pub={selectedPubId}
       />
       <PubIdOfferEdition
         open={!collapsedOfferEdition}
         onClose={closeOfferEdition}
-        onEditSuccess={onEditSuccess}
+        onEditSuccess={onEditOfferSuccess}
         pub={selectedPubId!}
         type={selectedOfferType}
       />
