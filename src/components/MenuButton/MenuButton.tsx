@@ -2,7 +2,7 @@ import { memo, type FC } from 'react'
 import c from 'classnames'
 import Gated from 'src/components/Gated'
 import styles from './menuButton.module.scss'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { type MenuButtonProps } from 'components/MenuButton/types/menuButtonTypes'
 import { Icon } from '@mui/material'
 
@@ -17,10 +17,6 @@ const MenuButton: FC<MenuButtonProps> = ({
   orValidation,
   permissions = 'yes',
 }) => {
-  const { pathname } = useLocation()
-
-  const isCurrentRoute = pathname.startsWith(to) || pathname.startsWith(`/${to}`)
-
   return (
     <Gated permissions={permissions} orValidation={orValidation}>
       <NavLink
@@ -32,7 +28,6 @@ const MenuButton: FC<MenuButtonProps> = ({
           )
         }
         to={redirectOutside ? OLD_SITE_DOMAIN + to : to}
-        onClick={isCurrentRoute ? (e) => e.preventDefault() : undefined}
       >
         <Icon component={icon} className={styles.icon} />
         <span className={styles.label}>{label}</span>

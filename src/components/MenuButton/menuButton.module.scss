@@ -22,16 +22,12 @@
 
   &.menuButtonActive {
     font-weight: bold;
-    background: var(--sidebar-selected-bg);
-
-    &:hover {
-      cursor: default;
-    }
   }
 
-  &:hover:not(.menuButtonActive) {
-    background: var(--sidebar-hover);
-    transition: background 200ms ease;    
+  &.menuButtonActive,
+  &:hover {
+    background: var(--sidebar-selected-bg);
+    transition: background 200ms ease;
   }
 
   @include media-breakpoint-down(md) {
