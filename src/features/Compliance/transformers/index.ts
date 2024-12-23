@@ -4,6 +4,8 @@ import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { type ComplianceItem, type ComplianceItemFromApi } from 'features/Compliance/types'
+import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const complianceItemFromApi = (item: ComplianceItemFromApi): ComplianceItem => {
   return {
@@ -56,16 +58,16 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): ComplianceListFiltersFormValues => {
-  const { startOfDay, endOfDay } = getDayLimits()
+  const { startOfDay } = getDayLimits()
 
   return {
     leadsType: objectFromUrl(searchParams.get('leadsType'), null),
     pubId: objectFromUrl(searchParams.get('pubId'), null),
     subId: objectFromUrl(searchParams.get('subId'), null),
     startDate: searchParams.get('date_start')
-      ? new Date(searchParams.get('date_start')!)
+      ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     phone: searchParams.get('phone') ?? '',
     email: searchParams.get('email') ?? '',
   }
@@ -86,10 +88,10 @@ export const transformFiltersToUrl = (
     params.set('leadsType', JSON.stringify(filters.leadsType))
   }
   if (filters.startDate) {
-    params.set('date_start', filters.startDate.toISOString())
+    params.set('date_start', dateNoTimezoneToString(filters.startDate))
   }
   if (filters.endDate) {
-    params.set('date_end', filters.endDate.toISOString())
+    params.set('date_end', dateNoTimezoneToString(filters.endDate))
   }
   if (filters.email) {
     params.set('email', filters.email)
