@@ -12,7 +12,11 @@ import ContentBox from 'components/ContentBox'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
-import { transformFiltersFromUrl, transformFiltersToApi } from 'features/CallCampaigns/transformers'
+import {
+  transformFiltersFromUrl,
+  transformFiltersToApi,
+  transformFiltersToUrl,
+} from 'features/CallCampaigns/transformers'
 import ExportButton from 'components/ExportButton'
 import useExport from 'hooks/useExport.tsx'
 import config from '../../../config.tsx'
@@ -34,7 +38,8 @@ const CallCampaignList: FC = () => {
     useFilters<CallCampaignListFiltersFormValues>(
       DEFAULT_FILTERS,
       transformFiltersToApi,
-      transformFiltersFromUrl
+      transformFiltersFromUrl,
+      transformFiltersToUrl
     )
 
   const {
