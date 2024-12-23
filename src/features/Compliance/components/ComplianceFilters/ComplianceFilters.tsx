@@ -9,6 +9,7 @@ import CustomAutocomplete, {
 } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import useData from 'hooks/useData.tsx'
+import currentDate from 'utils/currentDate'
 
 export interface ComplianceListFiltersFormValues {
   pubId: Option | null
@@ -31,8 +32,8 @@ export const DEFAULT_FILTERS = {
   pubId: null,
   subId: null,
   leadsType: null,
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: currentDate(),
+  endDate: currentDate(),
   phone: '',
   email: '',
 }

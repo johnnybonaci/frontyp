@@ -13,7 +13,7 @@ export interface UseUsersEditionReturn {
 }
 
 export const useUserForm = (userId?: number): UseUsersEditionReturn => {
-  const { t } = useTranslation('features', { keyPrefix: 'Settings.users' })
+  const { t } = useTranslation('features', { keyPrefix: 'User' })
   const { doFetch, response, error, loading } = useFetch()
 
   const onSubmit = async (data: UserForm): Promise<void> => {

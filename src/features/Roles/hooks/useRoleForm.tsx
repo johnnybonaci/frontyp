@@ -13,7 +13,7 @@ export interface UseRolesEditionReturn {
 }
 
 export const useRoleForm = (roleId?: number): UseRolesEditionReturn => {
-  const { t } = useTranslation('features', { keyPrefix: 'Settings.roles' })
+  const { t } = useTranslation('features', { keyPrefix: 'Role' })
   const { doFetch, response, error, loading } = useFetch()
 
   const onSubmit = async (data: RoleForm): Promise<void> => {
