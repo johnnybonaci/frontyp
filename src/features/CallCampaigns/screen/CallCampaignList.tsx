@@ -12,7 +12,11 @@ import ContentBox from 'components/ContentBox'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
-import { transformFiltersFromUrl, transformFiltersToApi } from 'features/CallCampaigns/transformers'
+import {
+  transformFiltersFromUrl,
+  transformFiltersToApi,
+  transformFiltersToUrl,
+} from 'features/CallCampaigns/transformers'
 import ExportButton from 'components/ExportButton'
 import useExport from 'hooks/useExport.tsx'
 import config from '../../../config.tsx'
@@ -24,6 +28,9 @@ import {
   DEFAULT_FILTERS,
   type CallCampaignListFiltersFormValues,
 } from '../components/CallCampaignFilters/CallCampaignFilters.tsx'
+import LeadType from 'components/LeadType/LeadType.tsx'
+import { CallCampaignItem } from '../types/index'
+import { DOUBLE_INDICATOR } from 'utils/constants.ts'
 
 const CallCampaignList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'CallCampaign' })
@@ -31,7 +38,8 @@ const CallCampaignList: FC = () => {
     useFilters<CallCampaignListFiltersFormValues>(
       DEFAULT_FILTERS,
       transformFiltersToApi,
-      transformFiltersFromUrl
+      transformFiltersFromUrl,
+      transformFiltersToUrl
     )
 
   const {
@@ -96,6 +104,7 @@ const CallCampaignList: FC = () => {
         fieldName: 'type',
         sortName: 'type',
         sortable: true,
+        dataModifier: (item: CallCampaignItem) => <LeadType type={item.type} />,
       },
       {
         header: t('fields.totalLeads'),
@@ -228,14 +237,19 @@ const CallCampaignList: FC = () => {
       value: formatMoneyIndicator(callCampaignIndicators?.totalSpend),
     },
     {
-      name: t('indicators.totalSpendLeads'),
-      fieldName: 'totalSpendLeads',
-      value: formatMoneyIndicator(callCampaignIndicators?.totalSpendLeads),
-    },
-    {
-      name: t('indicators.totalSpendCalls'),
-      fieldName: 'totalSpendCalls',
-      value: formatMoneyIndicator(callCampaignIndicators?.totalSpendCalls),
+      name: t('indicators.spends'),
+      fieldName: 'spend',
+      type: DOUBLE_INDICATOR,
+      values: [
+        {
+          name: t('indicators.totalSpendLeads'),
+          value: formatMoneyIndicator(callCampaignIndicators?.totalSpendLeads),
+        },
+        {
+          name: t('indicators.totalSpendCalls'),
+          value: formatMoneyIndicator(callCampaignIndicators?.totalSpendCalls),
+        },
+      ],
     },
     {
       name: t('indicators.totalRevenue'),

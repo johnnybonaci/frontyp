@@ -10,6 +10,7 @@ import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import useData from 'hooks/useData.tsx'
 import Select from 'components/Select'
 import entitiesToOptions from 'utils/entityToOptions'
+import currentDate from 'utils/currentDate'
 
 export interface CallCampaignListFiltersFormValues {
   viewBy?: string
@@ -34,8 +35,8 @@ export const DEFAULT_FILTERS: CallCampaignListFiltersFormValues = {
   viewBy: '',
   pubIdTD: [],
   ccId: [],
-  startDate: null,
-  endDate: null,
+  startDate: currentDate(),
+  endDate: currentDate(),
   type: [],
   trafficSourceTD: [],
   pubIdYp: [],

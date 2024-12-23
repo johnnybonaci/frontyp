@@ -39,6 +39,7 @@
   },
   "indicators": {
     "totalSpend": "Total Spend",
+    "spends": "Spends",
     "totalRevenue": "Total Revenue",
     "totalProfit": "Total Gross Profit",
     "totalRoi": "Total ROI",
@@ -56,8 +57,8 @@
     "totalRpl": "RPL",
     "totalRpc": "RPC",
     "totalRps": "RPS",
-    "totalSpendLeads": "Spend leads",
-    "totalSpendCalls": "Spend calls",
+    "totalSpendLeads": "Leads",
+    "totalSpendCalls": "Calls",
     "totalUniquecalls": "Total unique calls"
   },
   "filters": {
@@ -67,7 +68,8 @@
     "ccId": "CC ID",
     "type": "Offers",
     "trafficSourceTD": "Traffic Source TD",
-    "pubIdYp": "Pub ID YP"
+    "pubIdYp": "Pub ID YP",
+    "campaignYP": "Campaign YP"
   },
   "actions": {
     "view": "View"
