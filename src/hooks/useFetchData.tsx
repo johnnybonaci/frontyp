@@ -4,6 +4,8 @@ import { type RequestError } from 'hooks/useFetch.ts'
 import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import config from '../config.tsx'
 
+export type TrackDriveProviderIdType = '1' | '2'
+
 export interface UseFetchDataResponse {
   stateOptions: Option[]
   buyerOptions: Option[]
@@ -19,7 +21,9 @@ export interface UseFetchDataResponse {
   leadTypeOptions: Option[]
   campaignOptions: Option[]
   subIdOptions: Option[]
+  TRACKDRIVE_PROVIDER_ID: TrackDriveProviderIdType
   providersOptions: Option[]
+  rolesOptions: Option[]
   loading: boolean
   error: RequestError
 }
@@ -41,6 +45,8 @@ const useFetchData = (): UseFetchDataResponse => {
   const [trafficSourceOptions, setTrafficSourceOptions] = useState<Option[]>([])
   const [issueTypeOptions, setIssueTypeOptions] = useState<Option[]>([])
   const [offersOptions, setOffersOptions] = useState<Option[]>([])
+  const [TRACKDRIVE_PROVIDER_ID, setTRACKDRIVE_PROVIDER_ID] =
+    useState<TrackDriveProviderIdType>('2')
   const [pubIdOptions, setPubIdOptions] = useState<Option[]>([])
   const [saleOptions, setSaleOptions] = useState<Option[]>([])
   const [statusOptions, setStatusOptions] = useState<Option[]>([])
@@ -55,6 +61,7 @@ const useFetchData = (): UseFetchDataResponse => {
   const [subIdOptions, setSubIdOptions] = useState<Option[]>([])
   const [providersOptions, setProvidersOptions] = useState<Option[]>([])
   const [error] = useState<RequestError>(null)
+  const [rolesOptions, setRolesOptions] = useState<Option[]>([])
 
   const { doFetch, response, loading } = useFetch(`${config.api.baseUrl}/api/data`)
 
@@ -102,7 +109,7 @@ const useFetchData = (): UseFetchDataResponse => {
     setPubIdOptions(
       Object.keys(data.pub_id).map((key: any) => ({
         id: data.pub_id[key].id,
-        title: data.pub_id[key].name,
+        title: `${data.pub_id[key].id} - ${data.pub_id[key].name}`,
       }))
     )
     setStatusOptions(
@@ -147,6 +154,13 @@ const useFetchData = (): UseFetchDataResponse => {
         title: option.name,
       }))
     )
+    setTRACKDRIVE_PROVIDER_ID(data?.provider_id ?? '2')
+    setRolesOptions(
+      data.roles.map((role: string) => ({
+        id: role,
+        title: role,
+      }))
+    )
   }, [
     response,
     setBuyerOptions,
@@ -158,6 +172,7 @@ const useFetchData = (): UseFetchDataResponse => {
     setStatusOptions,
     setInsuranceOptions,
     setCallIssuesOptions,
+    setTRACKDRIVE_PROVIDER_ID,
     setLeadTypeOptions,
     setCampaignOptions,
     setSubIdOptions,
@@ -175,6 +190,7 @@ const useFetchData = (): UseFetchDataResponse => {
     offersOptions,
     pubIdOptions,
     statusOptions,
+    TRACKDRIVE_PROVIDER_ID,
     insuranceOptions,
     callIssuesOptions,
     leadTypeOptions,
@@ -185,6 +201,7 @@ const useFetchData = (): UseFetchDataResponse => {
     providersOptions,
     loading,
     error,
+    rolesOptions,
   }
 }
 

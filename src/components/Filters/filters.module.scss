@@ -20,6 +20,10 @@ $title-height: 85px;
   gap: 15px;
 }
 
+.filters_singleColumn {
+  width: 396px;
+}
+
 .titleContainer {
   display: flex;
   align-items: center;
@@ -44,6 +48,10 @@ $title-height: 85px;
   padding-bottom: 30px;
   flex-direction: column;
   gap: 15px;
+}
+
+.singleColumn {
+  grid-template-columns: 1fr;
 }
 
 .submit {

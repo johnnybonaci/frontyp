@@ -1,0 +1,33 @@
+{
+  "singular": "CPC Report",
+  "insuranceEditedSuccessfully": "Insurance edited successfully",
+  "regeneratedSuccessfully": "Reprocessed successfully",
+  "transcriptSuccessfully": "Transcript in Progress",
+  "roles": "CPC Report",
+  "calls": "Calls",
+  "listing": {
+    "title": "CPC Report"
+  },
+  "fields": {
+    "ip": "IP",
+    "campaign": "Campaign",
+    "url": "URL",
+    "createdAt": "Created At"
+  },
+  "indicators": {
+    "linkout": "Total Inbound Linkout",
+    "coreg": "Total Inbound Coreg",
+    "other": "Total Others"
+  },
+  "filters": {
+    "ip": "IP",
+    "campaign": "Campaign",
+    "date": "Date"
+  },
+  "actions": {
+    "view": "View"
+  },
+  "details": {
+    "title": "CPC Report Details"
+  }
+}

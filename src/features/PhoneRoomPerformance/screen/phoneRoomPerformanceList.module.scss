@@ -1,0 +1,18 @@
+@import "src/styles/mixins.module.scss";
+
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.drawerContent {
+}
+
+.buttonContainer {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}

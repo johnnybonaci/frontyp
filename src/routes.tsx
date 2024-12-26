@@ -17,12 +17,24 @@ import LiveLeadsRoutes from 'features/LiveLeads/routes.tsx'
 import ActiveLeadsRoutes from 'features/ActiveLeads/routes.tsx'
 import PubLeadsRoutes from 'features/PubLeads/routes.tsx'
 import SettingsRoutes from 'features/Settings/routes'
+import CPCReportRoutes from 'features/CPCReport/routes.tsx'
+import ComplianceRoutes from 'features/Compliance/routes.tsx'
+import ComplianceBotRoutes from 'features/ComplianceBot/routes.tsx'
+import BusinessRouteMiddleware from 'components/BusinessRouteMiddleware'
+import { type TrackDriveProviderIdType } from 'hooks/useFetchData.tsx'
+import CallCampaignRoutes from 'features/CallCampaigns/routes'
+import PhoneRoomPerformanceRoutes from 'features/PhoneRoomPerformance/routes.tsx'
+import PhoneRoomLeadsRoutes from 'features/PhoneRoomLeads/routes.tsx'
+import PhoneRoomReportsRoutes from 'features/PhoneRoomReports/routes.tsx'
+import UserRoutes from 'features/Users/routes'
+import RoleRoutes from 'features/Roles/routes'
 
 interface Route {
   path?: string
   element: ReactNode
   children?: Route[]
   orValidation?: boolean
+  trackDriveProviderAllowed?: TrackDriveProviderIdType[]
   permissions?: PermissionsProps
 }
 
@@ -56,6 +68,15 @@ const MainRoutes = {
     ...ActiveLeadsRoutes,
     ...PubLeadsRoutes,
     ...SettingsRoutes,
+    ...ComplianceRoutes,
+    ...ComplianceBotRoutes,
+    ...CPCReportRoutes,
+    ...CallCampaignRoutes,
+    ...PhoneRoomPerformanceRoutes,
+    ...PhoneRoomLeadsRoutes,
+    ...PhoneRoomReportsRoutes,
+    ...UserRoutes,
+    ...RoleRoutes,
   ],
 }
 
@@ -78,13 +99,15 @@ const routesWithPermissions = (routes: Route): Route => {
   return {
     ...routes,
     element: (
-      <Gated
-        forbiddenElement={<ErrorPage status={'403'} />}
-        permissions={routes.permissions}
-        orValidation={routes.orValidation}
-      >
-        {routes.element}
-      </Gated>
+      <BusinessRouteMiddleware trackDriveProviderAllowed={routes.trackDriveProviderAllowed}>
+        <Gated
+          forbiddenElement={<ErrorPage status={'403'} />}
+          permissions={routes.permissions}
+          orValidation={routes.orValidation}
+        >
+          {routes.element}
+        </Gated>
+      </BusinessRouteMiddleware>
     ),
     children: routes.children
       ? routes.children.map((childrenRoutes) => routesWithPermissions(childrenRoutes))

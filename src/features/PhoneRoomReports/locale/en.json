@@ -1,0 +1,31 @@
+{
+  "singular": "Phone Room Reports",
+  "roles": "Phone Room Reports",
+  "listing": {
+    "title": "Phone Room Reports"
+  },
+  "fields": {
+    "phone": "Phone",
+    "type": "Type",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "pubListId": "Pub ID",
+    "vendorsYp": "Vendor",
+    "subId": "Sub ID",
+    "callCount": "Call Count",
+    "code": "Code",
+    "description": "Description",
+    "createdAt": "Lead Sent On",
+    "created": "Created",
+    "updated": "Updated"
+  },
+  "filters": {
+    "phone": "Phone",
+    "date": "Date",
+    "category": "Category",
+    "selectOrAdd": "Select or Add",
+    "pubId": "Pub ID",
+    "leadsType": "Type",
+    "phoneRoom": "Phone Room"
+  }
+}

@@ -69,7 +69,16 @@
     "file-invalid-type": "The selected file type is not allowed.",
     "fileTypeMustBeCsv": "The selected file type is not allowed. It must be a .csv file.",
     "invalidDate": "Please enter a valid date.",
-    "invalidHour": "Please enter a valid time."
+    "invalidEmail": "Please enter a valid email.",
+    "invalidHour": "Please enter a valid time.",
+    "passwordConfirmationMatch": "Passwords must match.",
+    "validationMin": "Password must be at least 8 characters long",
+    "validationNameMinLenght": "Name must be at least 3 characters long",
+    "passwordWithNoLowercase": "Password must have at least one lowercase letter",
+    "passwordWithNoUppercase": "Password must have at least one uppercase letter",
+    "passwordWithNoDigit": "Password must have at least one digit",
+    "passwordWithNoSpecialChar": "Password must have at least one special character",
+    "role_name": "The name field must only contain letters, numbers, dashes, and underscores"
   },
   "export": "Export",
   "fields": {
@@ -167,6 +176,7 @@
     "_toDateTimeRange": "{{dateFrom, datetime}} at {{timeFrom, datetime}} - {{dateTo, datetime}} at {{timeTo, datetime}}",
     "_toDateTimeRangeDiscount": "Starts on {{dateFrom, datetime}} at {{timeFrom, datetime}} and ends on {{dateTo, datetime}} at {{timeTo, datetime}}",
     "_toList": "{{val, list}}",
+    "_toListRemaining": "{{val, _toListRemaining}}",
     "createdSuccessfully": "New {{type, lowercase}} created successfully!",
     "deletedSuccessfully": "The {{type, lowercase}} has been successfully deleted!",
     "editedSuccessfully": "The {{type, lowercase}} has been successfully edited!",

@@ -13,10 +13,12 @@ const ScreenContext = createContext<UseFetchDataResponse>({
   insuranceOptions: [],
   callIssuesOptions: [],
   saleOptions: [],
+  TRACKDRIVE_PROVIDER_ID: '2',
   leadTypeOptions: [],
   campaignOptions: [],
   subIdOptions: [],
   providersOptions: [],
+  rolesOptions: [],
   loading: false,
   error: null,
 })

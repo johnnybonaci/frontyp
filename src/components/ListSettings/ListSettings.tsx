@@ -70,17 +70,19 @@ const ListSettings: React.FC<ListSettingsProps> = ({
         />
         <DrawerContent>
           <div className={styles.listSettings}>
-            <div>
-              <div className={styles.listTitle}>Indicators</div>
-              <ReorderableList
-                items={indicators}
-                unselectedItems={unselectedIndicators}
-                toggleVisibility={(ind) => {
-                  onToggleIndicator(ind.name)
-                }}
-                reorderItems={onReorderIndicators}
-              />
-            </div>
+            {!!indicators.length && (
+              <div>
+                <div className={styles.listTitle}>Indicators</div>
+                <ReorderableList
+                  items={indicators}
+                  unselectedItems={unselectedIndicators}
+                  toggleVisibility={(ind) => {
+                    onToggleIndicator(ind.name)
+                  }}
+                  reorderItems={onReorderIndicators}
+                />
+              </div>
+            )}
             <div>
               <div className={styles.listTitle}>Columns</div>
               <ReorderableList

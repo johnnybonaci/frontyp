@@ -26,13 +26,54 @@ import { PUB_LEADS_PATHS } from 'features/PubLeads/routes'
 import { CALL_REPORT_PATHS } from 'features/CallReport/routes'
 import { CPA_REPORT_PATHS } from 'features/CPAReport/routes'
 import { QA_REPORT_PATHS } from 'features/QAReport/routes'
+import { CPC_REPORT_PATHS } from 'features/CPCReport/routes.tsx'
+import { COMPLIANCE_PATHS } from 'features/Compliance/routes.tsx'
+import useData from 'hooks/useData.tsx'
+import { COMPLIANCE_BOT_PATHS } from 'features/ComplianceBot/routes.tsx'
+import { PHONE_ROOM_PERFORMANCE_PATHS } from 'features/PhoneRoomPerformance/routes.tsx'
+import { PHONE_ROOM_LEADS_PATHS } from 'features/PhoneRoomLeads/routes.tsx'
+import { PHONE_ROOM_REPORTS_PATHS } from 'features/PhoneRoomReports/routes.tsx'
+import { USER_PATHS } from 'features/Users/routes'
+import { ROLE_PATHS } from 'features/Roles/routes'
 
 export interface UseSidebarComponentsResult {
   components: SidebarComponents
 }
 
 export default function useSidebarComponents(): UseSidebarComponentsResult {
+  const { TRACKDRIVE_PROVIDER_ID } = useData()
   const { t } = useTranslation()
+
+  const phoneRoom =
+    TRACKDRIVE_PROVIDER_ID === '2'
+      ? [
+          {
+            title: t('menu:phoneRoom'),
+            permission: PERMISSIONS.PHONE_ROOM,
+            items: [
+              {
+                to: PHONE_ROOM_LEADS_PATHS.LIST,
+                redirectOutside: false,
+                icon: PhoneEnabledOutlined,
+                label: t('menu:phoneRoomLeads'),
+              },
+              {
+                to: PHONE_ROOM_PERFORMANCE_PATHS.LIST,
+                redirectOutside: false,
+                icon: TrendingUpOutlined,
+                label: t('menu:phoneRoomPerformance'),
+              },
+              {
+                to: PHONE_ROOM_REPORTS_PATHS.LIST,
+                redirectOutside: false,
+                icon: InsertChartOutlined,
+                label: t('menu:phoneRoomReports'),
+              },
+            ],
+          },
+        ]
+      : []
+
   const components = useMemo(
     () => [
       {
@@ -55,8 +96,8 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             label: t('menu:pubsLeads'),
           },
           {
-            to: 'leads/pageviews',
-            redirectOutside: true,
+            to: CPC_REPORT_PATHS.LIST,
+            redirectOutside: false,
             icon: BarChartOutlined,
             label: t('menu:cpcReport'),
           },
@@ -89,7 +130,6 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
         items: [
           {
             to: 'leads/campaign-dashboard',
-            redirectOutside: true,
             icon: AdsClickOutlined,
             label: t('menu:callCampaigns'),
           },
@@ -100,50 +140,25 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
         permission: PERMISSIONS.JORNAYA,
         items: [
           {
-            to: 'leads/jornaya-id',
-            redirectOutside: true,
+            to: TRACKDRIVE_PROVIDER_ID === '1' ? COMPLIANCE_BOT_PATHS.LIST : COMPLIANCE_PATHS.LIST,
+            redirectOutside: false,
             icon: VerifiedUserOutlined,
             label: t('menu:compliance'),
           },
         ],
       },
-      {
-        title: t('menu:phoneRoom'),
-        permission: PERMISSIONS.PHONE_ROOM,
-        items: [
-          {
-            to: 'leads/phone-room',
-            redirectOutside: true,
-            icon: PhoneEnabledOutlined,
-            label: t('menu:phoneRoomLeads'),
-          },
-          {
-            to: 'leads/performance-phone-room',
-            redirectOutside: true,
-            icon: TrendingUpOutlined,
-            label: t('menu:phoneRoomPerformance'),
-          },
-          {
-            to: 'leads/reports-phone-room',
-            redirectOutside: true,
-            icon: InsertChartOutlined,
-            label: t('menu:phoneRoomReports'),
-          },
-        ],
-      },
+      ...phoneRoom,
       {
         title: t('menu:users'),
         permission: PERMISSIONS.USERS,
         items: [
           {
-            to: 'users',
-            redirectOutside: true,
+            to: USER_PATHS.LIST,
             icon: PersonOutlined,
             label: t('menu:userList'),
           },
           {
-            to: 'users/roles',
-            redirectOutside: true,
+            to: ROLE_PATHS.LIST,
             icon: ManageAccountsOutlined,
             label: t('menu:userRoles'),
           },
@@ -161,7 +176,7 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
         ],
       },
     ],
-    [t]
+    [t, phoneRoom, TRACKDRIVE_PROVIDER_ID]
   )
 
   return { components }

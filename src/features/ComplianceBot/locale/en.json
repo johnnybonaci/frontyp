@@ -1,0 +1,35 @@
+{
+  "singular": "Jornaya Bot",
+  "listing": {
+    "title": "Jornaya Bot"
+  },
+  "fields": {
+    "phone": "Phone",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "zipCode": "Zip Code",
+    "universalLeadId": "Universal Lead ID",
+    "trust": "Trust",
+    "leadType": "Type",
+    "trustedForm": "Trusted Form",
+    "ip": "IP",
+    "region": "Region / City",
+    "createdAt": "Date"
+  },
+  "indicators": {
+    "total": "Total",
+    "totalProcessed": "Processed",
+    "totalClean": "Clean",
+    "totalFraud": "Fraud"
+  },
+  "filters": {
+    "phone": "Phone",
+    "date": "Date"
+  },
+  "actions": {
+    "view": "View"
+  },
+  "details": {
+    "title": "Jornaya Bot Details"
+  }
+}

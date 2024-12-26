@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { decodeSearchParams, encodeSearchParams } from 'src/utils/parseSearchParams'
 import clearObject from 'src/utils/clearObject'
@@ -80,6 +80,10 @@ export default function useFilters<T extends Filters>(
     setFilters(initialValues)
     setIsOpenFilters(false)
   }, [])
+
+  useEffect(() => {
+    if (searchParams.size === 0) onClear()
+  }, [searchParams])
 
   return {
     isOpenFilters,
