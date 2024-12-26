@@ -73,6 +73,7 @@
     "invalidHour": "Please enter a valid time.",
     "passwordConfirmationMatch": "Passwords must match.",
     "validationMin": "Password must be at least 8 characters long",
+    "validationNameMinLenght": "Name must be at least 3 characters long",
     "passwordWithNoLowercase": "Password must have at least one lowercase letter",
     "passwordWithNoUppercase": "Password must have at least one uppercase letter",
     "passwordWithNoDigit": "Password must have at least one digit",

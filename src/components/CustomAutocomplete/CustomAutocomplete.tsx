@@ -8,6 +8,7 @@ export interface Option {
 }
 
 interface MultipleAutocompleteProps {
+  name?: string
   value: Option[] | Option
   onChange: (event: any, newValue: Array<string | Option>) => void
   onBlur?: (e: any) => void
@@ -24,6 +25,7 @@ interface MultipleAutocompleteProps {
 }
 
 const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
+  name,
   value,
   onChange,
   onBlur,
@@ -92,6 +94,7 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
       renderInput={(params) => (
         <TextField
           {...params}
+          name={name}
           onBlur={onBlur}
           label={label}
           error={error}
