@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button, Drawer, Stack, TextField } from '@mui/material'
+import { Button, Collapse, Drawer, Stack, TextField } from '@mui/material'
 import DrawerContent from 'components/DrawerContent'
 import DrawerHeader from 'components/DrawerHeader'
 import { type UserForm, type UserItem } from 'features/Users/types'
@@ -11,6 +11,7 @@ import { userToForm } from 'features/Users/transformers'
 import _ from 'lodash'
 import CustomAutocomplete from 'components/CustomAutocomplete/CustomAutocomplete'
 import useData from 'hooks/useData'
+import { USER_TYPES } from 'utils/constants'
 
 interface UsersEditionProps {
   open: boolean
@@ -73,12 +74,14 @@ function UsersForm({ open, onClose, onEditSuccess, user }: UsersEditionProps): R
     [handleChange, values, setFieldValue, errors, touched, i18n]
   )
 
+  const showPubIdField = values.type?.id !== USER_TYPES.USER
+
   return (
     <Drawer open={open} onClose={onClose} anchor="right">
       <DrawerHeader title={t(`${user ? 'edition' : 'creation'}.title`)} onClose={onClose} />
       <DrawerContent>
         <form onSubmit={handleSubmit} noValidate>
-          <Stack>
+          <Stack spacing={1}>
             <TextField fullWidth {...getFieldProps('userName')} />
             <TextField
               fullWidth
@@ -110,16 +113,18 @@ function UsersForm({ open, onClose, onEditSuccess, user }: UsersEditionProps): R
               multiple={false}
             />
 
-            <CustomAutocomplete
-              {...getFieldProps('pubId')}
-              onChange={(_event: any, newValue: any[]) => {
-                void setFieldValue('pubId', newValue)
-                debouncedValidateField('pubId')
-              }}
-              options={pubIdOptions}
-              creatable={false}
-              multiple={false}
-            />
+            <Collapse in={showPubIdField}>
+              <CustomAutocomplete
+                {...getFieldProps('pubId')}
+                onChange={(_event: any, newValue: any[]) => {
+                  void setFieldValue('pubId', newValue)
+                  debouncedValidateField('pubId')
+                }}
+                options={pubIdOptions}
+                creatable={false}
+                multiple={false}
+              />
+            </Collapse>
 
             <CustomAutocomplete
               {...getFieldProps('role')}
@@ -131,24 +136,30 @@ function UsersForm({ open, onClose, onEditSuccess, user }: UsersEditionProps): R
               creatable={false}
               multiple={false}
             />
-          </Stack>
 
-          <Stack
-            direction="row"
-            justifyContent="center"
-            spacing={2}
-            height={48}
-            py={2}
-            position="sticky"
-            bottom={32}
-            bgcolor="white"
-          >
-            <Button variant="contained" color="primary" type="submit" disabled={!isValid} fullWidth>
-              {t('save')}
-            </Button>
-            <Button variant="outlined" color="primary" onClick={onClose} fullWidth>
-              {t('cancel')}
-            </Button>
+            <Stack
+              direction="row"
+              justifyContent="center"
+              spacing={2}
+              height={48}
+              py={2}
+              position="sticky"
+              bottom={32}
+              bgcolor="white"
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                disabled={!isValid}
+                fullWidth
+              >
+                {t('save')}
+              </Button>
+              <Button variant="outlined" color="primary" onClick={onClose} fullWidth>
+                {t('cancel')}
+              </Button>
+            </Stack>
           </Stack>
         </form>
       </DrawerContent>

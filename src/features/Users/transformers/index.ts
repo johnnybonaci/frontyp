@@ -4,6 +4,7 @@ import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { type Filters } from 'types/filter'
 import { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import { UserToAPI, type UserForm, type UserItem, type UserItemFromApi } from '../types/index'
+import { USER_TYPES } from 'utils/constants.ts'
 
 export const userItemFromApi = (item: UserItemFromApi): UserItem => {
   const { id, email, type, updated_at, pub_id, user_name, vendors, role_name, profile_photo_url } =
@@ -12,7 +13,7 @@ export const userItemFromApi = (item: UserItemFromApi): UserItem => {
   return {
     id,
     email,
-    type,
+    type: type === null ? USER_TYPES.USER : type,
     updatedAt: updated_at,
     pubId: pub_id,
     userName: user_name,
