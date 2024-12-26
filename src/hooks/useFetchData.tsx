@@ -109,7 +109,7 @@ const useFetchData = (): UseFetchDataResponse => {
     setPubIdOptions(
       Object.keys(data.pub_id).map((key: any) => ({
         id: data.pub_id[key].id,
-        title: data.pub_id[key].name,
+        title: `${data.pub_id[key].id} - ${data.pub_id[key].name}`,
       }))
     )
     setStatusOptions(
