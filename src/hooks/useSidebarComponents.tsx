@@ -49,24 +49,26 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
       ? [
           {
             title: t('menu:phoneRoom'),
-            permission: PERMISSIONS.PHONE_ROOM,
             items: [
               {
                 to: PHONE_ROOM_LEADS_PATHS.LIST,
                 redirectOutside: false,
                 icon: PhoneEnabledOutlined,
+                permissions: PERMISSIONS.PHONE_ROOM,
                 label: t('menu:phoneRoomLeads'),
               },
               {
                 to: PHONE_ROOM_PERFORMANCE_PATHS.LIST,
                 redirectOutside: false,
                 icon: TrendingUpOutlined,
+                permissions: PERMISSIONS.PHONE_ROOM,
                 label: t('menu:phoneRoomPerformance'),
               },
               {
                 to: PHONE_ROOM_REPORTS_PATHS.LIST,
                 redirectOutside: false,
                 icon: InsertChartOutlined,
+                permissions: PERMISSIONS.REPORT_PHONE_ROOM,
                 label: t('menu:phoneRoomReports'),
               },
             ],
