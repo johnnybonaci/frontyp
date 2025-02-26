@@ -10,7 +10,6 @@ import Session from 'features/Auth/models/Session'
 import type AuthUser from 'features/Auth/models/AuthUser'
 // import useLoginWithSignatureFetch from 'features/Auth/hooks/useLoginWithSignatureFetch'
 import AuthContext from './AuthContext'
-import { PATHS } from 'features/Auth/routes.tsx'
 import { DASHBOARD } from 'utils/constants.ts'
 
 export interface AuthProviderType {
@@ -147,7 +146,10 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
     async (email: string, password: string) => {
       try {
         await doLogin(email, password)
-        navigate(`/auth/${PATHS.TWO_FACTOR_AUTHENTICATION}?email=${encodeURIComponent(email)}`)
+        setIsAuthenticated(true)
+        setIsLoading(false)
+        navigate(loginRedirect)
+        return await Promise.resolve()
       } catch (err) {
         console.log('Error')
         return await Promise.reject(err)
