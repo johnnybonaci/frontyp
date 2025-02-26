@@ -3,6 +3,7 @@ const config = {
     maxSnack: 3,
   },
   oldSiteDomain: import.meta.env.VITE_OLD_SITE_URL,
+  site:import.meta.env.VITE_URL,
   api: {
     platform: 'backoffice',
     baseUrl: import.meta.env.VITE_API_URL,
