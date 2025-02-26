@@ -9,40 +9,28 @@ interface UseLoginFetchResult {
 }
 
 export default function useLoginFetch(): UseLoginFetchResult {
-  const [cookies] = useCookies(['XSRF-TOKEN']); // ✅ Hook para obtener cookies
+  const [cookies] = useCookies(['XSRF-TOKEN']);
 
   const doLogin = async (email: string, password: string): Promise<any> => {
     try {
-      // 1️⃣ Obtener Token CSRF
-      console.log("Solicitando CSRF Token...");
-      const csrfResponse = await api.get('/sanctum/csrf-cookie');
-      console.log("Respuesta de CSRF:", csrfResponse);
-
-      // 2️⃣ Verificar Cookies
-      console.log("Todas las cookies en el navegador:", document.cookie);
-      console.log("Cookies obtenidas con react-cookie:", cookies);
+     await api.get('/sanctum/csrf-cookie');
 
       const csrfToken = cookies['XSRF-TOKEN'];
 
       if (!csrfToken) {
-        throw new Error('CSRF token no encontrado en las cookies');
+        throw new Error('CSRF mismatch');
       }
 
       console.log("Token CSRF obtenido:", csrfToken);
 
-      // 3️⃣ Hacer Login
-      const loginResponse = await api.post(
+      await api.post(
         '/login',
         { email, password, platform: config.api.platform },
         { headers: { 'X-XSRF-TOKEN': csrfToken } }
       );
-
-      console.log("Respuesta de login:", loginResponse);
-
       return true;
     } catch (err: any) {
-      console.error("Error en doLogin:", err);
-      throw new Error(err.message || "Error desconocido en el login");
+      throw new Error(err.message || "Unknown error");
     }
   };
 
