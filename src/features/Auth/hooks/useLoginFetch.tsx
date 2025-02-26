@@ -13,7 +13,7 @@ export default function useLoginFetch(): UseLoginFetchResult {
 
   const doLogin = async (email: string, password: string): Promise<any> => {
     try {
-     await api.get('/sanctum/csrf-cookie');
+     await api.get(`${config.api.msAuth.baseUrl}/sanctum/csrf-cookie`);
 
       const csrfToken = cookies['XSRF-TOKEN'];
 
@@ -23,8 +23,7 @@ export default function useLoginFetch(): UseLoginFetchResult {
 
       console.log("Token CSRF obtenido:", csrfToken);
 
-      await api.post(
-        '/login',
+      await api.post(`${config.api.msAuth.baseUrl}/login`,
         { email, password, platform: config.api.platform },
         { headers: { 'X-XSRF-TOKEN': csrfToken } }
       );
