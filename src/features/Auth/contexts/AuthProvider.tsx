@@ -149,6 +149,7 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
         await doLogin(email, password)
         navigate(`/auth/${PATHS.TWO_FACTOR_AUTHENTICATION}?email=${encodeURIComponent(email)}`)
       } catch (err) {
+        console.log('Error')
         return await Promise.reject(err)
       }
     },

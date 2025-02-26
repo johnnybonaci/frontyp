@@ -1,5 +1,5 @@
-import { type FC, useEffect, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { type FC, useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -10,7 +10,6 @@ import PasswordTextField from 'components/PasswordTextField'
 import { PATHS } from 'src/features/Auth/routes.tsx'
 import SignInFormSchema from 'src/features/Auth/schema/SignInFormSchema'
 import styles from './signIn.module.scss'
-import LoadingRing from 'components/LoadingRing'
 
 interface FormValues {
   email: string
@@ -18,12 +17,9 @@ interface FormValues {
   submit: null | string
 }
 
-const OLD_SITE_DOMAIN = import.meta.env.VITE_OLD_SITE_URL
-
 const Page: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const auth = useAuth()
-  const navigate = useNavigate()
   const { t } = useTranslation('features', { keyPrefix: 'Auth' })
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -46,13 +42,6 @@ const Page: FC = () => {
     },
   })
 
-  useEffect(() => {
-    window.location.href = OLD_SITE_DOMAIN + 'login'
-  }, [OLD_SITE_DOMAIN, navigate])
-
-  return <LoadingRing center small />
-
-  // eslint-disable-next-line no-unreachable
   return (
     <div className={styles.wrapper}>
       <Typography variant="h1">{t('signIn')}</Typography>
