@@ -31,7 +31,7 @@ interface AuthProviderProps {
 
 const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const location = useLocation()
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [loginRedirect, setLoginRedirect] = useState(DASHBOARD)
   const { persistSession, clearSession } = useBrowserSession()
@@ -91,7 +91,7 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
       setSession(session)
       setIsLoading(false)
 
-      if (session.user && !session.user.isFull) {
+      if (!session.user.isFull) {
         void getSessionUser().then((user: AuthUser) => {
           updateUser(session, user)
         })
@@ -115,10 +115,6 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const initialize = async (): Promise<void> => {
     if (initialized.current) return
     initialized.current = true
-
-    getSessionUser().then((user: AuthUser) => {
-      initSession(new Session('', '', user))
-    })
 
     // if (cookies.yieldpro_session) {
     //   setIsAuthenticated(true)
@@ -145,20 +141,18 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const login = useCallback(
     async (email: string, password: string) => {
       try {
-        const session = await doLogin(email, password)
-        initSession(session)
-        if (session?.user) {
-          await getSessionUser().then((user: AuthUser) => {
-            updateUser(session, user)
-          })
-        }
+        await doLogin(email, password)
+        getSessionUser().then((user: AuthUser) => {
+          initSession(new Session('', '', user))
+        })
         navigate(loginRedirect)
-
+        return await Promise.resolve()
       } catch (err) {
+        console.log('Error')
         return await Promise.reject(err)
       }
     },
-    [doLogin, navigate, loginRedirect]
+    [doLogin, navigate]
   )
 
   const logout = useCallback(
