@@ -1,58 +1,38 @@
-import { useCookies } from 'react-cookie'
-import config from 'src/config.tsx'
-import useFetch, { type RequestError } from 'src/hooks/useFetch'
+import api from 'src/api/axiosConfig';
+import { useCookies } from 'react-cookie';
+import config from 'src/config.tsx';
 
 interface UseLoginFetchResult {
-  doLogin: (email: string, password: string) => Promise<any>
-  loading: boolean
-  error: RequestError
-
+  doLogin: (email: string, password: string) => Promise<any>;
+  loading: boolean;
+  error: any;
 }
 
 export default function useLoginFetch(): UseLoginFetchResult {
-
-  const { doFetch } = useFetch(`${config.api.msAuth.baseUrl}/login`, {
-    method: 'POST',
-    credentials: 'include',
-  })
-
-  const [cookies] = useCookies(['XSRF-TOKEN'])
+  const [cookies] = useCookies(['XSRF-TOKEN']);
 
   const doLogin = async (email: string, password: string): Promise<any> => {
     try {
-      const csrfResponse = await fetch(`${config.api.msAuth.baseUrl}/sanctum/csrf-cookie`, {
-        method: 'GET',
-        credentials: 'include',
-      })
+      await api.get(`${config.api.msAuth.baseUrl}/sanctum/csrf-cookie`);
 
-      if (!csrfResponse.ok) {
-        throw new Error('Failed to fetch CSRF token')
-      }
-      const csrfToken = cookies['XSRF-TOKEN']
+      const csrfToken = cookies['XSRF-TOKEN'];
 
       if (!csrfToken) {
-        throw new Error('CSRF mismatch')
+        throw new Error('CSRF mismatch');
       }
 
-      console.log('Token CSRF obtenido:', csrfToken)
+      console.log("Token CSRF obtenido:", csrfToken);
 
-      await doFetch({
-        data: {
-          email,
-          password,
-          platform: config.api.platform,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': csrfToken,
-        },
-      })
+      await api.post(`${config.api.msAuth.baseUrl}/login`,
+        { email, password, platform: config.api.platform },
+        { headers: { 'X-XSRF-TOKEN': csrfToken } }
+      );
       return await Promise.resolve(true)
 
     } catch (err: any) {
-      throw new Error(err.message || 'Unknown error')
+      throw new Error(err.message || "Unknown error");
     }
-  }
+  };
 
-  return { doLogin, loading: false, error: null }
+  return { doLogin, loading: false, error: null };
 }
