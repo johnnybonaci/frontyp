@@ -31,7 +31,7 @@ interface AuthProviderProps {
 
 const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const location = useLocation()
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [loginRedirect, setLoginRedirect] = useState(DASHBOARD)
   const { persistSession, clearSession } = useBrowserSession()
@@ -146,6 +146,9 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
     async (email: string, password: string) => {
       try {
         await doLogin(email, password)
+        getSessionUser().then((user: AuthUser) => {
+          initSession(new Session('', '', user))
+        })
         setIsAuthenticated(true)
         setIsLoading(false)
         navigate(loginRedirect)
