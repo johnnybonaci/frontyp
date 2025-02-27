@@ -116,6 +116,10 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
     if (initialized.current) return
     initialized.current = true
 
+    getSessionUser().then((user: AuthUser) => {
+      initSession(new Session('', '', user))
+    })
+
     // if (cookies.yieldpro_session) {
     //   setIsAuthenticated(true)
     // } else {
@@ -142,9 +146,8 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
     async (email: string, password: string) => {
       try {
         await doLogin(email, password)
-        getSessionUser().then((user: AuthUser) => {
-          initSession(new Session('', '', user))
-        })
+        setIsAuthenticated(true)
+        setIsLoading(false)
         navigate(loginRedirect)
         return await Promise.resolve()
       } catch (err) {
