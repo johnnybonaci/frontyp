@@ -11,7 +11,7 @@ interface UseLoginFetchResult {
 
 export default function useLoginFetch(): UseLoginFetchResult {
 
-  const { doFetch } = useFetch(`${config.api.msAuth.baseUrl}/auth/login`, {
+  const { doFetch } = useFetch(`${config.api.msAuth.baseUrl}/login`, {
     method: 'POST',
     credentials: 'include',
   })
