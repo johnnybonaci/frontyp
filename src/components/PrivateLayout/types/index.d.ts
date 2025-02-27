@@ -13,7 +13,7 @@ export interface NavItem {
 
 export interface NavSection {
   title?: string
-  permission: string | string[]
+  permission?: string | string[]
   items: NavItem[]
 }
 

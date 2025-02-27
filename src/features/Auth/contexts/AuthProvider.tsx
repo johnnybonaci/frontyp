@@ -10,7 +10,6 @@ import Session from 'features/Auth/models/Session'
 import type AuthUser from 'features/Auth/models/AuthUser'
 // import useLoginWithSignatureFetch from 'features/Auth/hooks/useLoginWithSignatureFetch'
 import AuthContext from './AuthContext'
-import { PATHS } from 'features/Auth/routes.tsx'
 import { DASHBOARD } from 'utils/constants.ts'
 
 export interface AuthProviderType {
@@ -32,7 +31,7 @@ interface AuthProviderProps {
 
 const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const location = useLocation()
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [loginRedirect, setLoginRedirect] = useState(DASHBOARD)
   const { persistSession, clearSession } = useBrowserSession()
@@ -147,8 +146,15 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
     async (email: string, password: string) => {
       try {
         await doLogin(email, password)
-        navigate(`/auth/${PATHS.TWO_FACTOR_AUTHENTICATION}?email=${encodeURIComponent(email)}`)
+        getSessionUser().then((user: AuthUser) => {
+          initSession(new Session('', '', user))
+        })
+        setIsAuthenticated(true)
+        setIsLoading(false)
+        navigate(loginRedirect)
+        return await Promise.resolve()
       } catch (err) {
+        console.log('Error')
         return await Promise.reject(err)
       }
     },
