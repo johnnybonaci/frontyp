@@ -152,10 +152,7 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
             updateUser(session, user)
           })
         }
-        setIsAuthenticated(true)
-        setIsLoading(false)
         navigate(loginRedirect)
-        return await Promise.resolve()
 
       } catch (err) {
         return await Promise.reject(err)
