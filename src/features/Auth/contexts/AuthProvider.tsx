@@ -145,17 +145,21 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const login = useCallback(
     async (email: string, password: string) => {
       try {
-        await doLogin(email, password)
+        const session = await doLogin(email, password)
+        initSession(session)
+        await getSessionUser().then((user: AuthUser) => {
+          updateUser(session, user)
+        })
         setIsAuthenticated(true)
         setIsLoading(false)
         navigate(loginRedirect)
         return await Promise.resolve()
+
       } catch (err) {
-        console.log('Error')
         return await Promise.reject(err)
       }
     },
-    [doLogin, navigate]
+    [doLogin, navigate, loginRedirect]
   )
 
   const logout = useCallback(
