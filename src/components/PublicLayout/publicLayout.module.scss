@@ -348,6 +348,18 @@ $bg-color: #d7d7d7;
   }
 }
 
+@media (max-width: 639px) {
+  .footer {
+    padding: 20px 50px;
+    margin: 0 auto;
+  }
+
+  .w_400 {
+    width: 350px !important;
+  }
+}
+
+
 @media (width <=768px) {
   .sm_m_0_auto {
     margin: 0 auto;
