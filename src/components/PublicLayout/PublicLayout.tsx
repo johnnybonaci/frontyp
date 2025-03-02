@@ -1,19 +1,15 @@
-import { type FC, type ReactNode } from 'react'
+import { type FC } from 'react'
 import headerDesktop from 'src/assets/headerBackgroundDesktop.png'
 import headerMobile from 'src/assets/headerBackgroundMobile.png'
 import financial from 'src/assets/financial.png'
 import c from 'classnames'
 import { Outlet } from 'react-router-dom'
 import styles from './publicLayout.module.scss'
+import { useTranslation } from 'react-i18next'
 
-interface PublicLayoutProps {
-  children?: ReactNode
-  title?: string | null
-  secondary?: boolean
-  subtitle?: string | null
-}
+const PublicLayout: FC = () => {
+  const { t } = useTranslation('authLayout')
 
-const PublicLayout: FC<PublicLayoutProps> = ({ }) => {
   return (
     <div className={c(styles.relative, styles.md_flex, styles.md_flex_col, styles.xl_h_screen, styles.xl_max_h_1440px)} >
       <img
@@ -29,11 +25,11 @@ const PublicLayout: FC<PublicLayoutProps> = ({ }) => {
         <div>
           <section className={c(styles.mx_auto, styles.w_310px, styles.px_5, styles.text_center, styles.md_w_400px, styles.xl_mx_0, styles.xl_mb_48, styles.xl_ml_20, styles.xl_w_590px, styles.xl_px_0, styles.sm_m_0_auto)}>
             <p className={c(styles.title, styles.pt_10, styles.xl_pt_0)}>
-              A few more clicks to sign in to your account.
+              {t('projectTitle')}
             </p>
             <p className={c(styles.subtitle, styles.pt_7, styles.xl_mr_12, styles.xl_pt_60)}>
-              <span> Manage all your e-commerce </span>
-              <span> accounts in one place! </span>
+              <span> {t('projectSubTitle1')} </span>
+              <span> {t('projectSubTitle2')} </span>
             </p>
           </section>
         </div>
