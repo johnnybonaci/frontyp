@@ -94,6 +94,18 @@ $bg-color: #d7d7d7;
   }
 }
 
+.link {
+  font-size: 1rem;
+  text-decoration: underline;
+  transition: color 150ms ease-in-out;
+  color: #6a2c93;
+  font-weight: 500;
+}
+
+.link:hover {
+  color: #7c3aed;
+}
+
 .logo {
   width: 135px;
 
@@ -149,6 +161,15 @@ $bg-color: #d7d7d7;
   width: 100%;
 }
 
+.footer {
+  padding-top: 35px;
+  margin-left: 0px;
+}
+
+.textSpan {
+  font-weight: bold;
+}
+
 .secondaryLayoutContainer {
   background: var(--main-bg);
   overflow-x: hidden;
@@ -175,7 +196,7 @@ $bg-color: #d7d7d7;
 
 .bottom_n10 {
 
-  bottom: -15rem;
+  bottom: -8rem;
 }
 
 .z_n1 {
@@ -334,7 +355,7 @@ $bg-color: #d7d7d7;
   }
 
   .w_400 {
-    width: 300px;
+    width: 400px;
   }
 
   .pt_10 {
@@ -382,6 +403,10 @@ $bg-color: #d7d7d7;
   .md_w_400px {
     width: 400px;
   }
+
+  .xl_mb_48 {
+    margin-bottom: 70px;
+  }
 }
 
 @media (width >=1024px) {}
@@ -425,7 +450,7 @@ $bg-color: #d7d7d7;
   }
 
   .xl_mb_48 {
-    margin-bottom: 48px;
+    margin-bottom: 228px;
   }
 
   .xl_ml_20 {
@@ -464,11 +489,11 @@ $bg-color: #d7d7d7;
 
 @media (max-height: 700px) and (min-width: 1024px) {
   .left_20_percent {
-    left: 26%;
+    left: 20%;
   }
 
   .bottom_n10 {
-    bottom: -11rem;
+    bottom: -1.5rem;
   }
 
   .xl_ml_20 {
@@ -476,12 +501,11 @@ $bg-color: #d7d7d7;
   }
 
   .xl_mb_48 {
-    margin-bottom: 133px;
+    margin-bottom: 300px;
   }
 
   .w_400 {
-    width: 300px;
+    width: 400px;
   }
-
 
 }

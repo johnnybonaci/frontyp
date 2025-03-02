@@ -40,9 +40,22 @@ const PublicLayout: FC = () => {
         />
         <section className={c(styles.mx_auto, styles.pt_36, styles.xl_pt_0, styles.w_400)}>
           <Outlet />
+          <footer className={styles.footer}>
+            <p>
+              <span className={styles.textSpan}> By signing up, you agree to our </span>
+              <a className={styles.link} href="https://yieldpro.io/privacy">
+                Terms and Conditions
+              </a>
+              &amp;
+              <a className={styles.link} href="https://yieldpro.io/privacy">
+                Privacy Policy
+              </a>
+            </p>
+          </footer>
         </section>
 
       </div>
+
     </div >
   )
 }
