@@ -14,7 +14,7 @@ const HistoryLeadsRoutes = [
   {
     path: HISTORYLEADS_PATHS.LIST,
     element: <HistoryLeadsList />,
-    permissions: PERMISSIONS.JORNAYA,
+    permissions: PERMISSIONS.LEADS,
     trackDriveProviderAllowed: ['2'],
   },
 ]
