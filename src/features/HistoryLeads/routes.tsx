@@ -2,7 +2,7 @@ import { lazy } from 'react'
 import loadable from 'components/Loadable'
 import PERMISSIONS from 'permissions'
 
-export const COMPLIANCE_PATHS = {
+export const HISTORYLEADS_PATHS = {
   LIST: '/historyLeads',
 }
 
@@ -12,7 +12,7 @@ const HistoryLeadsList = loadable(
 
 const HistoryLeadsRoutes = [
   {
-    path: COMPLIANCE_PATHS.LIST,
+    path: HISTORYLEADS_PATHS.LIST,
     element: <HistoryLeadsList />,
     permissions: PERMISSIONS.JORNAYA,
     trackDriveProviderAllowed: ['2'],
