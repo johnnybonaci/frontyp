@@ -113,7 +113,10 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   // )
 
   const initialize = async (): Promise<void> => {
-    if (initialized.current) return
+    if (initialized.current) {
+      setIsAuthenticated(true)
+      return
+    }
     initialized.current = true
 
     getSessionUser().then((user: AuthUser) => {
