@@ -28,6 +28,7 @@ import PhoneRoomLeadsRoutes from 'features/PhoneRoomLeads/routes.tsx'
 import PhoneRoomReportsRoutes from 'features/PhoneRoomReports/routes.tsx'
 import UserRoutes from 'features/Users/routes'
 import RoleRoutes from 'features/Roles/routes'
+import HistoryLeadsRoutes from 'features/HistoryLeads/routes'
 
 interface Route {
   path?: string
@@ -65,6 +66,7 @@ const MainRoutes = {
     ...CPAReportRoutes,
     ...QAReportRoutes,
     ...LiveLeadsRoutes,
+    ...HistoryLeadsRoutes,
     ...ActiveLeadsRoutes,
     ...PubLeadsRoutes,
     ...SettingsRoutes,
