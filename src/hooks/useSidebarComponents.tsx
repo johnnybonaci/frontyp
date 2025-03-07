@@ -28,6 +28,7 @@ import { CPA_REPORT_PATHS } from 'features/CPAReport/routes'
 import { QA_REPORT_PATHS } from 'features/QAReport/routes'
 import { CPC_REPORT_PATHS } from 'features/CPCReport/routes.tsx'
 import { COMPLIANCE_PATHS } from 'features/Compliance/routes.tsx'
+import { HISTORYLEADS_PATHS } from 'features/HistoryLeads/routes.tsx'
 import useData from 'hooks/useData.tsx'
 import { COMPLIANCE_BOT_PATHS } from 'features/ComplianceBot/routes.tsx'
 import { PHONE_ROOM_PERFORMANCE_PATHS } from 'features/PhoneRoomPerformance/routes.tsx'
@@ -47,33 +48,33 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
   const phoneRoom =
     TRACKDRIVE_PROVIDER_ID === '2'
       ? [
-          {
-            title: t('menu:phoneRoom'),
-            items: [
-              {
-                to: PHONE_ROOM_LEADS_PATHS.LIST,
-                redirectOutside: false,
-                icon: PhoneEnabledOutlined,
-                permissions: PERMISSIONS.PHONE_ROOM,
-                label: t('menu:phoneRoomLeads'),
-              },
-              {
-                to: PHONE_ROOM_PERFORMANCE_PATHS.LIST,
-                redirectOutside: false,
-                icon: TrendingUpOutlined,
-                permissions: PERMISSIONS.PHONE_ROOM,
-                label: t('menu:phoneRoomPerformance'),
-              },
-              {
-                to: PHONE_ROOM_REPORTS_PATHS.LIST,
-                redirectOutside: false,
-                icon: InsertChartOutlined,
-                permissions: PERMISSIONS.REPORT_PHONE_ROOM,
-                label: t('menu:phoneRoomReports'),
-              },
-            ],
-          },
-        ]
+        {
+          title: t('menu:phoneRoom'),
+          items: [
+            {
+              to: PHONE_ROOM_LEADS_PATHS.LIST,
+              redirectOutside: false,
+              icon: PhoneEnabledOutlined,
+              permissions: PERMISSIONS.PHONE_ROOM,
+              label: t('menu:phoneRoomLeads'),
+            },
+            {
+              to: PHONE_ROOM_PERFORMANCE_PATHS.LIST,
+              redirectOutside: false,
+              icon: TrendingUpOutlined,
+              permissions: PERMISSIONS.PHONE_ROOM,
+              label: t('menu:phoneRoomPerformance'),
+            },
+            {
+              to: PHONE_ROOM_REPORTS_PATHS.LIST,
+              redirectOutside: false,
+              icon: InsertChartOutlined,
+              permissions: PERMISSIONS.REPORT_PHONE_ROOM,
+              label: t('menu:phoneRoomReports'),
+            },
+          ],
+        },
+      ]
       : []
 
   const components = useMemo(
@@ -102,6 +103,12 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             redirectOutside: false,
             icon: BarChartOutlined,
             label: t('menu:cpcReport'),
+          },
+          {
+            to: HISTORYLEADS_PATHS.LIST,
+            redirectOutside: false,
+            icon: BarChartOutlined,
+            label: t('menu:historyLeads'),
           },
         ],
       },
