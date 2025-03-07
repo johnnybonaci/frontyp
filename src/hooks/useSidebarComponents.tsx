@@ -4,7 +4,7 @@ import {
   AdsClickOutlined,
   AssessmentOutlined,
   BarChartOutlined,
-  BarChartRounded,
+  HistoryToggleOff,
   CallOutlined,
   CheckCircleOutline,
   GroupsOutlined,
@@ -108,7 +108,7 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
           {
             to: HISTORYLEADS_PATHS.LIST,
             redirectOutside: false,
-            icon: BarChartRounded,
+            icon: HistoryToggleOff,
             label: t('menu:historyLeads'),
           },
         ],
