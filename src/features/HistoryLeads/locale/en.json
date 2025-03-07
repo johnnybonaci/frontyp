@@ -1,0 +1,37 @@
+{
+  "singular": "HistoryLeads",
+  "roles": "HistoryLeads",
+  "calls": "Calls",
+  "listing": {
+    "title": "HistoryLeads"
+  },
+  "fields": {
+    "email": "Email",
+    "phone": "Phone",
+    "pubId": "Pub ID",
+    "trust": "Trust",
+    "subId": "Sub ID",
+    "type": "Type",
+    "universalLeadId": "Universal Lead ID",
+    "vendor": "T.Source YP",
+    "leadDate": "Date"
+  },
+  "filters": {
+    "pubId": "Pub ID",
+    "subId": "Sub ID",
+    "all": "All",
+    "date": "Date",
+    "phone": "Phone",
+    "leadsType": "Offers",
+    "email": "Email",
+    "selectOrAdd": "Select or Add"
+  },
+  "indicators": {},
+  "actions": {
+    "view": "View"
+  },
+  "details": {
+    "title": "HistoryLeads Details",
+    "trustedForm": "Trusted Form"
+  }
+}
