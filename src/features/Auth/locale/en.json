@@ -44,6 +44,7 @@
   },
   "buttons": {
     "signIn": "Sign in",
+    "login": "Login",
     "change": "Change",
     "creation": "Create",
     "continueLoading": "Loading...",
