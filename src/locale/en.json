@@ -212,7 +212,10 @@
   "authLayout": {
     "projectName": "YieldPro",
     "projectNameDescription": "Administration",
-    "description": ""
+    "description": "",
+    "projectTitle": "A few more clicks to sign in to your account.",
+    "projectSubTitle1": "Manage all your e-commerce",
+    "projectSubTitle2": "accounts in one place!"
   },
   "dropzone": {
     "chooseFile": "Choose a file",

@@ -3,6 +3,10 @@
   flex-direction: column;
   width: 100%;
   gap: 20px;
+  border-radius: 1rem;
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .formContent {
@@ -19,4 +23,27 @@
 
 .actions {
   margin-top: 30px;
+}
+
+.marginI {
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.link {
+  font-size: 1rem;
+  text-decoration: underline;
+  transition: color 150ms ease-in-out;
+  color: #6a2c93;
+  font-weight: 500;
+}
+
+.link:hover {
+  color: #7c3aed;
 }
