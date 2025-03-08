@@ -47,6 +47,7 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const { getSessionUser, isLoadingSessionUser } = useSessionUserFetch()
   const initialized = useRef(false)
   const navigate = useNavigate()
+  const { activeSession } = useBrowserSession()
 
   const tryToSetNewLoginRedirect = useCallback(() => {
     if (!location.pathname.includes('/auth')) {
@@ -113,36 +114,18 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   // )
 
   const initialize = async (): Promise<void> => {
-    if (initialized.current) {
-      setIsAuthenticated(true)
-      return
+    if (activeSession()) {
+      initSession(activeSession())
+    } else {
+      setIsLoading(false)
+      getSessionUser().then((user: AuthUser) => {
+        initSession(new Session('', '', user))
+      })
     }
+    if (initialized.current) return
     initialized.current = true
 
-    getSessionUser().then((user: AuthUser) => {
-      initSession(new Session('', '', user))
-    })
 
-    // if (cookies.yieldpro_session) {
-    //   setIsAuthenticated(true)
-    // } else {
-    //   setIsAuthenticated(false)
-    // }
-
-    setIsLoading(false)
-
-    // if (activeSession() ?? signature) {
-    //   let currentSession = null
-    //   if (signature) {
-    //     metadataSignature.clear()
-    //     currentSession = await validateSignature(window.location.href)
-    //   } else {
-    //     currentSession = activeSession()
-    //   }
-    //   initSession(currentSession)
-    // } else {
-    //   setIsLoading(false)
-    // }
   }
 
   const login = useCallback(
