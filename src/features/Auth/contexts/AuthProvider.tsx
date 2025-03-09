@@ -50,7 +50,7 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const { activeSession } = useBrowserSession()
 
   const tryToSetNewLoginRedirect = useCallback(() => {
-    if (!location.pathname.includes('/auth')) {
+    if (location.pathname.includes('/auth')) {
       setLoginRedirect(location.pathname + location.search)
     }
   }, [setLoginRedirect, location])
