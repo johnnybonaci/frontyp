@@ -118,11 +118,6 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
       setIsLoading(false)
       setIsAuthenticated(true)
       initSession(activeSession())
-    } else {
-      setIsLoading(true)
-      getSessionUser().then((user: AuthUser) => {
-        initSession(new Session('', '', user))
-      })
     }
     if (initialized.current) return
     initialized.current = true
