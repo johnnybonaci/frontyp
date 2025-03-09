@@ -32,7 +32,7 @@ interface AuthProviderProps {
 const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const location = useLocation()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [loginRedirect, setLoginRedirect] = useState(DASHBOARD)
   const { persistSession, clearSession } = useBrowserSession()
   const { doLogin } = useLoginFetch()
@@ -115,9 +115,11 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
 
   const initialize = async (): Promise<void> => {
     if (activeSession()) {
+      setIsLoading(false)
+      setIsAuthenticated(true)
       initSession(activeSession())
     } else {
-      setIsLoading(false)
+      setIsLoading(true)
       getSessionUser().then((user: AuthUser) => {
         initSession(new Session('', '', user))
       })
