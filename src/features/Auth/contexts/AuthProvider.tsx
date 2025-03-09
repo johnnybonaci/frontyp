@@ -32,7 +32,7 @@ interface AuthProviderProps {
 const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const location = useLocation()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [loginRedirect, setLoginRedirect] = useState(DASHBOARD)
   const { persistSession, clearSession } = useBrowserSession()
   const { doLogin } = useLoginFetch()
