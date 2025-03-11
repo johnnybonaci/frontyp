@@ -180,11 +180,11 @@ const HistoryLeadsList: FC = () => {
                 <Table stickyHeader>
                   <TableHead>
                     <TableRow>
-                      <TableCell sx={{ fontWeight: 'bold', position: 'sticky', left: 0, background: 'white' }}>
+                      <TableCell sx={{ fontWeight: 'bold', position: 'sticky', left: 0, background: 'white', minWidth: 120 }}>
                         Datos
                       </TableCell>
                       {selectedHistoryLeads.data.map((entry, index) => (
-                        <TableCell key={index} colSpan={2} align="center" sx={{ fontWeight: 'bold' }}>
+                        <TableCell key={index} colSpan={2} align="center" sx={{ fontWeight: 'bold', minWidth: 200 }}>
                           {entry.after_h?.updated_at || 'Fecha no disponible'}
                         </TableCell>
                       ))}
@@ -203,16 +203,24 @@ const HistoryLeadsList: FC = () => {
                     {selectedHistoryLeads.data[0]?.before_h ? (
                       Object.keys(selectedHistoryLeads.data[0].before_h).map((key) => (
                         <TableRow key={key}>
-                          <TableCell sx={{ fontWeight: 'bold', position: 'sticky', left: 0, background: 'white' }}>
+                          <TableCell sx={{ fontWeight: 'bold', position: 'sticky', left: 0, background: 'white', minWidth: 120 }}>
                             {key}
                           </TableCell>
                           {selectedHistoryLeads.data.map((entry, index) => (
                             <React.Fragment key={`${key}-${index}`}>
-                              <TableCell sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'red' : 'inherit' }}>
-                                {formatValue(entry.before_h[key])}
+                              <TableCell
+                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'red' : 'inherit', maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                              >
+                                <Tooltip title={formatValue(entry.before_h[key])} arrow>
+                                  <span>{formatValue(entry.before_h[key])}</span>
+                                </Tooltip>
                               </TableCell>
-                              <TableCell sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'green' : 'inherit' }}>
-                                {formatValue(entry.after_h[key])}
+                              <TableCell
+                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'green' : 'inherit', maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                              >
+                                <Tooltip title={formatValue(entry.after_h[key])} arrow>
+                                  <span>{formatValue(entry.after_h[key])}</span>
+                                </Tooltip>
                               </TableCell>
                             </React.Fragment>
                           ))}
