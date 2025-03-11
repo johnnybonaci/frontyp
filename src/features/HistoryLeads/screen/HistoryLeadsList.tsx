@@ -179,22 +179,22 @@ const HistoryLeadsList: FC = () => {
               <TableContainer component={Paper} sx={{ overflowX: 'auto', maxHeight: 500 }}>
                 <Table stickyHeader>
                   <TableHead>
-                    <TableRow sx={{ height: 40 }}>
-                      <TableCell sx={{ fontWeight: 'bold', left: 0, top: 0, background: 'white', minWidth: 120, borderRight: '1px solid #ddd' }}>
+                    <TableRow sx={{ height: 35 }}>
+                      <TableCell sx={{ fontWeight: 'bold', left: 0, top: 0, background: 'white', minWidth: 120, borderRight: '1px solid var(--table-border)' }}>
                         Datos
                       </TableCell>
                       {selectedHistoryLeads.data.map((entry, index) => (
-                        <TableCell key={index} colSpan={2} align="center" sx={{ fontWeight: 'bold', minWidth: 120, borderRight: '1px solid #ddd', top: 0, background: 'white' }}>
+                        <TableCell key={index} colSpan={2} align="center" sx={{ fontWeight: 'bold', minWidth: 120, borderRight: '1px solid var(--table-border)', top: 0, background: 'white' }}>
                           {entry.after_h?.updated_at || 'Fecha no disponible'}
                         </TableCell>
                       ))}
                     </TableRow>
-                    <TableRow sx={{ height: 40 }}>
-                      <TableCell sx={{ position: 'sticky', left: 0, background: 'white', borderRight: '1px solid #ddd' }}></TableCell>
+                    <TableRow sx={{ height: 35 }}>
+                      <TableCell sx={{ position: 'sticky', left: 0, background: 'white', borderRight: '1px solid var(--table-border)' }}></TableCell>
                       {selectedHistoryLeads.data.map((_, index) => (
                         <React.Fragment key={index}>
-                          <TableCell align="center" sx={{ borderRight: '1px solid #ddd', background: 'white' }}>Antes</TableCell>
-                          <TableCell align="center" sx={{ borderRight: '1px solid #ddd', background: 'white' }}>Después</TableCell>
+                          <TableCell align="center" sx={{ borderRight: '1px solid var(--table-border)', background: 'white' }}>Antes</TableCell>
+                          <TableCell align="center" sx={{ borderRight: '1px solid var(--table-border)', background: 'white' }}>Después</TableCell>
                         </React.Fragment>
                       ))}
                     </TableRow>
@@ -202,21 +202,21 @@ const HistoryLeadsList: FC = () => {
                   <TableBody>
                     {selectedHistoryLeads.data[0]?.before_h ? (
                       Object.keys(selectedHistoryLeads.data[0].before_h).map((key) => (
-                        <TableRow key={key} sx={{ height: 40 }}>
-                          <TableCell sx={{ fontWeight: 'bold', left: 0, background: 'white', minWidth: 120, borderRight: '1px solid #ddd' }}>
+                        <TableRow key={key} sx={{ height: 35 }}>
+                          <TableCell sx={{ fontWeight: 'bold', left: 0, background: 'white', minWidth: 120, borderRight: '1px solid var(--table-border)' }}>
                             {key}
                           </TableCell>
                           {selectedHistoryLeads.data.map((entry, index) => (
                             <React.Fragment key={`${key}-${index}`}>
                               <TableCell
-                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'red' : 'inherit', maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', borderRight: '1px solid #ddd' }}
+                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'red' : 'inherit', maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', borderRight: '1px solid var(--table-border)' }}
                               >
                                 <Tooltip title={formatValue(entry.before_h[key])} arrow>
                                   <span>{formatValue(entry.before_h[key])}</span>
                                 </Tooltip>
                               </TableCell>
                               <TableCell
-                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'green' : 'inherit', maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', borderRight: '1px solid #ddd' }}
+                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'green' : 'inherit', maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', borderRight: '1px solid var(--table-border)' }}
                               >
                                 <Tooltip title={formatValue(entry.after_h[key])} arrow>
                                   <span>{formatValue(entry.after_h[key])}</span>
@@ -227,7 +227,7 @@ const HistoryLeadsList: FC = () => {
                         </TableRow>
                       ))
                     ) : (
-                      <TableRow sx={{ height: 40 }}>
+                      <TableRow sx={{ height: 35 }}>
                         <TableCell colSpan={3} align="center" sx={{ color: 'gray' }}>
                           No hay historial disponible para este número.
                         </TableCell>
