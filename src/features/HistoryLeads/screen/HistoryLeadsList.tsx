@@ -67,9 +67,10 @@ const HistoryLeadsList: FC = () => {
         fieldName: 'phone_id',
         sortable: true,
         dataModifier: (item: HistoryLeadsItem) => item.phone,
-      }, {
-        header: t('fields.trust'),
-        fieldName: 'trust',
+      },
+      {
+        header: t('fields.history'),
+        fieldName: 'history',
         sortable: false,
         dataModifier: (item: HistoryLeadsItem) => (
           <IconButton
@@ -85,6 +86,12 @@ const HistoryLeadsList: FC = () => {
           </IconButton>
         ),
       },
+      {
+        header: t('fields.last_update'),
+        fieldName: 'last_update',
+        sortable: false,
+        dataModifier: (item: HistoryLeadsItem) => item.last_update,
+      }
     ],
     [t]
   )
