@@ -87,7 +87,7 @@ const HistoryLeadsList: FC = () => {
         ),
       },
       {
-        header: t('fields.last_update'),
+        header: t('fields.lastUpdated'),
         fieldName: 'last_update',
         sortable: false,
         dataModifier: (item: HistoryLeadsItem) => item.last_update,
