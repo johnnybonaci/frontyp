@@ -11,6 +11,7 @@ export const historyLeadsItemFromApi = (item: HistoryLeadsItemFromApi): HistoryL
 
     data: item.data,
     phone: item.phone,
+    last_update: item.last_update,
 
   }
 }
