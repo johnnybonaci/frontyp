@@ -180,21 +180,21 @@ const HistoryLeadsList: FC = () => {
                 <Table stickyHeader>
                   <TableHead>
                     <TableRow sx={{ height: 35 }}>
-                      <TableCell sx={{ fontWeight: 'bold', left: 0, top: 0, background: 'white', minWidth: 120, borderRight: '1px solid var(--table-border)' }}>
+                      <TableCell sx={{ fontWeight: 'bold', left: 0, top: 0, background: 'white', minWidth: 120, borderRight: '1px solid var(--table-border) !important' }}>
                         Datos
                       </TableCell>
                       {selectedHistoryLeads.data.map((entry, index) => (
-                        <TableCell key={index} colSpan={2} align="center" sx={{ fontWeight: 'bold', minWidth: 120, borderRight: '1px solid var(--table-border)', top: 0, background: 'white' }}>
+                        <TableCell key={index} colSpan={2} align="center" sx={{ fontWeight: 'bold', minWidth: 120, borderRight: '1px solid var(--table-border) !important', top: 0, background: 'white' }}>
                           {entry.after_h?.updated_at || 'Fecha no disponible'}
                         </TableCell>
                       ))}
                     </TableRow>
                     <TableRow sx={{ height: 35 }}>
-                      <TableCell sx={{ position: 'sticky', left: 0, background: 'white', borderRight: '1px solid var(--table-border)' }}></TableCell>
+                      <TableCell sx={{ position: 'sticky', left: 0, background: 'white', borderRight: '1px solid var(--table-border) !important' }}></TableCell>
                       {selectedHistoryLeads.data.map((_, index) => (
                         <React.Fragment key={index}>
-                          <TableCell align="center" sx={{ borderRight: '1px solid var(--table-border)', background: 'white' }}>Antes</TableCell>
-                          <TableCell align="center" sx={{ borderRight: '1px solid var(--table-border)', background: 'white' }}>Después</TableCell>
+                          <TableCell align="center" sx={{ borderRight: '1px solid var(--table-border) !important', background: 'white' }}>Antes</TableCell>
+                          <TableCell align="center" sx={{ borderRight: '1px solid var(--table-border) !important', background: 'white' }}>Después</TableCell>
                         </React.Fragment>
                       ))}
                     </TableRow>
