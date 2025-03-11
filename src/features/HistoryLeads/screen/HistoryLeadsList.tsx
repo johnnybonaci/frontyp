@@ -1,4 +1,4 @@
-import { useMemo, type FC, useState, useCallback } from 'react'
+import { useMemo, type FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import HistoryLeadsTable from 'features/HistoryLeads/components/HistoryLeadsTable/HistoryLeadsTable.tsx'
 import useFilters from 'src/hooks/useFilters'
@@ -8,9 +8,6 @@ import Indicator from 'components/Indicator/Indicator.tsx'
 import ContentBox from 'components/ContentBox'
 import { type HistoryLeadsItem } from 'features/HistoryLeads/types'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
-import { Drawer, IconButton, Tooltip } from '@mui/material'
-import DrawerHeader from 'components/DrawerHeader'
-import DrawerContent from 'components/DrawerContent'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
 import {
@@ -18,27 +15,16 @@ import {
   transformFiltersToApi,
   transformFiltersToUrl,
 } from 'features/HistoryLeads/transformers'
-import dateFormat from 'utils/dateFormat.ts'
 import RefreshButton from 'components/RefreshButton'
-import { type CallReportItem } from 'features/CallReport/types'
-import { VisibilityOutlined } from '@mui/icons-material'
+
 import HistoryLeadsFilters, {
   type HistoryLeadsListFiltersFormValues,
   DEFAULT_FILTERS,
 } from '../components/HistoryLeadsFilters/HistoryLeadsFilters.tsx'
-import LeadType from 'components/LeadType'
 
 const HistoryLeadsList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'HistoryLeads' })
-  const [selectedHistoryLeads, setSelectedHistoryLeads] = useState<HistoryLeadsItem | undefined>(
-    undefined
-  )
 
-  const [collapsedViewDetails, setCollapsedViewDetails] = useState(true)
-
-  const toggleViewDetails = useCallback(() => {
-    setCollapsedViewDetails(!collapsedViewDetails)
-  }, [setCollapsedViewDetails, collapsedViewDetails])
 
   const { onCancel, onApply, filters, filtersToAPI } = useFilters<HistoryLeadsListFiltersFormValues>(
     DEFAULT_FILTERS,
@@ -54,82 +40,16 @@ const HistoryLeadsList: FC = () => {
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
 
-  const handleOpenHistoryLeadsDetails = useCallback(
-    (historyLeadsItem: HistoryLeadsItem) => {
-      setSelectedHistoryLeads(historyLeadsItem)
-      toggleViewDetails()
-    },
-    [toggleViewDetails, setSelectedHistoryLeads]
-  )
 
   const initialColumns = useMemo(
     () => [
-      {
-        header: t('fields.email'),
-        fieldName: 'email',
-        sortable: true,
-        dataModifier: (item: HistoryLeadsItem) => item.email,
-      },
+
       {
         header: t('fields.phone'),
         fieldName: 'phone_id',
         sortable: true,
         dataModifier: (item: HistoryLeadsItem) => item.phone,
-      },
-      {
-        header: t('fields.pubId'),
-        fieldName: 'pub_list_id',
-        sortable: true,
-        dataModifier: (item: HistoryLeadsItem) => item.pubListId,
-      },
-      {
-        header: t('fields.vendor'),
-        fieldName: 'vendors_yp',
-        sortable: true,
-        dataModifier: (item: HistoryLeadsItem) => item.vendorsYp,
-      },
-      {
-        header: t('fields.type'),
-        fieldName: 'type',
-        sortable: true,
-        dataModifier: (item: HistoryLeadsItem) => <LeadType type={item.type} />,
-      },
-      {
-        header: t('fields.subId'),
-        fieldName: 'sub_id',
-        sortable: true,
-        dataModifier: (item: HistoryLeadsItem) => item.subId,
-      },
-      {
-        header: t('fields.universalLeadId'),
-        fieldName: 'universal_lead_id',
-        sortable: true,
-        dataModifier: (item: HistoryLeadsItem) => item.universalLeadId,
-      },
-      {
-        header: t('fields.trust'),
-        fieldName: 'trust',
-        sortable: false,
-        dataModifier: (item: HistoryLeadsItem) => (
-          <IconButton
-            color="primary"
-            size="small"
-            onClick={() => {
-              handleOpenHistoryLeadsDetails(item)
-            }}
-          >
-            <Tooltip title={t('details.title')}>
-              <VisibilityOutlined sx={{ fontSize: 14 }} />
-            </Tooltip>
-          </IconButton>
-        ),
-      },
-      {
-        header: t('fields.leadDate'),
-        fieldName: 'created_at',
-        sortable: true,
-        dataModifier: (data: CallReportItem) => dateFormat(data.createdAt, 'YYYY-MM-DD HH:mm:ss'),
-      },
+      }
     ],
     [t]
   )
@@ -189,17 +109,6 @@ const HistoryLeadsList: FC = () => {
         perPage={perPage}
         onRowsPerPageChange={setPerPage}
       />
-      <Drawer open={!collapsedViewDetails} onClose={toggleViewDetails} anchor="right">
-        <DrawerHeader title={t('details.title')} onClose={toggleViewDetails} />
-        <DrawerContent>
-          <div className={styles.detailsContainer}>
-            <div className={styles.item}>
-              <div className={styles.itemLabel}>{t('details.trustedForm')}</div>
-              <div className={styles.itemValue}>{selectedHistoryLeads?.trustedForm}</div>
-            </div>
-          </div>
-        </DrawerContent>
-      </Drawer>
     </ContentBox>
   )
 }

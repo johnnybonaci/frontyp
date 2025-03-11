@@ -30,7 +30,7 @@ const useFetchHistoryLeadsList = ({
   const [historyLeadsItems, setHistoryLeadsItems] = useState<HistoryLeadsItem[] | null>(null)
 
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
-    url: `${config.api.baseUrl}/api/data/leads`,
+    url: `${config.api.baseUrl}/api/data/history-new`,
     filters,
     options: { updatePath: true },
   })
