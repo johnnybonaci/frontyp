@@ -32,6 +32,7 @@
   },
   "details": {
     "title": "HistoryLeads Details",
-    "trustedForm": "Trusted Form"
+    "trustedForm": "Trusted Form",
+    "phone": "Phone"
   }
 }
