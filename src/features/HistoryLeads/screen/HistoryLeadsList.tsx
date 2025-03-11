@@ -159,6 +159,54 @@ const HistoryLeadsList: FC = () => {
               <div className={styles.itemLabel}>{t('details.phone')}</div>
               <div className={styles.itemValue}>{selectedHistoryLeads?.phone}</div>
             </div>
+            {selectedHistoryLeads?.data && selectedHistoryLeads?.data?.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="table-auto w-full border-collapse border border-gray-300">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th className="border p-2 sticky left-0 bg-white">Datos</th>
+                      {selectedHistoryLeads?.data.map((entry, index) => (
+                        <th key={index} colSpan={2} className="border p-2 text-center">{entry.after_h.updated_at}</th>
+                      ))}
+                    </tr>
+                    <tr className="bg-gray-200">
+                      <th className="border p-2 sticky left-0 bg-white"></th>
+                      {selectedHistoryLeads?.data.map((_, index) => (
+                        <>
+                          <th key={`before-header-${index}`} className="border p-2">Antes</th>
+                          <th key={`after-header-${index}`} className="border p-2">Después</th>
+                        </>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedHistoryLeads?.data[0]?.before_h ? (
+                      Object.keys(selectedHistoryLeads?.data[0].before_h).map((key) => (
+                        <tr key={key}>
+                          <td className="border p-2 font-bold sticky left-0 bg-white">{key}</td>
+                          {selectedHistoryLeads?.data.map((entry, index) => (
+                            <>
+                              <td key={`before-${index}`} className={`border p-2 ${entry.before_h[key] !== entry.after_h[key] ? 'text-red-500' : ''}`}>
+                                {entry.before_h[key] || "-"}
+                              </td>
+                              <td key={`after-${index}`} className={`border p-2 ${entry.before_h[key] !== entry.after_h[key] ? 'text-green-500' : ''}`}>
+                                {entry.after_h[key] || "-"}
+                              </td>
+                            </>
+                          ))}
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={3} className="text-center text-gray-500 p-4">No hay historial disponible para este número.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p className="text-center text-gray-500">No hay historial disponible para este número.</p>
+            )}
           </div>
         </DrawerContent>
       </Drawer>
