@@ -1,3 +1,4 @@
+import React from 'react';
 import { useMemo, type FC, useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import HistoryLeadsTable from 'features/HistoryLeads/components/HistoryLeadsTable/HistoryLeadsTable.tsx'
@@ -10,7 +11,7 @@ import { type HistoryLeadsItem } from 'features/HistoryLeads/types'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
 import useTableSettings from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
-import { Drawer, IconButton, Tooltip } from '@mui/material'
+import { Drawer, IconButton, Tooltip, Typography, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper, Box } from '@mui/material';
 import DrawerHeader from 'components/DrawerHeader'
 import DrawerContent from 'components/DrawerContent'
 import { VisibilityOutlined } from '@mui/icons-material'
@@ -151,65 +152,83 @@ const HistoryLeadsList: FC = () => {
         perPage={perPage}
         onRowsPerPageChange={setPerPage}
       />
-      <Drawer open={!collapsedViewDetails} onClose={toggleViewDetails} anchor="right">
-        <DrawerHeader title={t('details.title')} onClose={toggleViewDetails} />
+      <Drawer
+        open={!collapsedViewDetails}
+        onClose={toggleViewDetails}
+        anchor="right"
+        sx={{ width: '80%', '& .MuiDrawer-paper': { width: '80%' } }}
+      >
+        <DrawerHeader title="Historial de Cambios" onClose={toggleViewDetails} />
         <DrawerContent>
-          <div className={styles.detailsContainer}>
-            <div className={styles.item}>
-              <div className={styles.itemLabel}>{t('details.phone')}</div>
-              <div className={styles.itemValue}>{selectedHistoryLeads?.phone}</div>
-            </div>
-            {selectedHistoryLeads?.data && selectedHistoryLeads?.data?.length > 0 ? (
-              <div className="overflow-x-auto">
-                <table className="table-auto w-full border-collapse border border-gray-300">
-                  <thead>
-                    <tr className="bg-gray-100">
-                      <th className="border p-2 sticky left-0 bg-white">Datos</th>
-                      {selectedHistoryLeads?.data.map((entry, index) => (
-                        <th key={index} colSpan={2} className="border p-2 text-center">{entry.after_h.updated_at}</th>
+          <Box className={styles.detailsContainer}>
+            <Box className={styles.item}>
+              <Typography variant="subtitle1" className={styles.itemLabel}>
+                Número de Teléfono:
+              </Typography>
+              <Typography variant="body1" className={styles.itemValue}>
+                {selectedHistoryLeads?.phone || 'N/A'}
+              </Typography>
+            </Box>
+            {selectedHistoryLeads?.data && selectedHistoryLeads.data.length > 0 ? (
+              <TableContainer component={Paper} sx={{ overflowX: 'auto', maxHeight: 400 }}>
+                <Table stickyHeader>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ fontWeight: 'bold', position: 'sticky', left: 0, background: 'white' }}>
+                        Datos
+                      </TableCell>
+                      {selectedHistoryLeads.data.map((entry, index) => (
+                        <TableCell key={index} colSpan={2} align="center" sx={{ fontWeight: 'bold' }}>
+                          {entry.after_h?.updated_at || 'Fecha no disponible'}
+                        </TableCell>
                       ))}
-                    </tr>
-                    <tr className="bg-gray-200">
-                      <th className="border p-2 sticky left-0 bg-white"></th>
-                      {selectedHistoryLeads?.data.map((_, index) => (
-                        <>
-                          <th key={`before-header-${index}`} className="border p-2">Antes</th>
-                          <th key={`after-header-${index}`} className="border p-2">Después</th>
-                        </>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ position: 'sticky', left: 0, background: 'white' }}></TableCell>
+                      {selectedHistoryLeads.data.map((_, index) => (
+                        <React.Fragment key={index}>
+                          <TableCell align="center">Antes</TableCell>
+                          <TableCell align="center">Después</TableCell>
+                        </React.Fragment>
                       ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {selectedHistoryLeads?.data[0]?.before_h ? (
-                      Object.keys(selectedHistoryLeads?.data[0].before_h).map((key) => (
-                        <tr key={key}>
-                          <td className="border p-2 font-bold sticky left-0 bg-white">{key}</td>
-                          {selectedHistoryLeads?.data.map((entry, index) => (
-                            <>
-                              <td key={`before-${index}`} className={`border p-2 ${entry.before_h[key] !== entry.after_h[key] ? 'text-red-500' : ''}`}>
-                                {entry.before_h[key] || "-"}
-                              </td>
-                              <td key={`after-${index}`} className={`border p-2 ${entry.before_h[key] !== entry.after_h[key] ? 'text-green-500' : ''}`}>
-                                {entry.after_h[key] || "-"}
-                              </td>
-                            </>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {selectedHistoryLeads.data[0]?.before_h ? (
+                      Object.keys(selectedHistoryLeads.data[0].before_h).map((key) => (
+                        <TableRow key={key}>
+                          <TableCell sx={{ fontWeight: 'bold', position: 'sticky', left: 0, background: 'white' }}>
+                            {key}
+                          </TableCell>
+                          {selectedHistoryLeads.data.map((entry, index) => (
+                            <React.Fragment key={`${key}-${index}`}>
+                              <TableCell sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'red' : 'inherit' }}>
+                                {entry.before_h[key] || '-'}
+                              </TableCell>
+                              <TableCell sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'green' : 'inherit' }}>
+                                {entry.after_h[key] || '-'}
+                              </TableCell>
+                            </React.Fragment>
                           ))}
-                        </tr>
+                        </TableRow>
                       ))
                     ) : (
-                      <tr>
-                        <td colSpan={3} className="text-center text-gray-500 p-4">No hay historial disponible para este número.</td>
-                      </tr>
+                      <TableRow>
+                        <TableCell colSpan={3} align="center" sx={{ color: 'gray' }}>
+                          No hay historial disponible para este número.
+                        </TableCell>
+                      </TableRow>
                     )}
-                  </tbody>
-                </table>
-              </div>
+                  </TableBody>
+                </Table>
+              </TableContainer>
             ) : (
-              <p className="text-center text-gray-500">No hay historial disponible para este número.</p>
+              <Typography align="center" color="gray">No hay historial disponible para este número.</Typography>
             )}
-          </div>
+          </Box>
         </DrawerContent>
       </Drawer>
+
     </ContentBox>
   )
 }
