@@ -20,7 +20,7 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 
   if (filters.phone) {
     filter.push({
-      field: 'phone',
+      field: 'phone_id',
       type: 'like',
       value: filters.phone,
     })
