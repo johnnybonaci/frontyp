@@ -59,6 +59,12 @@ const HistoryLeadsList: FC = () => {
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
 
+  const formatValue = (value: any) => {
+    if (typeof value === 'object' && value !== null) {
+      return JSON.stringify(value, null, 2);
+    }
+    return value !== null && value !== undefined ? value.toString() : '-';
+  };
 
   const initialColumns = useMemo(
     () => [
@@ -203,10 +209,10 @@ const HistoryLeadsList: FC = () => {
                           {selectedHistoryLeads.data.map((entry, index) => (
                             <React.Fragment key={`${key}-${index}`}>
                               <TableCell sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'red' : 'inherit' }}>
-                                {entry.before_h[key] || '-'}
+                                {formatValue(entry.before_h[key])}
                               </TableCell>
                               <TableCell sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'green' : 'inherit' }}>
-                                {entry.after_h[key] || '-'}
+                                {formatValue(entry.after_h[key])}
                               </TableCell>
                             </React.Fragment>
                           ))}
