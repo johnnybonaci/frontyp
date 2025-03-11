@@ -180,21 +180,21 @@ const HistoryLeadsList: FC = () => {
                 <Table stickyHeader>
                   <TableHead>
                     <TableRow>
-                      <TableCell sx={{ fontWeight: 'bold', position: 'sticky', left: 0, background: 'white', minWidth: 120 }}>
+                      <TableCell sx={{ fontWeight: 'bold', position: 'sticky', left: 0, background: 'white', minWidth: 120, borderRight: '1px solid #ddd' }}>
                         Datos
                       </TableCell>
                       {selectedHistoryLeads.data.map((entry, index) => (
-                        <TableCell key={index} colSpan={2} align="center" sx={{ fontWeight: 'bold', minWidth: 200 }}>
+                        <TableCell key={index} colSpan={2} align="center" sx={{ fontWeight: 'bold', minWidth: 200, borderRight: '1px solid #ddd' }}>
                           {entry.after_h?.updated_at || 'Fecha no disponible'}
                         </TableCell>
                       ))}
                     </TableRow>
                     <TableRow>
-                      <TableCell sx={{ position: 'sticky', left: 0, background: 'white' }}></TableCell>
+                      <TableCell sx={{ position: 'sticky', left: 0, background: 'white', borderRight: '1px solid #ddd' }}></TableCell>
                       {selectedHistoryLeads.data.map((_, index) => (
                         <React.Fragment key={index}>
-                          <TableCell align="center">Antes</TableCell>
-                          <TableCell align="center">Después</TableCell>
+                          <TableCell align="center" sx={{ borderRight: '1px solid #ddd' }}>Antes</TableCell>
+                          <TableCell align="center" sx={{ borderRight: '1px solid #ddd' }}>Después</TableCell>
                         </React.Fragment>
                       ))}
                     </TableRow>
@@ -203,20 +203,20 @@ const HistoryLeadsList: FC = () => {
                     {selectedHistoryLeads.data[0]?.before_h ? (
                       Object.keys(selectedHistoryLeads.data[0].before_h).map((key) => (
                         <TableRow key={key}>
-                          <TableCell sx={{ fontWeight: 'bold', position: 'sticky', left: 0, background: 'white', minWidth: 120 }}>
+                          <TableCell sx={{ fontWeight: 'bold', position: 'sticky', left: 0, background: 'white', minWidth: 120, borderRight: '1px solid #ddd' }}>
                             {key}
                           </TableCell>
                           {selectedHistoryLeads.data.map((entry, index) => (
                             <React.Fragment key={`${key}-${index}`}>
                               <TableCell
-                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'red' : 'inherit', maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'red' : 'inherit', maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', borderRight: '1px solid #ddd' }}
                               >
                                 <Tooltip title={formatValue(entry.before_h[key])} arrow>
                                   <span>{formatValue(entry.before_h[key])}</span>
                                 </Tooltip>
                               </TableCell>
                               <TableCell
-                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'green' : 'inherit', maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'green' : 'inherit', maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', borderRight: '1px solid #ddd' }}
                               >
                                 <Tooltip title={formatValue(entry.after_h[key])} arrow>
                                   <span>{formatValue(entry.after_h[key])}</span>
