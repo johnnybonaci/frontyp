@@ -47,7 +47,7 @@ export const transformFiltersFromUrl = (
       ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
     endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
-    phone: searchParams.get('phone') ?? ''
+    phone: searchParams.get('phone_id') ?? ''
   }
 }
 
@@ -63,7 +63,7 @@ export const transformFiltersToUrl = (
     params.set('date_end', dateNoTimezoneToString(filters.endDate))
   }
   if (filters.phone) {
-    params.set('phone', filters.phone)
+    params.set('phone_id', filters.phone)
   }
 
   return params
