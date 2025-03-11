@@ -179,22 +179,22 @@ const HistoryLeadsList: FC = () => {
               <TableContainer component={Paper} sx={{ overflowX: 'auto', maxHeight: 500 }}>
                 <Table stickyHeader>
                   <TableHead>
-                    <TableRow>
-                      <TableCell sx={{ fontWeight: 'bold', position: 'sticky', left: 0, top: 0, background: 'white', minWidth: 120, borderRight: '1px solid #ddd', zIndex: 3 }}>
+                    <TableRow sx={{ height: 40 }}>
+                      <TableCell sx={{ fontWeight: 'bold', left: 0, top: 0, background: 'white', minWidth: 120, borderRight: '1px solid #ddd' }}>
                         Datos
                       </TableCell>
                       {selectedHistoryLeads.data.map((entry, index) => (
-                        <TableCell key={index} colSpan={2} align="center" sx={{ fontWeight: 'bold', minWidth: 200, borderRight: '1px solid #ddd', position: 'sticky', top: 0, background: 'white', zIndex: 2 }}>
+                        <TableCell key={index} colSpan={2} align="center" sx={{ fontWeight: 'bold', minWidth: 120, borderRight: '1px solid #ddd', top: 0, background: 'white' }}>
                           {entry.after_h?.updated_at || 'Fecha no disponible'}
                         </TableCell>
                       ))}
                     </TableRow>
-                    <TableRow>
-                      <TableCell sx={{ position: 'sticky', left: 0, top: 40, background: 'white', borderRight: '1px solid #ddd', zIndex: 3 }}></TableCell>
+                    <TableRow sx={{ height: 40 }}>
+                      <TableCell sx={{ position: 'sticky', left: 0, background: 'white', borderRight: '1px solid #ddd' }}></TableCell>
                       {selectedHistoryLeads.data.map((_, index) => (
                         <React.Fragment key={index}>
-                          <TableCell align="center" sx={{ borderRight: '1px solid #ddd', position: 'sticky', top: 40, background: 'white', zIndex: 2 }}>Antes</TableCell>
-                          <TableCell align="center" sx={{ borderRight: '1px solid #ddd', position: 'sticky', top: 40, background: 'white', zIndex: 2 }}>Después</TableCell>
+                          <TableCell align="center" sx={{ borderRight: '1px solid #ddd', background: 'white' }}>Antes</TableCell>
+                          <TableCell align="center" sx={{ borderRight: '1px solid #ddd', background: 'white' }}>Después</TableCell>
                         </React.Fragment>
                       ))}
                     </TableRow>
@@ -202,8 +202,8 @@ const HistoryLeadsList: FC = () => {
                   <TableBody>
                     {selectedHistoryLeads.data[0]?.before_h ? (
                       Object.keys(selectedHistoryLeads.data[0].before_h).map((key) => (
-                        <TableRow key={key}>
-                          <TableCell sx={{ fontWeight: 'bold', position: 'sticky', left: 0, background: 'white', minWidth: 120, borderRight: '1px solid #ddd', zIndex: 3 }}>
+                        <TableRow key={key} sx={{ height: 40 }}>
+                          <TableCell sx={{ fontWeight: 'bold', left: 0, background: 'white', minWidth: 120, borderRight: '1px solid #ddd' }}>
                             {key}
                           </TableCell>
                           {selectedHistoryLeads.data.map((entry, index) => (
@@ -227,7 +227,7 @@ const HistoryLeadsList: FC = () => {
                         </TableRow>
                       ))
                     ) : (
-                      <TableRow>
+                      <TableRow sx={{ height: 40 }}>
                         <TableCell colSpan={3} align="center" sx={{ color: 'gray' }}>
                           No hay historial disponible para este número.
                         </TableCell>
