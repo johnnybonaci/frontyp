@@ -26,6 +26,7 @@ import { ACTIVE_LEADS_PATHS } from 'features/ActiveLeads/routes'
 import { PUB_LEADS_PATHS } from 'features/PubLeads/routes'
 import { CALL_REPORT_PATHS } from 'features/CallReport/routes'
 import { CPA_REPORT_PATHS } from 'features/CPAReport/routes'
+import { RPC_REPORT_PATHS } from 'features/RPCReport/routes'
 import { QA_REPORT_PATHS } from 'features/QAReport/routes'
 import { COMPLIANCE_PATHS } from 'features/Compliance/routes.tsx'
 import { HISTORYLEADS_PATHS } from 'features/HistoryLeads/routes.tsx'
@@ -131,6 +132,11 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             to: QA_REPORT_PATHS.LIST,
             icon: CheckCircleOutline,
             label: t('menu:qaReport'),
+          },
+          {
+            to: RPC_REPORT_PATHS.LIST,
+            icon: AssessmentOutlined,
+            label: t('menu:rpcReport'),
           },
         ],
       },
