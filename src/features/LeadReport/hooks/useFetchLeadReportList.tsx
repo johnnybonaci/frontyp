@@ -7,11 +7,11 @@ import { type RequestError } from 'src/hooks/useFetch.ts'
 import { type Paginator } from 'src/types/paginator'
 import { type Filters } from 'src/types/filter'
 import { type Sorter } from 'src/types/sorter'
-import { type HistoryLeadsItem, type HistoryLeadsItemFromApi } from 'features/HistoryLeads/types'
-import { historyLeadsItemFromApi } from 'features/HistoryLeads/transformers'
+import { type LeadReportItem, type LeadReportItemFromApi } from 'features/LeadReport/types'
+import { leadReportItemFromApi } from 'features/LeadReport/transformers'
 
-interface UseFetchHistoryLeadsItemsResponse {
-  historyLeadsItems: HistoryLeadsItem[] | null
+interface UseFetchLeadReportItemsResponse {
+  leadReportItems: LeadReportItem[] | null
   paginator: Paginator
   loading: boolean
   error: RequestError
@@ -20,17 +20,17 @@ interface UseFetchHistoryLeadsItemsResponse {
   setSorter: (fieldName: string, order: 'asc' | 'desc' | undefined) => void
 }
 
-const useFetchHistoryLeadsList = ({
+const useFetchLeadReportList = ({
   filters,
 }: {
   filters: Filters
-}): UseFetchHistoryLeadsItemsResponse => {
+}): UseFetchLeadReportItemsResponse => {
   const { t } = useTranslation()
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
-  const [historyLeadsItems, setHistoryLeadsItems] = useState<HistoryLeadsItem[] | null>(null)
+  const [leadReportItems, setLeadReportItems] = useState<LeadReportItem[] | null>(null)
 
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
-    url: `${config.api.baseUrl}/api/data/history-new`,
+    url: `${config.api.baseUrl}/api/data/pageviews`,
     filters,
     options: { updatePath: true },
   })
@@ -38,11 +38,11 @@ const useFetchHistoryLeadsList = ({
   useEffect(() => {
     if (!response) return
 
-    const historyLeadsItems = response.data.map((role: HistoryLeadsItemFromApi) =>
-      historyLeadsItemFromApi(role)
+    const leadReportItems = response.data.map((role: LeadReportItemFromApi) =>
+      leadReportItemFromApi(role)
     )
 
-    setHistoryLeadsItems(historyLeadsItems)
+    setLeadReportItems(leadReportItems)
   }, [response?.data, t])
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const useFetchHistoryLeadsList = ({
   }, [error, t])
 
   return {
-    historyLeadsItems,
+    leadReportItems,
     paginator,
     loading,
     error,
@@ -74,4 +74,4 @@ const useFetchHistoryLeadsList = ({
   }
 }
 
-export default useFetchHistoryLeadsList
+export default useFetchLeadReportList
