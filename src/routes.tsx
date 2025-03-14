@@ -17,7 +17,6 @@ import LiveLeadsRoutes from 'features/LiveLeads/routes.tsx'
 import ActiveLeadsRoutes from 'features/ActiveLeads/routes.tsx'
 import PubLeadsRoutes from 'features/PubLeads/routes.tsx'
 import SettingsRoutes from 'features/Settings/routes'
-import CPCReportRoutes from 'features/CPCReport/routes.tsx'
 import ComplianceRoutes from 'features/Compliance/routes.tsx'
 import ComplianceBotRoutes from 'features/ComplianceBot/routes.tsx'
 import BusinessRouteMiddleware from 'components/BusinessRouteMiddleware'
@@ -74,7 +73,6 @@ const MainRoutes = {
     ...SettingsRoutes,
     ...ComplianceRoutes,
     ...ComplianceBotRoutes,
-    ...CPCReportRoutes,
     ...CallCampaignRoutes,
     ...PhoneRoomPerformanceRoutes,
     ...PhoneRoomLeadsRoutes,

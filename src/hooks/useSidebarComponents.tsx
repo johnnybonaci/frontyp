@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import {
   AdsClickOutlined,
   AssessmentOutlined,
-  BarChartOutlined,
   HistoryToggleOff,
   CallOutlined,
   CheckCircleOutline,
@@ -28,7 +27,6 @@ import { PUB_LEADS_PATHS } from 'features/PubLeads/routes'
 import { CALL_REPORT_PATHS } from 'features/CallReport/routes'
 import { CPA_REPORT_PATHS } from 'features/CPAReport/routes'
 import { QA_REPORT_PATHS } from 'features/QAReport/routes'
-import { CPC_REPORT_PATHS } from 'features/CPCReport/routes.tsx'
 import { COMPLIANCE_PATHS } from 'features/Compliance/routes.tsx'
 import { HISTORYLEADS_PATHS } from 'features/HistoryLeads/routes.tsx'
 import { LEADREPORT_PATHS } from 'features/LeadReport/routes.tsx'
@@ -100,12 +98,6 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             to: PUB_LEADS_PATHS.LIST,
             icon: GroupWorkOutlined,
             label: t('menu:pubsLeads'),
-          },
-          {
-            to: CPC_REPORT_PATHS.LIST,
-            redirectOutside: false,
-            icon: BarChartOutlined,
-            label: t('menu:cpcReport'),
           },
           {
             to: HISTORYLEADS_PATHS.LIST,
