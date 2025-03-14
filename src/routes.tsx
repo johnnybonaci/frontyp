@@ -12,6 +12,7 @@ import BaseDashboard from 'components/BaseDashboard'
 import ErrorPage from './features/Errors'
 import CallReportRoutes from 'features/CallReport/routes.tsx'
 import CPAReportRoutes from 'features/CPAReport/routes.tsx'
+import RPCReportRoutes from 'features/RPCReport/routes.tsx'
 import QAReportRoutes from 'features/QAReport/routes.tsx'
 import LiveLeadsRoutes from 'features/LiveLeads/routes.tsx'
 import ActiveLeadsRoutes from 'features/ActiveLeads/routes.tsx'
@@ -64,6 +65,7 @@ const MainRoutes = {
     },
     ...CallReportRoutes,
     ...CPAReportRoutes,
+    ...RPCReportRoutes,
     ...QAReportRoutes,
     ...LiveLeadsRoutes,
     ...HistoryLeadsRoutes,
