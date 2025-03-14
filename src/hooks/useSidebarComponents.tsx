@@ -17,6 +17,7 @@ import {
   TrendingUpOutlined,
   VerifiedUserOutlined,
   SettingsOutlined,
+  SummarizeOutlined,
 } from '@mui/icons-material'
 import { type SidebarComponents } from 'components/PrivateLayout/types'
 import PERMISSIONS from 'permissions'
@@ -30,6 +31,7 @@ import { QA_REPORT_PATHS } from 'features/QAReport/routes'
 import { CPC_REPORT_PATHS } from 'features/CPCReport/routes.tsx'
 import { COMPLIANCE_PATHS } from 'features/Compliance/routes.tsx'
 import { HISTORYLEADS_PATHS } from 'features/HistoryLeads/routes.tsx'
+import { LEADREPORT_PATHS } from 'features/LeadReport/routes.tsx'
 import useData from 'hooks/useData.tsx'
 import { COMPLIANCE_BOT_PATHS } from 'features/ComplianceBot/routes.tsx'
 import { PHONE_ROOM_PERFORMANCE_PATHS } from 'features/PhoneRoomPerformance/routes.tsx'
@@ -110,6 +112,12 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             redirectOutside: false,
             icon: HistoryToggleOff,
             label: t('menu:historyLeads'),
+          },
+          {
+            to: LEADREPORT_PATHS,
+            redirectOutside: false,
+            icon: SummarizeOutlined,
+            label: t('menu:leadReport'),
           },
         ],
       },
