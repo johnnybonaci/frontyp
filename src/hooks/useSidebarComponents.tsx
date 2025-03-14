@@ -114,7 +114,7 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             label: t('menu:historyLeads'),
           },
           {
-            to: LEADREPORT_PATHS,
+            to: LEADREPORT_PATHS.LIST,
             redirectOutside: false,
             icon: SummarizeOutlined,
             label: t('menu:leadReport'),
