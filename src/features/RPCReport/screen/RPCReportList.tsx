@@ -55,31 +55,19 @@ const RPCReportList: FC = () => {
         dataModifier: (item: RPCReportItem) => item.buyerName,
       },
       {
-        header: t('fields.uniqueCalls'),
-        fieldName: 'total_unique',
-        sortable: true,
-        dataModifier: (item: RPCReportItem) => item.totalUnique,
-      },
-      {
-        header: t('fields.ucr'),
-        fieldName: 'total_ucr',
-        sortable: true,
-        dataModifier: (item: RPCReportItem) => item.totalUcr + '%',
-      },
-      {
-        header: t('fields.variations'),
-        fieldName: 'total_ucr_1',
-        sortable: true,
-        dataModifier: (item: RPCReportItem) => <RPCVariation variation={item.variations} />,
-      },
-      {
         header: t('fields.rpc'),
         fieldName: 'total_rpc',
         sortable: true,
         dataModifier: (item: RPCReportItem) => item.totalRpc,
       },
       {
-        header: t('fields.costPerCalls'),
+        header: t('fields.uniqueCalls'),
+        fieldName: 'total_unique',
+        sortable: true,
+        dataModifier: (item: RPCReportItem) => item.totalUnique,
+      },
+      {
+        header: t('fields.revenue'),
         fieldName: 'total_revenue',
         sortable: true,
         dataModifier: (item: RPCReportItem) => item.totalRevenue,
@@ -91,52 +79,47 @@ const RPCReportList: FC = () => {
         dataModifier: (item: RPCReportItem) => item.totalBillables,
       },
       {
-        header: t('fields.sales'),
-        fieldName: 'total_sales',
+        header: t('fields.durations'),
+        fieldName: 'total_durations',
         sortable: true,
-        dataModifier: (item: RPCReportItem) => item.totalSales,
+        dataModifier: (item) => item.totalDurations,
       },
       { header: t('fields.state'), fieldName: 'state', sortable: true },
-      {
-        header: t('fields.totalCost'),
-        fieldName: 'total_cost',
-        sortable: true,
-        dataModifier: (item) => item.totalCost,
-      },
     ],
     [t]
   )
 
   const initialIndicators = [
     {
-      name: t('indicators.totalCalls'),
-      fieldName: 'totalCalls',
-      value: rpcReportIndicators?.totalCalls,
-    },
-    {
       name: t('indicators.rpc'),
       fieldName: 'rpc',
       value: rpcReportIndicators?.totalRpc,
     },
     {
-      name: t('indicators.billableCalls'),
-      fieldName: 'billableCalls',
-      value: rpcReportIndicators?.totalBillables,
+      name: t('indicators.totalCalls'),
+      fieldName: 'totalCalls',
+      value: rpcReportIndicators?.totalCalls,
     },
+
     {
-      name: t('indicators.sales'),
-      fieldName: 'sales',
-      value: rpcReportIndicators?.totalSales,
+      name: t('indicators.uniqueCalls'),
+      fieldName: 'uniqueCalls',
+      value: rpcReportIndicators?.totalUnique,
     },
     {
       name: t('indicators.totalBillable'),
       fieldName: 'totalBillable',
-      value: formatMoneyIndicator(rpcReportIndicators?.totalCost),
+      value: rpcReportIndicators?.totaBillables,
     },
     {
-      name: t('indicators.duration'),
-      fieldName: 'duration',
-      value: rpcReportIndicators?.totalDurations,
+      name: t('indicators.revenue'),
+      fieldName: 'totalRevenue',
+      value: formatMoneyIndicator(rpcReportIndicators?.totalRevenue),
+    },
+    {
+      name: t('indicators.profit'),
+      fieldName: 'totalProfit',
+      value: rpcReportIndicators?.totalProfit,
     },
   ]
 
