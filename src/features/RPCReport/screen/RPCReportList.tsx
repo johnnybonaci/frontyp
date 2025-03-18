@@ -113,7 +113,7 @@ const RPCReportList: FC = () => {
     {
       name: t('indicators.revenue'),
       fieldName: 'totalRevenue',
-      value: formatMoneyIndicator(rpcReportIndicators?.totalRevenue),
+      value: formatMoneyIndicator(rpcReportIndicators?.totalRevs),
     },
     {
       name: t('indicators.profit'),
