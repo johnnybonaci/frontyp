@@ -18,7 +18,10 @@
     "variations": "Variations",
     "sales": "Sales",
     "state": "State",
-    "totalCost": "Total Cost"
+    "totalCost": "Total Cost",
+    "revenue": "Revenue",
+    "profit": "Profit",
+    "durations": "Durations"
   },
   "indicators": {
     "totalCalls": "Total Calls",
@@ -26,7 +29,11 @@
     "billableCalls": "Billable Calls",
     "sales": "Sales",
     "totalBillable": "Total Billable",
-    "duration": "Duration"
+    "duration": "Duration",
+    "totalDuration": "Total Duration",
+    "uniqueCalls": "Unique Calls",
+    "revenue": "Revenue",
+    "profit": "Gross Profit"
   },
   "filters": {
     "trafficSource": "Traffic Source TD",

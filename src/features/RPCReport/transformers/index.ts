@@ -17,19 +17,17 @@ import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const rpcReportItemFromApi = (item: RPCReportItemFromApi): RPCReportItem => {
   return {
+
     totalRevenue: item.total_revenue,
-    totalCost: item.total_cost,
-    variations: item.total_ucr_1,
+    totalProfit: item.total_profit,
+    totalRevs: item.total_revs,
     totalCalls: item.total_calls,
-    totalBillables: item.total_billables,
-    totalSales: item.total_sales,
-    totalDurations: item.total_durations,
-    totalRpc: item.total_rpc,
-    totalCpc: item.total_cpc,
-    state: item.state,
-    totalUcr: item.total_ucr,
     totalUnique: item.total_unique,
+    totalDurations: item.total_durations,
     buyerName: item.buyer_name,
+    state: item.state,
+    totalBillables: item.total_billables,
+    totalRpc: item.total_rpc,
     children: item._children?.map(rpcReportItemFromApi),
   }
 }
@@ -37,17 +35,15 @@ export const rpcReportItemFromApi = (item: RPCReportItemFromApi): RPCReportItem 
 export function rpcReportIndicatorsFromApi(data: RPCReportIndicatorsFromApi): RPCReportIndicators {
   return {
     totalRevenue: data.total_revenue,
-    totalCost: data.total_cost,
+    totalProfit: data.total_profit,
+    totalRevs: data.total_revs,
     totalCalls: data.total_calls,
-    totalBillables: data.total_billables,
-    totalSales: data.total_sales,
-    totalDurations: data.total_durations,
-    totalRpc: data.total_rpc,
-    totalUcr: data.total_ucr,
     totalUnique: data.total_unique,
-    totalCpc: data.total_cpc,
+    totalDurations: data.total_durations,
     buyerName: data.buyer_name,
     state: data.state,
+    totaBillables: data.total_billables,
+    totalRpc: data.total_rpc,
   }
 }
 
