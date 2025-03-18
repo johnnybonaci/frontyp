@@ -5,6 +5,7 @@ import enJSON from './locale/en.json'
 import enAuthJSON from 'src/features/Auth/locale/en.json'
 import enCallReportJSON from 'src/features/CallReport/locale/en.json'
 import enCPAReportJSON from 'src/features/CPAReport/locale/en.json'
+import enRPCReportJSON from 'src/features/RPCReport/locale/en.json'
 import enQAReportJSON from 'src/features/QAReport/locale/en.json'
 import enLiveLeadsJSON from 'src/features/LiveLeads/locale/en.json'
 import enActiveLeadsJSON from 'src/features/ActiveLeads/locale/en.json'
@@ -66,6 +67,7 @@ i18n.addResourceBundle('en', 'features', {
   Auth: enAuthJSON,
   CallReport: enCallReportJSON,
   CPAReport: enCPAReportJSON,
+  RPCReport: enRPCReportJSON,
   QAReport: enQAReportJSON,
   LiveLeads: enLiveLeadsJSON,
   ActiveLeads: enActiveLeadsJSON,

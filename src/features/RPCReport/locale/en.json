@@ -1,0 +1,55 @@
+{
+  "singular": "RPC Report",
+  "insuranceEditedSuccessfully": "Insurance edited successfully",
+  "regeneratedSuccessfully": "Reprocessed successfully",
+  "transcriptSuccessfully": "Transcript in Progress",
+  "roles": "RPC Report",
+  "calls": "Calls",
+  "listing": {
+    "title": "RPC Report"
+  },
+  "fields": {
+    "name": "Name",
+    "uniqueCalls": "Unique Calls",
+    "ucr": "UCR",
+    "rpc": "RPC",
+    "costPerCalls": "Cost per Call",
+    "billable": "Billable",
+    "variations": "Variations",
+    "sales": "Sales",
+    "state": "State",
+    "totalCost": "Total Cost",
+    "revenue": "Revenue",
+    "profit": "Profit",
+    "durations": "Durations"
+  },
+  "indicators": {
+    "totalCalls": "Total Calls",
+    "rpc": "RPC",
+    "billableCalls": "Billable Calls",
+    "sales": "Sales",
+    "totalBillable": "Total Billable",
+    "duration": "Duration",
+    "totalDuration": "Total Duration",
+    "uniqueCalls": "Unique Calls",
+    "revenue": "Revenue",
+    "profit": "Gross Profit"
+  },
+  "filters": {
+    "trafficSource": "Traffic Source TD",
+    "pubId": "Pub ID",
+    "subId": "Sub ID",
+    "state": "State",
+    "buyers": "Buyers TD",
+    "viewBy": "View By",
+    "date": "Date",
+    "leadsType": "Type",
+    "selectOrAdd": "Select or Add"
+  },
+  "actions": {
+    "view": "View"
+  },
+  "details": {
+    "title": "RPC Report Details"
+  }
+}
