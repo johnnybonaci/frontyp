@@ -22,7 +22,6 @@ import { type RPCReportItem } from 'features/RPCReport/types'
 import styles from './rpcReportList.module.scss'
 import useFetchRPCReportList from 'features/RPCReport/hooks/useFetchRPCReportList.tsx'
 import { DEFAULT_FILTERS } from '../components/RPCReportFilters/RPCReportFilters.tsx'
-import RPCVariation from 'components/CPAVariation'
 
 const RPCReportList: FC = () => {
   const { t } = useTranslation('features', { keyPrefix: 'RPCReport' })
