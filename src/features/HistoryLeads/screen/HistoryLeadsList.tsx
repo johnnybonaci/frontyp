@@ -209,14 +209,14 @@ const HistoryLeadsList: FC = () => {
                           {selectedHistoryLeads.data.map((entry, index) => (
                             <React.Fragment key={`${key}-${index}`}>
                               <TableCell
-                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'red' : 'inherit', maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', borderRight: '1px solid var(--table-border)' }}
+                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'red' : 'inherit', maxWidth: 180, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', borderRight: '1px solid var(--table-border)' }}
                               >
                                 <Tooltip title={formatValue(entry.before_h[key])} arrow>
                                   <span>{formatValue(entry.before_h[key])}</span>
                                 </Tooltip>
                               </TableCell>
                               <TableCell
-                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'green' : 'inherit', maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', borderRight: '1px solid var(--table-border)' }}
+                                sx={{ color: entry.before_h[key] !== entry.after_h[key] ? 'green' : 'inherit', maxWidth: 180, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', borderRight: '1px solid var(--table-border)' }}
                               >
                                 <Tooltip title={formatValue(entry.after_h[key])} arrow>
                                   <span>{formatValue(entry.after_h[key])}</span>
