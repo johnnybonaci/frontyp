@@ -164,12 +164,12 @@ const HistoryLeadsList: FC = () => {
         anchor="right"
         sx={{ width: '80%', '& .MuiDrawer-paper': { width: '80%' } }}
       >
-        <DrawerHeader title="Historial de Cambios" onClose={toggleViewDetails} />
+        <DrawerHeader title={t('history.title')} onClose={toggleViewDetails} />
         <DrawerContent>
           <Box className={styles.detailsContainer}>
             <Box className={styles.item}>
               <Typography variant="subtitle1" className={styles.itemLabel}>
-                Número de Teléfono:
+                {t('history.phone')}
               </Typography>
               <Typography variant="body1" className={styles.itemValue}>
                 {selectedHistoryLeads?.phone || 'N/A'}
@@ -181,11 +181,11 @@ const HistoryLeadsList: FC = () => {
                   <TableHead>
                     <TableRow sx={{ height: 35 }}>
                       <TableCell sx={{ fontWeight: 'bold', left: 0, top: 0, background: 'white', minWidth: 120, borderRight: '1px solid var(--table-border) !important', borderBottom: '1px solid var(--table-border) !important' }}>
-                        Datos
+                        {t('history.data')}
                       </TableCell>
                       {selectedHistoryLeads.data.map((entry, index) => (
                         <TableCell key={index} colSpan={2} align="center" sx={{ fontWeight: 'bold', minWidth: 120, borderRight: '1px solid var(--table-border) !important', borderBottom: '1px solid var(--table-border) !important', top: 0, background: 'white' }}>
-                          {entry.after_h?.updated_at || 'Fecha no disponible'}
+                          {entry.after_h?.updated_at || 'N/A'}
                         </TableCell>
                       ))}
                     </TableRow>
@@ -193,8 +193,8 @@ const HistoryLeadsList: FC = () => {
                       <TableCell sx={{ position: 'sticky', left: 0, background: 'white', borderRight: '1px solid var(--table-border) !important' }}></TableCell>
                       {selectedHistoryLeads.data.map((_, index) => (
                         <React.Fragment key={index}>
-                          <TableCell align="center" sx={{ borderRight: '1px solid var(--table-border) !important', background: 'white' }}>Antes</TableCell>
-                          <TableCell align="center" sx={{ borderRight: '1px solid var(--table-border) !important', background: 'white' }}>Después</TableCell>
+                          <TableCell align="center" sx={{ borderRight: '1px solid var(--table-border) !important', background: 'white' }}>{t('history.before')}</TableCell>
+                          <TableCell align="center" sx={{ borderRight: '1px solid var(--table-border) !important', background: 'white' }}>{t('history.after')}</TableCell>
                         </React.Fragment>
                       ))}
                     </TableRow>
@@ -229,7 +229,7 @@ const HistoryLeadsList: FC = () => {
                     ) : (
                       <TableRow sx={{ height: 35 }}>
                         <TableCell colSpan={3} align="center" sx={{ color: 'gray' }}>
-                          No hay historial disponible para este número.
+                          {t('history.noData')}
                         </TableCell>
                       </TableRow>
                     )}
@@ -237,7 +237,7 @@ const HistoryLeadsList: FC = () => {
                 </Table>
               </TableContainer>
             ) : (
-              <Typography align="center" color="gray">No hay historial disponible para este número.</Typography>
+              <Typography align="center" color="gray">{t('history.noData')}</Typography>
             )}
           </Box>
         </DrawerContent>
