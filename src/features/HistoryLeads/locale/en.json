@@ -36,5 +36,13 @@
     "title": "History Leads Details",
     "trustedForm": "Trusted Form",
     "phone": "Phone"
+  },
+  "history": {
+    "noData": "There is no history available for this number.",
+    "phone": "Phone Number",
+    "data": "Data",
+    "before": "Before",
+    "after": "After",
+    "title": "Change History"
   }
 }
