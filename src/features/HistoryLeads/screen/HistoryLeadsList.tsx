@@ -173,21 +173,23 @@ const HistoryLeadsList: FC = () => {
         <DrawerHeader title={t('history.title')} onClose={toggleViewDetails} />
         <DrawerContent>
           <Box className={styles.detailsContainer}>
-            <Box className={styles.item}>
-              <Typography variant="subtitle1" className={styles.itemLabel}>
-                {t('history.phone')}
-              </Typography>
-              <Typography variant="body1" className={styles.itemValue}>
-                {selectedHistoryLeads?.phone || 'N/A'}
-              </Typography>
-            </Box>
-            <Box className={styles.item}>
-              <Typography variant="subtitle1" className={styles.itemLabel}>
-                {t('fields.created')}
-              </Typography>
-              <Typography variant="body1" className={styles.itemValue}>
-                {selectedHistoryLeads?.date_created || 'N/A'}
-              </Typography>
+            <Box display="flex" gap={2}>
+              <Box className={styles.item}>
+                <Typography variant="subtitle1" className={styles.itemLabel}>
+                  {t('history.phone')}
+                </Typography>
+                <Typography variant="body1" className={styles.itemValue}>
+                  {selectedHistoryLeads?.phone || 'N/A'}
+                </Typography>
+              </Box>
+              <Box className={styles.item}>
+                <Typography variant="subtitle1" className={styles.itemLabel}>
+                  {t('fields.created')}
+                </Typography>
+                <Typography variant="body1" className={styles.itemValue}>
+                  {selectedHistoryLeads?.date_created || 'N/A'}
+                </Typography>
+              </Box>
             </Box>
             {selectedHistoryLeads?.data && selectedHistoryLeads.data.length > 0 ? (
               <TableContainer component={Paper} sx={{ overflowX: 'auto', maxHeight: 500 }}>
