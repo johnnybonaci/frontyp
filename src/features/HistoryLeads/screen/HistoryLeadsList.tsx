@@ -196,7 +196,10 @@ const HistoryLeadsList: FC = () => {
                 <Table stickyHeader>
                   <TableHead>
                     <TableRow sx={{ height: 35 }}>
-                      <TableCell sx={{ fontWeight: 'bold', left: 0, top: 0, background: 'white', minWidth: 120, borderRight: '1px solid var(--table-border) !important', borderBottom: '1px solid var(--table-border) !important' }}>
+                      <TableCell sx={{
+                        fontWeight: 'bold', left: 0, top: 0, background: 'white', minWidth: 120, width: 120,
+                        maxWidth: 120, borderRight: '1px solid var(--table-border) !important', borderBottom: '1px solid var(--table-border) !important'
+                      }}>
                         {t('history.data')}
                       </TableCell>
                       {selectedHistoryLeads.data.map((entry, index) => (
