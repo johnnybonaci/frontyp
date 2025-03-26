@@ -94,6 +94,12 @@ const HistoryLeadsList: FC = () => {
         ),
       },
       {
+        header: t('fields.created'),
+        fieldName: 'date_created',
+        sortable: false,
+        dataModifier: (item: HistoryLeadsItem) => item.date_created,
+      },
+      {
         header: t('fields.lastUpdated'),
         fieldName: 'last_update',
         sortable: false,
@@ -173,6 +179,14 @@ const HistoryLeadsList: FC = () => {
               </Typography>
               <Typography variant="body1" className={styles.itemValue}>
                 {selectedHistoryLeads?.phone || 'N/A'}
+              </Typography>
+            </Box>
+            <Box className={styles.item}>
+              <Typography variant="subtitle1" className={styles.itemLabel}>
+                {t('fields.created')}
+              </Typography>
+              <Typography variant="body1" className={styles.itemValue}>
+                {selectedHistoryLeads?.date_created || 'N/A'}
               </Typography>
             </Box>
             {selectedHistoryLeads?.data && selectedHistoryLeads.data.length > 0 ? (
