@@ -16,7 +16,8 @@
     "vendor": "T.Source YP",
     "leadDate": "Date",
     "lastUpdated": "Last Updated",
-    "history": "History Details"
+    "history": "History Details",
+    "created": "Created At"
   },
   "filters": {
     "pubId": "Pub ID",
