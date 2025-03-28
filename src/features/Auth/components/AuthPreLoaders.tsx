@@ -14,14 +14,9 @@ const AuthPreLoaders = ({ children }: any): ReactNode | null => {
     if (ignore.current) return
     ignore.current = true
 
-    console.log("🧠 [AuthPreLoaders] bootstrapped:", bootstrapped)
-    console.log("🧠 [AuthPreLoaders] isAuthenticated:", isAuthenticated)
-    console.log("🧠 [AuthPreLoaders] session:", session)
-
     if (!bootstrapped) return // ⏳ Esperar carga inicial
 
     if (!isLoading && !isAuthenticated && !session) {
-      console.log("🔁 Redirigiendo desde AuthPreLoaders")
       tryToSetNewLoginRedirect()
       navigate('/auth/login')
     }

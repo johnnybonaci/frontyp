@@ -144,7 +144,6 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
         navigate(loginRedirect)
         return await Promise.resolve()
       } catch (err) {
-        console.log('Error')
         return await Promise.reject(err)
       }
     },
@@ -162,12 +161,14 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
         clearSession()
         setIsAuthenticated(false)
 
+        navigate('/auth/login')
+
         await Promise.resolve()
       } catch (e) {
         return await Promise.reject(e)
       }
     },
-    [doLogout, navigate, clearSession, loginRedirect]
+    [doLogout, navigate, clearSession]
   )
 
   useEffect((): void => {

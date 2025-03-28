@@ -21,8 +21,6 @@ export default function useLoginFetch(): UseLoginFetchResult {
         throw new Error('CSRF mismatch');
       }
 
-      console.log("Token CSRF obtenido:", csrfToken);
-
       await api.post(`${config.api.msAuth.baseUrl}/login`,
         { email, password, platform: config.api.platform },
         { headers: { 'X-XSRF-TOKEN': csrfToken } }
