@@ -9,7 +9,8 @@ const AdministrationGate = ({ children }: any): ReactNode | null => {
 
   useEffect(() => {
     if (!isLoading && isAuthenticated && !session?.user?.isCMToolUser) {
-      navigate('/auth/login')
+      console.log("🔁 Redirigiendo desde AdministrationGate")
+      //navigate('/auth/login')
     }
   }, [isLoading, isAuthenticated, session, navigate])
 

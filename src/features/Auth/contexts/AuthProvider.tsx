@@ -118,8 +118,11 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
     initialized.current = true
 
     const storedSession = activeSession()
+    console.log("📦 storedSession desde localStorage:", storedSession)
 
     if (storedSession) {
+      console.log("✅ InitSession con:", storedSession)
+
       initSession(storedSession)
     }
 
