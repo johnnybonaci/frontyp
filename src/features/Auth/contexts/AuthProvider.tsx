@@ -88,7 +88,6 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const initSession = (session: Session | null): void => {
     if (session) {
       persistSession(session)
-      setIsAuthenticated(true)
       setSession(session)
       setIsLoading(false)
 
@@ -97,6 +96,8 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
           updateUser(session, user)
         })
       }
+
+      setIsAuthenticated(true)
     }
   }
 
