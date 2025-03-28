@@ -23,6 +23,7 @@ export interface AuthProviderType {
   initSession: (session: Session | null) => void
   logout: (doRevokeToken: boolean) => Promise<any>
   checkPermissions: (permissionsToVerify: string | string[], orValidation?: boolean) => boolean
+  bootstrapped: boolean
 }
 
 interface AuthProviderProps {
@@ -48,6 +49,7 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   const initialized = useRef(false)
   const navigate = useNavigate()
   const { activeSession } = useBrowserSession()
+  const [bootstrapped, setBootstrapped] = useState(false)
 
   const tryToSetNewLoginRedirect = useCallback(() => {
     if (location.pathname.includes('/auth')) {
@@ -119,16 +121,15 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
     initialized.current = true
 
     const storedSession = activeSession()
-    console.log("📦 storedSession desde localStorage:", storedSession)
 
     if (storedSession) {
-      console.log("✅ InitSession con:", storedSession)
-
       initSession(storedSession)
     }
 
+    setBootstrapped(true)
     setIsLoading(false)
   }
+
 
 
   const login = useCallback(
@@ -188,6 +189,7 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
         login,
         initSession,
         logout,
+        bootstrapped,
       }}
     >
       <AuthInterceptors>{children}</AuthInterceptors>

@@ -13,6 +13,8 @@ const AuthContext = createContext<AuthProviderType>({
   login: async () => await Promise.reject(new Error('not defined')),
   initSession: () => null,
   logout: async () => await Promise.reject(new Error('not defined')),
+  bootstrapped: false,
+
 })
 
 export default AuthContext
