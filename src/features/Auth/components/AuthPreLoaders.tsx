@@ -5,31 +5,20 @@ import { useNavigate } from 'react-router-dom'
 
 const AuthPreLoaders = ({ children }: any): ReactNode | null => {
   const { isAuthenticated, tryToSetNewLoginRedirect, session, isLoading } = useAuth()
-  const { user } = session ?? {}
   const ignore = useRef(false)
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Prevent from calling twice in development mode with React.StrictMode enabled
-    if (ignore.current) {
-      return
-    }
+    if (ignore.current) return
+    ignore.current = true
 
-    if (!isLoading && !isAuthenticated) {
+    if (!isLoading && !isAuthenticated && !session) {
       tryToSetNewLoginRedirect()
       navigate('/auth/login')
     }
+  }, [isAuthenticated, session, isLoading, navigate, tryToSetNewLoginRedirect])
 
-    ignore.current = true
-  }, [isAuthenticated, user, isLoading])
-
-  if (!isLoading && !isAuthenticated) {
-    tryToSetNewLoginRedirect()
-
-    navigate('/auth/login')
-  }
-
-  if (isLoading || !isAuthenticated) {
+  if (isLoading) {
     return null
   }
 

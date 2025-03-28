@@ -114,19 +114,18 @@ const AuthProvider = ({ children }: AuthProviderProps): ReactNode => {
   // )
 
   const initialize = async (): Promise<void> => {
-    if (activeSession()) {
-      initSession(activeSession())
-    } else {
-      setIsLoading(false)
-      getSessionUser().then((user: AuthUser) => {
-        initSession(new Session('', '', user))
-      })
-    }
     if (initialized.current) return
     initialized.current = true
 
+    const storedSession = activeSession()
 
+    if (storedSession) {
+      initSession(storedSession)
+    }
+
+    setIsLoading(false)
   }
+
 
   const login = useCallback(
     async (email: string, password: string) => {

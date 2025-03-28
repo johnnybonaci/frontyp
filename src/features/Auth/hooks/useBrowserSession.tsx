@@ -1,5 +1,4 @@
 import Session from 'src/features/Auth/models/Session'
-import useBrowserStorage from 'src/hooks/useBrowserStorage'
 
 export interface BrowserSessionType {
   activeSession: () => Session | null
@@ -9,26 +8,28 @@ export interface BrowserSessionType {
 }
 
 export default function useBrowserSession(identifierKey = 'session'): BrowserSessionType {
-  const browserStorage = useBrowserStorage(identifierKey)
-
   const hasActiveSession = (): boolean => {
-    return !!browserStorage.get()
+    return !!localStorage.getItem(identifierKey)
   }
 
   const activeSession = (): Session | null => {
-    if (hasActiveSession()) {
-      return Session.fromBrowser(browserStorage.get())
+    const storedSession = localStorage.getItem(identifierKey)
+    if (storedSession) {
+      try {
+        return Session.fromBrowser(JSON.parse(storedSession))
+      } catch (error) {
+        console.error('Error parsing session from localStorage:', error)
+      }
     }
-
     return null
   }
 
   const persistSession = (session: Session): void => {
-    browserStorage.persist(session.asJson)
+    localStorage.setItem(identifierKey, JSON.stringify(session.asJson))
   }
 
   const clearSession = (): void => {
-    browserStorage.clear()
+    localStorage.removeItem(identifierKey)
   }
 
   return { activeSession, hasActiveSession, persistSession, clearSession }

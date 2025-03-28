@@ -1,22 +1,23 @@
-import { type ReactNode } from 'react'
+import { type ReactNode, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import useAuth from 'src/features/Auth/hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 
 const AdministrationGate = ({ children }: any): ReactNode | null => {
   const { isAuthenticated, session, isLoading } = useAuth()
-  const { user } = session ?? {}
   const navigate = useNavigate()
 
-  if (isLoading || !isAuthenticated) {
+  useEffect(() => {
+    if (!isLoading && isAuthenticated && !session?.user?.isCMToolUser) {
+      navigate('/auth/login')
+    }
+  }, [isLoading, isAuthenticated, session, navigate])
+
+  if (isLoading) {
     return null
   }
 
-  if (!user?.isCMToolUser) {
-    navigate('/auth/login')
-  }
-
-  return children
+  return isAuthenticated && session?.user?.isCMToolUser ? children : null
 }
 
 AdministrationGate.propTypes = {
