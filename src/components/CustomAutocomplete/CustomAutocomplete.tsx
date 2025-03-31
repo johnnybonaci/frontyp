@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Autocomplete, TextField, Chip, SxProps, createFilterOptions } from '@mui/material'
-import useGetOptions from 'hooks/useGetOptions.ts'
 
 export interface Option {
   title: string
@@ -39,20 +38,12 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   creatable = true,
   label,
   placeholder = '',
-  options,
-  resourceName,
-  filterName = 'search',
+  options = [],
   helperText,
   sx = {},
 }) => {
   const [inputValue, setInputValue] = useState('')
   const [open, setOpen] = useState(false)
-
-  const resourceOptions = useGetOptions([resourceName ?? ''], {
-    [filterName]: inputValue || undefined,
-  })[`${resourceName}Options`]
-
-  const allOptions = resourceName ? resourceOptions : options
 
   const handleChange = (event: any, newValue: Array<string | Option> | any): void => {
     let newOptions = newValue
@@ -70,7 +61,7 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
       multiple={multiple}
       freeSolo={creatable}
       filterOptions={filterOptions}
-      options={allOptions || []}
+      options={options}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.title)}
       value={value}
       inputValue={inputValue}
