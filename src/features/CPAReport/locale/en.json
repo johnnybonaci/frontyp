@@ -22,6 +22,7 @@
   },
   "indicators": {
     "totalCalls": "Total Calls",
+    "totalUnique": "Total Calls (Unique)",
     "cpa": "CPA",
     "billableCalls": "Billable Calls",
     "sales": "Sales",

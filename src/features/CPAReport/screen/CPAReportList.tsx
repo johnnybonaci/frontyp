@@ -109,9 +109,9 @@ const CPAReportList: FC = () => {
 
   const initialIndicators = [
     {
-      name: t('indicators.totalCalls'),
-      fieldName: 'totalCalls',
-      value: cpaReportIndicators?.totalCalls,
+      name: t('indicators.totalUnique'),
+      fieldName: 'totalUnique',
+      value: cpaReportIndicators?.totalUnique,
     },
     {
       name: t('indicators.cpa'),
