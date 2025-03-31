@@ -46,6 +46,8 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   sx = {},
 }) => {
   const [inputValue, setInputValue] = useState('')
+  const [open, setOpen] = useState(false)
+
   const resourceOptions = useGetOptions([resourceName ?? ''], {
     [filterName]: inputValue || undefined,
   })[`${resourceName}Options`]
@@ -72,9 +74,13 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.title)}
       value={value}
       inputValue={inputValue}
-      onInputChange={(_event, newInputValue) => {
+      onInputChange={(_event, newInputValue, reason) => {
         setInputValue(newInputValue)
+        if (reason === 'input') setOpen(true)
       }}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      open={open}
       onChange={handleChange}
       renderTags={(value: Option[], getTagProps) =>
         value.map((option, index) => (
