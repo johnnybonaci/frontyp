@@ -65,6 +65,7 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
 
   return (
     <Autocomplete
+      key={inputValue}
       multiple={multiple}
       freeSolo={creatable}
       filterOptions={filterOptions}
