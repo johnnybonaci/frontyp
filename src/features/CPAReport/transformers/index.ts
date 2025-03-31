@@ -61,6 +61,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
     date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
     date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined,
     subs_id: filters.subId?.id,
+    buyers: multipleSelectToApi(filters.buyers),
+
   }
 }
 
