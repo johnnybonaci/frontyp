@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Autocomplete, TextField, Chip, debounce, SxProps } from '@mui/material'
+import { Autocomplete, TextField, Chip, debounce, SxProps, createFilterOptions } from '@mui/material'
 import useGetOptions from 'hooks/useGetOptions.ts'
 
 export interface Option {
@@ -23,6 +23,11 @@ interface MultipleAutocompleteProps {
   options?: Option[]
   sx?: SxProps
 }
+
+const filterOptions = createFilterOptions<Option>({
+  matchFrom: 'any',
+  stringify: (option) => option.title.toLowerCase(),
+})
 
 const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   name,
@@ -62,23 +67,8 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
     <Autocomplete
       multiple={multiple}
       freeSolo={creatable}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      options={allOptions?.filter(
-        (option) =>
-          !value ||
-          (multiple
-            ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-expect-error
-              !value?.some((selectedOption) =>
-                typeof option === 'string'
-                  ? option === selectedOption.title
-                  : option.title === selectedOption.title
-              )
-            : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-expect-error
-              value?.title !== option?.title)
-      )}
+      filterOptions={filterOptions}
+      options={allOptions || []}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.title)}
       value={value}
       onChange={handleChange}
