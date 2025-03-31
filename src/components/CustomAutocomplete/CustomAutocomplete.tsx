@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Autocomplete, TextField, Chip, debounce, SxProps, createFilterOptions } from '@mui/material'
+import { Autocomplete, TextField, Chip, SxProps, createFilterOptions } from '@mui/material'
 import useGetOptions from 'hooks/useGetOptions.ts'
 
 export interface Option {
@@ -65,17 +65,17 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
 
   return (
     <Autocomplete
-      key={inputValue}
       multiple={multiple}
       freeSolo={creatable}
       filterOptions={filterOptions}
       options={allOptions || []}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.title)}
       value={value}
-      onChange={handleChange}
-      onInputChange={debounce((_event, newInputValue) => {
+      inputValue={inputValue}
+      onInputChange={(_event, newInputValue) => {
         setInputValue(newInputValue)
-      }, 500)}
+      }}
+      onChange={handleChange}
       renderTags={(value: Option[], getTagProps) =>
         value.map((option, index) => (
           <Chip label={option.title} {...getTagProps({ index })} key={option.id} />
