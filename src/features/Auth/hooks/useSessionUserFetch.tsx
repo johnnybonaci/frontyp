@@ -9,7 +9,7 @@ interface UseSessionUserFetchType {
 }
 
 export default function useSessionUserFetch(): UseSessionUserFetchType {
-  const { doFetch, error, loading } = useFetch(`${config.api.baseUrl}/auth/user `, {
+  const { doFetch, error, loading } = useFetch(`${config.api.baseUrl}/auth/user`, {
     method: 'GET',
   })
 
