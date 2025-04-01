@@ -56,6 +56,7 @@ function BuyersEdition({
       resetForm({
         values: buyersToForm(buyers),
       })
+      setFieldValue('provider', buyers.provider)
     }
   }, [buyers])
 
