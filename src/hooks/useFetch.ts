@@ -34,7 +34,12 @@ const convertNullableValuesToEmptyStringWhenMultipartRequest = (requestConfig: a
       }
     })
   }
+  const apiToken = import.meta.env.VITE_API_TOKEN_YP;
 
+  requestConfig.headers = {
+    ...requestConfig.headers,
+    Authorization: `Bearer ${apiToken}`,
+  };
   return requestConfig
 }
 
@@ -63,11 +68,11 @@ const useFetch = (
       setError(null)
       setResponse(null)
       setLastFetchParams(params)
+
       const requestConfig = convertNullableValuesToEmptyStringWhenMultipartRequest({
         url,
         ...config,
         ...params,
-        withCredentials: true,
         paramsSerializer: (params: any) => {
           return qs.stringify(params, { arrayFormat: 'repeat' })
         },
