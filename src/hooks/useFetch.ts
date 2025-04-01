@@ -67,6 +67,7 @@ const useFetch = (
         url,
         ...config,
         ...params,
+        withCredentials: true,
         paramsSerializer: (params: any) => {
           return qs.stringify(params, { arrayFormat: 'repeat' })
         },
