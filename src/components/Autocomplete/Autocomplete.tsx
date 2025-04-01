@@ -1,6 +1,6 @@
 import { debounce, Autocomplete as MUIAutocomplete } from '@mui/material'
 import TextField from '@mui/material/TextField'
-import useGetOptions, { LIST_ENTITIES_PERMISSIONS, ResourceName } from 'hooks/useGetOptions'
+import useGetOptions, { LIST_ENTITIES_PERMISSIONS } from 'hooks/useGetOptions'
 import { type ReactNode, useEffect, useState } from 'react'
 import { type AutocompletePropsCustom } from './types'
 import { generateUniqueId } from 'utils/utils'
@@ -10,10 +10,6 @@ import { useTranslation } from 'react-i18next'
 import Gated from 'components/Gated'
 
 const CREATABLE_ID = generateUniqueId()
-
-const isValidResourceName = (name: string): name is ResourceName => {
-  return Object.keys(LIST_ENTITIES_PERMISSIONS).includes(name)
-}
 
 function Autocomplete({
   name,
@@ -36,26 +32,24 @@ function Autocomplete({
 }: AutocompletePropsCustom): ReactNode {
   const { t } = useTranslation()
   const [inputValue, setInputValue] = useState<string>('')
-
-  const allOptions: any[] = isValidResourceName(resourceName)
-    ? useGetOptions(
-      resourceName,
-      {
-        [filterName]: inputValue,
-        ...extraFilters,
-        perPage: 50,
-      },
-      valueWithEntity,
-      extraParameters
-    )
-    : []
-
+  const allOptions = useGetOptions(
+    [resourceName],
+    {
+      [filterName]: inputValue,
+      ...extraFilters,
+      perPage: 50,
+    },
+    valueWithEntity,
+    extraParameters
+  )
   const options =
     creatable &&
       inputValue &&
-      allOptions.filter((option) => option?.name === inputValue).length === 0
-      ? allOptions.concat([{ id: CREATABLE_ID, name: inputValue }])
-      : allOptions ?? []
+      allOptions?.[`${resourceName}Options`] &&
+      allOptions?.[`${resourceName}Options`]?.filter((option) => option?.name === inputValue)
+        .length === 0
+      ? allOptions?.[`${resourceName}Options`].concat([{ id: CREATABLE_ID, name: inputValue }])
+      : allOptions?.[`${resourceName}Options`] ?? []
 
   const handleChange = (e: any, value: any): void => {
     if (creatable && onCreate && value?.id === CREATABLE_ID) {
@@ -79,7 +73,7 @@ function Autocomplete({
   }, [restProps?.value])
 
   return (
-    <Gated permissions={LIST_ENTITIES_PERMISSIONS[resourceName as ResourceName]}>
+    <Gated permissions={LIST_ENTITIES_PERMISSIONS[resourceName]}>
       <MUIAutocomplete
         options={additionalOptions
           .concat(options)
@@ -98,10 +92,7 @@ function Autocomplete({
                 option.id === CREATABLE_ID && styles.creatableOption
               )}
             >
-              {`
-                ${option.id === CREATABLE_ID
-                  ? `${t('createOption', { option: option.name || option[filterName] })}`
-                  : option.name || option[filterName]}`}
+              {`${option.id === CREATABLE_ID ? `${t('createOption', { option: option.name || option[filterName] })}` : option.name || option[filterName]}`}
             </span>
           )
         }}
