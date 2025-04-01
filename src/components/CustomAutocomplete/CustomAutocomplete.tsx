@@ -21,6 +21,7 @@ interface MultipleAutocompleteProps {
   options?: Option[]
   resourceName?: string
   filterName?: string
+  remote?: boolean
   sx?: SxProps
 }
 
@@ -37,17 +38,20 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   options = [],
   resourceName,
   filterName = 'search',
+  remote = false,
   helperText,
   sx = {},
 }) => {
   const [inputValue, setInputValue] = useState('')
   const [open, setOpen] = useState(false)
 
-  const resourceOptions = useGetOptions([resourceName ?? ''], {
-    [filterName]: inputValue || undefined,
-  })[`${resourceName}Options`] || []
+  const resourceOptions = remote
+    ? useGetOptions([resourceName ?? ''], {
+      [filterName]: inputValue || undefined,
+    })[`${resourceName}Options`] || []
+    : []
 
-  const finalOptions = resourceName ? resourceOptions : options
+  const finalOptions = remote ? resourceOptions : options
 
   const handleChange = (event: any, newValue: Array<string | Option> | any): void => {
     let newOptions = newValue
@@ -69,7 +73,7 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
     <Autocomplete
       multiple={multiple}
       freeSolo={creatable}
-      filterOptions={!resourceName ? filterOptions : undefined}
+      filterOptions={!remote ? filterOptions : undefined}
       options={finalOptions}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.title)}
       value={value}
