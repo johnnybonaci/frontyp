@@ -143,8 +143,6 @@ const CPAReportFilters: FC<CPAReportFiltersProps> = ({
             }}
             label={t('buyers')}
             placeholder={t('selectOrAdd')}
-            remote={false}
-
           />
           <CustomAutocomplete
             options={leadTypeOptions}
