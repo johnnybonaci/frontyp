@@ -23,7 +23,13 @@ export default function useLoginFetch(): UseLoginFetchResult {
 
       await api.post(`${config.api.msAuth.baseUrl}/login`,
         { email, password, platform: config.api.platform },
-        { headers: { 'X-XSRF-TOKEN': csrfToken } }
+        {
+          withCredentials: true,
+          headers: {
+            'X-XSRF-TOKEN': csrfToken,
+            'Accept': 'application/json',
+          },
+        }
       );
       return await Promise.resolve(true)
 
