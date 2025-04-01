@@ -62,8 +62,6 @@ export const buyersItemFromApi = (data: BuyersItemFromApi, userOptions: Option[]
 
 export const buyersToForm = (data: BuyersItem): BuyersForm => {
   const { id, buyerProviderId, provider, name, user, revenue } = data
-  console.log(provider, 'provider')
-  console.log(entityToOption(provider), 'entityToOption(provider)')
   return {
     id,
     name,
