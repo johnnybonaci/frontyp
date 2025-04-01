@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Autocomplete, TextField, Chip, SxProps, createFilterOptions } from '@mui/material'
+import { Autocomplete, TextField, Chip, SxProps } from '@mui/material'
+import useGetOptions from 'hooks/useGetOptions.ts'
 
 export interface Option {
   title: string
@@ -14,19 +15,14 @@ interface MultipleAutocompleteProps {
   error?: boolean
   label: string
   creatable?: boolean
-  resourceName?: string
-  filterName?: string
   multiple?: boolean
   placeholder?: string
   helperText?: string
   options?: Option[]
+  resourceName?: string
+  filterName?: string
   sx?: SxProps
 }
-
-const filterOptions = createFilterOptions<Option>({
-  matchFrom: 'any',
-  stringify: (option) => option.title.toLowerCase(),
-})
 
 const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   name,
@@ -39,11 +35,19 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   label,
   placeholder = '',
   options = [],
+  resourceName,
+  filterName = 'search',
   helperText,
   sx = {},
 }) => {
   const [inputValue, setInputValue] = useState('')
   const [open, setOpen] = useState(false)
+
+  const resourceOptions = useGetOptions([resourceName ?? ''], {
+    [filterName]: inputValue || undefined,
+  })[`${resourceName}Options`] || []
+
+  const finalOptions = resourceName ? resourceOptions : options
 
   const handleChange = (event: any, newValue: Array<string | Option> | any): void => {
     let newOptions = newValue
@@ -56,12 +60,17 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
     onChange(event, newOptions)
   }
 
+  const filterOptions = (opts: Option[], state: any): Option[] => {
+    const search = state.inputValue.toLowerCase()
+    return opts.filter((opt) => opt.title.toLowerCase().includes(search))
+  }
+
   return (
     <Autocomplete
       multiple={multiple}
       freeSolo={creatable}
-      filterOptions={filterOptions}
-      options={options}
+      filterOptions={!resourceName ? filterOptions : undefined}
+      options={finalOptions}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.title)}
       value={value}
       inputValue={inputValue}
