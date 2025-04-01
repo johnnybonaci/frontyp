@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
-import { Autocomplete, TextField, Chip, debounce, SxProps } from '@mui/material'
-import useGetOptions from 'hooks/useGetOptions.ts'
+import {
+  Autocomplete,
+  TextField,
+  Chip,
+  SxProps,
+} from '@mui/material'
+import useGetOptions, { ResourceName } from 'hooks/useGetOptions.ts'
 
 export interface Option {
   title: string
@@ -15,12 +20,13 @@ interface MultipleAutocompleteProps {
   error?: boolean
   label: string
   creatable?: boolean
-  resourceName?: string
-  filterName?: string
   multiple?: boolean
   placeholder?: string
   helperText?: string
   options?: Option[]
+  resourceName?: ResourceName
+  filterName?: string
+  remote?: boolean
   sx?: SxProps
 }
 
@@ -34,18 +40,23 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   creatable = true,
   label,
   placeholder = '',
-  options,
+  options = [],
   resourceName,
   filterName = 'search',
+  remote = false,
   helperText,
   sx = {},
 }) => {
   const [inputValue, setInputValue] = useState('')
-  const resourceOptions = useGetOptions([resourceName ?? ''], {
-    [filterName]: inputValue || undefined,
-  })[`${resourceName}Options`]
+  const [open, setOpen] = useState(false)
 
-  const allOptions = resourceName ? resourceOptions : options
+  let finalOptions: Option[] = options
+
+  if (remote && resourceName) {
+    finalOptions = useGetOptions(resourceName, {
+      [filterName]: inputValue || undefined,
+    })
+  }
 
   const handleChange = (event: any, newValue: Array<string | Option> | any): void => {
     let newOptions = newValue
@@ -58,33 +69,28 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
     onChange(event, newOptions)
   }
 
+  const filterOptions = (opts: Option[], state: any): Option[] => {
+    const search = state.inputValue.toLowerCase()
+    return opts.filter((opt) => opt.title.toLowerCase().includes(search))
+  }
+
   return (
     <Autocomplete
       multiple={multiple}
       freeSolo={creatable}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      options={allOptions?.filter(
-        (option) =>
-          !value ||
-          (multiple
-            ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            !value?.some((selectedOption) =>
-              typeof option === 'string'
-                ? option === selectedOption.title
-                : option.title === selectedOption.title
-            )
-            : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            value?.title !== option?.title)
-      )}
+      filterOptions={!remote ? filterOptions : undefined}
+      options={finalOptions}
       getOptionLabel={(option) => (typeof option === 'string' ? option : option.title)}
       value={value}
-      onChange={handleChange}
-      onInputChange={debounce((_event, newInputValue) => {
+      inputValue={inputValue}
+      onInputChange={(_event, newInputValue, reason) => {
         setInputValue(newInputValue)
-      }, 500)}
+        if (reason === 'input') setOpen(true)
+      }}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      open={open}
+      onChange={handleChange}
       renderTags={(value: Option[], getTagProps) =>
         value.map((option, index) => (
           <Chip label={option.title} {...getTagProps({ index })} key={option.id} />
