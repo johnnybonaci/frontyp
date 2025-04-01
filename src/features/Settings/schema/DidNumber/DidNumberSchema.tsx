@@ -13,10 +13,10 @@ export const EMPTY_BUYERS: DidNumberForm = {
 
 const DidNumberSchema = Yup.object({
   id: Yup.number().required('validations:required'),
-  description: Yup.string(),
-  campaignName: Yup.string(),
-  sub: Yup.object(),
-  pub: Yup.object(),
+  description: Yup.string().nullable(),
+  campaignName: Yup.string().nullable(),
+  sub: Yup.object().nullable(),
+  pub: Yup.object().nullable(),
   trafficSource: Yup.object().required('validations:required'),
   offer: Yup.object().required('validations:required'),
 })

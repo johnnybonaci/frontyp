@@ -16,7 +16,7 @@ const OffersSchema = Yup.object({
   provider: Yup.object().required('validations:required'),
   type: Yup.object().required('validations:required'),
   sourceUrl: Yup.string().required('validations:required'),
-  apiKey: Yup.string().required('validations:required'),
+  apiKey: Yup.string().nullable(),
 })
 
 export default OffersSchema
