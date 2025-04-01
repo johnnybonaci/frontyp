@@ -45,13 +45,14 @@ const CustomAutocomplete: React.FC<MultipleAutocompleteProps> = ({
   const [inputValue, setInputValue] = useState('')
   const [open, setOpen] = useState(false)
 
-  const resourceOptions = remote
-    ? useGetOptions([resourceName ?? ''], {
-      [filterName]: inputValue || undefined,
-    })[`${resourceName}Options`] || []
-    : []
+  let finalOptions: Option[] = options
 
-  const finalOptions = remote ? resourceOptions : options
+  if (remote && resourceName) {
+    const data = useGetOptions([resourceName], {
+      [filterName]: inputValue || undefined,
+    })
+    finalOptions = data[`${resourceName}Options`] || []
+  }
 
   const handleChange = (event: any, newValue: Array<string | Option> | any): void => {
     let newOptions = newValue
