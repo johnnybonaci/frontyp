@@ -14,7 +14,7 @@ const BuyersSchema = Yup.object({
   id: Yup.number().required('validations:required'),
   provider: Yup.object().required('validations:required'),
   buyerProviderId: Yup.string().required('validations:required'),
-  user: Yup.object().required('validations:required'),
+  user: Yup.object().nullable(),
   revenue: Yup.string().required('validations:required'),
 })
 
