@@ -1,0 +1,58 @@
+.mainContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  padding: 0px 10px;
+  width: fit-content;
+  font-weight: 500;
+  border: 1px solid var(--light-primary-color);
+  gap: 10px;
+}
+
+.indicator {
+  height: 7px;
+  width: 7px;
+  min-width: 7px;
+  min-height: 7px;
+  border-radius: 50%;
+}
+
+.contact {
+  .indicator {
+    background: #2ecc71;
+  }
+}
+.billable {
+  .indicator {
+    background: #8e44ad;
+  }
+}
+
+.sale {
+  .indicator {
+    background: #16a085;
+  }
+}
+
+.saleToReview {
+  .indicator {
+    background: #f1c40f;
+  }
+}
+
+.failed {
+  .indicator {
+    background: #e74c3c;
+  }
+}
+
+.noContact {
+  .indicator {
+    background: #95a5a6;
+  }
+}

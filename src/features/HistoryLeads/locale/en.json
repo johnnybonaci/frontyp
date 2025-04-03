@@ -1,0 +1,49 @@
+{
+  "singular": "History Leads",
+  "roles": "History Leads",
+  "calls": "Calls",
+  "listing": {
+    "title": "History Leads"
+  },
+  "fields": {
+    "email": "Email",
+    "phone": "Phone",
+    "pubId": "Pub ID",
+    "trust": "Trust",
+    "subId": "Sub ID",
+    "type": "Type",
+    "universalLeadId": "Universal Lead ID",
+    "vendor": "T.Source YP",
+    "leadDate": "Date",
+    "lastUpdated": "Last Updated",
+    "history": "History Details",
+    "created": "Created At"
+  },
+  "filters": {
+    "pubId": "Pub ID",
+    "subId": "Sub ID",
+    "all": "All",
+    "date": "Date",
+    "phone": "Phone",
+    "leadsType": "Offers",
+    "email": "Email",
+    "selectOrAdd": "Select or Add"
+  },
+  "indicators": {},
+  "actions": {
+    "view": "View"
+  },
+  "details": {
+    "title": "History Leads Details",
+    "trustedForm": "Trusted Form",
+    "phone": "Phone"
+  },
+  "history": {
+    "noData": "There is no history available for this number.",
+    "phone": "Phone Number",
+    "data": "Data",
+    "before": "Before",
+    "after": "After",
+    "title": "Change History"
+  }
+}

@@ -1,0 +1,21 @@
+.paginationBox {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.paginator {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.showingResults {
+  font-size: 12px;
+  margin-left: 10px;
+  font-weight: 400;
+}

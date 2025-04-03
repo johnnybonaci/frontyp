@@ -1,0 +1,71 @@
+{
+  "singular": "QA Report",
+  "insuranceEditedSuccessfully": "Insurance edited successfully",
+  "regeneratedSuccessfully": "Reprocessed successfully",
+  "transcriptSuccessfully": "Transcript in Progress",
+  "yes": "Yes",
+  "no": "No",
+  "roles": "QA Report",
+  "calls": "Calls",
+  "listing": {
+    "title": "QA Report"
+  },
+  "fields": {
+    "phone": "Phone",
+    "pubId": "Pub ID",
+    "offers": "Offers",
+    "vendorsTd": "Vendors TD",
+    "buyersTd": "Buyers TD",
+    "statusTd": "Status TD",
+    "holdDurations": "Hold Durations",
+    "duration": "Duration",
+    "ivr": "IVR",
+    "adQualityError": "Ad Quality Error",
+    "callDropped": "Call Dropped",
+    "notQualified": "Not Qualified",
+    "notInterested": "Not Interested",
+    "callDate": "Call Date"
+  },
+  "indicators": {
+    "totalCalls": "Total Calls",
+    "totalAdQualityError": "Ad Quality Error",
+    "totalReachedAgent": "Reached Agent",
+    "totalIvrQ": "IVR",
+    "totalAvgDurations": "Avg Duration",
+    "totalTenHoldDurationsQ": "On Hold > 10 Sec",
+    "totalCallerHungUpQ": "Caller Hung Up",
+    "totalNotQualifiedQ": "Not Qualified",
+    "totalNotInterestedQ": "Not Interested",
+    "totalCallDroppedQ": "Call Dropped",
+    "totalReachedAgentPercentage": "% Reached Agent",
+    "totalIvrPercentage": "% IVR",
+    "totalAvgHoldDurations": "Avg Hold Time",
+    "totalTenHoldDurationsPercentage": "% On Hold > 10 Sec",
+    "totalCallerHungUpPercentage": "% Caller Hung Up",
+    "totalNotQualifiedPercentage": "% Not Qualified",
+    "totalNotInterestedPercentage": "% Not Interested",
+    "totalCallDroppedPercentage": "% Call Dropped"
+  },
+  "filters": {
+    "trafficSource": "Traffic Source TD",
+    "pubId": "Pub ID",
+    "subId": "Sub ID",
+    "state": "State",
+    "buyers": "Buyers TD",
+    "phone": "Phone",
+    "offers": "Offers",
+    "date": "Date",
+    "selectOrAdd": "Select or Add",
+    "issueType": "Issue Type",
+    "status": "Status",
+    "insurance": "Insurance",
+    "pubIdYp": "Pub ID YP",
+    "callIssues": "Call Issues"
+  },
+  "actions": {
+    "view": "View"
+  },
+  "details": {
+    "title": "QA Report Details"
+  }
+}

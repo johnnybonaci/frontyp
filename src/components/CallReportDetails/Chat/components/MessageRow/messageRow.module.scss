@@ -1,0 +1,78 @@
+@import 'src/styles/mixins.module.scss';
+
+.messageContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 21px;
+}
+
+.senderContainer {
+  justify-content: flex-end;
+}
+
+.messageChat {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 4px;
+  gap: 10px;
+  order: 1;
+  text-wrap: wrap;
+  padding: 5px 20px;
+  border-radius: 16px;
+  background: var(--receiver-chat-bg);
+}
+
+.messageChat:after,
+.senderChat:before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top: 0;
+  margin-top: -7px;
+}
+
+.messageChat:after {
+  left: 0;
+  border-left: 0;
+  margin-left: -9px;
+  border-right-color: var(--receiver-chat-bg);
+}
+
+.senderChat {
+  flex-direction: unset;
+  order: 0;
+  margin-bottom: 21px;
+  background: var(--sender-chat-bg);
+}
+
+.senderChat:after {
+  border: unset;
+}
+
+.senderChat:before {
+  right: 0;
+  border-right: 0;
+  margin-right: -9px;
+  border-left-color: var(--sender-chat-bg);
+}
+
+/* CUSTOM SCROLLBAR */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #b9b9b9;
+}
+
+@include media-breakpoint-up(sm) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+}

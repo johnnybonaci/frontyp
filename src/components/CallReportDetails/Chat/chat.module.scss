@@ -1,0 +1,50 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100%;
+  height: 100%;
+}
+
+.messages {
+  flex: 1;
+  padding-right: 10px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+  padding-right: 10px;
+}
+
+.sendButton {
+  width: 45px !important;
+  height: 45px !important;
+  background: var(--primary-color) !important;
+  color: var(--white-base) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: var(--dark-primary-color) !important;
+    color: var(--light-primary-color) !important;
+  }
+}
+
+.noMessages {
+  font-size: 22px;
+  align-self: center;
+  text-wrap: wrap;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  color: var(--light-text-color);
+  align-items: center;
+  justify-content: center;
+  max-width: 320px;
+}

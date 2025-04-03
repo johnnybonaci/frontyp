@@ -1,0 +1,103 @@
+{
+  "singular": "Call Report",
+  "insuranceEditedSuccessfully": "Insurance edited successfully",
+  "regeneratedSuccessfully": "Reprocessed successfully",
+  "transcriptSuccessfully": "Transcript in Progress",
+  "roles": "Call Report",
+  "sale": "Sale",
+  "saleToReview": "Sale to Review",
+  "calls": "Calls",
+  "listing": {
+    "title": "Call Report"
+  },
+  "fields": {
+    "name": "Name",
+    "createdAt": "Created at",
+    "pubId": "Pub TD",
+    "issueType": "Issue Type",
+    "transcriptStatus": "Transcript Status",
+    "phone": "Phone",
+    "offers": "Offers TD",
+    "callDateTd": "Call Date TD",
+    "pubIdYp": "Pub YP",
+    "revenue": "Revenue",
+    "vendorsTd": "T.Source TD",
+    "state": "State TD",
+    "buyers": "Buyers TD",
+    "status": "Status TD",
+    "cpl": "CPL TD",
+    "durations": "Durations TD",
+    "insurance": "Insurance",
+    "insuranceName": "Insurance Name",
+    "terminatingPhone": "Terminating Phone",
+    "didNumberId": "Did TD"
+  },
+  "regenerate": {
+    "confirmation": {
+      "title": "Confirm Reprocessing",
+      "message": "Are you sure you want to reprocess the data?",
+      "button": "Reprocess",
+      "cancel": "Cancel"
+    }
+  },
+  "transcript": {
+    "confirmation": {
+      "title": "Confirm Transcript",
+      "message": "Are you sure you want to transcript the data?",
+      "button": "Transcript",
+      "cancel": "Cancel"
+    }
+  },
+  "transcriptStatuses": {
+    "1": "Processed",
+    "2": "Available to Process",
+    "3": "Processing",
+    "4": "Failed"
+  },
+  "editSaleForm": {
+    "title": "Edit Sale and Insurance",
+    "sale": "Sale",
+    "issueType": "Issue Type",
+    "insurance": "Insurance",
+    "insuranceName": "Insurance Name",
+    "submit": "Save",
+    "cancel": "Cancel"
+  },
+  "filters": {
+    "offers": "Offers",
+    "trafficSource": "Traffic Source TD",
+    "pubId": "Pub ID",
+    "pubIdYp": "Pub ID YP",
+    "state": "State",
+    "buyers": "Buyers TD",
+    "status": "Status",
+    "callIssues": "Call Issues",
+    "issueType": "Issue Type",
+    "all": "All",
+    "date": "Date",
+    "phone": "Phone",
+    "terminatingPhone": "Terminating Phone",
+    "didTd": "Did TD",
+    "cpl": "CPL",
+    "selectOrAdd": "Select or Add",
+    "durations": "Durations",
+    "insurance": "Insurance",
+    "insuranceName": "Insurance Name",
+    "didNumberId": "Did TD"
+  },
+  "actions": {
+    "view": "View",
+    "changeStatus": "Change Status",
+    "regenerate": "Reprocess",
+    "transcript": "Transcript"
+  },
+  "details": {
+    "title": "Call Report Details",
+    "transcript": "Transcript",
+    "send": "Send",
+    "noMessages": "Start the conversation with our AI, type a message and we will answer you.",
+    "analysis": "Detailed analysis",
+    "audioAndTranscript": "Audio & Transcript",
+    "chat": "AI Chat"
+  }
+}

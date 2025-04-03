@@ -1,0 +1,49 @@
+{
+  "singular": "CPA Report",
+  "insuranceEditedSuccessfully": "Insurance edited successfully",
+  "regeneratedSuccessfully": "Reprocessed successfully",
+  "transcriptSuccessfully": "Transcript in Progress",
+  "roles": "CPA Report",
+  "calls": "Calls",
+  "listing": {
+    "title": "CPA Report"
+  },
+  "fields": {
+    "name": "Name",
+    "uniqueCalls": "Unique Calls",
+    "ucr": "UCR",
+    "cpa": "CPA",
+    "costPerCalls": "Cost per Call",
+    "billable": "Billable",
+    "variations": "Variations",
+    "sales": "Sales",
+    "state": "State",
+    "totalCost": "Total Cost"
+  },
+  "indicators": {
+    "totalCalls": "Total Calls",
+    "totalUnique": "Total Calls (Unique)",
+    "cpa": "CPA",
+    "billableCalls": "Billable Calls",
+    "sales": "Sales",
+    "totalBillable": "Total Billable",
+    "duration": "Duration"
+  },
+  "filters": {
+    "trafficSource": "Traffic Source TD",
+    "pubId": "Pub ID",
+    "subId": "Sub ID",
+    "state": "State",
+    "buyers": "Buyers TD",
+    "viewBy": "View By",
+    "date": "Date",
+    "leadsType": "Type",
+    "selectOrAdd": "Select or Add"
+  },
+  "actions": {
+    "view": "View"
+  },
+  "details": {
+    "title": "CPA Report Details"
+  }
+}

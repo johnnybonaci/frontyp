@@ -1,0 +1,46 @@
+{
+  "singular": "Phone Room Leads",
+  "roles": "Phone Room Leads",
+  "listing": {
+    "title": "Phone Room Leads"
+  },
+  "fields": {
+    "phone": "Phone",
+    "pubs": "Pubs",
+    "subId": "Subs",
+    "vendor": "Vendor",
+    "type": "Type",
+    "logs": "Log",
+    "request": "Request",
+    "firstName": "First Name",
+    "email": "Email",
+    "status": "Status",
+    "dataLog": "Data Log",
+    "createdAt": "Date"
+  },
+  "indicators": {
+    "totalLeads": "Total Leads",
+    "totalSent": "Total Leads Sent",
+    "success": "Successfully Sent",
+    "rejected": "Total Rejected",
+    "totalQueued": "Total Queued"
+  },
+  "filters": {
+    "date": "Date",
+    "leadsType": "Type",
+    "pubId": "Pub ID",
+    "subId": "Sub ID",
+    "campaign": "Campaign",
+    "phone": "Phone",
+    "firstName": "First Name",
+    "email": "Email",
+    "status": "Status",
+    "selectOrAdd": "Select or Add"
+  },
+  "actions": {
+    "view": "View"
+  },
+  "details": {
+    "title": "Data Log"
+  }
+}

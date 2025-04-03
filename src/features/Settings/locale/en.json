@@ -1,0 +1,282 @@
+{
+  "title": "Settings",
+  "tabs": {
+    "pub_id": "Pub id",
+    "offer": "Offer",
+    "traffic_source": "Traffic Source",
+    "buyers": "Buyers",
+    "did_number": "Did Number",
+    "phone_room": "Phone Room",
+    "provider": "Provider"
+  },
+  "pubId": {
+    "singular": "Pub id",
+    "listing": {
+      "title": "Pub Ids"
+    },
+    "edition": {
+      "title": "Edit Pub Id",
+      "MC": "Edit MC",
+      "ACA": "Edit ACA"
+    },
+    "creation": {
+      "title": "Create Pub Id",
+      "label": "Create Pub Id"
+    },
+    "offerEdition": {
+      "title": "Edit {{type}} Offer ({{id}})",
+      "fields": {
+        "id": "ID",
+        "sendToTD": "Send to TD",
+        "sendToTrualliant": "Send to Trualliant",
+        "sendToPhoneRoom2": "Send to Phone Room 2",
+        "sendToConvoso": "Send to Convoso",
+        "interleave": "Interleave",
+        "listId": "List ID",
+        "campaignId": "Campaign ID",
+        "trafficSourceId": "Traffic Source ID",
+        "callCenterId": "Call Center ID"
+      },
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "actions": {
+      "edit": "Edit Pub Id"
+    },
+    "fields": {
+      "pubs": "Pubs",
+      "name": "Name",
+      "user": "User",
+      "cpl": "Cpl",
+      "ACA": "ACA",
+      "MC": "MC"
+    },
+    "filters": {
+      "pubs": "Pubs",
+      "name": "Name"
+    },
+    "addCpl": "Add Cpl",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "offers": {
+    "singular": "Offer",
+    "listing": {
+      "title": "Offers"
+    },
+    "edition": {
+      "title": "Edit Offer"
+    },
+    "actions": {
+      "edit": "Edit Offer"
+    },
+    "fields": {
+      "name": "Name",
+      "type": "type",
+      "sourceUrl": "Source URL",
+      "providerName": "Provider Name"
+    },
+    "filters": {
+      "name": "Name",
+      "type": "type",
+      "sourceUrl": "Source URL",
+      "provider": "Provider"
+    },
+    "form": {
+      "name": "Name",
+      "type": "type",
+      "sourceUrl": "Source URL",
+      "provider": "Provider",
+      "apiKey": "API Key"
+    },
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "trafficSource": {
+    "singular": "Traffic Source",
+    "listing": {
+      "title": "Traffic Sources"
+    },
+    "edition": {
+      "title": "Edit Traffic Source"
+    },
+    "actions": {
+      "edit": "Edit Traffic Source"
+    },
+    "fields": {
+      "name": "Name",
+      "providerId": "Provider Id",
+      "providerName": "Provider Name",
+      "trafficSourceProviderId": "Traffic Source Provider Id"
+    },
+    "filters": {
+      "name": "Name",
+      "provider": "Provider",
+      "trafficSourceProviderId": "Traffic Source Provider Id"
+    },
+    "form": {
+      "name": "Name",
+      "provider": "Provider",
+      "trafficSourceProviderId": "Traffic Source Provider Id"
+    },
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "buyers": {
+    "singular": "Buyer",
+    "listing": {
+      "title": "Buyers"
+    },
+    "edition": {
+      "title": "Edit Buyer"
+    },
+    "actions": {
+      "edit": "Edit Buyer"
+    },
+    "fields": {
+      "name": "Name",
+      "providerId": "Provider Id",
+      "providerName": "Provider Name",
+      "buyerProviderId": "Buyer Provider Id",
+      "userName": "User Name"
+    },
+    "filters": {
+      "name": "Name",
+      "provider": "Provider",
+      "buyerProviderId": "Buyer Provider Id",
+      "user": "User"
+    },
+    "form": {
+      "name": "Name",
+      "provider": "Provider",
+      "buyerProviderId": "Buyer Provider Id",
+      "user": "User",
+      "revenue": "Revenue"
+    },
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "didNumber": {
+    "singular": "Did Number",
+    "listing": {
+      "title": "Did Numbers"
+    },
+    "edition": {
+      "title": "Edit Did Number"      
+    },
+    "actions": {
+      "edit": "Edit Did Number"
+    },
+    "fields": {
+      "id": "Number",
+      "description": "Description",
+      "campaign": "Campaign",
+      "subId": "Sub ID",
+      "pubId": "Pub ID",
+      "trafficSource": "Traffic Source",
+      "offer": "Offer"      
+    },
+    "filters": {
+      "id": "Number",
+      "description": "Description",
+      "campaignName": "Campaign Name",
+      "subId": "Sub ID",
+      "pubId": "Pub ID",
+      "trafficSource": "Traffic Source",
+      "offer": "Offer"
+    },
+    "form": {
+      "id": "Number",
+      "description": "Description",
+      "campaignName": "Campaign",
+      "sub": "Sub ID",
+      "pub": "Pub ID",
+      "trafficSource": "Traffic Source ID",
+      "offer": "Offer ID"
+    },
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "providers": {
+    "singular": "Provider",
+    "listing": {
+      "title": "Providers"
+    },
+    "edition": {
+      "title": "Edit Provider"
+    },
+    "actions": {
+      "edit": "Edit Provider"
+    },
+    "fields": {
+      "id": "Id",
+      "name": "Name",
+      "service": "Service",
+      "url": "URL",
+      "apiKey": "API Key",
+      "active": "Active"
+    },
+    "filters": {
+      "id": "Id",
+      "name": "Name",
+      "service": "Service",
+      "url": "URL",
+      "apiKey": "API Key",
+      "active": "Active"
+    },
+    "form": {
+      "id": "Id",
+      "name": "Name",
+      "service": "Service",
+      "url": "URL",
+      "apiKey": "API Key",
+      "active": "Active"
+    },
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "phoneRoom": {
+    "singular": "Phone Room",
+    "listing": {
+      "title": "Phone Room"
+    },
+    "edition": {
+      "title": "Edit Phone Room"
+    },
+    "actions": {
+      "edit": "Edit Phone Room",
+      "viewConfig": "View config"
+    },
+    "details": {
+      "title": "Phone Room Config"
+    },
+    "fields": {
+      "id": "Id",
+      "name": "Name",
+      "service": "Service",
+      "envKey": "Env Key",
+      "listId": "List ID",
+      "envUser": "Env User",
+      "active": "Active"
+    },
+    "filters": {
+      "id": "Id",
+      "name": "Name",
+      "service": "Service",
+      "active": "Active"
+    },
+    "form": {
+      "id": "Id",
+      "name": "Name",
+      "service": "Service",
+      "apiKey": "API Key",
+      "apiUser": "API User",
+      "envKey": "Env Key",
+      "listId": "List ID",
+      "envUser": "Env User",
+      "active": "Active"
+    },
+    "save": "Save",
+    "cancel": "Cancel"
+  }  
+}

@@ -1,0 +1,55 @@
+{
+  "signIn": "Sign in",
+  "passwordSuccessfullyChanged": "Password successfully changed",
+  "newPassword": "New password",
+  "passwordShape": "Must be at least 8 characters long, with one lowercase letter, one uppercase letter, one number, and one special character.",
+  "enterYourNewPassword": "Enter your new password",
+  "goToLogin": "Back to sign in",
+  "forgotPassword": "Password recovery",
+  "passwordActionSuccessfully": "Password {{action}} successful",
+  "forgotPasswordSubtitle": "We will send you an email with a code to create a new password.",
+  "forgotPasswordDescription": "Please enter the email address you registered with in the field below.",
+  "resetPassword": "Reset password",
+  "emailSent": "Email successfully sent to {{email}}, please check your inbox to reset your password.",
+  "didYouNotReceiveTheEmail": "I didn’t receive the code",
+  "codeReceived": "You will receive a code in your inbox. Please enter it below.",
+  "securityCode": "Security code",
+  "fields": {
+    "email": {
+      "label": "Email",
+      "placeholder": "Enter your email",
+      "validationEmail": "Must be a valid email",
+      "validationRequired": "Email is required"
+    },
+    "code": {
+      "label": "Verification code",
+      "validationLength": "Must be {{length}} digits long",
+      "validationRequired": "Code is required"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter your password",
+      "validationRequired": "Password is required",
+      "validationMinLength": "Must be at least 8 characters long",
+      "validationUppercase": "Must contain at least one uppercase letter",
+      "validationLowercase": "Must contain at least one lowercase letter",
+      "validationNumber": "Must contain at least one number",
+      "validationSpecialChar": "Must contain at least one special character",
+      "validationMatch": "Passwords must match"
+    },
+    "passwordConfirm": {
+      "label": "Confirm your password",
+      "placeholder": "Confirm your password"
+    }
+  },
+  "buttons": {
+    "signIn": "Sign in",
+    "login": "Login",
+    "change": "Change",
+    "creation": "Create",
+    "continueLoading": "Loading...",
+    "validate": "Validate",
+    "sendEmail": "Send",
+    "forgotPassword": "Forgot your password?"
+  }
+}

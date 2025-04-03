@@ -1,0 +1,16 @@
+.paginator {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.showingResults {
+  font-size: 12px;
+  margin-left: 10px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-weight: 400;
+}

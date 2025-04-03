@@ -1,0 +1,7 @@
+.modalContent {
+  height: calc(100vh - var(--drawer-header-height));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0 30px;
+}

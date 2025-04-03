@@ -1,0 +1,77 @@
+@import "src/styles/mixins.module.scss";
+
+$title-height: 85px;
+
+.wrapper {
+  display: flex;
+  align-self: flex-end;
+
+  @include media-breakpoint-down(md) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 100%;
+  gap: 15px;
+}
+
+.filters_singleColumn {
+  width: 396px;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  padding: 0 25px;
+  background: var(--white-base);
+  right: 0;
+  width: 100%;
+  z-index: 5;
+  gap: 15px;
+  height: var(--drawer-header-height);
+}
+
+.title {
+  flex: 1;
+}
+
+.filtersContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-bottom: 30px;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.singleColumn {
+  grid-template-columns: 1fr;
+}
+
+.submit {
+  width: 100px;
+  min-width: unset;
+  max-width: 100px;
+}
+
+.clear {
+  width: 80px;
+  max-width: 80px;
+  min-width: unset;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  align-self: flex-end;
+  position: relative;
+  background: var(--white-base);
+  color: var(--lighter-text-color);
+}

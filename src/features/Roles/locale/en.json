@@ -1,0 +1,43 @@
+{
+  "singular": "Role",
+  "save": "Save",
+  "cancel": "Cancel",
+  "listing": {
+    "title": "Roles"
+  },
+  "edition": {
+    "title": "Role edition"
+  },
+  "creation": {
+    "title": "Role creation"
+  },
+  "fields": {
+    "id": "ID",
+    "name": "Name",
+    "permissions": "Permissions",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
+  },
+  "filters": {
+    "id": "ID",
+    "name": "Name",
+    "permissions": "Permissions",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
+  },
+  "form": {
+    "id": "ID",
+    "name": "Name",
+    "permissions": "Permissions",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"    
+  },
+  "actions": {
+    "view": "View",
+    "edit": "Edit",
+    "create": "Create"
+  },
+  "details": {
+    "title": "Role Details"
+  }
+}

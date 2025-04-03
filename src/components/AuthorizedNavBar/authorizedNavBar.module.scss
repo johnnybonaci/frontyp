@@ -1,0 +1,135 @@
+@import "src/styles/mixins.module.scss";
+
+.authorizedNavBarContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  position: relative;
+  padding: 20px;
+  z-index: 2;
+  overflow: auto;
+  background: var(--darker-secondary-color);
+
+  &::-webkit-scrollbar {
+    background: var(--white-base);
+    width: 6px;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--thumb-scroll-color);
+    width: 4px;
+    border-radius: 5px;
+  }
+
+  @include media-breakpoint-down(md) {
+    background: var(--main-bg);
+    padding-top: 10px;
+  }
+}
+
+.navContainer {
+  flex: 1;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.wrapper {
+  display: flex;
+  background: var(--sidebar-bg);
+  flex-direction: column;
+  max-width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  align-items: center;
+  flex: 1;
+}
+
+.bottomSection {
+  display: flex;
+  justify-items: flex-end;
+  margin: 20px 0;
+  flex-direction: column;
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+.headerIconsContainer {
+  display: flex;
+  position: relative;
+  align-items: center;
+  margin-bottom: 30px;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+  width: 100%;
+}
+
+.header {
+  position: relative;
+  margin-top: 10px;
+  left: -4px;
+}
+
+.logo {
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.wideLogo {
+  width: 85px;
+  align-self: center;
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}
+
+.compactLogo {
+  width: 60px;
+  position: relative;
+  align-self: center;
+  top: 10px;
+  left: 0;
+}
+
+.actionIcon {
+  position: absolute;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+  color: var(--light-text-color);
+
+  &:hover {
+    color: var(--text-color);
+    transform: scale(1.1);
+    transition: all 200ms ease-in-out;
+  }
+}
+
+.expandIcon {
+  right: -5px;
+  top: -10px;
+}
+
+.collapseIcon {
+  right: -17px;
+  top: -10px;
+}
+
+.configsIcon {
+  position: relative;
+  margin-left: 4px;
+  margin-right: 13px !important;
+}
+
+.number {
+  font-size: 16px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+

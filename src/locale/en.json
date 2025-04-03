@@ -1,0 +1,230 @@
+{
+  "accountPopover": {
+    "account": "Account",
+    "signOut": "Sign Out"
+  },
+  "menu": {
+    "security": "Administration",
+    "roles": "Roles",
+    "administration": "Administration",
+    "calls": "Calls",
+    "callsReport": "Calls Report",
+    "operators": "Users",
+    "logout": "Sign Out",
+    "liveLeads": "Live Leads",
+    "historyLeads": "History Leads",
+    "leadReport": "Lead Report",
+    "activeLeads": "Active Leads",
+    "pubsLeads": "Pubs Leads",
+    "cpcReport": "CPC Report",
+    "cpaReport": "CPA Report",
+    "rpcReport": "RPC Report",
+    "qaReport": "QA Report",
+    "campaigns": "Campaigns",
+    "callCampaigns": "Call Campaigns",
+    "compliance": "Compliance",
+    "phoneRoom": "Phone Room",
+    "phoneRoomLeads": "Phone Room Leads",
+    "phoneRoomPerformance": "Phone Room Performance",
+    "phoneRoomReports": "Phone Room Reports",
+    "users": "Users",
+    "userList": "User List",
+    "userRoles": "User Roles",
+    "settings": "Settings"
+  },
+  "errors": {
+    "401": {
+      "title": "401: Authorization Required",
+      "description": "Oops! It seems you've encountered an access barrier. Please ensure you are correctly authenticated to access this area.",
+      "goBackButton": "Go Back"
+    },
+    "403": {
+      "title": "403: Forbidden Page",
+      "description": "Oops! It seems you do not have permission to access this page.",
+      "goBackButton": "Go Back"
+    },
+    "404": {
+      "title": "404: The page you are looking for is not here",
+      "description": "You attempted to access an incorrect route or ended up here by mistake. Whatever the case, try using the navigation.",
+      "goBackButton": "Go Back"
+    },
+    "410": {
+      "title": "The page you are looking for is not here",
+      "description": "You attempted to access an incorrect or expired route.",
+      "goBackButton": "Go Back"
+    },
+    "500": {
+      "title": "500: Internal Server Error",
+      "description": "Oh no! It seems our servers are having a bad day. Don't worry, we are busy resolving this technical issue.",
+      "goBackButton": "Go Back"
+    }
+  },
+  "validations": {
+    "required": "This field is required.",
+    "requiredWithField": "{{field}} is required.",
+    "requiredWithFieldPlural": "{{field}} are required.",
+    "string": "This field must be an alphanumeric text.",
+    "number": "This field must be a number.",
+    "stringOrNumber": "This field must be a text or a number.",
+    "formatEmail": "This field must be a valid email.",
+    "passwordMatch": "Passwords must match.",
+    "charExceded": "This field must have less than {{maxChars}} characters.",
+    "file-invalid-type": "The selected file type is not allowed.",
+    "fileTypeMustBeCsv": "The selected file type is not allowed. It must be a .csv file.",
+    "invalidDate": "Please enter a valid date.",
+    "invalidEmail": "Please enter a valid email.",
+    "invalidHour": "Please enter a valid time.",
+    "passwordConfirmationMatch": "Passwords must match.",
+    "validationMin": "Password must be at least 8 characters long",
+    "validationNameMinLenght": "Name must be at least 3 characters long",
+    "passwordWithNoLowercase": "Password must have at least one lowercase letter",
+    "passwordWithNoUppercase": "Password must have at least one uppercase letter",
+    "passwordWithNoDigit": "Password must have at least one digit",
+    "passwordWithNoSpecialChar": "Password must have at least one special character",
+    "role_name": "The name field must only contain letters, numbers, dashes, and underscores"
+  },
+  "export": "Export",
+  "fields": {
+    "name": "Name"
+  },
+  "permissions": {
+    "auth": "Authentication",
+    "roles": "Roles",
+    "permissions": "Permissions",
+    "operators": "Users"
+  },
+  "common": {
+    "projectName": "YieldPro",
+    "noOptionsSelected": "No options selected",
+    "downloadStarted": "Download started",
+    "downloadSuccess": "Download success",
+    "fileTooLarge": "The file {{fileName}} is too large",
+    "dropYourFileHere": "Drop your file here",
+    "rowsPerPage": "Rows per page",
+    "copyToClipboard": "Copy to clipboard",
+    "startDayTitle": "The aroma of freshly baked bread is in the air, let’s have a great day!",
+    "startDay": "Start Day",
+    "browseFiles": "Browse files",
+    "noAttachments": "No attachments for this step",
+    "exportConfirmationTitle": "Export Confirmation",
+    "exportConfirmationMessage": "Are you sure you want to export the data?",
+    "yesExport": "Export",
+    "noCancel": "Cancel",
+    "next": "Next",
+    "attachments": "Attachments",
+    "or": "Or ",
+    "clickHere": "click here",
+    "toSelectFromYourComputer": " to select from your computer",
+    "addQuestionToSurvey": "Add Question to Survey",
+    "selectSurveyToAddQuestion": "Select the survey to which you want to add the question",
+    "row": "Row {{row}}",
+    "additions": "Additions:",
+    "deletions": "Deletions:",
+    "addQuestion": "Add Question",
+    "stock": {
+      "initialQuantity": "Initial Qty",
+      "remainders": "Remaining",
+      "sold": "Sold"
+    },
+    "done": "Done",
+    "updates": "Updates:",
+    "createOption": "Add \"{{option}}\"",
+    "categories": "Categories",
+    "search": "Search",
+    "stop": "Stop",
+    "textFormats": {
+      "bold": "bold",
+      "italic": "italic",
+      "underline": "underline"
+    },
+    "genericError": "An error occurred",
+    "genericErrorTryAgainLater": "An error occurred, try again later",
+    "top_nav": {
+      "change_language": "Change language"
+    },
+    "genericEdition": "The {{type}}'s edition has been successfully",
+    "filters": {
+      "title": "Filters",
+      "search": "Search",
+      "apply": "Apply",
+      "clear": "Clear"
+    },
+    "coupon": {
+      "date": "{{dateFrom}} to {{dateTo}}"
+    },
+    "noResults": "No results",
+    "showingResults": "{{from}}-{{to}} of {{total}}",
+    "new": "New",
+    "import": "Import",
+    "export": "Export",
+    "delete": "Delete",
+    "actions": "Actions",
+    "retry": "Retry",
+    "assigned": "Assigned",
+    "notAssigned": "Not assigned",
+    "edit": "Edit",
+    "validate": "Validate",
+    "hide": "Hide",
+    "unhide": "Show",
+    "view": "View details",
+    "qr": "Download QR",
+    "Yes": "Yes",
+    "No": "No",
+    "cancel": "Cancel",
+    "save": "Save",
+    "apply": "Apply",
+    "_toDate": "{{val, datetime}}",
+    "_toDateRange": "{{dateFrom, datetime}} - {{dateTo, datetime}}",
+    "_toDateTime": "{{date, datetime}} at {{time, datetime}}",
+    "_toDateTimeRange": "{{dateFrom, datetime}} at {{timeFrom, datetime}} - {{dateTo, datetime}} at {{timeTo, datetime}}",
+    "_toDateTimeRangeDiscount": "Starts on {{dateFrom, datetime}} at {{timeFrom, datetime}} and ends on {{dateTo, datetime}} at {{timeTo, datetime}}",
+    "_toList": "{{val, list}}",
+    "_toListRemaining": "{{val, _toListRemaining}}",
+    "createdSuccessfully": "New {{type, lowercase}} created successfully!",
+    "deletedSuccessfully": "The {{type, lowercase}} has been successfully deleted!",
+    "editedSuccessfully": "The {{type, lowercase}} has been successfully edited!",
+    "filters_zero": "Filters",
+    "filters_one": "Filters ({{count}})",
+    "filters_other": "Filters ({{count}})",
+    "shortWeekdays": {
+      "monday": "Mon",
+      "tuesday": "Tue",
+      "wednesday": "Wed",
+      "thursday": "Thu",
+      "friday": "Fri",
+      "saturday": "Sat",
+      "sunday": "Sun"
+    },
+    "weekdays": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "highlight": "Highlight",
+    "notHighlight": "Do not highlight",
+    "news": "News",
+    "promotion": "Promotion",
+    "event": "Event"
+  },
+  "authLayout": {
+    "projectName": "YieldPro",
+    "projectNameDescription": "Administration",
+    "description": "",
+    "projectTitle": "A few more clicks to sign in to your account.",
+    "projectSubTitle1": "Manage all your e-commerce",
+    "projectSubTitle2": "accounts in one place!"
+  },
+  "dropzone": {
+    "chooseFile": "Choose a file",
+    "click": "Click to upload",
+    "dragAndDrop": "Drag and drop a file here",
+    "extensions": "({{extensions, list}})",
+    "recommendedSize": "We recommend that the image not exceed {{min}}px and not be larger than {{max}}px."
+  }
+}
