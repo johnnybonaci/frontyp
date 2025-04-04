@@ -18,7 +18,6 @@ import LiveLeadsRoutes from 'features/LiveLeads/routes.tsx'
 import ActiveLeadsRoutes from 'features/ActiveLeads/routes.tsx'
 import PubLeadsRoutes from 'features/PubLeads/routes.tsx'
 import SettingsRoutes from 'features/Settings/routes'
-import ComplianceRoutes from 'features/Compliance/routes.tsx'
 import ComplianceBotRoutes from 'features/ComplianceBot/routes.tsx'
 import BusinessRouteMiddleware from 'components/BusinessRouteMiddleware'
 import { type TrackDriveProviderIdType } from 'hooks/useFetchData.tsx'
@@ -30,6 +29,7 @@ import UserRoutes from 'features/Users/routes'
 import RoleRoutes from 'features/Roles/routes'
 import HistoryLeadsRoutes from 'features/HistoryLeads/routes'
 import LeadReportRoutes from 'features/LeadReport/routes'
+import ReportLeadsRoutes from 'features/ReportLeads/routes'
 
 interface Route {
   path?: string
@@ -70,10 +70,10 @@ const MainRoutes = {
     ...LiveLeadsRoutes,
     ...HistoryLeadsRoutes,
     ...LeadReportRoutes,
+    ...ReportLeadsRoutes,
     ...ActiveLeadsRoutes,
     ...PubLeadsRoutes,
     ...SettingsRoutes,
-    ...ComplianceRoutes,
     ...ComplianceBotRoutes,
     ...CallCampaignRoutes,
     ...PhoneRoomPerformanceRoutes,

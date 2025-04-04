@@ -14,7 +14,6 @@ import {
   PhoneEnabledOutlined,
   SupervisedUserCircleOutlined,
   TrendingUpOutlined,
-  VerifiedUserOutlined,
   SettingsOutlined,
   SummarizeOutlined,
 } from '@mui/icons-material'
@@ -28,11 +27,10 @@ import { CALL_REPORT_PATHS } from 'features/CallReport/routes'
 import { CPA_REPORT_PATHS } from 'features/CPAReport/routes'
 import { RPC_REPORT_PATHS } from 'features/RPCReport/routes'
 import { QA_REPORT_PATHS } from 'features/QAReport/routes'
-import { COMPLIANCE_PATHS } from 'features/Compliance/routes.tsx'
 import { HISTORYLEADS_PATHS } from 'features/HistoryLeads/routes.tsx'
 import { LEADREPORT_PATHS } from 'features/LeadReport/routes.tsx'
+import { REPORT_LEADS_PATHS } from 'features/ReportLeads/routes.tsx'
 import useData from 'hooks/useData.tsx'
-import { COMPLIANCE_BOT_PATHS } from 'features/ComplianceBot/routes.tsx'
 import { PHONE_ROOM_PERFORMANCE_PATHS } from 'features/PhoneRoomPerformance/routes.tsx'
 import { PHONE_ROOM_LEADS_PATHS } from 'features/PhoneRoomLeads/routes.tsx'
 import { PHONE_ROOM_REPORTS_PATHS } from 'features/PhoneRoomReports/routes.tsx'
@@ -112,6 +110,12 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             icon: SummarizeOutlined,
             label: t('menu:leadReport'),
           },
+          {
+            to: REPORT_LEADS_PATHS.LIST,
+            redirectOutside: false,
+            icon: SummarizeOutlined,
+            label: t('menu:leadReport'),
+          },
         ],
       },
       {
@@ -148,18 +152,6 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             to: 'leads/campaign-dashboard',
             icon: AdsClickOutlined,
             label: t('menu:callCampaigns'),
-          },
-        ],
-      },
-      {
-        title: t('menu:compliance'),
-        permission: PERMISSIONS.JORNAYA,
-        items: [
-          {
-            to: TRACKDRIVE_PROVIDER_ID === '1' ? COMPLIANCE_BOT_PATHS.LIST : COMPLIANCE_PATHS.LIST,
-            redirectOutside: false,
-            icon: VerifiedUserOutlined,
-            label: t('menu:compliance'),
           },
         ],
       },

@@ -3,7 +3,7 @@ import loadable from 'components/Loadable'
 import PERMISSIONS from 'permissions'
 
 export const REPORT_LEADS_PATHS = {
-  LIST: '/leadReport',
+  LIST: '/report-leads',
 }
 
 // dashboard routing
