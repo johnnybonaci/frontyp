@@ -160,9 +160,7 @@ export const transformFiltersFromUrl = (
     pubId: objectFromUrl(searchParams.get('pubId')),
     campaign: objectFromUrl(searchParams.get('campaign'), null),
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
-    startDate: searchParams.get('date_start')
-      ? dateFromUrl(searchParams.get('date_start')!)
-      : startOfDay,
+    startDate: searchParams.get('date_start') ? dateFromUrl(searchParams.get('date_start')!) : startOfDay,
     endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     status: searchParams.get('status') ?? '',
     firstName: searchParams.get('firstName') ?? '',
