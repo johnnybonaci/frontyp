@@ -124,7 +124,7 @@ const PhoneRoomReportsList: FC = () => {
         ),
       },
     ],
-    [t]
+    [t, filters?.startDate, filters?.endDate]
   )
 
   const {

@@ -8,6 +8,7 @@ import {
 import getDayLimits from 'utils/getDayLimits.ts'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { objectFromUrl } from 'utils/utils.ts'
+import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
 
 export const phoneRoomReportsItemFromApi = (
   item: PhoneRoomReportsItemFromApi
@@ -45,8 +46,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
 
   return {
     calls1phone1rooms_type: multipleSelectToApi(filters.leadsType),
-    date_start: filters.startDate?.toISOString().slice(0, 10),
-    date_end: filters.endDate?.toISOString().slice(0, 10),
+    date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
+    date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined,
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
     phone1room1logs_status: 1,
     phone1room1logs_phone1room1id: 2,

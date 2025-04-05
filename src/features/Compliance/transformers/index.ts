@@ -44,8 +44,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   }
 
   return {
-    date_start: filters.startDate?.toISOString().slice(0, 10),
-    date_end: filters.endDate?.toISOString().slice(0, 10),
+    date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
+    date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined,
     leads_type: filters.leadsType?.id,
     pubs_pub1list1id: filters.pubId?.id,
     subs_id: filters.subId?.id,

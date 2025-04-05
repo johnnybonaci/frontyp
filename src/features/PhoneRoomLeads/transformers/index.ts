@@ -12,6 +12,7 @@ import {
 import getDayLimits from 'utils/getDayLimits.ts'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { objectFromUrl } from 'utils/utils.ts'
+import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
 
 export const phoneRoomLeadsItemFromApi = (item: PhoneRoomLeadsItemFromApi): PhoneRoomLeadsItem => {
   return {
@@ -72,8 +73,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   }
 
   return {
-    date_start: filters.startDate?.toISOString().slice(0, 10),
-    date_end: filters.endDate?.toISOString().slice(0, 10),
+    date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
+    date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined,
     leads_type: filters.leadsType?.id,
     pubs_pub1list1id: multipleSelectToApi(filters.pubId),
     subs_id: filters.subId?.value,

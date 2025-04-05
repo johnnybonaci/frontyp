@@ -131,7 +131,7 @@ const ComplianceList: FC = () => {
         dataModifier: (data: CallReportItem) => dateFormat(data.createdAt, 'YYYY-MM-DD HH:mm:ss'),
       },
     ],
-    [t]
+    [t, filters?.startDate, filters?.endDate]
   )
 
   const {

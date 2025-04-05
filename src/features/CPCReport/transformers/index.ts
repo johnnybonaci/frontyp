@@ -8,6 +8,7 @@ import { type Filters } from 'types/filter'
 import { type CPCReportListFiltersFormValues } from 'features/CPCReport/components/CPCReportFilters/CPCReportFilters.tsx'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
+import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
 
 export const cpcReportItemFromApi = (item: CPCReportItemFromApi): CPCReportItem => {
   return {
@@ -48,8 +49,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   }
 
   return {
-    date_start: filters.startDate?.toISOString().slice(0, 10),
-    date_end: filters.endDate?.toISOString().slice(0, 10),
+    date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
+    date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined,
     filter: multipleSelectToApi(filter, (item) => {
       return { field: item.field, type: item.type, value: item.value }
     }),
