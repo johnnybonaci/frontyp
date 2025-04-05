@@ -4,7 +4,7 @@ import ReportLeadsTable from 'features/ReportLeads/components/ReportLeadsTable/R
 import useFilters from 'src/hooks/useFilters'
 import useFetchReportLeadsList from 'features/ReportLeads/hooks/useFetchReportLeadsList.tsx'
 import ReportLeadsFilters from '../components/ReportLeadsFilters/index.ts'
-import styles from './reportLeadsList.module.scss'
+import styles from './ReportLeadsList.module.scss'
 
 import Indicator from 'components/Indicator/Indicator.tsx'
 import ContentBox from 'components/ContentBox'
