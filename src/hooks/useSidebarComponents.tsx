@@ -28,7 +28,6 @@ import { CPA_REPORT_PATHS } from 'features/CPAReport/routes'
 import { RPC_REPORT_PATHS } from 'features/RPCReport/routes'
 import { QA_REPORT_PATHS } from 'features/QAReport/routes'
 import { HISTORYLEADS_PATHS } from 'features/HistoryLeads/routes.tsx'
-import { LEADREPORT_PATHS } from 'features/LeadReport/routes.tsx'
 import { REPORT_LEADS_PATHS } from 'features/ReportLeads/routes.tsx'
 import useData from 'hooks/useData.tsx'
 import { PHONE_ROOM_PERFORMANCE_PATHS } from 'features/PhoneRoomPerformance/routes.tsx'
@@ -103,12 +102,6 @@ export default function useSidebarComponents(): UseSidebarComponentsResult {
             redirectOutside: false,
             icon: HistoryToggleOff,
             label: t('menu:historyLeads'),
-          },
-          {
-            to: LEADREPORT_PATHS.LIST,
-            redirectOutside: false,
-            icon: SummarizeOutlined,
-            label: t('menu:leadReport'),
           },
           {
             to: REPORT_LEADS_PATHS.LIST,
