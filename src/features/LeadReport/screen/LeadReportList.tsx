@@ -88,7 +88,7 @@ const LeadReportList: FC = () => {
       }
 
     ],
-    [t]
+    [t, filters?.startDate, filters?.endDate]
   )
 
   const {
