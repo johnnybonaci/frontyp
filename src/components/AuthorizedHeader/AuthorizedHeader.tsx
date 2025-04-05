@@ -3,9 +3,15 @@ import { type HeaderProps } from 'components/PrivateLayout/types'
 import NavHeader from 'components/NavHeader'
 import Notifications from 'components/AuthorizedHeader/components/Notifications.tsx'
 import useScreen from 'hooks/useScreen.ts'
+import { Button } from '@mui/material'
 import styles from './authorizedHeader.module.scss'
 
-const AuthorizedHeader: FC<HeaderProps> = ({ handleClickMenu, collapsedSideBar = false }) => {
+const AuthorizedHeader: FC<HeaderProps> = ({
+  handleClickMenu,
+  collapsedSideBar = false,
+  updateAvailable,
+  refreshApp,
+}) => {
   const { screenTitle } = useScreen()
 
   const handleMenuClick = useCallback(() => {
@@ -19,6 +25,17 @@ const AuthorizedHeader: FC<HeaderProps> = ({ handleClickMenu, collapsedSideBar =
         {screenTitle && <div className={styles.screenTitle}>{screenTitle}</div>}
       </div>
       <div className={styles.actions}>
+        {updateAvailable && refreshApp && (
+          <Button
+            variant="contained"
+            color="warning"
+            size="small"
+            onClick={refreshApp}
+            sx={{ mr: 2 }}
+          >
+            Refrescar versión
+          </Button>
+        )}
         <Notifications />
       </div>
     </div>

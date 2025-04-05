@@ -28,6 +28,8 @@ export interface HeaderProps {
   handleClickMenu: () => void
   i18n?: any
   collapsedSideBar?: boolean
+  updateAvailable?: boolean
+  refreshApp?: () => void
 }
 
 export interface PrivateLayoutProps {

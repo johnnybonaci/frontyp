@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 const STORAGE_KEY = 'app_version'
 
-export function useVersionChecker(intervalMs = 60000) {
+export default function useVersionChecker(intervalMs = 60000) {
     const [updateAvailable, setUpdateAvailable] = useState(false)
 
     useEffect(() => {
