@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react'
 
+const STORAGE_KEY = 'app_version'
+
 export function useVersionChecker(intervalMs = 60000) {
     const [updateAvailable, setUpdateAvailable] = useState(false)
-    const [currentVersion, setCurrentVersion] = useState<string | null>(null)
 
     useEffect(() => {
         const checkVersion = async () => {
             try {
                 const res = await fetch('/version.txt', { cache: 'no-store' })
-                const version = await res.text()
+                const latestVersion = await res.text()
+                const storedVersion = localStorage.getItem(STORAGE_KEY)
 
-                if (!currentVersion) {
-                    setCurrentVersion(version)
-
-                } else if (version !== currentVersion) {
+                if (!storedVersion) {
+                    localStorage.setItem(STORAGE_KEY, latestVersion)
+                } else if (storedVersion !== latestVersion) {
                     setUpdateAvailable(true)
                 }
             } catch (err) {
-                console.error("Error al verificar la versión:", err)
+                console.error('Error al verificar la versión:', err)
             }
         }
 
@@ -25,7 +26,12 @@ export function useVersionChecker(intervalMs = 60000) {
         const interval = setInterval(checkVersion, intervalMs)
 
         return () => clearInterval(interval)
-    }, [currentVersion, intervalMs])
+    }, [])
 
-    return { updateAvailable, refreshApp: () => window.location.reload() }
+    const refreshApp = () => {
+        // Recarga la app y al volver se guardará la nueva versión
+        window.location.reload()
+    }
+
+    return { updateAvailable, refreshApp }
 }
