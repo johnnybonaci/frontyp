@@ -28,9 +28,16 @@ export default function useVersionChecker(intervalMs = 60000) {
         return () => clearInterval(interval)
     }, [])
 
-    const refreshApp = () => {
-        // Recarga la app y al volver se guardará la nueva versión
-        window.location.reload()
+    const refreshApp = async () => {
+        try {
+            const res = await fetch('/version.txt', { cache: 'no-store' })
+            const latestVersion = await res.text()
+            localStorage.setItem(STORAGE_KEY, latestVersion)
+        } catch (err) {
+            console.error('Error actualizando versión en localStorage:', err)
+        } finally {
+            window.location.reload()
+        }
     }
 
     return { updateAvailable, refreshApp }
