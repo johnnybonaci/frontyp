@@ -5,7 +5,7 @@ import Filters from 'src/components/Filters/index.ts'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import { TextField } from '@mui/material'
 import ComplianceBotFiltersSchema from 'features/ComplianceBot/schema/ComplianceBotFiltersSchema.ts'
-
+import currentDate from 'utils/currentDate'
 export interface ComplianceBotListFiltersFormValues {
   phone: string
   startDate: Date | null
@@ -21,8 +21,8 @@ interface ComplianceBotFiltersProps {
 
 export const DEFAULT_FILTERS: ComplianceBotListFiltersFormValues = {
   phone: '',
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: currentDate(),
+  endDate: currentDate(),
 }
 
 const ComplianceBotFilters: FC<ComplianceBotFiltersProps> = ({
