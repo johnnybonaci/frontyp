@@ -82,12 +82,11 @@ export const transformFiltersToUrl = (filters: CPCReportListFiltersFormValues): 
   if (filters.campaign) {
     params.set('campaign', filters.campaign)
   }
-
   if (filters.startDate) {
-    params.set('date_start', filters.startDate.toISOString())
+    params.set('date_start', dateNoTimezoneToString(filters.startDate))
   }
   if (filters.endDate) {
-    params.set('date_end', filters.endDate.toISOString())
+    params.set('date_end', dateNoTimezoneToString(filters.endDate))
   }
 
   return params
