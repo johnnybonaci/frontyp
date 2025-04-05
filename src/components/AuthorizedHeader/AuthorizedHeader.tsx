@@ -5,6 +5,7 @@ import Notifications from 'components/AuthorizedHeader/components/Notifications.
 import useScreen from 'hooks/useScreen.ts'
 import { Button } from '@mui/material'
 import styles from './authorizedHeader.module.scss'
+import AutorenewIcon from '@mui/icons-material/Autorenew'
 
 const AuthorizedHeader: FC<HeaderProps> = ({
   handleClickMenu,
@@ -32,9 +33,14 @@ const AuthorizedHeader: FC<HeaderProps> = ({
             size="small"
             onClick={refreshApp}
             sx={{ mr: 2 }}
+            startIcon={
+              <AutorenewIcon className={styles.spin}
+              />
+            }
           >
             Refrescar versión
           </Button>
+
         )}
         <Notifications />
       </div>
