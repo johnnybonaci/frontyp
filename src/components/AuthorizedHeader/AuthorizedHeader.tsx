@@ -34,7 +34,7 @@ const AuthorizedHeader: FC<HeaderProps> = ({
             onClick={refreshApp}
             startIcon={<AutorenewIcon className={styles.spin} />}
           >
-            Refrescar versión
+            Refresh Now
           </Button>
 
         )}
