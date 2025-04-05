@@ -13,6 +13,7 @@ import getDayLimits from 'utils/getDayLimits.ts'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import { objectFromUrl } from 'utils/utils.ts'
 import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const phoneRoomLeadsItemFromApi = (item: PhoneRoomLeadsItemFromApi): PhoneRoomLeadsItem => {
   return {
@@ -96,14 +97,12 @@ export const transformFiltersFromUrl = (
     firstName: searchParams.get('firstName') ?? '',
     email: searchParams.get('email') ?? '',
     leadsType: objectFromUrl(searchParams.get('subId'), null),
-    startDate: searchParams.get('date_start')
-      ? new Date(searchParams.get('date_start')!)
-      : startOfDay,
+    startDate: searchParams.get('date_start') ? dateFromUrl(searchParams.get('date_start')!) : startOfDay,
     subId: objectFromUrl(searchParams.get('subId'), null),
     pubId: objectFromUrl(searchParams.get('pubId')),
     status: searchParams.get('status') ?? '',
     campaign: objectFromUrl(searchParams.get('campaign'), null),
-    endDate: searchParams.get('date_end') ? new Date(searchParams.get('date_end')!) : endOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : endOfDay,
   }
 }
 
