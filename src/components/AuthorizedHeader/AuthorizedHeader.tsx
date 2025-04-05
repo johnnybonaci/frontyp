@@ -25,14 +25,13 @@ const AuthorizedHeader: FC<HeaderProps> = ({
         {collapsedSideBar && <NavHeader handleClickMenu={handleMenuClick} />}
         {screenTitle && <div className={styles.screenTitle}>{screenTitle}</div>}
       </div>
-      <div className={styles.actions}>
+      <div className={styles.actionsHeader}>
         {updateAvailable && refreshApp && (
           <Button
             variant="contained"
             color="warning"
             size="small"
             onClick={refreshApp}
-            className={styles.updateButton}
             startIcon={<AutorenewIcon className={styles.spin} />}
           >
             Refrescar versión
