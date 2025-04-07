@@ -26,9 +26,8 @@ const AuthorizedHeader: FC<HeaderProps> = ({
       </div>
       <div className={styles.actionsHeader}>
         {updateAvailable && refreshApp && (
-          <Box>
+          <Box className={styles.boxStyle}>
             New version is available
-
             <Link
               href="#"
               underline="hover"
