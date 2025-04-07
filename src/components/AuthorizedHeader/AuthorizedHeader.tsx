@@ -3,9 +3,8 @@ import { type HeaderProps } from 'components/PrivateLayout/types'
 import NavHeader from 'components/NavHeader'
 import Notifications from 'components/AuthorizedHeader/components/Notifications.tsx'
 import useScreen from 'hooks/useScreen.ts'
-import { Button } from '@mui/material'
+import { Box, Link } from '@mui/material'
 import styles from './authorizedHeader.module.scss'
-import AutorenewIcon from '@mui/icons-material/Autorenew'
 
 const AuthorizedHeader: FC<HeaderProps> = ({
   handleClickMenu,
@@ -27,15 +26,18 @@ const AuthorizedHeader: FC<HeaderProps> = ({
       </div>
       <div className={styles.actionsHeader}>
         {updateAvailable && refreshApp && (
-          <Button
-            variant="contained"
-            color="warning"
-            size="small"
-            onClick={refreshApp}
-            startIcon={<AutorenewIcon className={styles.spin} />}
-          >
-            Refresh Now
-          </Button>
+          <Box>
+            <Link
+              href="#"
+              underline="hover"
+              color="inherit"
+              onClick={refreshApp}
+              sx={{ fontWeight: 'bold', mr: 1 }}
+            >
+              Update now
+            </Link>
+            New version is available
+          </Box>
 
         )}
         <Notifications />
