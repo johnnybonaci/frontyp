@@ -28,12 +28,13 @@ const AuthorizedHeader: FC<HeaderProps> = ({
         {updateAvailable && refreshApp && (
           <Box>
             New version is available
+
             <Link
               href="#"
               underline="hover"
               color="inherit"
               onClick={refreshApp}
-              sx={{ fontWeight: 'bold', mr: 1 }}
+              sx={{ fontWeight: 'bold', ml: 1 }}
             >
               Update now
             </Link>
