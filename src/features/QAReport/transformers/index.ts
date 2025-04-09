@@ -10,7 +10,7 @@ import { type QAReportListFiltersFormValues } from 'features/QAReport/components
 import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
-import currentDate from 'utils/currentDate.ts'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const qaReportItemFromApi = (item: QAReportItemFromApi): QAReportItem => {
   return {
@@ -107,9 +107,9 @@ export const transformFiltersFromUrl = (
     subId: objectFromUrl(searchParams.get('subId'), null),
     phone: searchParams.get('phone') ?? '',
     startDate: searchParams.get('date_start')
-      ? currentDate(searchParams.get('date_start')!)
+      ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
-    endDate: searchParams.get('date_end') ? currentDate(searchParams.get('date_end')!) : startOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     insurance: searchParams.get('insurance') ?? '',
     state: objectFromUrl(searchParams.get('state')),
     callIssues: searchParams.get('callIssues') ?? '',

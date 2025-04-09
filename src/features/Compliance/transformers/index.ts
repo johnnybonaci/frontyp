@@ -5,7 +5,7 @@ import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { type ComplianceItem, type ComplianceItemFromApi } from 'features/Compliance/types'
 import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
-import currentDate from 'utils/currentDate.ts'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const complianceItemFromApi = (item: ComplianceItemFromApi): ComplianceItem => {
   return {
@@ -65,9 +65,9 @@ export const transformFiltersFromUrl = (
     pubId: objectFromUrl(searchParams.get('pubId'), null),
     subId: objectFromUrl(searchParams.get('subId'), null),
     startDate: searchParams.get('date_start')
-      ? currentDate(searchParams.get('date_start')!)
+      ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
-    endDate: searchParams.get('date_end') ? currentDate(searchParams.get('date_end')!) : startOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     phone: searchParams.get('phone') ?? '',
     email: searchParams.get('email') ?? '',
   }

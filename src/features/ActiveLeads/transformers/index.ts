@@ -14,7 +14,7 @@ import { objectFromUrl } from 'utils/utils.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { ALL_LEADS_OPTION } from 'hooks/useFetchData.tsx'
 import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
-import currentDate from 'utils/currentDate.ts'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const activeLeadsItemFromApi = (item: ActiveLeadsItemFromApi): ActiveLeadsItem => {
   return {
@@ -160,9 +160,9 @@ export const transformFiltersFromUrl = (
     campaign: objectFromUrl(searchParams.get('campaign'), null),
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
     startDate: searchParams.get('date_start')
-      ? currentDate(searchParams.get('date_start')!)
+      ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
-    endDate: searchParams.get('date_end') ? currentDate(searchParams.get('date_end')!) : startOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     pubIdYp: objectFromUrl(searchParams.get('pubIdYp')),
     status: searchParams.get('status') ?? '',
     firstName: searchParams.get('firstName') ?? '',

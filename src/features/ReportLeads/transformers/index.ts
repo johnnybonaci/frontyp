@@ -3,7 +3,7 @@ import { type Filters } from 'types/filter'
 import { type ReportLeadsListFiltersFormValues } from 'features/ReportLeads/components/ReportLeadsFilters/ReportLeadsFilters.tsx'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
-import currentDate from 'utils/currentDate.ts'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const reportLeadsItemFromApi = (item: ReportLeadsItemFromApi): ReportLeadsItem => {
   return {
@@ -32,8 +32,8 @@ export const transformFiltersFromUrl = (
   const { startOfDay } = getDayLimits()
 
   return {
-    startDate: searchParams.get('date_start') ? currentDate(searchParams.get('date_start')!) : startOfDay,
-    endDate: searchParams.get('date_end') ? currentDate(searchParams.get('date_end')!) : startOfDay,
+    startDate: searchParams.get('date_start') ? dateFromUrl(searchParams.get('date_start')!) : startOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
   }
 }
 

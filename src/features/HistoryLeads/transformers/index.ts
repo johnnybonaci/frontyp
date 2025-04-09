@@ -4,7 +4,7 @@ import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { type HistoryLeadsItem, type HistoryLeadsItemFromApi } from 'features/HistoryLeads/types'
 import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
-import currentDate from 'utils/currentDate.ts'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 
 export const historyLeadsItemFromApi = (item: HistoryLeadsItemFromApi): HistoryLeadsItem => {
   return {
@@ -46,9 +46,9 @@ export const transformFiltersFromUrl = (
   return {
 
     startDate: searchParams.get('date_start')
-      ? currentDate(searchParams.get('date_start')!)
+      ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
-    endDate: searchParams.get('date_end') ? currentDate(searchParams.get('date_end')!) : startOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     phone: searchParams.get('phone_id') ?? ''
   }
 }

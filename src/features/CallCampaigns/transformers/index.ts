@@ -11,7 +11,7 @@ import { formatPercentageIndicator } from 'hooks/indicator.ts'
 import { CallCampaignListFiltersFormValues } from '../components/CallCampaignFilters/CallCampaignFilters.tsx'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { objectFromUrl } from 'utils/utils.ts'
-import currentDate from 'utils/currentDate.ts'
+import dateFromUrl from 'utils/dateFromUrl.ts'
 import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
 
 export const callCampaignItemFromApi = (item: CallCampaignItemFromApi): CallCampaignItem => {
@@ -103,9 +103,9 @@ export const transformFiltersFromUrl = (
     pubIdTD: objectFromUrl(searchParams.get('pubId')),
     ccId: objectFromUrl(searchParams.get('pubId')),
     startDate: searchParams.get('date_start')
-      ? currentDate(searchParams.get('date_start')!)
+      ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
-    endDate: searchParams.get('date_end') ? currentDate(searchParams.get('date_end')!) : startOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     type: objectFromUrl(searchParams.get('pubId')),
     trafficSourceTD: objectFromUrl(searchParams.get('pubId')),
     pubIdYp: objectFromUrl(searchParams.get('pubId')),

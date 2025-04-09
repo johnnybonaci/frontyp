@@ -19,7 +19,7 @@ import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { capitalize } from 'lodash'
 import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
-import currentDate from "utils/currentDate.ts";
+import dateFromUrl from "utils/dateFromUrl.ts";
 
 export const statusTFromApi = (status: StatusTValue): StatusT => {
   return {
@@ -248,9 +248,9 @@ export const transformFiltersFromUrl = (
     issueType: parseOptions(searchParams.get('issueType')),
     callIssues: searchParams.get('callIssues') ?? '',
     startDate: searchParams.get('date_start')
-      ? currentDate(searchParams.get('date_start')!)
+      ? dateFromUrl(searchParams.get('date_start')!)
       : startOfDay,
-    endDate: searchParams.get('date_end') ? currentDate(searchParams.get('date_end')!) : startOfDay,
+    endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     status: searchParams.get('status') ?? '',
     insurance: searchParams.get('insurance') ?? '',
     phone: searchParams.get('phone') ?? '',
