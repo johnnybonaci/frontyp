@@ -7,14 +7,14 @@ export const DATE_OPTIONS: DateOption[] = [
   {
     text: 'Today',
     key: 'today',
-    value: range(base.clone().startOf('day'), base.clone().endOf('day')),
+    value: range(base.clone().startOf('day'), base.clone().startOf('day')),
   },
   {
     text: 'Yesterday',
     key: 'yesterday',
     value: range(
       base.clone().subtract(1, 'day').startOf('day'),
-      base.clone().subtract(1, 'day').endOf('day')
+      base.clone().subtract(1, 'day').startOf('day')
     ),
   },
   {
@@ -22,7 +22,7 @@ export const DATE_OPTIONS: DateOption[] = [
     key: 'today_and_yesterday',
     value: range(
       base.clone().subtract(1, 'day').startOf('day'),
-      base.clone().endOf('day')
+      base.clone().startOf('day')
     ),
   },
   {
