@@ -53,7 +53,7 @@ export const DATE_OPTIONS: DateOption[] = [
     key: 'last_month',
     value: range(
       base.clone().subtract(1, 'month').startOf('month'),
-      base.clone().subtract(1, 'month').endOf('month').endOf('day')
+      base.clone().subtract(1, 'month').endOf('month').startOf('day')
     ),
   },
 ]
