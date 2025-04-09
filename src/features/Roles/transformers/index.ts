@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 import { type Filters } from 'types/filter'
 import { RoleToAPI, type RoleForm, type RoleItem, type RoleItemFromApi } from '../types/index'
-import dateFromUrl from 'utils/dateFromUrl.ts'
+import currentDate from 'utils/currentDate.ts'
 
 export const roleItemFromApi = (item: RoleItemFromApi): RoleItem => {
   const { id, name, permissions, created_at, updated_at } = item
@@ -11,8 +11,8 @@ export const roleItemFromApi = (item: RoleItemFromApi): RoleItem => {
     id,
     name,
     permissions: permissions.map((p) => p.name),
-    createdAt: dateFromUrl(created_at),
-    updatedAt: dateFromUrl(updated_at),
+    createdAt: currentDate(created_at),
+    updatedAt: currentDate(updated_at),
   }
 }
 
