@@ -1,72 +1,60 @@
-import moment from 'moment'
 import { type DateOption } from './types'
-import dateFromUrl from 'utils/dateFromUrl.ts'
-import { DEFAULT_DATE_TIMEZONE } from 'utils/constants.ts'
+import { range, lastNDaysRange } from 'utils/calendarRanges.ts'
+import { getCalendarBaseMoment } from 'utils/calendarBase.ts'
+const base = getCalendarBaseMoment()
 
 export const DATE_OPTIONS: DateOption[] = [
   {
     text: 'Today',
     key: 'today',
-    value: [
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').format('YYYY-MM-DD')),
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).endOf('day').format('YYYY-MM-DD')),
-    ],
+    value: range(base.clone().startOf('day'), base.clone().endOf('day')),
   },
   {
     text: 'Yesterday',
     key: 'yesterday',
-    value: [
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'days').startOf('day').format('YYYY-MM-DD')),
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'days').endOf('day').format('YYYY-MM-DD')),
-    ],
+    value: range(
+      base.clone().subtract(1, 'day').startOf('day'),
+      base.clone().subtract(1, 'day').endOf('day')
+    ),
   },
   {
     text: 'Today & Yesterday',
     key: 'today_and_yesterday',
-    value: [
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'days').format('YYYY-MM-DD')),
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).format('YYYY-MM-DD')),
-    ],
+    value: range(
+      base.clone().subtract(1, 'day').startOf('day'),
+      base.clone().endOf('day')
+    ),
   },
   {
     text: 'Last 3 days',
     key: 'last_3_days',
-    value: [
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(3, 'days').format('YYYY-MM-DD')),
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).format('YYYY-MM-DD')),
-    ],
+    value: lastNDaysRange(3),
   },
   {
     text: 'Last 7 days',
     key: 'last_7_days',
-    value: [
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(7, 'days').format('YYYY-MM-DD')),
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).format('YYYY-MM-DD')),
-    ],
+    value: lastNDaysRange(7),
   },
   {
     text: 'Last 30 days',
     key: 'last_30_days',
-    value: [
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(30, 'days').format('YYYY-MM-DD')),
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).format('YYYY-MM-DD')),
-    ],
+    value: lastNDaysRange(30),
   },
   {
     text: 'This month',
     key: 'this_month',
-    value: [
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).startOf('month').format('YYYY-MM-DD')),
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).endOf('month').format('YYYY-MM-DD')),
-    ],
+    value: range(
+      base.clone().startOf('month'),
+      base.clone().endOf('month')
+    ),
   },
   {
     text: 'Last month',
     key: 'last_month',
-    value: [
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'month').startOf('month').format('YYYY-MM-DD')),
-      dateFromUrl(moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'month').endOf('month').format('YYYY-MM-DD')),
-    ],
+    value: range(
+      base.clone().subtract(1, 'month').startOf('month'),
+      base.clone().subtract(1, 'month').endOf('month')
+    ),
   },
 ]
 
