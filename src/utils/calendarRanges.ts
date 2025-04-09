@@ -14,7 +14,7 @@ export function range(start: moment.Moment, end: moment.Moment): [Date, Date] {
 export function lastNDaysRange(n: number): [Date, Date] {
   const base = getCalendarBaseMoment()
   return range(
-    base.clone().subtract(n, 'days').startOf('day'),
+    base.clone().subtract(n - 1, 'days').startOf('day'),
     base.clone().startOf('day')
   )
 }
