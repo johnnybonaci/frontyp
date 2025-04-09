@@ -26,19 +26,7 @@ function currentDate(timezone: string = DEFAULT_DATE_TIMEZONE): Date {
     ? moment.tz(lastStoredDatetimeISO, timezone)
     : now
 
-  const year = baseMoment.year()
-  const month = baseMoment.month()
-  const day = baseMoment.date()
-  const hours = baseMoment.hour()
-  const minutes = baseMoment.minute()
-  const seconds = baseMoment.second()
-
-  const finalDate = moment.tz(
-    { year, month, day, hours, minutes, seconds },
-    Intl.DateTimeFormat().resolvedOptions().timeZone
-  )
-
-  return new Date(finalDate.toISOString())
+  return baseMoment.toDate()
 }
 
 export default currentDate
