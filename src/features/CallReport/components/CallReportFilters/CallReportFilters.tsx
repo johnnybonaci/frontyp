@@ -18,7 +18,7 @@ export interface CallReportListFiltersFormValues {
   pubId: Option[]
   pubIdYp: Option[]
   state: Option[]
-  trafficSource: string
+  trafficSource: Option[]
   buyers: Option[]
   issueType: Option[]
   callIssues: string
@@ -47,7 +47,7 @@ export const DEFAULT_FILTERS = {
   offers: [],
   pubId: [],
   state: [],
-  trafficSource: '',
+  trafficSource: [],
   buyers: [],
   issueType: [],
   pubIdYp: [],
@@ -75,7 +75,6 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
   const { t } = useTranslation('features', { keyPrefix: 'CallReport.filters' })
   const {
     stateOptions,
-    trafficSourceOptions,
     issueTypeOptions,
     offersOptions,
     callIssuesOptions,
@@ -151,14 +150,14 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
             value={values.offers}
             placeholder={t('selectOrAdd')}
           />
-          <Select
+          <CustomAutocomplete
+            resourceName="trafficSource"
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('trafficSource', newValue)
+            }}
             label={t('trafficSource')}
-            options={entitiesToOptions(trafficSourceOptions, {
-              fieldValue: 'id',
-              fieldLabel: 'title',
-            })}
-            fullWidth
-            {...getFieldProps('trafficSource')}
+            value={values.trafficSource}
+            placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
             resourceName="pubs"
