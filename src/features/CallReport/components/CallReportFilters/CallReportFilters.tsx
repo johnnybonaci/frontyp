@@ -76,6 +76,7 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
   const {
     stateOptions,
     issueTypeOptions,
+    trafficSourceOptions,
     offersOptions,
     callIssuesOptions,
     insuranceOptions,
@@ -151,7 +152,7 @@ const CallReportFilters: FC<CallReportFiltersProps> = ({
             placeholder={t('selectOrAdd')}
           />
           <CustomAutocomplete
-            resourceName="trafficSource"
+            options={trafficSourceOptions}
             onChange={(_event: any, newValue: any[]) => {
               void setFieldValue('trafficSource', newValue)
             }}
