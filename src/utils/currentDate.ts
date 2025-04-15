@@ -1,32 +1,45 @@
-import moment, { type Moment } from 'moment-timezone'
-import { DEFAULT_DATE_TIMEZONE } from 'utils/constants.ts'
+import moment from 'moment-timezone'
+import { DEFAULT_DATE_TIMEZONE } from 'utils/constants'
 
-const STORAGE_DATE_KEY = 'last_known_date'
-const STORAGE_DATETIME_KEY = 'last_known_datetime'
+const DATE_KEY = 'currentDate'
+const NEXT_UPDATE_KEY = 'nextDateUpdate'
+let initialized = false
 
-function currentDate(timezone: string = DEFAULT_DATE_TIMEZONE): Date {
-  const now: Moment = moment.tz(timezone)
-  const todayStr = now.format('YYYY-MM-DD')
+const getNow = () => moment.tz(DEFAULT_DATE_TIMEZONE).toDate()
 
-  const lastStoredDateStr = localStorage.getItem(STORAGE_DATE_KEY)
-  const lastStoredDatetimeISO = localStorage.getItem(STORAGE_DATETIME_KEY)
+const saveDate = (date: Date) => {
+  localStorage.setItem(DATE_KEY, date.toISOString())
+}
 
-  const dayChanged = lastStoredDateStr !== todayStr
+const scheduleNextUpdate = () => {
+  const now = moment.tz(DEFAULT_DATE_TIMEZONE)
+  const nextDay = now.clone().add(1, 'day').startOf('day')
+  const delay = nextDay.diff(now)
 
-  if (dayChanged) {
-    localStorage.setItem(STORAGE_DATE_KEY, todayStr)
-    localStorage.setItem(STORAGE_DATETIME_KEY, now.toISOString())
-    console.log('Cambio de día detectado:', lastStoredDateStr, '->', todayStr)
+  localStorage.setItem(NEXT_UPDATE_KEY, nextDay.toISOString())
+
+  setTimeout(() => {
+    const updatedDate = getNow()
+    saveDate(updatedDate)
+    scheduleNextUpdate()
+  }, delay)
+}
+
+export const initCurrentDate = () => {
+  if (initialized) return
+  initialized = true
+
+  const stored = localStorage.getItem(DATE_KEY)
+  if (!stored) {
+    saveDate(getNow())
   }
-  else {
-    console.log('No hay cambio de día:', lastStoredDateStr, '->', todayStr)
-  }
 
-  const baseMoment: Moment = lastStoredDatetimeISO
-    ? moment.tz(lastStoredDatetimeISO, timezone)
-    : now
+  scheduleNextUpdate()
+}
 
-  return baseMoment.toDate()
+const currentDate = (): Date => {
+  const raw = localStorage.getItem(DATE_KEY)
+  return raw ? new Date(raw) : getNow()
 }
 
 export default currentDate

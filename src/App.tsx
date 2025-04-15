@@ -22,12 +22,15 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { enUS as en, es } from 'date-fns/locale'
 import ScreenProvider from './contexts/ScreenProvider.tsx'
 import DataProvider from './contexts/DataProvider.tsx'
+import { initCurrentDate } from 'utils/currentDate'
+initCurrentDate()
 
 const themeLangMap: Record<string, Localization> = {
   en: enUS,
 }
 
 const LOCALE_MAP = { es, en }
+
 
 // eslint-disable-next-line no-undef
 const App = (): JSX.Element => {
