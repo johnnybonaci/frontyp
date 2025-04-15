@@ -14,40 +14,39 @@ const saveDate = (date: Date) => {
   localStorage.setItem(DATE_KEY, date.toISOString())
 }
 
-const saveNextUpdate = (nextDate: Date) => {
+const saveNextUpdate = (nextDate: Date, delay: number) => {
   localStorage.setItem(NEXT_UPDATE_KEY, nextDate.toISOString())
+  localStorage.setItem('currentDateUpdateDelay', delay.toString())
 }
 
 const getDelay = () => {
-  if (IS_TEST) return 2 * 60 * 1000
+  if (IS_TEST) return 5 * 60 * 1000
   const now = moment.tz(DEFAULT_DATE_TIMEZONE)
   const nextDay = now.clone().add(1, 'day').startOf('day')
   return nextDay.diff(now)
 }
 
-const scheduleNextUpdate = () => {
+const scheduleNextUpdate = (onDateChange?: (newDate: Date) => void) => {
   const delay = getDelay()
   const nextUpdate = new Date(Date.now() + delay)
-  saveNextUpdate(nextUpdate)
-  localStorage.setItem('Delay', delay.toString())
+  saveNextUpdate(nextUpdate, delay)
 
   setTimeout(() => {
     const updatedDate = getNow()
-    console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] Actualizando fecha a:`, updatedDate.toISOString())
     saveDate(updatedDate)
-    scheduleNextUpdate()
+    if (onDateChange) onDateChange(updatedDate)
+    scheduleNextUpdate(onDateChange)
   }, delay)
 }
 
-export const initCurrentDate = () => {
+export const initCurrentDate = (onDateChange?: (newDate: Date) => void) => {
   if (initialized) return
   initialized = true
 
   const initialDate = IS_TEST ? getYesterday() : getNow()
   saveDate(initialDate)
-  console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] Fecha inicial:`, initialDate.toISOString())
 
-  scheduleNextUpdate()
+  scheduleNextUpdate(onDateChange)
 }
 
 const currentDate = (): Date => {
