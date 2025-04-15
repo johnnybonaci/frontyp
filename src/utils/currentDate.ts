@@ -5,21 +5,35 @@ const DATE_KEY = 'currentDate'
 const NEXT_UPDATE_KEY = 'nextDateUpdate'
 let initialized = false
 
+const IS_TEST = import.meta.env.VITE_DATE_MANAGER_TEST === 'false'
+
 const getNow = () => moment.tz(DEFAULT_DATE_TIMEZONE).toDate()
+const getYesterday = () => moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'day').toDate()
 
 const saveDate = (date: Date) => {
   localStorage.setItem(DATE_KEY, date.toISOString())
 }
 
-const scheduleNextUpdate = () => {
+const saveNextUpdate = (nextDate: Date) => {
+  localStorage.setItem(NEXT_UPDATE_KEY, nextDate.toISOString())
+}
+
+const getDelay = () => {
+  if (IS_TEST) return 2 * 60 * 1000
   const now = moment.tz(DEFAULT_DATE_TIMEZONE)
   const nextDay = now.clone().add(1, 'day').startOf('day')
-  const delay = nextDay.diff(now)
+  return nextDay.diff(now)
+}
 
-  localStorage.setItem(NEXT_UPDATE_KEY, nextDay.toISOString())
+const scheduleNextUpdate = () => {
+  const delay = getDelay()
+  const nextUpdate = new Date(Date.now() + delay)
+  saveNextUpdate(nextUpdate)
+  localStorage.setItem('Delay', delay.toString())
 
   setTimeout(() => {
     const updatedDate = getNow()
+    console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] Actualizando fecha a:`, updatedDate.toISOString())
     saveDate(updatedDate)
     scheduleNextUpdate()
   }, delay)
@@ -29,10 +43,9 @@ export const initCurrentDate = () => {
   if (initialized) return
   initialized = true
 
-  const stored = localStorage.getItem(DATE_KEY)
-  if (!stored) {
-    saveDate(getNow())
-  }
+  const initialDate = IS_TEST ? getYesterday() : getNow()
+  saveDate(initialDate)
+  console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] Fecha inicial:`, initialDate.toISOString())
 
   scheduleNextUpdate()
 }
