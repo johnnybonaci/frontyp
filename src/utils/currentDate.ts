@@ -5,7 +5,7 @@ const DATE_KEY = 'currentDate'
 const NEXT_UPDATE_KEY = 'nextDateUpdate'
 let initialized = false
 
-const IS_TEST = import.meta.env.VITE_DATE_MANAGER_TEST === 'false'
+const IS_TEST = import.meta.env.VITE_DATE_MANAGER_TEST === 'true'
 
 const getNow = () => moment.tz(DEFAULT_DATE_TIMEZONE).toDate()
 const getYesterday = () => moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'day').toDate()
