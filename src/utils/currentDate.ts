@@ -11,7 +11,7 @@ const IS_TEST = String(import.meta.env.VITE_DATE_MANAGER_TEST).toLowerCase() ===
 
 const getNow = () => moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').toDate()
 
-const getYesterday = () => moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').subtract(1, 'day').toDate()
+const getYesterday = () => moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').subtract(2, 'day').toDate()
 
 const getDelay = () => {
   if (IS_TEST) return 2 * 60 * 1000
@@ -32,7 +32,7 @@ const saveDate = (date: Date) => {
 }
 
 const saveNextUpdate = (date: Date, delay: number) => {
-  localStorage.setItem(NEXT_UPDATE_KEY, date.toISOString())
+  localStorage.setItem(NEXT_UPDATE_KEY, moment(date).format('YYYY-MM-DD HH:mm:ss'))
   localStorage.setItem(DELAY_KEY, delay.toString())
 }
 
