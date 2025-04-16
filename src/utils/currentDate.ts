@@ -22,7 +22,7 @@ const saveNextUpdate = (date: Date, delay: number) => {
 }
 
 const getDelay = () => {
-  if (IS_TEST) return 5 * 60 * 1000 // 5 minutos
+  if (IS_TEST) return 2 * 60 * 1000
   const now = moment.tz(DEFAULT_DATE_TIMEZONE)
   const nextDay = now.clone().add(1, 'day').startOf('day')
   return nextDay.diff(now)
@@ -52,6 +52,9 @@ export const initCurrentDate = (onDateChange?: (newDate: Date) => void) => {
   const initialDate = IS_TEST ? getYesterday() : getNow()
   saveDate(initialDate)
   console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] Fecha inicial:`, initialDate.toISOString())
+  console.log('[TEST] getYesterday →', getYesterday().toISOString())
+  console.log('[TEST] getNow →', getNow().toISOString())
+
 
   scheduleNextUpdate(onDateChange)
 }
