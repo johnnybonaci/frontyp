@@ -108,6 +108,7 @@ const ComplianceFilters: FC<ComplianceFiltersProps> = ({
             }}
             label={t('pubId')}
             /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+            // @ts-expect-error
             value={values.pubId}
             multiple={false}
             creatable={false}
@@ -119,6 +120,7 @@ const ComplianceFilters: FC<ComplianceFiltersProps> = ({
             }}
             label={t('subId')}
             /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+            // @ts-expect-error
             value={values.subId}
             multiple={false}
             creatable={false}
@@ -130,6 +132,7 @@ const ComplianceFilters: FC<ComplianceFiltersProps> = ({
             }}
             label={t('leadsType')}
             /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+            // @ts-expect-error
             value={values.leadsType}
             multiple={false}
             creatable={false}
