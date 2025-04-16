@@ -18,10 +18,7 @@ const getDelay = () => {
 
   const now = moment.tz(DEFAULT_DATE_TIMEZONE)
   const nextDay = now.clone().add(1, 'day').startOf('day')
-  const diffMs = nextDay.diff(now)
-
-  console.log('[LIVE] 🕐 Hora actual (local):', now.format('YYYY-MM-DD HH:mm:ss'))
-  console.log('[LIVE] 🕛 Ejecutar en:', Math.floor(diffMs / 60000), 'minutos')
+  const diffMs = nextDay.diff(now) + 120000
 
   return diffMs
 }
@@ -44,17 +41,14 @@ const scheduleNextUpdate = (onDateChange?: (newDate: Date) => void) => {
 
   saveNextUpdate(nextUpdate, delay)
 
-  console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] 🕒 Ahora (local):`, now.format('YYYY-MM-DD HH:mm:ss'))
-  console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] 🗓 Próxima actualización (local):`, moment(nextUpdate).format('YYYY-MM-DD HH:mm:ss'))
-
   setTimeout(() => {
     const updatedDate = moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').toDate()
-    console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] 🔁 Actualizando fecha a (UTC):`, updatedDate.toISOString())
-    console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] 🔁 Actualizando fecha (local):`, moment(updatedDate).format('YYYY-MM-DD HH:mm:ss'))
 
     saveDate(updatedDate)
     if (onDateChange) onDateChange(updatedDate)
     scheduleNextUpdate(onDateChange)
+    window.location.reload()
+
   }, delay)
 }
 
@@ -65,10 +59,6 @@ const initCurrentDate = (onDateChange?: (newDate: Date) => void) => {
 
   const initialDate = IS_TEST ? getYesterday() : getNow()
   saveDate(initialDate)
-
-  console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] 🚀 Fecha inicial (UTC):`, initialDate.toISOString())
-  console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] 🚀 Fecha inicial (local):`, moment(initialDate).format('YYYY-MM-DD HH:mm:ss'))
-
   scheduleNextUpdate(onDateChange)
 }
 
