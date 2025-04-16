@@ -59,7 +59,7 @@ const scheduleNextUpdate = (onDateChange?: (newDate: Date) => void) => {
 }
 
 
-export const initCurrentDate = (onDateChange?: (newDate: Date) => void) => {
+const initCurrentDate = (onDateChange?: (newDate: Date) => void) => {
   if (initialized) return
   initialized = true
 
@@ -77,6 +77,12 @@ const currentDate = (): Date => {
   return raw
     ? moment.tz(raw, 'YYYY-MM-DD', DEFAULT_DATE_TIMEZONE).toDate()
     : getNow()
+}
+export {
+  initCurrentDate,
+  IS_TEST,
+  getYesterday,
+  saveDate,
 }
 
 export default currentDate

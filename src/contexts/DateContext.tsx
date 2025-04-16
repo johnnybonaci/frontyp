@@ -1,5 +1,10 @@
 import { createContext, useState, useEffect, ReactNode } from 'react'
-import currentDate, { initCurrentDate } from 'utils/currentDate'
+import currentDate, {
+    initCurrentDate,
+    IS_TEST,
+    getYesterday,
+    saveDate,
+} from 'utils/currentDate'
 
 interface DateContextType {
     currentDate: Date
@@ -9,9 +14,9 @@ interface DateContextType {
 const DateContext = createContext<DateContextType | undefined>(undefined)
 
 const DateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [currentDateState, setCurrentDateState] = useState(() => {
-        return currentDate()
-    })
+    const [currentDateState, setCurrentDateState] = useState(() =>
+        IS_TEST ? getYesterday() : currentDate()
+    )
 
     useEffect(() => {
         initCurrentDate((updatedDate) => {
@@ -20,11 +25,16 @@ const DateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('currentDate', currentDateState.toISOString())
+        saveDate(currentDateState)
     }, [currentDateState])
 
     return (
-        <DateContext.Provider value={{ currentDate: currentDateState, setCurrentDate: setCurrentDateState }}>
+        <DateContext.Provider
+            value={{
+                currentDate: currentDateState,
+                setCurrentDate: setCurrentDateState,
+            }}
+        >
             {children}
         </DateContext.Provider>
     )
