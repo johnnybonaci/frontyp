@@ -47,7 +47,7 @@ const scheduleNextUpdate = (onDateChange?: (newDate: Date) => void) => {
     saveDate(updatedDate)
     if (onDateChange) onDateChange(updatedDate)
     scheduleNextUpdate(onDateChange)
-    window.location.reload()
+    window.location.href = window.location.pathname
 
   }, delay)
 }
