@@ -9,7 +9,7 @@ let initialized = false
 
 const IS_TEST = String(import.meta.env.VITE_DATE_MANAGER_TEST).toLowerCase() === 'true'
 
-const getNow = () => moment.tz(DEFAULT_DATE_TIMEZONE).toDate()
+const getNow = () => moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').toDate()
 const getYesterday = () => moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').subtract(1, 'day').toDate()
 
 const saveDate = (date: Date) => {
