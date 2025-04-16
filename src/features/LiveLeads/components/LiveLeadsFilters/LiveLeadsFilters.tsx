@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { useCallback, type FC, useEffect, useMemo } from 'react'
+import { useCallback, type FC, useEffect } from 'react'
 import { useFormik } from 'formik'
 import LiveLeadsFiltersSchema from 'src/features/LiveLeads/schema/LiveLeadsFiltersSchema'
 import Filters from 'src/components/Filters/index.ts'
@@ -12,7 +12,8 @@ import Select from 'components/Select'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import useData from 'hooks/useData.tsx'
 import { LEAD_STATUS_OPTIONS } from 'hooks/useFetchData.tsx'
-import useDate from 'src/hooks/useDate.ts'
+import currentDate from 'utils/currentDate.ts'
+
 export interface LiveLeadsListFiltersFormValues {
   pubId: Option[]
   trafficSource: Option[]
@@ -28,21 +29,6 @@ export interface LiveLeadsListFiltersFormValues {
   email: string
   campaign: Option | null
 }
-export const DEFAULT_FILTERS = (date: Date): LiveLeadsListFiltersFormValues => ({
-  pubId: [],
-  trafficSource: [],
-  pubIdYp: [],
-  leadsType: [],
-  startDate: date,
-  endDate: date,
-  status: '',
-  phone: '',
-  firstName: '',
-  lastName: '',
-  name: '',
-  email: '',
-  campaign: null,
-})
 
 interface LiveLeadsFiltersProps {
   onCancel: () => void
@@ -51,22 +37,32 @@ interface LiveLeadsFiltersProps {
   initialFilters?: LiveLeadsListFiltersFormValues
 }
 
+export const DEFAULT_FILTERS = {
+  pubId: [],
+  trafficSource: [],
+  pubIdYp: [],
+  leadsType: [],
+  startDate: currentDate(),
+  endDate: currentDate(),
+  status: '',
+  phone: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  campaign: null,
+}
+
 const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
   onCancel,
   onApply,
   isSearching = false,
-  initialFilters,
+  initialFilters = DEFAULT_FILTERS,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'LiveLeads.filters' })
   const { trafficSourceOptions, leadTypeOptions } = useData()
-  const { currentDate } = useDate()
-
-  const DEFAULT_FILTERS_2 = useMemo(() => DEFAULT_FILTERS(currentDate), [currentDate])
-
-  const filtersToUse = initialFilters ?? DEFAULT_FILTERS_2
 
   const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
-    initialValues: filtersToUse,
+    initialValues: initialFilters,
     validationSchema: LiveLeadsFiltersSchema,
     onSubmit: (data) => {
       onApply(data)
@@ -74,28 +70,27 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
   })
 
   const handleClear = useCallback(async () => {
-    const resetFilters = DEFAULT_FILTERS(currentDate)
-
-    await setValues(resetFilters)
-    onApply(resetFilters)
-  }, [currentDate, setValues])
+    await setValues(DEFAULT_FILTERS)
+    onApply(DEFAULT_FILTERS)
+  }, [initialFilters, setValues])
 
   const getFieldProps = useCallback(
-    (name: keyof LiveLeadsListFiltersFormValues) => ({
+    (name: string) => ({
       name,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       value: values[name],
       onChange: handleChange,
-      onClear: async () => {
-        const defaultValue = DEFAULT_FILTERS(currentDate)[name]
-        await setFieldValue(name, defaultValue)
-      },
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      onClear: async () => await setFieldValue(name, DEFAULT_FILTERS[name]),
     }),
-    [handleChange, values, setFieldValue, currentDate]
+    [handleChange, values, initialFilters, setFieldValue]
   )
 
   useEffect(() => {
-    void setValues(filtersToUse)
-  }, [filtersToUse, setValues])
+    void setValues(initialFilters)
+  }, [initialFilters, setValues])
 
   useEffect(() => {
     onApply(values)
@@ -166,6 +161,16 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
             })}
             fullWidth
             {...getFieldProps('status')}
+          />
+          <CustomAutocomplete
+            creatable={false}
+            multiple={false}
+            {...getFieldProps('campaign')}
+            resourceName="campaigns"
+            onChange={(_event: any, newValue: any[]) => {
+              void setFieldValue('campaign', newValue)
+            }}
+            label={t('campaign')}
           />
         </>
       }
