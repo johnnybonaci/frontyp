@@ -1,18 +1,17 @@
 import { TextField } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { useCallback, type FC, useEffect } from 'react'
+import { useCallback, type FC, useMemo } from 'react'
 import { useFormik } from 'formik'
 import LiveLeadsFiltersSchema from 'src/features/LiveLeads/schema/LiveLeadsFiltersSchema'
 import Filters from 'src/components/Filters/index.ts'
-import CustomAutocomplete, {
-  type Option,
-} from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
+import CustomAutocomplete, { type Option } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import entitiesToOptions from 'utils/entityToOptions.ts'
 import Select from 'components/Select'
 import CustomDateRangePicker from 'components/CustomDateRangePicker'
 import useData from 'hooks/useData.tsx'
 import { LEAD_STATUS_OPTIONS } from 'hooks/useFetchData.tsx'
 import currentDate from 'utils/currentDate.ts'
+import useDate from 'src/hooks/useDate.ts'
 
 export interface LiveLeadsListFiltersFormValues {
   pubId: Option[]
@@ -30,19 +29,12 @@ export interface LiveLeadsListFiltersFormValues {
   campaign: Option | null
 }
 
-interface LiveLeadsFiltersProps {
-  onCancel: () => void
-  onApply: (data: any) => void
-  isSearching?: boolean
-  initialFilters?: LiveLeadsListFiltersFormValues
-}
-
-export const DEFAULT_FILTERS = {
+export const DEFAULT_FILTERS: LiveLeadsListFiltersFormValues = {
   pubId: [],
   trafficSource: [],
   pubIdYp: [],
   leadsType: [],
-  startDate: currentDate(),
+  startDate: currentDate(), // se sobrescribe abajo con hook si hace falta
   endDate: currentDate(),
   status: '',
   phone: '',
@@ -50,51 +42,77 @@ export const DEFAULT_FILTERS = {
   lastName: '',
   email: '',
   campaign: null,
+  name: '',
+}
+
+interface LiveLeadsFiltersProps {
+  onCancel: () => void
+  onApply: (data: LiveLeadsListFiltersFormValues) => void
+  isSearching?: boolean
+  initialFilters?: LiveLeadsListFiltersFormValues
 }
 
 const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
   onCancel,
   onApply,
   isSearching = false,
-  initialFilters = DEFAULT_FILTERS,
+  initialFilters,
 }) => {
   const { t } = useTranslation('features', { keyPrefix: 'LiveLeads.filters' })
   const { trafficSourceOptions, leadTypeOptions } = useData()
+  const { currentDate } = useDate()
 
-  const { handleChange, values, setValues, handleSubmit, setFieldValue } = useFormik({
-    initialValues: initialFilters,
+  // Sobreescribimos solo la fecha si initialFilters no fue pasado
+  const resolvedInitialFilters = useMemo(() => {
+    const base = initialFilters ?? DEFAULT_FILTERS
+    return {
+      ...base,
+      startDate: currentDate,
+      endDate: currentDate,
+    }
+  }, [initialFilters, currentDate])
+
+  const {
+    handleChange,
+    values,
+    setValues,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues: resolvedInitialFilters,
     validationSchema: LiveLeadsFiltersSchema,
-    onSubmit: (data) => {
-      onApply(data)
-    },
+    onSubmit: onApply,
+    enableReinitialize: true, // 🔁 se actualiza si cambia initialValues
   })
 
   const handleClear = useCallback(async () => {
-    await setValues(DEFAULT_FILTERS)
-    onApply(DEFAULT_FILTERS)
-  }, [initialFilters, setValues])
+    const reset = {
+      ...DEFAULT_FILTERS,
+      startDate: currentDate,
+      endDate: currentDate,
+    }
+    await setValues(reset)
+    onApply(reset)
+  }, [currentDate, setValues, onApply])
 
   const getFieldProps = useCallback(
-    (name: string) => ({
+    (name: keyof LiveLeadsListFiltersFormValues) => ({
       name,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       value: values[name],
       onChange: handleChange,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      onClear: async () => await setFieldValue(name, DEFAULT_FILTERS[name]),
+      onClear: async () => {
+        const defaultValue = {
+          ...DEFAULT_FILTERS,
+          startDate: currentDate,
+          endDate: currentDate,
+        }[name]
+        await setFieldValue(name, defaultValue)
+      },
     }),
-    [handleChange, values, initialFilters, setFieldValue]
+    [handleChange, values, setFieldValue, currentDate]
   )
-
-  useEffect(() => {
-    void setValues(initialFilters)
-  }, [initialFilters, setValues])
-
-  useEffect(() => {
-    onApply(values)
-  }, [JSON.stringify(values)])
 
   return (
     <Filters
@@ -171,6 +189,8 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
               void setFieldValue('campaign', newValue)
             }}
             label={t('campaign')}
+            value={values.campaign ?? null}
+
           />
         </>
       }

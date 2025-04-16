@@ -9,7 +9,7 @@ export interface Option {
 
 interface MultipleAutocompleteProps {
   name?: string
-  value: Option[] | Option
+  value: Option[] | Option | null | undefined
   onChange: (event: any, newValue: Array<string | Option>) => void
   onBlur?: (e: any) => void
   error?: boolean
