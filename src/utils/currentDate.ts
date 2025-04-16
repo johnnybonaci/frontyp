@@ -10,7 +10,7 @@ let initialized = false
 const IS_TEST = String(import.meta.env.VITE_DATE_MANAGER_TEST).toLowerCase() === 'true'
 
 const getNow = () => moment.tz(DEFAULT_DATE_TIMEZONE).toDate()
-const getYesterday = () => moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'day').toDate()
+const getYesterday = () => moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').subtract(1, 'day').toDate()
 
 const saveDate = (date: Date) => {
   localStorage.setItem(DATE_KEY, date.toISOString())
@@ -52,8 +52,8 @@ export const initCurrentDate = (onDateChange?: (newDate: Date) => void) => {
   const initialDate = IS_TEST ? getYesterday() : getNow()
   saveDate(initialDate)
   console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] Fecha inicial:`, initialDate.toISOString())
-  console.log('[TEST] getYesterday →', getYesterday().toISOString())
-  console.log('[TEST] getNow →', getNow().toISOString())
+  console.log('[TEST] getYesterday (local):', moment(getYesterday()).tz(DEFAULT_DATE_TIMEZONE).format())
+  console.log('[TEST] getNow (local):', moment(getNow()).tz(DEFAULT_DATE_TIMEZONE).format())
 
 
   scheduleNextUpdate(onDateChange)
