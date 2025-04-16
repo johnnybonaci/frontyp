@@ -192,7 +192,7 @@ export const transformFiltersToUrl = (filters: LiveLeadsListFiltersFormValues): 
   }
   if (filters.startDate) {
     params.set('date_start', dateNoTimezoneToString(filters.startDate))
-    console.log('startDate ' + filters.startDate)
+    console.log('startDate ', filters.startDate)
     console.log('dateNoTimezoneToString ' + dateNoTimezoneToString(filters.startDate))
   }
   if (filters.endDate) {
