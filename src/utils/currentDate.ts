@@ -10,7 +10,7 @@ let initialized = false
 const IS_TEST = String(import.meta.env.VITE_DATE_MANAGER_TEST).toLowerCase() === 'true'
 
 const getNow = () => moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').toDate()
-const getYesterday = () => moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').subtract(1, 'day').toDate()
+const getYesterday = () => moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').subtract(2, 'day').toDate()
 
 const saveDate = (date: Date) => {
   localStorage.setItem(DATE_KEY, date.toISOString())
@@ -30,20 +30,24 @@ const getDelay = () => {
 
 const scheduleNextUpdate = (onDateChange?: (newDate: Date) => void) => {
   const delay = getDelay()
-  const nextUpdate = new Date(Date.now() + delay)
+
+  const now = moment.tz(DEFAULT_DATE_TIMEZONE)
+  const nextUpdate = now.clone().add(delay, 'milliseconds').toDate()
 
   saveNextUpdate(nextUpdate, delay)
 
-  console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] Próxima actualización:`, nextUpdate.toISOString())
+  console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] 🕒 Ahora (local):`, now.format('YYYY-MM-DD HH:mm:ss'))
+  console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] 🗓 Próxima actualización (local):`, moment(nextUpdate).format('YYYY-MM-DD HH:mm:ss'))
 
   setTimeout(() => {
-    const updatedDate = getNow()
-    console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] Actualizando fecha a:`, updatedDate.toISOString())
+    const updatedDate = moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').toDate()
+    console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] 🔁 Actualizando fecha a:`, updatedDate.toISOString())
     saveDate(updatedDate)
     if (onDateChange) onDateChange(updatedDate)
     scheduleNextUpdate(onDateChange)
   }, delay)
 }
+
 
 export const initCurrentDate = (onDateChange?: (newDate: Date) => void) => {
   if (initialized) return
