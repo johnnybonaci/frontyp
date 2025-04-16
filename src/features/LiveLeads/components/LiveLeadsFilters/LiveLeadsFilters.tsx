@@ -74,20 +74,23 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
   })
 
   const handleClear = useCallback(async () => {
-    await setValues(DEFAULT_FILTERS_2)
-    onApply(DEFAULT_FILTERS_2)
-  }, [DEFAULT_FILTERS_2, setValues])
+    const resetFilters = DEFAULT_FILTERS(currentDate)
+
+    await setValues(resetFilters)
+    onApply(resetFilters)
+  }, [currentDate, setValues])
 
   const getFieldProps = useCallback(
-    (name: string) => ({
+    (name: keyof LiveLeadsListFiltersFormValues) => ({
       name,
-      // @ts-expect-error
       value: values[name],
       onChange: handleChange,
-      // @ts-expect-error
-      onClear: async () => await setFieldValue(name, DEFAULT_FILTERS_2[name]),
+      onClear: async () => {
+        const defaultValue = DEFAULT_FILTERS(currentDate)[name]
+        await setFieldValue(name, defaultValue)
+      },
     }),
-    [handleChange, values, setFieldValue, DEFAULT_FILTERS_2]
+    [handleChange, values, setFieldValue, currentDate]
   )
 
   useEffect(() => {
@@ -163,16 +166,6 @@ const LiveLeadsFilters: FC<LiveLeadsFiltersProps> = ({
             })}
             fullWidth
             {...getFieldProps('status')}
-          />
-          <CustomAutocomplete
-            creatable={false}
-            multiple={false}
-            {...getFieldProps('campaign')}
-            resourceName="campaigns"
-            onChange={(_event: any, newValue: any[]) => {
-              void setFieldValue('campaign', newValue)
-            }}
-            label={t('campaign')}
           />
         </>
       }

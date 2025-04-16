@@ -154,8 +154,8 @@ export const transformFiltersFromUrl = (
 ): LiveLeadsListFiltersFormValues => {
   const { startOfDay } = getDayLimits()
   const verga = searchParams.get('date_start') ? dateFromUrl(searchParams.get('date_start')!) : startOfDay
-  console.log('verga ' + verga)
-  console.log('startOfDay ' + startOfDay)
+  console.log('verga ', verga)
+  console.log('startOfDay ', startOfDay)
   return {
     pubIdYp: objectFromUrl(searchParams.get('pubIdYp')),
     leadsType: objectFromUrl(searchParams.get('leadsType')),
@@ -175,7 +175,7 @@ export const transformFiltersFromUrl = (
 
 export const transformFiltersToUrl = (filters: LiveLeadsListFiltersFormValues): URLSearchParams => {
   const params = new URLSearchParams()
-
+  console.log('filters ', filters)
   if (filters.pubId?.length) {
     params.set('pubId', JSON.stringify(filters.pubId))
   }
