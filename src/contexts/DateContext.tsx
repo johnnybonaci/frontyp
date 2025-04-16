@@ -1,4 +1,3 @@
-// contexts/DateContext.tsx
 import { createContext, useState, useEffect, ReactNode } from 'react'
 import currentDate, { initCurrentDate } from 'utils/currentDate'
 

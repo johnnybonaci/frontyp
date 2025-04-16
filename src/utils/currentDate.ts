@@ -3,9 +3,11 @@ import { DEFAULT_DATE_TIMEZONE } from 'utils/constants'
 
 const DATE_KEY = 'currentDate'
 const NEXT_UPDATE_KEY = 'nextDateUpdate'
+const DELAY_KEY = 'currentDateUpdateDelay'
+
 let initialized = false
 
-const IS_TEST = import.meta.env.VITE_DATE_MANAGER_TEST === 'true'
+const IS_TEST = String(import.meta.env.VITE_DATE_MANAGER_TEST).toLowerCase() === 'true'
 
 const getNow = () => moment.tz(DEFAULT_DATE_TIMEZONE).toDate()
 const getYesterday = () => moment.tz(DEFAULT_DATE_TIMEZONE).subtract(1, 'day').toDate()
@@ -14,13 +16,13 @@ const saveDate = (date: Date) => {
   localStorage.setItem(DATE_KEY, date.toISOString())
 }
 
-const saveNextUpdate = (nextDate: Date, delay: number) => {
-  localStorage.setItem(NEXT_UPDATE_KEY, nextDate.toISOString())
-  localStorage.setItem('currentDateUpdateDelay', delay.toString())
+const saveNextUpdate = (date: Date, delay: number) => {
+  localStorage.setItem(NEXT_UPDATE_KEY, date.toISOString())
+  localStorage.setItem(DELAY_KEY, delay.toString())
 }
 
 const getDelay = () => {
-  if (IS_TEST) return 5 * 60 * 1000
+  if (IS_TEST) return 5 * 60 * 1000 // 5 minutos
   const now = moment.tz(DEFAULT_DATE_TIMEZONE)
   const nextDay = now.clone().add(1, 'day').startOf('day')
   return nextDay.diff(now)
@@ -29,10 +31,14 @@ const getDelay = () => {
 const scheduleNextUpdate = (onDateChange?: (newDate: Date) => void) => {
   const delay = getDelay()
   const nextUpdate = new Date(Date.now() + delay)
+
   saveNextUpdate(nextUpdate, delay)
+
+  console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] Próxima actualización:`, nextUpdate.toISOString())
 
   setTimeout(() => {
     const updatedDate = getNow()
+    console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] Actualizando fecha a:`, updatedDate.toISOString())
     saveDate(updatedDate)
     if (onDateChange) onDateChange(updatedDate)
     scheduleNextUpdate(onDateChange)
@@ -45,6 +51,7 @@ export const initCurrentDate = (onDateChange?: (newDate: Date) => void) => {
 
   const initialDate = IS_TEST ? getYesterday() : getNow()
   saveDate(initialDate)
+  console.log(`[${IS_TEST ? 'TEST' : 'LIVE'}] Fecha inicial:`, initialDate.toISOString())
 
   scheduleNextUpdate(onDateChange)
 }
