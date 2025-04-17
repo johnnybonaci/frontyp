@@ -47,6 +47,8 @@ const scheduleNextUpdate = (onDateChange?: (newDate: Date) => void) => {
     saveDate(updatedDate)
     if (onDateChange) onDateChange(updatedDate)
     scheduleNextUpdate(onDateChange)
+    removeIfExists(DATE_KEY);
+
     window.location.href = window.location.pathname
 
   }, delay)
@@ -61,12 +63,17 @@ const initCurrentDate = (onDateChange?: (newDate: Date) => void) => {
   saveDate(initialDate)
   scheduleNextUpdate(onDateChange)
 }
+const removeIfExists = (key: string) => {
+  if (localStorage.getItem(key) !== null) {
+    localStorage.removeItem(key);
+  }
+};
+
 
 const currentDate = (): Date => {
-  const raw = localStorage.getItem(DATE_KEY)
-  return raw
-    ? moment.tz(raw, 'YYYY-MM-DD', DEFAULT_DATE_TIMEZONE).toDate()
-    : getNow()
+
+  removeIfExists(DATE_KEY);
+  return getNow()
 }
 export {
   initCurrentDate,
