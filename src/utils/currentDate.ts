@@ -1,22 +1,85 @@
-import moment, { type Moment } from 'moment-timezone'
-import { DEFAULT_DATE_TIMEZONE } from 'utils/constants.ts'
+import moment from 'moment-timezone'
+import { DEFAULT_DATE_TIMEZONE } from 'utils/constants'
 
-function currentDate(timezone: string = DEFAULT_DATE_TIMEZONE): Date {
-  const date: Moment = moment.tz(timezone)
+const DATE_KEY = 'currentDate'
+const NEXT_UPDATE_KEY = 'nextDateUpdate'
+const DELAY_KEY = 'currentDateUpdateDelay'
 
-  const year = date.year()
-  const month = date.month()
-  const day = date.date()
-  const hours = date.hour()
-  const minutes = date.minute()
-  const seconds = date.second()
+let initialized = false
 
-  const newDate = moment.tz(
-    { year, month, day, hours, minutes, seconds },
-    Intl.DateTimeFormat().resolvedOptions().timeZone
-  )
+const IS_TEST = String(import.meta.env.VITE_DATE_MANAGER_TEST).toLowerCase() === 'true'
 
-  return new Date(newDate.toISOString())
+const getNow = () => moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').toDate()
+
+const getYesterday = () => moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').subtract(2, 'day').toDate()
+
+const getDelay = () => {
+  if (IS_TEST) return 2 * 60 * 1000
+
+  const now = moment.tz(DEFAULT_DATE_TIMEZONE)
+  const nextDay = now.clone().add(1, 'day').startOf('day')
+  const diffMs = nextDay.diff(now) + 120000
+
+  return diffMs
+}
+
+const saveDate = (date: Date) => {
+  const dayStr = moment(date).tz(DEFAULT_DATE_TIMEZONE).format('YYYY-MM-DD')
+  localStorage.setItem(DATE_KEY, dayStr)
+}
+
+const saveNextUpdate = (date: Date, delay: number) => {
+  localStorage.setItem(NEXT_UPDATE_KEY, moment(date).format('YYYY-MM-DD HH:mm:ss'))
+  localStorage.setItem(DELAY_KEY, delay.toString())
+}
+
+const scheduleNextUpdate = (onDateChange?: (newDate: Date) => void) => {
+  const delay = getDelay()
+
+  const now = moment.tz(DEFAULT_DATE_TIMEZONE)
+  const nextUpdate = now.clone().add(delay, 'milliseconds').toDate()
+
+  saveNextUpdate(nextUpdate, delay)
+
+  setTimeout(() => {
+    const updatedDate = moment.tz(DEFAULT_DATE_TIMEZONE).startOf('day').toDate()
+
+    saveDate(updatedDate)
+    if (onDateChange) onDateChange(updatedDate)
+    scheduleNextUpdate(onDateChange)
+    removeIfExists(DATE_KEY);
+
+    window.location.href = window.location.pathname
+
+  }, delay)
+}
+
+
+const initCurrentDate = (onDateChange?: (newDate: Date) => void) => {
+  if (initialized) return
+  initialized = true
+
+  const initialDate = IS_TEST ? getYesterday() : getNow()
+  saveDate(initialDate)
+  scheduleNextUpdate(onDateChange)
+}
+const removeIfExists = (key: string) => {
+  if (localStorage.getItem(key) !== null) {
+    localStorage.removeItem(key);
+  }
+};
+
+
+const currentDate = (): Date => {
+
+  removeIfExists(DATE_KEY);
+  return getNow()
+}
+export {
+  initCurrentDate,
+  IS_TEST,
+  getYesterday,
+  saveDate,
 }
 
 export default currentDate

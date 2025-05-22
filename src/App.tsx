@@ -22,12 +22,14 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { enUS as en, es } from 'date-fns/locale'
 import ScreenProvider from './contexts/ScreenProvider.tsx'
 import DataProvider from './contexts/DataProvider.tsx'
+import { DateProvider } from './contexts/DateContext.tsx'
 
 const themeLangMap: Record<string, Localization> = {
   en: enUS,
 }
 
 const LOCALE_MAP = { es, en }
+
 
 // eslint-disable-next-line no-undef
 const App = (): JSX.Element => {
@@ -48,26 +50,28 @@ const App = (): JSX.Element => {
             <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={adapterLocale}>
               <AuthProvider>
                 <DataProvider>
-                  <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <SnackbarProvider maxSnack={config.snackbar.maxSnack}>
-                      <ErrorBoundary fallback={<ErrorPage status="500" reloadDocument />}>
-                        <ConfirmProvider>
-                          <AuthConsumer>
-                            {(auth) =>
-                              auth.isLoading ? (
-                                <LoadingRing center />
-                              ) : (
-                                <>
-                                  <Routes />
-                                </>
-                              )
-                            }
-                          </AuthConsumer>
-                        </ConfirmProvider>
-                      </ErrorBoundary>
-                    </SnackbarProvider>
-                  </ThemeProvider>
+                  <DateProvider>
+                    <ThemeProvider theme={theme}>
+                      <CssBaseline />
+                      <SnackbarProvider maxSnack={config.snackbar.maxSnack}>
+                        <ErrorBoundary fallback={<ErrorPage status="500" reloadDocument />}>
+                          <ConfirmProvider>
+                            <AuthConsumer>
+                              {(auth) =>
+                                auth.isLoading ? (
+                                  <LoadingRing center />
+                                ) : (
+                                  <>
+                                    <Routes />
+                                  </>
+                                )
+                              }
+                            </AuthConsumer>
+                          </ConfirmProvider>
+                        </ErrorBoundary>
+                      </SnackbarProvider>
+                    </ThemeProvider>
+                  </DateProvider>
                 </DataProvider>
               </AuthProvider>
             </LocalizationProvider>

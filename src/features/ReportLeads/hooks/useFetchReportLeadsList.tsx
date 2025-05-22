@@ -7,11 +7,11 @@ import { type RequestError } from 'src/hooks/useFetch.ts'
 import { type Paginator } from 'src/types/paginator'
 import { type Filters } from 'src/types/filter'
 import { type Sorter } from 'src/types/sorter'
-import { type LeadReportItem, type LeadReportItemFromApi } from 'features/LeadReport/types'
-import { leadReportItemFromApi } from 'features/LeadReport/transformers'
+import { type ReportLeadsItem, type ReportLeadsItemFromApi } from 'features/ReportLeads/types'
+import { reportLeadsItemFromApi } from 'features/ReportLeads/transformers'
 
-interface UseFetchLeadReportItemsResponse {
-  leadReportItems: LeadReportItem[] | null
+interface UseFetchReportLeadsItemsResponse {
+  reportLeadsItems: ReportLeadsItem[] | null
   paginator: Paginator
   loading: boolean
   error: RequestError
@@ -20,14 +20,14 @@ interface UseFetchLeadReportItemsResponse {
   setSorter: (fieldName: string, order: 'asc' | 'desc' | undefined) => void
 }
 
-const useFetchLeadReportList = ({
+const useFetchReportLeadsList = ({
   filters,
 }: {
   filters: Filters
-}): UseFetchLeadReportItemsResponse => {
+}): UseFetchReportLeadsItemsResponse => {
   const { t } = useTranslation()
   const { closeSnackbar, enqueueSnackbar } = useSnackbar()
-  const [leadReportItems, setLeadReportItems] = useState<LeadReportItem[] | null>(null)
+  const [reportLeadsItems, setReportLeadsItems] = useState<ReportLeadsItem[] | null>(null)
 
   const { retry, response, paginator, loading, error, sorter, setSorter } = usePaginatedFetch({
     url: `${config.api.baseUrl}/api/data/pageviews`,
@@ -38,11 +38,10 @@ const useFetchLeadReportList = ({
   useEffect(() => {
     if (!response) return
 
-    const leadReportItems = response.data.map((role: LeadReportItemFromApi) =>
-      leadReportItemFromApi(role)
+    const reportLeadsItems = response.data.map((role: ReportLeadsItemFromApi) =>
+      reportLeadsItemFromApi(role)
     )
-
-    setLeadReportItems(leadReportItems)
+    setReportLeadsItems(reportLeadsItems)
   }, [response?.data, t])
 
   useEffect(() => {
@@ -64,7 +63,7 @@ const useFetchLeadReportList = ({
   }, [error, t])
 
   return {
-    leadReportItems,
+    reportLeadsItems,
     paginator,
     loading,
     error,
@@ -74,4 +73,4 @@ const useFetchLeadReportList = ({
   }
 }
 
-export default useFetchLeadReportList
+export default useFetchReportLeadsList

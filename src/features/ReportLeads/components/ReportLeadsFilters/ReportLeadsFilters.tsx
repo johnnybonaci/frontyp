@@ -1,40 +1,40 @@
 import { useTranslation } from 'react-i18next'
 import { useCallback, type FC, useEffect } from 'react'
 import { useFormik } from 'formik'
-import LeadReportFiltersSchema from 'src/features/LeadReport/schema/LeadReportFiltersSchema'
+import ReportLeadsFiltersSchema from 'src/features/ReportLeads/schema/ReportLeadsFiltersSchema'
 import Filters from 'src/components/Filters/index.ts'
-import CustomDateRangePicker from 'components/CustomDateRangePicker'
-import currentDate from 'utils/currentDate'
 
-export interface LeadReportListFiltersFormValues {
+import CustomDateRangePicker from 'components/CustomDateRangePicker'
+import currentDate from 'utils/currentDate.ts'
+
+export interface ReportLeadsListFiltersFormValues {
   startDate: Date | null
   endDate: Date | null
 }
 
-interface LeadReportFiltersProps {
+interface ReportLeadsFiltersProps {
   onCancel: () => void
   onApply: (data: any) => void
   isSearching?: boolean
-  initialFilters?: LeadReportListFiltersFormValues
+  initialFilters?: ReportLeadsListFiltersFormValues
 }
 
 export const DEFAULT_FILTERS = {
   startDate: currentDate(),
   endDate: currentDate(),
-
 }
 
-const LeadReportFilters: FC<LeadReportFiltersProps> = ({
+const ReportLeadsFilters: FC<ReportLeadsFiltersProps> = ({
   onCancel,
   onApply,
   isSearching = false,
   initialFilters = DEFAULT_FILTERS,
 }) => {
-  const { t } = useTranslation('features', { keyPrefix: 'LeadReport.filters' })
+  const { t } = useTranslation('features', { keyPrefix: 'ReportLeads.filters' })
 
   const { values, setValues, handleSubmit, setFieldValue } = useFormik({
     initialValues: initialFilters,
-    validationSchema: LeadReportFiltersSchema,
+    validationSchema: ReportLeadsFiltersSchema,
     onSubmit: (data) => {
       onApply(data)
     },
@@ -79,4 +79,4 @@ const LeadReportFilters: FC<LeadReportFiltersProps> = ({
   )
 }
 
-export default LeadReportFilters
+export default ReportLeadsFilters

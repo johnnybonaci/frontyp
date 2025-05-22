@@ -153,16 +153,13 @@ export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): LiveLeadsListFiltersFormValues => {
   const { startOfDay } = getDayLimits()
-
   return {
     pubIdYp: objectFromUrl(searchParams.get('pubIdYp')),
     leadsType: objectFromUrl(searchParams.get('leadsType')),
     pubId: objectFromUrl(searchParams.get('pubId')),
     campaign: objectFromUrl(searchParams.get('campaign'), null),
     trafficSource: objectFromUrl(searchParams.get('trafficSource')),
-    startDate: searchParams.get('date_start')
-      ? dateFromUrl(searchParams.get('date_start')!)
-      : startOfDay,
+    startDate: searchParams.get('date_start') ? dateFromUrl(searchParams.get('date_start')!) : startOfDay,
     endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
     status: searchParams.get('status') ?? '',
     firstName: searchParams.get('firstName') ?? '',
@@ -175,7 +172,6 @@ export const transformFiltersFromUrl = (
 
 export const transformFiltersToUrl = (filters: LiveLeadsListFiltersFormValues): URLSearchParams => {
   const params = new URLSearchParams()
-
   if (filters.pubId?.length) {
     params.set('pubId', JSON.stringify(filters.pubId))
   }

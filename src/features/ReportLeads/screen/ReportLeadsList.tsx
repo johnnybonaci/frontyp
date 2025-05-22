@@ -1,46 +1,54 @@
 import { useMemo, type FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import LeadReportTable from 'features/LeadReport/components/LeadReportTable/LeadReportTable.tsx'
+import ReportLeadsTable from 'features/ReportLeads/components/ReportLeadsTable/ReportLeadsTable.tsx'
 import useFilters from 'src/hooks/useFilters'
-import useFetchLeadReportList from 'features/LeadReport/hooks/useFetchLeadReportList.tsx'
-import styles from './leadReportList.module.scss'
+import useFetchReportLeadsList from 'features/ReportLeads/hooks/useFetchReportLeadsList.tsx'
+import ReportLeadsFilters from '../components/ReportLeadsFilters/index.ts'
+import styles from './ReportLeadsList.module.scss'
+
 import Indicator from 'components/Indicator/Indicator.tsx'
 import ContentBox from 'components/ContentBox'
-import { type LeadReportItem } from 'features/LeadReport/types'
+import { type ReportLeadsItem } from 'features/ReportLeads/types'
 import PrivateScreenTitle from 'components/PrivateScreenTitle'
-
-import useTableSettings from 'hooks/useTableSettings.tsx'
+import useTableSettings, {
+  type DoubleIndicatorSettings,
+  type IndicatorSettings,
+} from 'hooks/useTableSettings.tsx'
 import ListSettings from 'components/ListSettings'
 import {
-  transformFiltersFromUrl,
   transformFiltersToApi,
+  transformFiltersFromUrl,
   transformFiltersToUrl,
-} from 'features/LeadReport/transformers'
+} from 'features/ReportLeads/transformers'
 import RefreshButton from 'components/RefreshButton'
-
-import LeadReportFilters, {
-  type LeadReportListFiltersFormValues,
+import {
   DEFAULT_FILTERS,
-} from '../components/LeadReportFilters/LeadReportFilters.tsx'
+  type ReportLeadsListFiltersFormValues,
+} from '../components/ReportLeadsFilters/ReportLeadsFilters.tsx'
 import LeadType from 'components/LeadType'
 
-const LeadReportList: FC = () => {
-  const { t } = useTranslation('features', { keyPrefix: 'LeadReport' })
+const ReportLeadsList: FC = () => {
+  const { t } = useTranslation('features', { keyPrefix: 'ReportLeads' })
 
-  const { onCancel, onApply, filters, filtersToAPI } = useFilters<LeadReportListFiltersFormValues>(
+  const { onCancel, onApply, filters, filtersToAPI } = useFilters<ReportLeadsListFiltersFormValues>(
     DEFAULT_FILTERS,
     transformFiltersToApi,
     transformFiltersFromUrl,
     transformFiltersToUrl
   )
 
-  const { leadReportItems, sorter, setSorter, paginator, loading, refresh } =
-    useFetchLeadReportList({
-      filters: filtersToAPI,
-    })
+  const {
+    reportLeadsItems,
+    sorter,
+    setSorter,
+    paginator,
+    loading,
+    refresh,
+  } = useFetchReportLeadsList({
+    filters: filtersToAPI,
+  })
 
   const { lastPage, displayResultsMessage, page, setPage, perPage, setPerPage } = paginator
-
 
   const initialColumns = useMemo(
     () => [
@@ -48,48 +56,49 @@ const LeadReportList: FC = () => {
         header: t('fields.pubId'),
         fieldName: 'pub_id',
         sortable: true,
-        dataModifier: (item: LeadReportItem) => item.pubId,
+        dataModifier: (item: ReportLeadsItem) => item.pubId,
       },
       {
         header: t('fields.type'),
         fieldName: 'type',
         sortable: true,
-        dataModifier: (item: LeadReportItem) => <LeadType type={item.type} />,
+        dataModifier: (item: ReportLeadsItem) => <LeadType type={item.type} />,
       },
       {
         header: t('fields.leads'),
         fieldName: 'leads',
         sortable: true,
-        dataModifier: (item: LeadReportItem) => item.leads,
+        dataModifier: (item: ReportLeadsItem) => item.leads,
       },
       {
         header: t('fields.leadsDup'),
         fieldName: 'leads_dup',
         sortable: true,
-        dataModifier: (item: LeadReportItem) => item.leadsDup,
+        dataModifier: (item: ReportLeadsItem) => item.leadsDup,
       },
       {
         header: t('fields.uniqueLeads'),
         fieldName: 'unique_leads',
         sortable: true,
-        dataModifier: (item: LeadReportItem) => item.uniqueLeads,
+        dataModifier: (item: ReportLeadsItem) => item.uniqueLeads,
       },
       {
         header: t('fields.totalLeads'),
         fieldName: 'total_leads',
         sortable: true,
-        dataModifier: (item: LeadReportItem) => item.totalLeads,
+        dataModifier: (item: ReportLeadsItem) => item.totalLeads,
       },
       {
         header: t('fields.dateHistory'),
         fieldName: 'date_history',
         sortable: false,
-        dataModifier: (item: LeadReportItem) => item.dateHistory,
+        dataModifier: (item: ReportLeadsItem) => item.dateHistory,
       }
-
     ],
-    [t]
+    [t, filters?.startDate, filters?.endDate]
   )
+
+  const initialIndicators: Array<IndicatorSettings | DoubleIndicatorSettings> = []
 
   const {
     columns,
@@ -103,14 +112,14 @@ const LeadReportList: FC = () => {
     reorderIndicators,
     toggleColumnVisibility,
     toggleIndicatorVisibility,
-  } = useTableSettings(initialColumns, [], 'leadReportList')
+  } = useTableSettings(initialColumns, initialIndicators, 'reportLeadsList')
 
   return (
     <ContentBox>
       <PrivateScreenTitle title={t('listing.title')} />
       <div className={styles.actions}>
         <RefreshButton onRefresh={refresh} />
-        <LeadReportFilters
+        <ReportLeadsFilters
           onCancel={onCancel}
           onApply={onApply}
           isSearching={loading}
@@ -127,15 +136,16 @@ const LeadReportList: FC = () => {
           onReorderIndicators={reorderIndicators}
           onToggleIndicator={toggleIndicatorVisibility}
         />
+        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
       </div>
       <div className={styles.kpis}>
         {visibleIndicators.map((ind) => (
           <Indicator key={ind.name} indicator={ind} loading={loading} />
         ))}
       </div>
-      <LeadReportTable
+      <ReportLeadsTable
         columns={visibleColumns}
-        rows={leadReportItems}
+        rows={reportLeadsItems}
         loading={loading}
         onSort={setSorter}
         count={lastPage}
@@ -151,4 +161,4 @@ const LeadReportList: FC = () => {
   )
 }
 
-export default LeadReportList
+export default ReportLeadsList

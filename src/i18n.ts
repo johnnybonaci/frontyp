@@ -13,7 +13,7 @@ import enPubLeadsJSON from 'src/features/PubLeads/locale/en.json'
 import enSettingsJSON from 'src/features/Settings/locale/en.json'
 import enComplianceJSON from 'src/features/Compliance/locale/en.json'
 import enHistoryLeadsJSON from 'src/features/HistoryLeads/locale/en.json'
-import enLeadReportJSON from 'src/features/LeadReport/locale/en.json'
+import enReportLeadsJSON from 'src/features/ReportLeads/locale/en.json'
 import enComplianceBotJSON from 'src/features/ComplianceBot/locale/en.json'
 import enCallCampaignJSON from 'src/features/CallCampaigns/locale/en.json'
 import enPhoneRoomLeadsJSON from 'src/features/PhoneRoomLeads/locale/en.json'
@@ -75,7 +75,7 @@ i18n.addResourceBundle('en', 'features', {
   ComplianceBot: enComplianceBotJSON,
   Compliance: enComplianceJSON,
   HistoryLeads: enHistoryLeadsJSON,
-  LeadReport: enLeadReportJSON,
+  ReportLeads: enReportLeadsJSON,
   Settings: enSettingsJSON,
   CallCampaign: enCallCampaignJSON,
   PhoneRoomLeads: enPhoneRoomLeadsJSON,

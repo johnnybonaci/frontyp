@@ -95,7 +95,6 @@ export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
 ): CallCampaignListFiltersFormValues => {
   const { startOfDay } = getDayLimits()
-
   return {
     viewBy: searchParams.get('viewBy')
       ? JSON.parse(decodeURIComponent(searchParams.get('viewBy')!))
@@ -133,6 +132,7 @@ export const transformFiltersToUrl = (
 
   if (filters.startDate) {
     params.set('date_start', dateNoTimezoneToString(filters.startDate))
+
   }
   if (filters.endDate) {
     params.set('date_end', dateNoTimezoneToString(filters.endDate))

@@ -9,14 +9,15 @@ import withSortHeaders from 'components/Table/components/withSortHeader'
 const PaginatedTable = withPagination(Table as ComponentType<any>)
 const SortableTable = withSortHeaders(PaginatedTable as ComponentType<any>)
 
-interface LeadReportTableProps
+interface ReportLeadsTableProps
   extends PaginatedTableProps,
   SortableTableProps,
   TableWithActionsProps,
   TableProps { }
 
-const LeadReportTable: FC<LeadReportTableProps> = ({ ...restOfProps }) => {
+
+const ReportLeadsTable: FC<ReportLeadsTableProps> = ({ ...restOfProps }) => {
   return <SortableTable {...restOfProps} />
 }
 
-export default LeadReportTable
+export default ReportLeadsTable

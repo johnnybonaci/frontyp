@@ -396,6 +396,12 @@ const LiveLeadsList: FC = () => {
               <div className={styles.itemLabel}>{t('details.trustedForm')}</div>
               <div className={styles.itemValue}>{selectedLiveLeads?.trustedForm ?? '-'}</div>
             </div>
+            {selectedLiveLeads?.data && Object.entries(selectedLiveLeads.data).map(([key, value]) => (
+              <div className={styles.item} key={key}>
+                <div className={styles.itemLabel}>{key}</div>
+                <div className={styles.itemValue}>{value ?? '-'}</div>
+              </div>
+            ))}
           </div>
         </DrawerContent>
       </Drawer>

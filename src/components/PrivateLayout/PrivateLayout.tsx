@@ -7,6 +7,7 @@ import AuthorizedNavBar from 'components/AuthorizedNavBar'
 import AuthorizedMainContent from 'components/AuthorizedMainContent'
 import AuthorizedHeader from 'components/AuthorizedHeader'
 import useSidebarComponents from 'src/hooks/useSidebarComponents'
+import useVersionChecker from 'src/hooks/useVersionChecker'
 
 const PrivateLayout: FC<PrivateLayoutProps> = ({
   sidebar: Sidebar = AuthorizedNavBar,
@@ -17,6 +18,7 @@ const PrivateLayout: FC<PrivateLayoutProps> = ({
 }) => {
   const [visibleMobileSideBar, setVisibleMobileSideBar] = useState(false)
   const [collapsedSideBar, setCollapsedSideBar] = useState(false)
+  const { updateAvailable, refreshApp } = useVersionChecker()
 
   const location = useLocation()
 
@@ -41,7 +43,8 @@ const PrivateLayout: FC<PrivateLayoutProps> = ({
       />
       <div className={c(styles.wrapper, collapsedSideBar && styles.collapsed)}>
         <header className={styles.header}>
-          <Header handleClickMenu={handleClickMenu} collapsedSideBar={collapsedSideBar} />
+          <Header handleClickMenu={handleClickMenu} collapsedSideBar={collapsedSideBar} updateAvailable={updateAvailable}
+            refreshApp={refreshApp} />
         </header>
         <div className={c(styles.overlay, visibleMobileSideBar && styles.visibleOverlay)} />
         <main className={styles.main}>

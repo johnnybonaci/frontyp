@@ -8,6 +8,7 @@ import { type Filters } from 'types/filter'
 import { type ComplianceBotListFiltersFormValues } from 'features/ComplianceBot/components/ComplianceBotFilters/ComplianceBotFilters.tsx'
 import getDayLimits from 'utils/getDayLimits.ts'
 import { multipleSelectToApi } from '../../../transformers/apiTransformers.ts'
+import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
 
 export const complianceBotItemFromApi = (item: ComplianceBotItemFromApi): ComplianceBotItem => {
   return {
@@ -54,8 +55,8 @@ export const transformFiltersToApi = (filters: Filters): Filters => {
   }
 
   return {
-    date_start: filters.startDate?.toISOString().slice(0, 10),
-    date_end: filters.endDate?.toISOString().slice(0, 10),
+    date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
+    date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined,
     filter: multipleSelectToApi(filter, (item) => {
       return { field: item.field, type: item.type, value: item.value }
     }),
@@ -86,10 +87,10 @@ export const transformFiltersToUrl = (
   }
 
   if (filters.startDate) {
-    params.set('date_start', filters.startDate.toISOString())
+    params.set('date_start', dateNoTimezoneToString(filters.startDate))
   }
   if (filters.endDate) {
-    params.set('date_end', filters.endDate.toISOString())
+    params.set('date_end', dateNoTimezoneToString(filters.endDate))
   }
 
   return params

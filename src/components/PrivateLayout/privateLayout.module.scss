@@ -86,5 +86,6 @@
   @include media-breakpoint-down(md) {
     margin-top: var(--top-mobile-header-height);
   }
+
   overflow-x: hidden;
 }

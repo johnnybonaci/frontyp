@@ -1,4 +1,4 @@
-export interface LeadReportItemFromApi {
+export interface ReportLeadsItemFromApi {
   date_history: string
   type: string
   pub_id: number
@@ -8,7 +8,7 @@ export interface LeadReportItemFromApi {
   unique_leads: number
 }
 
-export interface LeadReportItem {
+export interface ReportLeadsItem {
   dateHistory: string
   type: string
   pubId: number
@@ -17,4 +17,3 @@ export interface LeadReportItem {
   totalLeads: number
   uniqueLeads: number
 }
-

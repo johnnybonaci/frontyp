@@ -11,6 +11,7 @@ import CustomAutocomplete, {
 import useData from 'hooks/useData.tsx'
 import Select from 'components/Select'
 import entitiesToOptions from 'utils/entityToOptions.ts'
+import currentDate from 'utils/currentDate'
 
 export interface PhoneRoomLeadsFiltersFormValues {
   phone: string
@@ -49,8 +50,8 @@ export const DEFAULT_FILTERS: PhoneRoomLeadsFiltersFormValues = {
   campaign: null,
   leadsType: null,
   status: '',
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: currentDate(),
+  endDate: currentDate(),
 }
 
 const PhoneRoomLeadsFilters: FC<PhoneRoomLeadsFiltersProps> = ({

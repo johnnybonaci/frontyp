@@ -11,7 +11,7 @@ import CustomAutocomplete, {
   type Option,
 } from 'components/CustomAutocomplete/CustomAutocomplete.tsx'
 import useData from 'hooks/useData.tsx'
-
+import currentDate from 'utils/currentDate'
 export interface PhoneRoomReportsListFiltersFormValues {
   phone: string
   category: string
@@ -46,8 +46,8 @@ export const DEFAULT_FILTERS: PhoneRoomReportsListFiltersFormValues = {
   phone: '',
   phoneRoom: PHONE_ROOM_OPTIONS[0].id,
   category: '',
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: currentDate(),
+  endDate: currentDate(),
 }
 
 const PhoneRoomReportsFilters: FC<PhoneRoomReportsFiltersProps> = ({

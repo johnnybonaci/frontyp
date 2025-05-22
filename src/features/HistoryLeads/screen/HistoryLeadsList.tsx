@@ -106,7 +106,7 @@ const HistoryLeadsList: FC = () => {
         dataModifier: (item: HistoryLeadsItem) => item.last_update,
       }
     ],
-    [t]
+    [t, filters?.startDate, filters?.endDate]
   )
 
   const {

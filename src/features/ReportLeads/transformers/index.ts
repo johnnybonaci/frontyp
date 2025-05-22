@@ -1,11 +1,11 @@
+import { type ReportLeadsItem, type ReportLeadsItemFromApi } from '../types/index'
 import { type Filters } from 'types/filter'
-import { type LeadReportListFiltersFormValues } from 'features/LeadReport/components/LeadReportFilters/LeadReportFilters.tsx'
+import { type ReportLeadsListFiltersFormValues } from 'features/ReportLeads/components/ReportLeadsFilters/ReportLeadsFilters.tsx'
 import getDayLimits from 'utils/getDayLimits.ts'
-import { type LeadReportItem, type LeadReportItemFromApi } from 'features/LeadReport/types'
 import { dateNoTimezoneToString } from 'utils/dateWithoutTimezone.ts'
 import dateFromUrl from 'utils/dateFromUrl.ts'
 
-export const leadReportItemFromApi = (item: LeadReportItemFromApi): LeadReportItem => {
+export const reportLeadsItemFromApi = (item: ReportLeadsItemFromApi): ReportLeadsItem => {
   return {
     dateHistory: item.date_history,
     type: item.type,
@@ -17,32 +17,29 @@ export const leadReportItemFromApi = (item: LeadReportItemFromApi): LeadReportIt
   }
 }
 
+
 export const transformFiltersToApi = (filters: Filters): Filters => {
 
   return {
-    date_start: filters.startDate?.toISOString().slice(0, 10),
-    date_end: filters.endDate?.toISOString().slice(0, 10),
+    date_start: filters.startDate ? dateNoTimezoneToString(filters.startDate) : undefined,
+    date_end: filters.endDate ? dateNoTimezoneToString(filters.endDate) : undefined
   }
 }
 
 export const transformFiltersFromUrl = (
   searchParams: URLSearchParams
-): LeadReportListFiltersFormValues => {
+): ReportLeadsListFiltersFormValues => {
   const { startOfDay } = getDayLimits()
 
   return {
-    startDate: searchParams.get('date_start')
-      ? dateFromUrl(searchParams.get('date_start')!)
-      : startOfDay,
+    startDate: searchParams.get('date_start') ? dateFromUrl(searchParams.get('date_start')!) : startOfDay,
     endDate: searchParams.get('date_end') ? dateFromUrl(searchParams.get('date_end')!) : startOfDay,
-
   }
 }
 
-export const transformFiltersToUrl = (
-  filters: LeadReportListFiltersFormValues
-): URLSearchParams => {
+export const transformFiltersToUrl = (filters: ReportLeadsListFiltersFormValues): URLSearchParams => {
   const params = new URLSearchParams()
+
 
   if (filters.startDate) {
     params.set('date_start', dateNoTimezoneToString(filters.startDate))

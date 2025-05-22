@@ -3,9 +3,15 @@ import { type HeaderProps } from 'components/PrivateLayout/types'
 import NavHeader from 'components/NavHeader'
 import Notifications from 'components/AuthorizedHeader/components/Notifications.tsx'
 import useScreen from 'hooks/useScreen.ts'
+import { Box, Link } from '@mui/material'
 import styles from './authorizedHeader.module.scss'
 
-const AuthorizedHeader: FC<HeaderProps> = ({ handleClickMenu, collapsedSideBar = false }) => {
+const AuthorizedHeader: FC<HeaderProps> = ({
+  handleClickMenu,
+  collapsedSideBar = false,
+  updateAvailable,
+  refreshApp,
+}) => {
   const { screenTitle } = useScreen()
 
   const handleMenuClick = useCallback(() => {
@@ -18,7 +24,22 @@ const AuthorizedHeader: FC<HeaderProps> = ({ handleClickMenu, collapsedSideBar =
         {collapsedSideBar && <NavHeader handleClickMenu={handleMenuClick} />}
         {screenTitle && <div className={styles.screenTitle}>{screenTitle}</div>}
       </div>
-      <div className={styles.actions}>
+      <div className={styles.actionsHeader}>
+        {updateAvailable && refreshApp && (
+          <Box className={styles.boxStyle}>
+            New version is available
+            <Link
+              href="#"
+              underline="hover"
+              color="inherit"
+              onClick={refreshApp}
+              sx={{ fontWeight: 'bold', ml: 1 }}
+            >
+              Update now
+            </Link>
+          </Box>
+
+        )}
         <Notifications />
       </div>
     </div>

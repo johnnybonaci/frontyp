@@ -243,7 +243,7 @@ export const transformFiltersFromUrl = (
     pubId: parseOptions(searchParams.get('pubId')),
     pubIdYp: parseOptions(searchParams.get('pubIdYp')),
     state: parseOptions(searchParams.get('state')),
-    trafficSource: searchParams.get('trafficSource') ?? '',
+    trafficSource: parseOptions(searchParams.get('trafficSource')),
     buyers: parseOptions(searchParams.get('buyers')),
     issueType: parseOptions(searchParams.get('issueType')),
     callIssues: searchParams.get('callIssues') ?? '',
@@ -290,8 +290,8 @@ export const transformFiltersToUrl = (
   if (filters.callIssues) {
     params.set('callIssues', filters.callIssues)
   }
-  if (filters.trafficSource) {
-    params.set('trafficSource', filters.trafficSource)
+  if (filters.trafficSource?.length) {
+    params.set('trafficSource', JSON.stringify(filters.trafficSource))
   }
   if (filters.startDate) {
     params.set('date_start', dateNoTimezoneToString(filters.startDate))
